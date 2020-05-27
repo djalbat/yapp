@@ -3,16 +3,18 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { FlorenceLexer } from "occam-lexers";
-import { FlorenceParser } from "occam-parsers";
-import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv } from "easy-layout";
+import { RowDiv, RowsDiv, ColumnDiv } from "easy-layout";
 
 import Yapp from "../yapp";
 import SubHeading from "./subHeading";
+import ColumnsDiv from "./div/columns";
 import BNFTextarea from "./textarea/bnf";
 import RuleNameInput from "./input/ruleName";
+import TokensTextarea from "./textarea/tokens";
 import TopSizeableDiv from "./div/sizeable/top";
 import LeftSizeableDiv from "./div/sizeable/left";
+import JavaScriptLexer from "../lexer/javascript";
+import JavaScriptParser from "../parser/javascript";
 import RightSizeableDiv from "./div/sizeable/right";
 import ParseTreeTextarea from "./textarea/parseTree";
 import VerticalSplitterDiv from "./div/splitter/vertical";
@@ -22,35 +24,51 @@ import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 import { findRuleByName } from "../utilities/rule";
 
 class View extends Element {
-  Lexer = FlorenceLexer;  ///
+  Lexer = JavaScriptLexer;  ///
 
-  Parser = FlorenceParser;  ///
+  Parser = JavaScriptParser;  ///
+
+  getTokens() {
+    const lexicalEntries = this.getLexicalEntries(),
+          entries = lexicalEntries, ///
+          lexer = this.Lexer.fromEntries(entries),
+          yappContent = this.getYappContent(),
+          content = yappContent,  ///
+          tokens = lexer.tokenise(content);
+
+    return tokens;
+  }
+
+  getParseTree(tokens) {
+    let parseTree = null;
+
+    const bnf = this.getBNF(),
+          parser = this.Parser.fromBNF(bnf),
+          ruleName = this.getRuleName(),
+          name = ruleName,  ///
+          rules = parser.getRules(),
+          rule = findRuleByName(name, rules),
+          node = parser.parse(tokens, rule);
+
+    if (node !== null) {
+      parseTree = node.asParseTree(tokens);
+    }
+
+    return parseTree;
+  }
 
   changeHandler() {
     try {
-      let parseTree = null;
+      const tokens = this.getTokens(),
+            parseTree = this.getParseTree(tokens);
 
-      const lexicalEntries = this.getLexicalEntries(),
-            yappContent = this.getYappContent(),
-            ruleName = this.getRuleName(),
-            bnf = this.getBNF(),
-            entries = lexicalEntries, ///
-            lexer = this.Lexer.fromEntries(entries),
-            content = yappContent,  ///
-            tokens = lexer.tokenise(content),
-            parser = this.Parser.fromBNF(bnf),
-            name = ruleName,  ///
-            rules = parser.getRules(),
-            rule = findRuleByName(name, rules),
-            node = parser.parse(tokens, rule);
-
-      if (node !== null) {
-        parseTree = node.asParseTree(tokens);
-      }
+      this.setTokens(tokens);
 
       this.setParseTree(parseTree);
     } catch (error) {
       console.log(error);
+
+      this.clearTokens();
 
       this.clearParseTree();
     }
@@ -90,31 +108,15 @@ class View extends Element {
           <LeftSizeableDiv>
             <RowsDiv>
               <TopSizeableDiv>
-                <Yapp onChange={changeHandler} autoResize={autoResize} >{`"use strict";
-
-import withStyle from "easy-with-style";  ///
-
-import { Element } from "easy";
-
-import Yapp from "../yapp";
-
-class View extends Element {
-
-  ...
-
-}
-
-export default withStyle(View)\`
-
-  width: 72rem;
-  height: 48rem;
-  margin: 5rem;
-
-\`;`}</Yapp>
+                <Yapp onChange={changeHandler} autoResize={autoResize}>{`"use strict";`}</Yapp>
               </TopSizeableDiv>
               <HorizontalSplitterDiv onDrag={dragHandler}/>
               <RowDiv>
                 <RowsDiv>
+                  <SubHeading>
+                    Tokens
+                  </SubHeading>
+                  <TokensTextarea />
                   <SubHeading>
                     Parse tree
                   </SubHeading>
@@ -186,8 +188,7 @@ export default withStyle(View)\`
 export default withStyle(View)`
 
   width: 100%;
-  height: 72rem;
+  height: 100vh;
   display: flex;
-  padding: 1rem;
   
 `;

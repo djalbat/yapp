@@ -7,6 +7,7 @@ import { Textarea } from "easy";
 export default withStyle(Textarea)`
 
   border: 1px solid darkgrey;
+  resize: none;
   padding: 0.25rem;
   display: flex;
   flex-grow: 1;
