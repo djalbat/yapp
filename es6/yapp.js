@@ -15,9 +15,15 @@ import { FLORENCE_DOCUMENT_TYPE } from "./constants";
 const florenceLexer = FlorenceLexer.fromNothing();
 
 class Yapp extends Element {
-  update() {
+  getContent() {
     const richTextareaContent = this.getRichTextareaContent(),
-          content = richTextareaContent,  ///
+          content = richTextareaContent;  ///
+
+    return content;
+  }
+
+  update() {
+    const content = this.getContent(),
           tokens = florenceLexer.tokenise(content),
           richTextareaBounds = this.updatePrettyPrinter(tokens);
 
@@ -38,7 +44,7 @@ class Yapp extends Element {
     this.setRichTextareaBounds(richTextareaBounds);
   }
 
-  prepare() {
+  didMount() {
     this.resize();
 
     this.update();
@@ -74,17 +80,23 @@ class Yapp extends Element {
   }
 
   parentContext() {
-    const prepareYapp = this.prepare.bind(this);
+    const resizeYapp = this.resize.bind(this),  ///
+          setYappWidth = this.setWidth.bind(this),  ///
+          setYappHeight = this.setHeight.bind(this),  ///
+          getYappContent = this.getContent.bind(this);  ///
 
     return ({
-      prepareYapp
+      resizeYapp,
+      setYappWidth,
+      setYappHeight,
+      getYappContent
     });
   }
 
   initialise(properties) {
     this.assignContext();
 
-    const { childElements } = properties,
+    const { childElements, noAutoResize } = properties,
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
           scrollLeft = 0, ///
@@ -96,7 +108,9 @@ class Yapp extends Element {
 
     this.setRichTextareaContent(content);
 
-    this.onResize(() => this.resize());
+    if (!noAutoResize) {
+      this.onResize(() => this.resize());
+    }
   }
 
   static tagName = "div";
@@ -116,10 +130,7 @@ class Yapp extends Element {
 
 export default withStyle(Yapp)`
 
-  width: 100%;
-  height: 100%;
   overflow: hidden;
   position: relative;
 
 `;
-

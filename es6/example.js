@@ -25,7 +25,3 @@ renderStyle(syntaxStyle);
 renderStyle(firaCodeStyle);
 
 body.mount(view);
-
-view.resizeYapp();
-
-view.updateYapp();  ///
