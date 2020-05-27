@@ -4,35 +4,17 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 import { FlorenceLexer } from "occam-lexers";
-import { arrayUtilities } from "necessary";
 
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 
-import { FLORENCE_DOCUMENT_TYPE } from "./constants";
+import { contentFromChildElements } from "./utilities/content";
 
-const { first } = arrayUtilities;
+import { FLORENCE_DOCUMENT_TYPE } from "./constants";
 
 const florenceLexer = FlorenceLexer.fromNothing();
 
 class Yapp extends Element {
-  changeHandler(event, element) {
-    const richTextarea = element, ///
-          contentChanged = richTextarea.hasContentChanged();
-
-    if (contentChanged) {
-      this.update();
-    }
-  }
-
-  scrollHandler(event, element) {
-    const richTextarea = element, ///
-          scrollTop = richTextarea.getScrollTop(),
-          scrollLeft = richTextarea.getScrollLeft();
-
-    this.scrollPrettyPrinter(scrollTop, scrollLeft);
-  }
-
   update() {
     const richTextareaContent = this.getRichTextareaContent(),
           content = richTextareaContent,  ///
@@ -56,6 +38,29 @@ class Yapp extends Element {
     this.setRichTextareaBounds(richTextareaBounds);
   }
 
+  prepare() {
+    this.resize();
+
+    this.update();
+  }
+
+  changeHandler(event, element) {
+    const richTextarea = element, ///
+          contentChanged = richTextarea.hasContentChanged();
+
+    if (contentChanged) {
+      this.update();
+    }
+  }
+
+  scrollHandler(event, element) {
+    const richTextarea = element, ///
+          scrollTop = richTextarea.getScrollTop(),
+          scrollLeft = richTextarea.getScrollLeft();
+
+    this.scrollPrettyPrinter(scrollTop, scrollLeft);
+  }
+
   childElements(properties) {
     const changeHandler = this.changeHandler.bind(this), ///
           scrollHandler = this.scrollHandler.bind(this); ///
@@ -69,31 +74,19 @@ class Yapp extends Element {
   }
 
   parentContext() {
-    const resizeYapp = this.resize.bind(this), ///
-          updateYapp = this.update.bind(this);
+    const prepareYapp = this.prepare.bind(this);
 
     return ({
-      resizeYapp,
-      updateYapp
+      prepareYapp
     });
   }
 
   initialise(properties) {
     this.assignContext();
 
-    let content = ""
-
     const { childElements } = properties,
-          childElementsLength = childElements.length;
-
-    if (childElementsLength > 0) {
-      const firstChildElement = first(childElements),
-            firstChildElementText = firstChildElement.getText();
-
-      content = firstChildElementText;  ///
-    }
-
-    const scrollTop = 0,  ///
+          content = contentFromChildElements(childElements),
+          scrollTop = 0,  ///
           scrollLeft = 0, ///
           documentType = FLORENCE_DOCUMENT_TYPE;  ///
 
@@ -129,3 +122,4 @@ export default withStyle(Yapp)`
   position: relative;
 
 `;
+

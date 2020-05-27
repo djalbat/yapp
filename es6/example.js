@@ -24,7 +24,7 @@ renderStyle(syntaxStyle);
 
 renderStyle(firaCodeStyle);
 
-body.prepend(view);
+view.prependTo(view);
 
 view.resizeYapp();
 

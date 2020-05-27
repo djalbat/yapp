@@ -56,8 +56,8 @@ export default withStyle(View)\`
 
 export default withStyle(View)`
 
-  width: 72rem;
-  height: 48rem;
-  margin: 5rem;
+  width: 100%;
+  height: 72rem;
+  padding: 12rem;
 
 `;
