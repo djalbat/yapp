@@ -13,6 +13,7 @@ import BNFTextarea from "./textarea/bnf";
 import RuleNameInput from "./input/ruleName";
 import TopSizeableDiv from "./div/sizeable/top";
 import LeftSizeableDiv from "./div/sizeable/left";
+import RightSizeableDiv from "./div/sizeable/right";
 import ParseTreeTextarea from "./textarea/parseTree";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import HorizontalSplitterDiv from "./div/splitter/horizontal";
@@ -125,18 +126,27 @@ export default withStyle(View)\`
           <VerticalSplitterDiv onDrag={dragHandler}/>
           <ColumnDiv>
             <RowsDiv>
-              <SubHeading>
-                Lexical entries
-              </SubHeading>
-              <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
-              <SubHeading>
-                BNF
-              </SubHeading>
-              <BNFTextarea onKeyUp={keyUpHandler} />
-              <SubHeading>
-                Rule name
-              </SubHeading>
-              <RuleNameInput onKeyUp={keyUpHandler} />
+              <RightSizeableDiv>
+                <RowsDiv>
+                  <SubHeading>
+                    Lexical entries
+                  </SubHeading>
+                  <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
+                </RowsDiv>
+              </RightSizeableDiv>
+              <HorizontalSplitterDiv />
+              <RowDiv>
+                <RowsDiv>
+                  <SubHeading>
+                    BNF
+                  </SubHeading>
+                  <BNFTextarea onKeyUp={keyUpHandler} />
+                  <SubHeading>
+                    Rule name
+                  </SubHeading>
+                  <RuleNameInput onKeyUp={keyUpHandler} />
+                </RowsDiv>
+              </RowDiv>
             </RowsDiv>
           </ColumnDiv>
         </ColumnsDiv>
