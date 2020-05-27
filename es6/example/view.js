@@ -9,23 +9,43 @@ import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv } from "easy-layout";
 
 import Yapp from "../yapp";
 import SubHeading from "./subHeading";
+import BNFTextarea from "./textarea/bnf";
+import RuleNameInput from "./input/ruleName";
 import TopSizeableDiv from "./div/sizeable/top";
 import LeftSizeableDiv from "./div/sizeable/left";
 import ParseTreeTextarea from "./textarea/parseTree";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import HorizontalSplitterDiv from "./div/splitter/horizontal";
+import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
-const florenceLexer = FlorenceLexer.fromNothing(),
-      florenceParser = FlorenceParser.fromNothing();
+import { findRuleByName } from "../utilities/rule";
 
 class View extends Element {
-  keyUpHandler() {
+  Lexer = FlorenceLexer;  ///
+
+  Parser = FlorenceParser;  ///
+
+  changeHandler() {
     try {
-      const yappContent = this.getYappContent(),
+      let parseTree = null;
+
+      const lexicalEntries = this.getLexicalEntries(),
+            yappContent = this.getYappContent(),
+            ruleName = this.getRuleName(),
+            bnf = this.getBNF(),
+            entries = lexicalEntries, ///
+            lexer = this.Lexer.fromEntries(entries),
             content = yappContent,  ///
-            tokens = florenceLexer.tokenise(content),
-            node = florenceParser.parse(tokens),
-            parseTree = node.asParseTree(tokens);
+            tokens = lexer.tokenise(content),
+            parser = this.Parser.fromBNF(bnf),
+            name = ruleName,  ///
+            rules = parser.getRules(),
+            rule = findRuleByName(name, rules),
+            node = parser.parse(tokens, rule);
+
+      if (node !== null) {
+        parseTree = node.asParseTree(tokens);
+      }
 
       this.setParseTree(parseTree);
     } catch (error) {
@@ -33,6 +53,10 @@ class View extends Element {
 
       this.clearParseTree();
     }
+  }
+
+  keyUpHandler() {
+    this.changeHandler();
   }
 
   dragHandler() {
@@ -53,8 +77,10 @@ class View extends Element {
 
   childElements(properties) {
     const { className } = properties,
+          autoResize = false,
           dragHandler = this.dragHandler.bind(this),
-          keyUpHandler = this.keyUpHandler.bind(this);
+          keyUpHandler = this.keyUpHandler.bind(this),
+          changeHandler = this.changeHandler.bind(this);
 
     return (
 
@@ -63,7 +89,7 @@ class View extends Element {
           <LeftSizeableDiv>
             <RowsDiv>
               <TopSizeableDiv>
-                <Yapp noAutoResize>{`"use strict";
+                <Yapp onChange={changeHandler} autoResize={autoResize} >{`"use strict";
 
 import withStyle from "easy-with-style";  ///
 
@@ -100,8 +126,17 @@ export default withStyle(View)\`
           <ColumnDiv>
             <RowsDiv>
               <SubHeading>
-
+                Lexical entries
               </SubHeading>
+              <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
+              <SubHeading>
+                BNF
+              </SubHeading>
+              <BNFTextarea onKeyUp={keyUpHandler} />
+              <SubHeading>
+                Rule name
+              </SubHeading>
+              <RuleNameInput onKeyUp={keyUpHandler} />
             </RowsDiv>
           </ColumnDiv>
         </ColumnsDiv>
@@ -113,7 +148,14 @@ export default withStyle(View)\`
   initialise(properties) {
     this.assignContext();
 
-    this.keyUpHandler();  ///
+    const { bnf } = this.Parser,
+          { entries } = this.Lexer,
+          lexicalEntries = entries; ///
+
+    this.setBNF(bnf);
+    this.setLexicalEntries(lexicalEntries);
+
+    this.changeHandler();  ///
   }
 
   static tagName = "div";

@@ -15,6 +15,12 @@ import { FLORENCE_DOCUMENT_TYPE } from "./constants";
 const florenceLexer = FlorenceLexer.fromNothing();
 
 class Yapp extends Element {
+  constructor(selectorOrDOMElement, changeHandler) {
+    super(selectorOrDOMElement);
+
+    this.changeHandler = changeHandler;
+  }
+
   getContent() {
     const richTextareaContent = this.getRichTextareaContent(),
           content = richTextareaContent;  ///
@@ -50,16 +56,18 @@ class Yapp extends Element {
     this.update();
   }
 
-  changeHandler(event, element) {
+  richTextareaChangeHandler(event, element) {
     const richTextarea = element, ///
           contentChanged = richTextarea.hasContentChanged();
 
     if (contentChanged) {
       this.update();
     }
+
+    this.changeHandler && this.changeHandler(event, element);
   }
 
-  scrollHandler(event, element) {
+  richTextareaScrollHandler(event, element) {
     const richTextarea = element, ///
           scrollTop = richTextarea.getScrollTop(),
           scrollLeft = richTextarea.getScrollLeft();
@@ -68,8 +76,8 @@ class Yapp extends Element {
   }
 
   childElements(properties) {
-    const changeHandler = this.changeHandler.bind(this), ///
-          scrollHandler = this.scrollHandler.bind(this); ///
+    const changeHandler = this.richTextareaChangeHandler.bind(this), ///
+          scrollHandler = this.richTextareaScrollHandler.bind(this); ///
 
     return ([
 
@@ -96,7 +104,7 @@ class Yapp extends Element {
   initialise(properties) {
     this.assignContext();
 
-    const { childElements, noAutoResize } = properties,
+    const { childElements, autoResize = true } = properties,
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
           scrollLeft = 0, ///
@@ -108,7 +116,7 @@ class Yapp extends Element {
 
     this.setRichTextareaContent(content);
 
-    if (!noAutoResize) {
+    if (autoResize) {
       this.onResize(() => this.resize());
     }
   }
@@ -120,7 +128,9 @@ class Yapp extends Element {
   };
 
   static fromClass(Class, properties) {
-    const yapp = Element.fromClass(Class, properties);
+    const { onChange = null } = properties,
+          changeHandler = onChange, ///
+          yapp = Element.fromClass(Class, properties, changeHandler);
 
     yapp.initialise(properties);
 
