@@ -3,7 +3,9 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
+import { queryUtilities } from "occam-dom";
 
+import ErrorToken from "./token/overlay/error";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 
@@ -13,7 +15,15 @@ import { contentFromChildElements } from "./utilities/content";
 
 import { JAVASCRIPT_LANGUAGE } from "./constants";
 
+const { queryByExpression } = queryUtilities;
+
 class Yapp extends Element {
+  overlayTokenMap = {};
+
+  OverlayTokenMap = {
+    "//error/@*": ErrorToken
+  };
+
   constructor(selectorOrDOMElement, lexer, parser, tokens, node, contentChangeHandler) {
     super(selectorOrDOMElement);
 
@@ -44,7 +54,9 @@ class Yapp extends Element {
   }
 
   getTokens() {
-    return this.tokens;
+    const tokens = this.tokens.map((token, index) => this.overlayTokenMap[index] || token); ///
+
+    return tokens;
   }
 
   getNode() {
@@ -58,7 +70,10 @@ class Yapp extends Element {
 
     this.node = this.parser.parse(this.tokens);
 
-    const richTextareaBounds = this.updatePrettyPrinter(this.tokens);
+    this.addOverlayTokens();
+
+    const tokens = this.getTokens(),
+          richTextareaBounds = this.updatePrettyPrinter(tokens);
 
     if (richTextareaBounds !== null) {
       this.setRichTextareaBounds(richTextareaBounds);
@@ -83,6 +98,10 @@ class Yapp extends Element {
     this.update();
   }
 
+  willUnmout() {
+    ///
+  }
+
   changeHandler(event, element) {
     const richTextarea = element, ///
           contentChanged = richTextarea.hasContentChanged();
@@ -100,6 +119,29 @@ class Yapp extends Element {
           scrollLeft = richTextarea.getScrollLeft();
 
     this.scrollPrettyPrinter(scrollTop, scrollLeft);
+  }
+
+  addOverlayTokens() {
+    this.overlayTokenMap = {};
+
+    if (this.node !== null) {
+      const queryExpressions = Object.keys(this.OverlayTokenMap);
+
+      queryExpressions.forEach((queryExpression) => {
+        const nodes = queryByExpression(this.node, queryExpression),
+              OverlayToken = this.OverlayTokenMap[queryExpression];
+
+        nodes.forEach((node) => {
+          const significantToken = node.getSignificantToken(),
+                overlaidToken = significantToken, ///
+                overlaidTokenIndex = this.tokens.indexOf(overlaidToken),
+                overlayTokenIndex = overlaidTokenIndex,  ///
+                overlayToken = OverlayToken.fromOverlaidToken(overlaidToken);
+
+          this.overlayTokenMap[overlayTokenIndex] = overlayToken;
+        });
+      });
+    }
   }
 
   childElements(properties) {
