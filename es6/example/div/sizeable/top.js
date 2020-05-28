@@ -20,6 +20,5 @@ export default withStyle(TopSizeableDiv)`
 
   height: 36rem;
   min-height: 12rem;
-  background-color: green;
   
 `;

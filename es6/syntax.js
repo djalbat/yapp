@@ -5,37 +5,37 @@ import withStyle from "easy-with-style";  ///
 import BoundedScrollableElement from "./element/bounded/scrollable";
 
 class Syntax extends BoundedScrollableElement {
-  setDocumentType(documentType) {
+  setLanguage(language) {
     const state = {
-      documentType
+      language
     };
 
-    this.removeDocumentTypeClass();
+    this.removeLanguageClass();
 
     this.updateState(state);
 
-    this.addDocumentTypeClass();
+    this.addLanguageClass();
   }
 
-  addDocumentTypeClass() {
+  addLanguageClass() {
     const state = this.getState(),
-          { documentType } = state;
+          { language } = state;
 
-    if (documentType !== null) {
-      const documentTypeClass = documentType; ///
+    if (language !== null) {
+      const languageClass = language; ///
 
-      this.addClass(documentTypeClass);
+      this.addClass(languageClass);
     }
   }
 
-  removeDocumentTypeClass() {
+  removeLanguageClass() {
     const state = this.getState(),
-          { documentType } = state;
+          { language } = state;
 
-    if (documentType !== null) {
-      const documentTypeClass = documentType; ///
+    if (language !== null) {
+      const languageClass = language; ///
 
-      this.removeClass(documentTypeClass);
+      this.removeClass(languageClass);
     }
   }
 
@@ -55,20 +55,20 @@ class Syntax extends BoundedScrollableElement {
 	  const updateSyntax = this.update.bind(this), ///
 				  scrollSyntax = this.scroll.bind(this), ///
           setSyntaxBounds = this.setBounds.bind(this), ///
-          setDocumentType = this.setDocumentType.bind(this);
+          setLanguage = this.setLanguage.bind(this);
 
     return ({
       updateSyntax,
       scrollSyntax,
       setSyntaxBounds,
-      setDocumentType
+      setLanguage
     });
   }
 
   setInitialState() {
-    const documentType = null,
+    const language = null,
           initialState = {
-            documentType
+            language
           };
 
     this.setState(initialState);

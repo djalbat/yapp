@@ -9,7 +9,6 @@ import Yapp from "../yapp";
 import SubHeading from "./subHeading";
 import ColumnsDiv from "./div/columns";
 import BNFTextarea from "./textarea/bnf";
-import RuleNameInput from "./input/ruleName";
 import TokensTextarea from "./textarea/tokens";
 import TopSizeableDiv from "./div/sizeable/top";
 import LeftSizeableDiv from "./div/sizeable/left";
@@ -20,8 +19,6 @@ import ParseTreeTextarea from "./textarea/parseTree";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import HorizontalSplitterDiv from "./div/splitter/horizontal";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
-
-import { findRuleByName } from "../utilities/rule";
 
 class View extends Element {
   Lexer = JavaScriptLexer;  ///
@@ -44,11 +41,7 @@ class View extends Element {
 
     const bnf = this.getBNF(),
           parser = this.Parser.fromBNF(bnf),
-          ruleName = this.getRuleName(),
-          name = ruleName,  ///
-          rules = parser.getRules(),
-          rule = findRuleByName(name, rules),
-          node = parser.parse(tokens, rule);
+          node = parser.parse(tokens);
 
     if (node !== null) {
       parseTree = node.asParseTree(tokens);
@@ -57,7 +50,7 @@ class View extends Element {
     return parseTree;
   }
 
-  changeHandler() {
+  contentChangeHandler() {
     try {
       const tokens = this.getTokens(),
             parseTree = this.getParseTree(tokens);
@@ -75,7 +68,7 @@ class View extends Element {
   }
 
   keyUpHandler() {
-    this.changeHandler();
+    this.contentChangeHandler();  ///
   }
 
   dragHandler() {
@@ -96,10 +89,9 @@ class View extends Element {
 
   childElements(properties) {
     const { className } = properties,
-          autoResize = false,
           dragHandler = this.dragHandler.bind(this),
           keyUpHandler = this.keyUpHandler.bind(this),
-          changeHandler = this.changeHandler.bind(this);
+          contentChangeHandler = this.contentChangeHandler.bind(this);
 
     return (
 
@@ -108,7 +100,10 @@ class View extends Element {
           <LeftSizeableDiv>
             <RowsDiv>
               <TopSizeableDiv>
-                <Yapp onChange={changeHandler} autoResize={autoResize}>{`"use strict";`}</Yapp>
+                <Yapp autoResize="false" onContentChange={contentChangeHandler}>{`"use strict";
+
+import "juxtapose";
+`}</Yapp>
               </TopSizeableDiv>
               <HorizontalSplitterDiv onDrag={dragHandler}/>
               <RowDiv>
@@ -143,10 +138,6 @@ class View extends Element {
                     BNF
                   </SubHeading>
                   <BNFTextarea onKeyUp={keyUpHandler} />
-                  <SubHeading>
-                    Rule name
-                  </SubHeading>
-                  <RuleNameInput onKeyUp={keyUpHandler} />
                 </RowsDiv>
               </RowDiv>
             </RowsDiv>
@@ -167,7 +158,7 @@ class View extends Element {
     this.setBNF(bnf);
     this.setLexicalEntries(lexicalEntries);
 
-    this.changeHandler();  ///
+    this.contentChangeHandler();  ///
   }
 
   static tagName = "div";

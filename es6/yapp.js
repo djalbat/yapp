@@ -3,22 +3,41 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { FlorenceLexer } from "occam-lexers";
 
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 
+import { lexerFromLanguage } from "./lexers";
+import { parserFromLanguage } from "./parsers";
 import { contentFromChildElements } from "./utilities/content";
 
-import { FLORENCE_DOCUMENT_TYPE } from "./constants";
-
-const florenceLexer = FlorenceLexer.fromNothing();
+import { JAVASCRIPT_LANGUAGE } from "./constants";
 
 class Yapp extends Element {
-  constructor(selectorOrDOMElement, changeHandler) {
+  constructor(selectorOrDOMElement, lexer, parser, tokens, node, contentChangeHandler) {
     super(selectorOrDOMElement);
 
-    this.changeHandler = changeHandler;
+    this.lexer = lexer;
+
+    this.parser = parser;
+
+    this.tokens = tokens;
+
+    this.node = node;
+
+    this.contentChangeHandler = contentChangeHandler;
+  }
+
+  setLexer(lexer) {
+    this.lexer = lexer;
+
+    this.update();
+  }
+
+  setParser(parser) {
+    this.parser = parser;
+
+    this.update();
   }
 
   getContent() {
@@ -29,9 +48,13 @@ class Yapp extends Element {
   }
 
   update() {
-    const content = this.getContent(),
-          tokens = florenceLexer.tokenise(content),
-          richTextareaBounds = this.updatePrettyPrinter(tokens);
+    const content = this.getContent();
+
+    this.tokens = this.lexer.tokenise(content);
+
+    this.ndoe = this.parser.parse(this.tokens);
+
+    const richTextareaBounds = this.updatePrettyPrinter(this.tokens);
 
     if (richTextareaBounds !== null) {
       this.setRichTextareaBounds(richTextareaBounds);
@@ -56,18 +79,18 @@ class Yapp extends Element {
     this.update();
   }
 
-  richTextareaChangeHandler(event, element) {
+  changeHandler(event, element) {
     const richTextarea = element, ///
           contentChanged = richTextarea.hasContentChanged();
 
     if (contentChanged) {
       this.update();
-    }
 
-    this.changeHandler && this.changeHandler(event, element);
+      this.contentChangeHandler && this.contentChangeHandler(event, element);
+    }
   }
 
-  richTextareaScrollHandler(event, element) {
+  scrollHandler(event, element) {
     const richTextarea = element, ///
           scrollTop = richTextarea.getScrollTop(),
           scrollLeft = richTextarea.getScrollLeft();
@@ -76,8 +99,8 @@ class Yapp extends Element {
   }
 
   childElements(properties) {
-    const changeHandler = this.richTextareaChangeHandler.bind(this), ///
-          scrollHandler = this.richTextareaScrollHandler.bind(this); ///
+    const changeHandler = this.changeHandler.bind(this),
+          scrollHandler = this.scrollHandler.bind(this);
 
     return ([
 
@@ -104,19 +127,18 @@ class Yapp extends Element {
   initialise(properties) {
     this.assignContext();
 
-    const { childElements, autoResize = true } = properties,
+    const { childElements, language = JAVASCRIPT_LANGUAGE, autoResize = "true" } = properties,
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
-          scrollLeft = 0, ///
-          documentType = FLORENCE_DOCUMENT_TYPE;  ///
+          scrollLeft = 0; ///
 
-    this.setDocumentType(documentType);
+    this.setLanguage(language);
 
     this.scrollPrettyPrinter(scrollTop, scrollLeft);
 
     this.setRichTextareaContent(content);
 
-    if (autoResize) {
+    if (autoResize === "true") {
       this.onResize(() => this.resize());
     }
   }
@@ -128,9 +150,13 @@ class Yapp extends Element {
   };
 
   static fromClass(Class, properties) {
-    const { onChange = null } = properties,
-          changeHandler = onChange, ///
-          yapp = Element.fromClass(Class, properties, changeHandler);
+    const { language = JAVASCRIPT_LANGUAGE, onContentChange = null } = properties,
+          lexer = lexerFromLanguage(language),
+          parser = parserFromLanguage(language),
+          tokens = null,
+          node = null,
+          contentChangeHandler = onContentChange, ///
+          yapp = Element.fromClass(Class, properties, lexer, parser, tokens, node, contentChangeHandler);
 
     yapp.initialise(properties);
 

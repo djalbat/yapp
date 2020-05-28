@@ -10,10 +10,12 @@ const bnf = `
 
 
 
-    document                   ::= preamble? error* ;
+    document                   ::= preamble? ( statement | error )* ;
 
-    preamble                   ::= "\\"use strict\\"" ";" ;
-                                                              
+    preamble                   ::= ( "\\"use strict\\"" | "'use strict'" ) ";" ;
+
+    statement                  ::= "import" [string-literal] ";" ;
+
     error                      ::=  . ;
 
 

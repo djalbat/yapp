@@ -5,9 +5,10 @@ import "juxtapose";
 import withStyle from "easy-with-style";  ///
 
 import { Body } from "easy";
-import { syntaxStyle, firaCodeStyle } from "occam-styles";
+import { firaCodeStyle } from "occam-styles";
 
 import View from "./example/view";
+import syntaxStyle from "./style/syntax";
 
 const { renderStyle, renderStyles } = withStyle;
 
