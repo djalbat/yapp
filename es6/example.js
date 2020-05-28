@@ -7,15 +7,15 @@ import withStyle from "easy-with-style";  ///
 import { Body } from "easy";
 import { firaCodeStyle } from "occam-styles";
 
-import View from "./example/view";
 import syntaxStyle from "./style/syntax";
+import JavaScriptView from "./example/view/javascript";
 
 const { renderStyle, renderStyles } = withStyle;
 
 const body = new Body(),
       view =
 
-        <View />
+        <JavaScriptView />
 
       ;
 

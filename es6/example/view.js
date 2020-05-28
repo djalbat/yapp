@@ -12,8 +12,6 @@ import BNFTextarea from "./textarea/bnf";
 import TokensTextarea from "./textarea/tokens";
 import TopSizeableDiv from "./div/sizeable/top";
 import LeftSizeableDiv from "./div/sizeable/left";
-import JavaScriptLexer from "../lexer/javascript";
-import JavaScriptParser from "../parser/javascript";
 import RightSizeableDiv from "./div/sizeable/right";
 import ParseTreeTextarea from "./textarea/parseTree";
 import VerticalSplitterDiv from "./div/splitter/vertical";
@@ -21,39 +19,34 @@ import HorizontalSplitterDiv from "./div/splitter/horizontal";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
 class View extends Element {
-  Lexer = JavaScriptLexer;  ///
-
-  Parser = JavaScriptParser;  ///
-
-  getTokens() {
+  grammarChangeHandler() {
     const lexicalEntries = this.getLexicalEntries(),
           entries = lexicalEntries, ///
+          bnf = this.getBNF(),
           lexer = this.Lexer.fromEntries(entries),
-          yappContent = this.getYappContent(),
-          content = yappContent,  ///
-          tokens = lexer.tokenise(content);
-
-    return tokens;
-  }
-
-  getParseTree(tokens) {
-    let parseTree = null;
-
-    const bnf = this.getBNF(),
           parser = this.Parser.fromBNF(bnf),
-          node = parser.parse(tokens);
+          yappLexer = lexer,  ///
+          yappParser = parser;  ///
 
-    if (node !== null) {
-      parseTree = node.asParseTree(tokens);
-    }
+    this.setYappLexer(yappLexer);
 
-    return parseTree;
+    this.setYappParser(yappParser);
+
+    this.updateYapp();
   }
 
   contentChangeHandler() {
     try {
-      const tokens = this.getTokens(),
-            parseTree = this.getParseTree(tokens);
+      let parseTree = null;
+
+      const yappNode = this.getYappNode(),
+            yappTokens = this.getYappTokens(),
+            tokens = yappTokens,  ///
+            node = yappNode;  ///
+
+      if (node !== null) {
+        parseTree = node.asParseTree(tokens);
+      }
 
       this.setTokens(tokens);
 
@@ -68,7 +61,7 @@ class View extends Element {
   }
 
   keyUpHandler() {
-    this.contentChangeHandler();  ///
+    this.grammarChangeHandler();  ///
   }
 
   dragHandler() {
@@ -84,68 +77,62 @@ class View extends Element {
   }
 
   didMount() {
-    this.dragHandler();
+    this.dragHandler(); ///
   }
 
   childElements(properties) {
-    const { className } = properties,
-          dragHandler = this.dragHandler.bind(this),
+    const dragHandler = this.dragHandler.bind(this),
           keyUpHandler = this.keyUpHandler.bind(this),
           contentChangeHandler = this.contentChangeHandler.bind(this);
 
-    return (
+    return ([
 
-      <div className={`${className} view`}>
-        <ColumnsDiv>
-          <LeftSizeableDiv>
-            <RowsDiv>
-              <TopSizeableDiv>
-                <Yapp autoResize="false" onContentChange={contentChangeHandler}>{`"use strict";
+      <ColumnsDiv>
+        <LeftSizeableDiv>
+          <RowsDiv>
+            <TopSizeableDiv>
+              <Yapp language={this.language} autoResize="false" onContentChange={contentChangeHandler}>{this.initialContent}</Yapp>
+            </TopSizeableDiv>
+            <HorizontalSplitterDiv onDrag={dragHandler}/>
+            <RowDiv>
+              <RowsDiv>
+                <SubHeading>
+                  Tokens
+                </SubHeading>
+                <TokensTextarea />
+                <SubHeading>
+                  Parse tree
+                </SubHeading>
+                <ParseTreeTextarea />
+              </RowsDiv>
+            </RowDiv>
+          </RowsDiv>
+        </LeftSizeableDiv>
+        <VerticalSplitterDiv onDrag={dragHandler}/>
+        <ColumnDiv>
+          <RowsDiv>
+            <RightSizeableDiv>
+              <RowsDiv>
+                <SubHeading>
+                  Lexical entries
+                </SubHeading>
+                <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
+              </RowsDiv>
+            </RightSizeableDiv>
+            <HorizontalSplitterDiv />
+            <RowDiv>
+              <RowsDiv>
+                <SubHeading>
+                  BNF
+                </SubHeading>
+                <BNFTextarea onKeyUp={keyUpHandler} />
+              </RowsDiv>
+            </RowDiv>
+          </RowsDiv>
+        </ColumnDiv>
+      </ColumnsDiv>
 
-import "juxtapose";
-`}</Yapp>
-              </TopSizeableDiv>
-              <HorizontalSplitterDiv onDrag={dragHandler}/>
-              <RowDiv>
-                <RowsDiv>
-                  <SubHeading>
-                    Tokens
-                  </SubHeading>
-                  <TokensTextarea />
-                  <SubHeading>
-                    Parse tree
-                  </SubHeading>
-                  <ParseTreeTextarea />
-                </RowsDiv>
-              </RowDiv>
-            </RowsDiv>
-          </LeftSizeableDiv>
-          <VerticalSplitterDiv onDrag={dragHandler}/>
-          <ColumnDiv>
-            <RowsDiv>
-              <RightSizeableDiv>
-                <RowsDiv>
-                  <SubHeading>
-                    Lexical entries
-                  </SubHeading>
-                  <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
-                </RowsDiv>
-              </RightSizeableDiv>
-              <HorizontalSplitterDiv />
-              <RowDiv>
-                <RowsDiv>
-                  <SubHeading>
-                    BNF
-                  </SubHeading>
-                  <BNFTextarea onKeyUp={keyUpHandler} />
-                </RowsDiv>
-              </RowDiv>
-            </RowsDiv>
-          </ColumnDiv>
-        </ColumnsDiv>
-      </div>
-
-    );
+    ]);
   }
 
   initialise(properties) {
@@ -156,7 +143,10 @@ import "juxtapose";
           lexicalEntries = entries; ///
 
     this.setBNF(bnf);
+
     this.setLexicalEntries(lexicalEntries);
+
+    this.grammarChangeHandler();  ///
 
     this.contentChangeHandler();  ///
   }

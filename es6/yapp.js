@@ -30,14 +30,10 @@ class Yapp extends Element {
 
   setLexer(lexer) {
     this.lexer = lexer;
-
-    this.update();
   }
 
   setParser(parser) {
     this.parser = parser;
-
-    this.update();
   }
 
   getContent() {
@@ -47,12 +43,20 @@ class Yapp extends Element {
     return content;
   }
 
+  getTokens() {
+    return this.tokens;
+  }
+
+  getNode() {
+    return this.node;
+  }
+
   update() {
     const content = this.getContent();
 
     this.tokens = this.lexer.tokenise(content);
 
-    this.ndoe = this.parser.parse(this.tokens);
+    this.node = this.parser.parse(this.tokens);
 
     const richTextareaBounds = this.updatePrettyPrinter(this.tokens);
 
@@ -111,16 +115,26 @@ class Yapp extends Element {
   }
 
   parentContext() {
-    const resizeYapp = this.resize.bind(this),  ///
+    const updateYapp = this.update.bind(this),  ///
+          resizeYapp = this.resize.bind(this),  ///
+          getYappContent = this.getContent.bind(this),  ///
+          getYappTokens = this.getTokens.bind(this),  ///
+          getYappNode = this.getNode.bind(this),  ///
           setYappWidth = this.setWidth.bind(this),  ///
-          setYappHeight = this.setHeight.bind(this),  ///
-          getYappContent = this.getContent.bind(this);  ///
+          setYappLexer = this.setLexer.bind(this),  ///
+          setYappParser = this.setParser.bind(this),  ///
+          setYappHeight = this.setHeight.bind(this);  ///
 
     return ({
+      updateYapp,
       resizeYapp,
+      getYappContent,
+      getYappTokens,
+      getYappNode,
       setYappWidth,
-      setYappHeight,
-      getYappContent
+      setYappLexer,
+      setYappParser,
+      setYappHeight
     });
   }
 
