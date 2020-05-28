@@ -8,17 +8,18 @@ import StartOfMultiLineCommentToken from "../token/nonSignificant/comment/multiL
 import MiddleOfMultiLineCommentToken from "../token/nonSignificant/comment/multiLine/middleOf";
 
 const entries = [
-
   {
-    "special": "^;"
+    "special": "^(?:;|,|\\.|\\{|\\}|\\(|\\)|=)"
   },
   {
-    "keyword": "^import"
+    "keyword": "^(?:import|export|default|function|const|new)"
+  },
+  {
+    "identifier": "^[a-zA-Z]+"
   },
   {
     "unassigned": "^[^\\s]+"
   }
-
 ];
 
 export default class JavaScriptLexer extends CommonLexer {

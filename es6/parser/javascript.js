@@ -8,23 +8,58 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 const bnf = `
 
+    document                   ::=  preamble? ( statement | function | error )* ;
 
 
-    document                   ::= preamble? ( statement | error )* ;
+    preamble                   ::=  ( "\\"use strict\\"" | "'use strict'" ) ";" ;
 
 
-    preamble                   ::= ( "\\"use strict\\"" | "'use strict'" ) ";" ;
+    statement                  ::=  importStatement | exportStatement ;
 
 
-    statement                  ::= importStatement ;
+    importStatement            ::=  "import" ( ( term | bracketedTerm ) "from" )? [string-literal] ";" ;
 
 
-    importStatement            ::= "import" [string-literal] ";" ;
+    exportStatement            ::=  "export" "default" expression ;
+
+
+    expression                 ::=  term | object ;
+
+
+    function                   ::=  "function" name arguments "{" body? "}" ;
+
+
+    arguments                  ::=  "(" ( argument ( "," argument )* )? ")";
+
+
+    body                       ::=  ( declaration | methodCall )+ ;
+
+
+    declaration                ::=  "const" name "=" expression ";" ;
+
+
+    object                     ::=  name | "new" name<NO_WHITESPACE>arguments? ;
+
+
+    methodCall                 ::=  name "." name<NO_WHITESPACE>arguments? ;
+
+
+    bracketedTerm              ::=  "{" term "}";
+
+
+    term                       ::=  variable ;
+
+
+    name                       ::=  [identifier] ;
+
+
+    argument                   ::=  [identifier] ;
+
+
+    variable                   ::=  [identifier] ;
 
 
     error                      ::=  . ;
-
-
 
 `;
 

@@ -21,19 +21,23 @@ import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
 class View extends Element {
   grammarChangeHandler() {
-    const lexicalEntries = this.getLexicalEntries(),
-          entries = lexicalEntries, ///
-          bnf = this.getBNF(),
-          lexer = this.Lexer.fromEntries(entries),
-          parser = this.Parser.fromBNF(bnf),
-          yappLexer = lexer,  ///
-          yappParser = parser;  ///
+    try {
+      const lexicalEntries = this.getLexicalEntries(),
+            entries = lexicalEntries, ///
+            bnf = this.getBNF(),
+            lexer = this.Lexer.fromEntries(entries),
+            parser = this.Parser.fromBNF(bnf),
+            yappLexer = lexer,  ///
+            yappParser = parser;  ///
 
-    this.setYappLexer(yappLexer);
+      this.setYappLexer(yappLexer);
 
-    this.setYappParser(yappParser);
+      this.setYappParser(yappParser);
 
-    this.updateYapp();
+      this.updateYapp();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   contentChangeHandler() {

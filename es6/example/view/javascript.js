@@ -17,6 +17,14 @@ export default class JavaScriptView extends View {
   initialContent = `"use strict";
 
 import "juxtapose";
+
+import { Body } from "easy";
+
+function simpleApp () {
+  const body = new Body();
+
+  body.prepend()
+}
 `;
 
   static defaultProperties = {
