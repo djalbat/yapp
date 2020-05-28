@@ -14,6 +14,10 @@ class LeftSizeableDiv extends SizeableDiv {
 
     return parentContext;
   }
+
+  static defaultProperties = {
+    className: "left"
+  };
 }
 
 export default withStyle(LeftSizeableDiv)`

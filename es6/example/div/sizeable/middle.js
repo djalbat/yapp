@@ -4,15 +4,15 @@ import withStyle from "easy-with-style";  ///
 
 import { SizeableDiv } from "easy-layout";
 
-class RightSizeableDiv extends SizeableDiv {
+class MiddleSizeableDiv extends SizeableDiv {
   static defaultProperties = {
-    className: "right"
+    className: "middle"
   };
 }
 
-export default withStyle(RightSizeableDiv)`
+export default withStyle(MiddleSizeableDiv)`
 
-  height: 24rem;
-  min-height: 12rem;
+  height: 12rem;
+  min-height: 6rem;
   
 `;

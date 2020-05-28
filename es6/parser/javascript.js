@@ -14,7 +14,9 @@ const bnf = `
 
     preamble                   ::= ( "\\"use strict\\"" | "'use strict'" ) ";" ;
 
-    statement                  ::= "import" [string-literal] ";" ;
+    statement                  ::= importStatement ;
+
+    importStatement            ::= "import" [string-literal] ";" ;
 
     error                      ::=  . ;
 

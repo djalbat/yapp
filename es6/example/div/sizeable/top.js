@@ -14,6 +14,10 @@ class TopSizeableDiv extends SizeableDiv {
 
     return parentContext;
   }
+
+  static defaultProperties = {
+    className: "top"
+  };
 }
 
 export default withStyle(TopSizeableDiv)`

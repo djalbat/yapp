@@ -13,6 +13,7 @@ import TokensTextarea from "./textarea/tokens";
 import TopSizeableDiv from "./div/sizeable/top";
 import LeftSizeableDiv from "./div/sizeable/left";
 import RightSizeableDiv from "./div/sizeable/right";
+import MiddleSizeableDiv from "./div/sizeable/middle";
 import ParseTreeTextarea from "./textarea/parseTree";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import HorizontalSplitterDiv from "./div/splitter/horizontal";
@@ -62,6 +63,8 @@ class View extends Element {
 
   keyUpHandler() {
     this.grammarChangeHandler();  ///
+
+    this.contentChangeHandler();  ///
   }
 
   dragHandler() {
@@ -96,14 +99,21 @@ class View extends Element {
             <HorizontalSplitterDiv onDrag={dragHandler}/>
             <RowDiv>
               <RowsDiv>
-                <SubHeading>
-                  Tokens
-                </SubHeading>
-                <TokensTextarea />
-                <SubHeading>
-                  Parse tree
-                </SubHeading>
-                <ParseTreeTextarea />
+                <MiddleSizeableDiv>
+                  <RowsDiv>
+                    <SubHeading>
+                      Tokens
+                    </SubHeading>
+                    <TokensTextarea />
+                  </RowsDiv>
+                </MiddleSizeableDiv>
+                <HorizontalSplitterDiv />
+                <RowsDiv>
+                  <SubHeading>
+                    Parse tree
+                  </SubHeading>
+                  <ParseTreeTextarea />
+                </RowsDiv>
               </RowsDiv>
             </RowDiv>
           </RowsDiv>
@@ -146,9 +156,7 @@ class View extends Element {
 
     this.setLexicalEntries(lexicalEntries);
 
-    this.grammarChangeHandler();  ///
-
-    this.contentChangeHandler();  ///
+    this.keyUpHandler();  ///
   }
 
   static tagName = "div";
