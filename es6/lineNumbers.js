@@ -3,7 +3,8 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { firaCodeFontMixin } from "occam-styles";
+
+import firaCodeFontMixin from "./mixin/font/firaCode";
 
 import { lineNumbersColour } from "./scheme/view";
 

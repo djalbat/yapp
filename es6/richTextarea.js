@@ -3,7 +3,8 @@
 import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
-import { firaCodeFontMixin } from "occam-styles";
+
+import firaCodeFontMixin from "./mixin/font/firaCode";
 
 export default withStyle(class extends RichTextarea {
   setBounds(bounds) {
