@@ -4,9 +4,6 @@ import { queryUtilities } from "occam-dom";
 
 import ErrorOverlayToken from "./token/overlay/error";
 
-import { lexerFromLanguage } from "./lexers";
-import { parserFromLanguage } from "./parsers";
-
 const { queryByExpression } = queryUtilities;
 
 class Document {
@@ -18,20 +15,9 @@ class Document {
 
   constructor(lexer, parser, tokens, node) {
     this.lexer = lexer;
-
     this.parser = parser;
-
     this.tokens = tokens;
-
     this.node = node;
-  }
-
-  setLexer(lexer) {
-    this.lexer = lexer;
-  }
-
-  setParser(parser) {
-    this.parser = parser;
   }
 
   getTokens() {
@@ -44,12 +30,22 @@ class Document {
     return this.node;
   }
 
+  setLexer(lexer) {
+    this.lexer = lexer;
+  }
+
+  setParser(parser) {
+    this.parser = parser;
+  }
+
   update(content) {
     this.tokens = this.lexer.tokenise(content);
 
     this.node = this.parser.parse(this.tokens);
 
     this.addOverlayTokens();
+
+    this.postProcess();
   }
 
   addOverlayTokens() {
@@ -75,12 +71,17 @@ class Document {
     }
   }
 
-  static fromLanguage(language) {
-    const lexer = lexerFromLanguage(language),
-          parser = parserFromLanguage(language),
+  postProcess() {
+    ///
+  }
+
+  static fromNothing(Class) {
+    const { Lexer, Parser } = Class,
+          lexer = Lexer.fromNothing(),
+          parser = Parser.fromNothing(),
           tokens = null,
           node = null,
-          document = new Document(lexer, parser, tokens, node);
+          document = new Class(lexer, parser, tokens, node);
 
     return document;
   }

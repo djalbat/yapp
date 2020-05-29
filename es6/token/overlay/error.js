@@ -7,8 +7,6 @@ import { ERROR_TOKEN_TYPE } from "../../tokenTypes";
 const type = ERROR_TOKEN_TYPE;  ///
 
 export default class ErrorOverlayToken extends OverlayToken {
-  clone(startPosition, endPosition) { return super.clone(ErrorOverlayToken, startPosition, endPosition); }
-
   static type = type;
 
   static fromOverlaidToken(overlaidToken) {

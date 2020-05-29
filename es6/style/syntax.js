@@ -3,6 +3,7 @@
 import { firaCodeFontMixin } from "occam-styles";
 
 import defaultSyntaxStyle from "../style/syntax/default";
+import javaScriptSyntaxStyle from "../style/syntax/javaScript";
 
 const syntaxStyle = `
     
@@ -13,6 +14,8 @@ const syntaxStyle = `
 
   ${defaultSyntaxStyle}
   
+  ${javaScriptSyntaxStyle}
+
 `;
 
 export default syntaxStyle;

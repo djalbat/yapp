@@ -4,10 +4,10 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import Document from "./document";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 
+import { documentFromLanguage } from "./documents";
 import { contentFromChildElements } from "./utilities/content";
 
 import { JAVASCRIPT_LANGUAGE } from "./constants";
@@ -129,7 +129,8 @@ class Yapp extends Element {
   initialise(properties) {
     this.assignContext();
 
-    const { childElements, language = JAVASCRIPT_LANGUAGE, autoResize = "true" } = properties,
+    const { childElements, autoResize = "true" } = properties,
+          { language } = this.document,
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
           scrollLeft = 0; ///
@@ -152,9 +153,9 @@ class Yapp extends Element {
   };
 
   static fromClass(Class, properties) {
-    const { language = JAVASCRIPT_LANGUAGE, onContentChange = null } = properties,
+    const { language, onContentChange = null } = properties,
           contentChangeHandler = onContentChange, ///
-          document = Document.fromLanguage(language),
+          document = documentFromLanguage(language),
           yapp = Element.fromClass(Class, properties, contentChangeHandler, document);
 
     yapp.initialise(properties);
