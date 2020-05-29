@@ -7,8 +7,6 @@ import ErrorOverlayToken from "./token/overlay/error";
 const { queryByExpression } = queryUtilities;
 
 class Model {
-  overlayTokenMap = {};
-
   OverlayTokenMap = {
     "//error/@*": ErrorOverlayToken
   };
@@ -48,15 +46,13 @@ class Model {
     this.node = this.parser.parse(this.tokens);
 
     if (this.node !== null) {
-      this.addOverlayTokens();
+      this.resetOverlayTokenMap();
 
-      this.postProcess();
+      this.overlayTokens();
     }
   }
 
-  addOverlayTokens() {
-    this.overlayTokenMap = {};
-
+  overlayTokens() {
     const queryExpressions = Object.keys(this.OverlayTokenMap);
 
     queryExpressions.forEach((queryExpression) => {
@@ -75,8 +71,8 @@ class Model {
     });
   }
 
-  postProcess() {
-    ///
+  resetOverlayTokenMap() {
+    this.overlayTokenMap = {};
   }
 
   static fromLexerAndParser(Class, lexer, parser) {

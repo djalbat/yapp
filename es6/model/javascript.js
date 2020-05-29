@@ -7,6 +7,7 @@ import JavaScriptParser from "../parser/javascript";
 import { Query } from "occam-dom";
 
 import JSXOverlayToken from "../token/overlay/jsx";
+import ErrorOverlayToken from "../token/overlay/error";
 import MethodOverlayToken from "../token/overlay/method";
 import ArgumentOverlayToken from "../token/overlay/argument";
 import VariableOverlayToken from "../token/overlay/variable";
@@ -14,7 +15,6 @@ import VariableOverlayToken from "../token/overlay/variable";
 import { JAVASCRIPT_LANGUAGE } from "../constants";
 
 const jsxQuery = Query.fromExpression("//jsx"),
-      methodQuery = Query.fromExpression("//method/@*"),
       functionQuery = Query.fromExpression("//function"),
       argumentQuery = Query.fromExpression("//argument/@*"),
       variableQuery = Query.fromExpression("//variable/@*");
@@ -22,18 +22,25 @@ const jsxQuery = Query.fromExpression("//jsx"),
 export default class JavaScriptModel extends Model {
   language = JAVASCRIPT_LANGUAGE;
 
-  postProcess() {
+  OverlayTokenMap = {
+    "//error/@*": ErrorOverlayToken,
+    "//method/@*": MethodOverlayToken
+  };
+
+  overlayTokens() {
+    super.overlayTokens();
+
     const node = this.getNode(),
-          tokens = this.getTokens(),
-          jsxNodes = jsxQuery.execute(node),
-          functionNodes = functionQuery.execute(node);
+          tokens = this.getTokens();
 
-    this.postProcessJSXNOdes(jsxNodes, tokens);
+    this.overlayJSXNOdes(node, tokens);
 
-    this.postProcessFunctionNodes(functionNodes, tokens);
+    this.overlayFunctionNodes(node, tokens);
   }
 
-  postProcessJSXNOdes(jsxNodes, tokens) {
+  overlayJSXNOdes(node, tokens) {
+    const jsxNodes = jsxQuery.execute(node);
+
     jsxNodes.forEach((jsxNode) => {
       const jsxNodeFirstSignificantToken = jsxNode.getFirstSignificantToken(),
             jsxNodeLastSignificantToken = jsxNode.getLastSignificantToken(),
@@ -53,32 +60,19 @@ export default class JavaScriptModel extends Model {
     });
   }
 
-  postProcessFunctionNodes(functionTerminalNodes, tokens) {
-    functionTerminalNodes.forEach((functionTerminalNode) => {
-      const methodNodes = methodQuery.execute(functionTerminalNode),
-            argumentNodes = argumentQuery.execute(functionTerminalNode),
-            variableNodes = variableQuery.execute(functionTerminalNode),
-            argumentNames = this.postProcessArgumentNodes(argumentNodes, tokens);
+  overlayFunctionNodes(node, tokens) {
+    const functionNodes = functionQuery.execute(node);
 
-      this.postProcessMethodNodes(methodNodes, tokens);
+    functionNodes.forEach((functionNode) => {
+      const argumentNodes = argumentQuery.execute(functionNode),
+            variableNodes = variableQuery.execute(functionNode),
+            argumentNames = this.overlayArgumentNodes(argumentNodes, tokens);
 
-      this.postProcessVariableNodes(variableNodes, argumentNames, tokens);
+      this.overlayVariableNodes(variableNodes, argumentNames, tokens);
     });
   }
 
-  postProcessMethodNodes(methodTerminalNodes, tokens) {
-    methodTerminalNodes.forEach((methodTerminalNode) => {
-      const significantToken = methodTerminalNode.getSignificantToken(),
-            overlaidToken = significantToken, ///
-            overlaidTokenIndex = tokens.indexOf(overlaidToken), ///
-            overlayTokenIndex = overlaidTokenIndex,  ///
-            methodOverlayToken = MethodOverlayToken.fromOverlaidToken(overlaidToken);
-
-      this.overlayTokenMap[overlayTokenIndex] = methodOverlayToken;
-    });
-  }
-
-  postProcessArgumentNodes(argumentTerminalNodes, tokens) {
+  overlayArgumentNodes(argumentTerminalNodes, tokens) {
     const argumentNames = argumentTerminalNodes.map((argumentTerminalNode) => {
       const significantToken = argumentTerminalNode.getSignificantToken(),
             content = significantToken.getContent(),
@@ -96,7 +90,7 @@ export default class JavaScriptModel extends Model {
     return argumentNames;
   }
 
-  postProcessVariableNodes(variableTerminalNodes, argumentNames, tokens) {
+  overlayVariableNodes(variableTerminalNodes, argumentNames, tokens) {
     variableTerminalNodes.forEach((variableTerminalNode) => {
       const significantToken = variableTerminalNode.getSignificantToken(),
             content = significantToken.getContent(),
