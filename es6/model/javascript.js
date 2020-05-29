@@ -1,6 +1,6 @@
 "use strict";
 
-import Document from "../document";
+import Model from "../model";
 import JavaScriptLexer from "../lexer/javascript";
 import JavaScriptParser from "../parser/javascript";
 
@@ -19,7 +19,7 @@ const jsxQuery = Query.fromExpression("//jsx"),
       argumentQuery = Query.fromExpression("//argument/@*"),
       variableQuery = Query.fromExpression("//variable/@*");
 
-export default class JavaScriptDocument extends Document {
+export default class JavaScriptModel extends Model {
   language = JAVASCRIPT_LANGUAGE;
 
   postProcess() {
@@ -117,8 +117,8 @@ export default class JavaScriptDocument extends Document {
           javaScriptParser = JavaScriptParser.fromNothing(),
           lexer = javaScriptLexer,  ///
           parser = javaScriptParser,  ///
-          javaScriptDocument = Document.fromLexerAndParser(JavaScriptDocument, lexer, parser);
+          javaScriptModel = Model.fromLexerAndParser(JavaScriptModel, lexer, parser);
 
-    return javaScriptDocument;
+    return javaScriptModel;
   }
 }

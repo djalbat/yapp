@@ -7,16 +7,16 @@ import { Element } from "easy";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 
-import { documentFromLanguage } from "./documents";
+import { modelFromLanguage } from "./models";
 import { contentFromChildElements } from "./utilities/content";
 
 class Yapp extends Element {
-  constructor(selectorOrDOMElement, contentChangeHandler, document) {
+  constructor(selectorOrDOMElement, contentChangeHandler, model) {
     super(selectorOrDOMElement);
 
     this.contentChangeHandler = contentChangeHandler;
 
-    this.document = document;
+    this.model = model;
   }
 
   getContent() {
@@ -26,18 +26,18 @@ class Yapp extends Element {
     return content;
   }
 
-  getTokens() { return this.document.getTokens(); }
+  getTokens() { return this.model.getTokens(); }
 
-  getNode() { return this.document.getNode(); }
+  getNode() { return this.model.getNode(); }
 
-  setLexer(lexer) { this.document.setLexer(lexer); }
+  setLexer(lexer) { this.model.setLexer(lexer); }
 
-  setParser(parser) { this.document.setParser(parser); }
+  setParser(parser) { this.model.setParser(parser); }
 
   update() {
     const content = this.getContent();
 
-    this.document.update(content);
+    this.model.update(content);
 
     const tokens = this.getTokens(),
           richTextareaBounds = this.updatePrettyPrinter(tokens);
@@ -128,7 +128,7 @@ class Yapp extends Element {
     this.assignContext();
 
     const { childElements, autoResize = "true" } = properties,
-          language = this.document.getLanguage(),
+          language = this.model.getLanguage(),
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
           scrollLeft = 0; ///
@@ -153,8 +153,8 @@ class Yapp extends Element {
   static fromClass(Class, properties) {
     const { language, onContentChange = null } = properties,
           contentChangeHandler = onContentChange, ///
-          document = documentFromLanguage(language),
-          yapp = Element.fromClass(Class, properties, contentChangeHandler, document);
+          model = modelFromLanguage(language),
+          yapp = Element.fromClass(Class, properties, contentChangeHandler, model);
 
     yapp.initialise(properties);
 

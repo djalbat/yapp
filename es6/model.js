@@ -6,7 +6,7 @@ import ErrorOverlayToken from "./token/overlay/error";
 
 const { queryByExpression } = queryUtilities;
 
-class Document {
+class Model {
   overlayTokenMap = {};
 
   OverlayTokenMap = {
@@ -82,10 +82,10 @@ class Document {
   static fromLexerAndParser(Class, lexer, parser) {
     const tokens = null,
           node = null,
-          document = new Class(lexer, parser, tokens, node);
+          model = new Class(lexer, parser, tokens, node);
 
-    return document;
+    return model;
   }
 }
 
-export default Document;
+export default Model;
