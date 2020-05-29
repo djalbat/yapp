@@ -9,7 +9,13 @@ import MiddleOfMultiLineCommentToken from "../token/nonSignificant/comment/multi
 
 const entries = [
   {
-    "special": "^(?:;|,|\\.|\\{|\\}|\\(|\\)|=)"
+    "terminator": "^;"
+  },
+  {
+    "delimiter": "^(?:`|<\\/|\\/>|<|>)"
+  },
+  {
+    "special": "^(?:,|=|\\.|\\{|\\}|\\(|\\))"
   },
   {
     "keyword": "^(?:import|export|default|function|const|new)"

@@ -32,6 +32,9 @@ const bnf = `
     arguments                  ::=  "(" ( argument ( "," argument )* )? ")";
 
 
+    argument                   ::=  term ;
+
+
     body                       ::=  ( declaration | methodCall )+ ;
 
 
@@ -41,22 +44,43 @@ const bnf = `
     object                     ::=  name | "new" name<NO_WHITESPACE>arguments? ;
 
 
-    methodCall                 ::=  name "." name<NO_WHITESPACE>arguments? ;
+    methodCall                 ::=  name "." name<NO_WHITESPACE>arguments? ";" ;
 
 
     bracketedTerm              ::=  "{" term "}";
 
 
-    term                       ::=  variable ;
+    term                       ::=  variable | name | jsx ;
 
 
-    name                       ::=  [identifier] ;
+    jsx                        ::=  jsxCompleteTag | jsxStartTag jsxText jsxEndTag ;
 
 
-    argument                   ::=  [identifier] ;
+    jsxCompleteTag             ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
+
+
+    jsxStartTag                ::=  "<"<NO_WHITESPACE>name jsxAttribute* ">" ;
+
+
+    jsxEndTag                  ::=  "</"<NO_WHITESPACE>name ">" ;
+
+
+    jsxAttribute               ::=  jsxStandardAttribute | jsxBooleanAttribute ;
+
+
+    jsxStandardAttribute       ::=  name<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
+
+
+    jsxBooleanAttribute        ::=  name ;
+
+
+    jsxText                    ::=  ( [special] | [keyword] | [identifier] | [unassigned] )+ ;
 
 
     variable                   ::=  [identifier] ;
+
+
+    name                       ::=  [identifier] ; 
 
 
     error                      ::=  . ;

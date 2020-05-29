@@ -98,7 +98,12 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp language={this.language} autoResize="false" onContentChange={contentChangeHandler}>{this.initialContent}</Yapp>
+              <Yapp language={this.language}
+                    autoResize="false"
+                    onContentChange={contentChangeHandler}
+              >
+                {this.initialContent}
+              </Yapp>
             </TopSizeableDiv>
             <HorizontalSplitterDiv onDrag={dragHandler}/>
             <RowDiv>

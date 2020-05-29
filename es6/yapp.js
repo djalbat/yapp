@@ -5,9 +5,9 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 import { queryUtilities } from "occam-dom";
 
-import ErrorToken from "./token/overlay/error";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
+import ErrorOverlayToken from "./token/overlay/error";
 
 import { lexerFromLanguage } from "./lexers";
 import { parserFromLanguage } from "./parsers";
@@ -21,7 +21,7 @@ class Yapp extends Element {
   overlayTokenMap = {};
 
   OverlayTokenMap = {
-    "//error/@*": ErrorToken
+    "//error/@*": ErrorOverlayToken
   };
 
   constructor(selectorOrDOMElement, lexer, parser, tokens, node, contentChangeHandler) {

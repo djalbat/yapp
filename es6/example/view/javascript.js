@@ -23,8 +23,16 @@ import { Body } from "easy";
 function simpleApp () {
   const body = new Body();
 
-  body.prepend()
+  body.prepend(
+  
+    <p>
+      A simple application.
+    </p>
+    
+  );
 }
+
+export default simpleApp;
 `;
 
   static defaultProperties = {
