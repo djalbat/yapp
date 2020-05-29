@@ -32,19 +32,19 @@ const bnf = `
     arguments                  ::=  "(" ( argument ( "," argument )* )? ")";
 
 
-    argument                   ::=  term ;
+    terms                      ::=  "(" ( term ( "," term )* )? ")";
 
 
     body                       ::=  ( declaration | methodCall )+ ;
 
 
-    declaration                ::=  "const" name "=" expression ";" ;
+    declaration                ::=  "const" variable "=" expression ";" ;
 
 
-    object                     ::=  name | "new" name<NO_WHITESPACE>arguments? ;
+    object                     ::=  name | "new" name<NO_WHITESPACE>terms? ;
 
 
-    methodCall                 ::=  name "." name<NO_WHITESPACE>arguments? ";" ;
+    methodCall                 ::=  name "." name<NO_WHITESPACE>terms? ";" ;
 
 
     bracketedTerm              ::=  "{" term "}";
@@ -75,6 +75,9 @@ const bnf = `
 
 
     jsxText                    ::=  ( [special] | [keyword] | [identifier] | [unassigned] )+ ;
+
+
+    argument                   ::=  [identifier] ;
 
 
     variable                   ::=  [identifier] ;

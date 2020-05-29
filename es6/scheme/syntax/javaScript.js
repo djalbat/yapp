@@ -1,5 +1,9 @@
 "use strict";
 
-import { gainsborough } from "../../colours";
+import { springWood, cadetBlue, tahiti } from "../../colours";
 
-export const jsxColour = gainsborough;
+export const jsxColour = springWood;
+
+export const argumentColour = tahiti;
+
+export const variableColour = cadetBlue;

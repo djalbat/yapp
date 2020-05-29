@@ -20,6 +20,10 @@ class Document {
     this.node = node;
   }
 
+  getLanguage() {
+    return this.language;
+  }
+
   getTokens() {
     const tokens = this.tokens.map((token, index) => this.overlayTokenMap[index] || token); ///
 
@@ -43,43 +47,40 @@ class Document {
 
     this.node = this.parser.parse(this.tokens);
 
-    this.addOverlayTokens();
+    if (this.node !== null) {
+      this.addOverlayTokens();
 
-    this.postProcess();
+      this.postProcess();
+    }
   }
 
   addOverlayTokens() {
     this.overlayTokenMap = {};
 
-    if (this.node !== null) {
-      const queryExpressions = Object.keys(this.OverlayTokenMap);
+    const queryExpressions = Object.keys(this.OverlayTokenMap);
 
-      queryExpressions.forEach((queryExpression) => {
-        const nodes = queryByExpression(this.node, queryExpression),
-              OverlayToken = this.OverlayTokenMap[queryExpression];
+    queryExpressions.forEach((queryExpression) => {
+      const nodes = queryByExpression(this.node, queryExpression),
+            OverlayToken = this.OverlayTokenMap[queryExpression];
 
-        nodes.forEach((node) => {
-          const significantToken = node.getSignificantToken(),
-                overlaidToken = significantToken, ///
-                overlaidTokenIndex = this.tokens.indexOf(overlaidToken),
-                overlayTokenIndex = overlaidTokenIndex,  ///
-                overlayToken = OverlayToken.fromOverlaidToken(overlaidToken);
+      nodes.forEach((node) => {
+        const significantToken = node.getSignificantToken(),
+              overlaidToken = significantToken, ///
+              overlaidTokenIndex = this.tokens.indexOf(overlaidToken),
+              overlayTokenIndex = overlaidTokenIndex,  ///
+              overlayToken = OverlayToken.fromOverlaidToken(overlaidToken);
 
-          this.overlayTokenMap[overlayTokenIndex] = overlayToken;
-        });
+        this.overlayTokenMap[overlayTokenIndex] = overlayToken;
       });
-    }
+    });
   }
 
   postProcess() {
     ///
   }
 
-  static fromNothing(Class) {
-    const { Lexer, Parser } = Class,
-          lexer = Lexer.fromNothing(),
-          parser = Parser.fromNothing(),
-          tokens = null,
+  static fromLexerAndParser(Class, lexer, parser) {
+    const tokens = null,
           node = null,
           document = new Class(lexer, parser, tokens, node);
 

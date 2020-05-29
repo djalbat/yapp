@@ -20,10 +20,10 @@ import "juxtapose";
 
 import { Body } from "easy";
 
-function simpleApp () {
-  const body = new Body();
+function simpleApp(selector) {
+  const body = new Body(selector);
 
-  body.prepend(
+  body.mount(
   
     <p>
       A simple application.

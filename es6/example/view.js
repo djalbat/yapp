@@ -85,6 +85,12 @@ class View extends Element {
 
   didMount() {
     this.dragHandler(); ///
+
+    this.contentChangeHandler();  ///
+  }
+
+  willUnmount() {
+    ///
   }
 
   childElements(properties) {
@@ -164,8 +170,6 @@ class View extends Element {
     this.setBNF(bnf);
 
     this.setLexicalEntries(lexicalEntries);
-
-    this.keyUpHandler();  ///
   }
 
   static tagName = "div";

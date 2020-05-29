@@ -22,7 +22,7 @@ export const cadetBlue = "#5f9ea0";
 
 export const razzmatazz = "#e3256b";
 export const flamingo = "#f34b44";
-export const terracotta = "#a83a25";
+export const tahiti = "#F58A0A";
 
 export const portica = "#f7e75f";
 export const celery = "#bcb852";

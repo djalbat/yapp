@@ -10,8 +10,6 @@ import PrettyPrinter from "./prettyPrinter";
 import { documentFromLanguage } from "./documents";
 import { contentFromChildElements } from "./utilities/content";
 
-import { JAVASCRIPT_LANGUAGE } from "./constants";
-
 class Yapp extends Element {
   constructor(selectorOrDOMElement, contentChangeHandler, document) {
     super(selectorOrDOMElement);
@@ -20,10 +18,6 @@ class Yapp extends Element {
 
     this.document = document;
   }
-
-  setLexer(lexer) { this.document.setLexer(lexer); }
-
-  setParser(parser) { this.document.setParser(parser); }
 
   getContent() {
     const richTextareaContent = this.getRichTextareaContent(),
@@ -35,6 +29,10 @@ class Yapp extends Element {
   getTokens() { return this.document.getTokens(); }
 
   getNode() { return this.document.getNode(); }
+
+  setLexer(lexer) { this.document.setLexer(lexer); }
+
+  setParser(parser) { this.document.setParser(parser); }
 
   update() {
     const content = this.getContent();
@@ -130,7 +128,7 @@ class Yapp extends Element {
     this.assignContext();
 
     const { childElements, autoResize = "true" } = properties,
-          { language } = this.document,
+          language = this.document.getLanguage(),
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
           scrollLeft = 0; ///
