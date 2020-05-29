@@ -4,9 +4,8 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 import { firaCodeFontMixin } from "occam-styles";
-import { prettyPrinterScheme } from "occam-styles";
 
-const { lineNumbersColour } = prettyPrinterScheme;
+import { lineNumbersColour } from "./scheme/view";
 
 class LineNumbers extends Element {
   update(lineCount) {

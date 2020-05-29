@@ -4,17 +4,16 @@ import withStyle from "easy-with-style";  ///
 
 import { arrayUtilities } from "necessary";
 import { Bounds, Element } from "easy";
-import { prettyPrinterScheme } from "occam-styles";
 
 import Gutter from "./gutter";
 import Syntax from "./syntax";
 
 import { lineHeight } from "./constants";
+import { borderColour, backgroundColour } from "./scheme/view";
 
-const { second } = arrayUtilities,
-      { borderColour, backgroundColour } = prettyPrinterScheme;
+const { second } = arrayUtilities;
 
-class PrettyPrinter extends Element {
+class View extends Element {
   getWidth(includeBorder) {
     const hidden = this.isHidden();
 
@@ -160,19 +159,19 @@ class PrettyPrinter extends Element {
   
   parentContext() {
     const context = this.getContext(),
-          resizePrettyPrinter = this.resize.bind(this), ///
-          updatePrettyPrinter = this.update.bind(this), ///
-          scrollPrettyPrinter = this.scroll.bind(this), ///
-			    setPrettyPrinterWidth = this.setWidth.bind(this), ///
-				  setPrettyPrinterHeight = this.setHeight.bind(this), ///
-				  isPrettyPrinterDisplayed = this.isDisplayed.bind(this), ///
+          resizeView = this.resize.bind(this), ///
+          updateView = this.update.bind(this), ///
+          scrollView = this.scroll.bind(this), ///
+			    setViewWidth = this.setWidth.bind(this), ///
+				  setViewHeight = this.setHeight.bind(this), ///
+				  isViewDisplayed = this.isDisplayed.bind(this), ///
           parentContext = Object.assign(context, {
-            resizePrettyPrinter,
-            updatePrettyPrinter,
-            scrollPrettyPrinter,
-            setPrettyPrinterWidth,
-            setPrettyPrinterHeight,
-            isPrettyPrinterDisplayed
+            resizeView,
+            updateView,
+            scrollView,
+            setViewWidth,
+            setViewHeight,
+            isViewDisplayed
           });
     
     return parentContext;
@@ -207,15 +206,15 @@ class PrettyPrinter extends Element {
   };
 
   static fromClass(Class, properties) {
-    const prettyPrinter = Element.fromClass(Class, properties);
+    const view = Element.fromClass(Class, properties);
 
-    prettyPrinter.initialise(properties);
+    view.initialise(properties);
     
-    return prettyPrinter;
+    return view;
   }
 }
 
-export default withStyle(PrettyPrinter)`
+export default withStyle(View)`
 
   border: 1px solid ${borderColour};
   position: relative;

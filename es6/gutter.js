@@ -3,14 +3,12 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { prettyPrinterScheme } from "occam-styles";
 
 import LineNumbers from "./lineNumbers";
 
 import { GUTTER_HEIGHT } from "./constants";
 import { lineCountFromTokens } from "./utilities/tokens";
-
-const { gutterBorderColour, gutterBackgroundColour } = prettyPrinterScheme;
+import { gutterBorderColour, gutterBackgroundColour } from "./scheme/view";
 
 class Gutter extends Element {
   update(tokens) {

@@ -4,8 +4,8 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
+import View from "./view";
 import RichTextarea from "./richTextarea";
-import PrettyPrinter from "./prettyPrinter";
 
 import { modelFromLanguage } from "./models";
 import { contentFromChildElements } from "./utilities/content";
@@ -40,7 +40,7 @@ class Yapp extends Element {
     this.model.update(content);
 
     const tokens = this.getTokens(),
-          richTextareaBounds = this.updatePrettyPrinter(tokens);
+          richTextareaBounds = this.updateView(tokens);
 
     if (richTextareaBounds !== null) {
       this.setRichTextareaBounds(richTextareaBounds);
@@ -51,10 +51,10 @@ class Yapp extends Element {
     const width = this.getWidth(),
           height = this.getHeight();
 
-    this.setPrettyPrinterWidth(width);
-    this.setPrettyPrinterHeight(height);
+    this.setViewWidth(width);
+    this.setViewHeight(height);
 
-    const richTextareaBounds = this.resizePrettyPrinter();
+    const richTextareaBounds = this.resizeView();
 
     this.setRichTextareaBounds(richTextareaBounds);
   }
@@ -85,7 +85,7 @@ class Yapp extends Element {
           scrollTop = richTextarea.getScrollTop(),
           scrollLeft = richTextarea.getScrollLeft();
 
-    this.scrollPrettyPrinter(scrollTop, scrollLeft);
+    this.scrollView(scrollTop, scrollLeft);
   }
 
   childElements(properties) {
@@ -94,7 +94,7 @@ class Yapp extends Element {
 
     return ([
 
-      <PrettyPrinter />,
+      <View />,
       <RichTextarea onChange={changeHandler} onScroll={scrollHandler} active />
 
     ]);
@@ -135,7 +135,7 @@ class Yapp extends Element {
 
     this.setLanguage(language);
 
-    this.scrollPrettyPrinter(scrollTop, scrollLeft);
+    this.scrollView(scrollTop, scrollLeft);
 
     this.setRichTextareaContent(content);
 
