@@ -3,48 +3,27 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { queryUtilities } from "occam-dom";
 
+import Document from "./document";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
-import ErrorOverlayToken from "./token/overlay/error";
 
-import { lexerFromLanguage } from "./lexers";
-import { parserFromLanguage } from "./parsers";
 import { contentFromChildElements } from "./utilities/content";
 
 import { JAVASCRIPT_LANGUAGE } from "./constants";
 
-const { queryByExpression } = queryUtilities;
-
 class Yapp extends Element {
-  overlayTokenMap = {};
-
-  OverlayTokenMap = {
-    "//error/@*": ErrorOverlayToken
-  };
-
-  constructor(selectorOrDOMElement, lexer, parser, tokens, node, contentChangeHandler) {
+  constructor(selectorOrDOMElement, contentChangeHandler, document) {
     super(selectorOrDOMElement);
 
-    this.lexer = lexer;
-
-    this.parser = parser;
-
-    this.tokens = tokens;
-
-    this.node = node;
-
     this.contentChangeHandler = contentChangeHandler;
+
+    this.document = document;
   }
 
-  setLexer(lexer) {
-    this.lexer = lexer;
-  }
+  setLexer(lexer) { this.document.setLexer(lexer); }
 
-  setParser(parser) {
-    this.parser = parser;
-  }
+  setParser(parser) { this.document.setParser(parser); }
 
   getContent() {
     const richTextareaContent = this.getRichTextareaContent(),
@@ -53,24 +32,14 @@ class Yapp extends Element {
     return content;
   }
 
-  getTokens() {
-    const tokens = this.tokens.map((token, index) => this.overlayTokenMap[index] || token); ///
+  getTokens() { return this.document.getTokens(); }
 
-    return tokens;
-  }
-
-  getNode() {
-    return this.node;
-  }
+  getNode() { return this.document.getNode(); }
 
   update() {
     const content = this.getContent();
 
-    this.tokens = this.lexer.tokenise(content);
-
-    this.node = this.parser.parse(this.tokens);
-
-    this.addOverlayTokens();
+    this.document.update(content);
 
     const tokens = this.getTokens(),
           richTextareaBounds = this.updatePrettyPrinter(tokens);
@@ -119,29 +88,6 @@ class Yapp extends Element {
           scrollLeft = richTextarea.getScrollLeft();
 
     this.scrollPrettyPrinter(scrollTop, scrollLeft);
-  }
-
-  addOverlayTokens() {
-    this.overlayTokenMap = {};
-
-    if (this.node !== null) {
-      const queryExpressions = Object.keys(this.OverlayTokenMap);
-
-      queryExpressions.forEach((queryExpression) => {
-        const nodes = queryByExpression(this.node, queryExpression),
-              OverlayToken = this.OverlayTokenMap[queryExpression];
-
-        nodes.forEach((node) => {
-          const significantToken = node.getSignificantToken(),
-                overlaidToken = significantToken, ///
-                overlaidTokenIndex = this.tokens.indexOf(overlaidToken),
-                overlayTokenIndex = overlaidTokenIndex,  ///
-                overlayToken = OverlayToken.fromOverlaidToken(overlaidToken);
-
-          this.overlayTokenMap[overlayTokenIndex] = overlayToken;
-        });
-      });
-    }
   }
 
   childElements(properties) {
@@ -207,12 +153,9 @@ class Yapp extends Element {
 
   static fromClass(Class, properties) {
     const { language = JAVASCRIPT_LANGUAGE, onContentChange = null } = properties,
-          lexer = lexerFromLanguage(language),
-          parser = parserFromLanguage(language),
-          tokens = null,
-          node = null,
           contentChangeHandler = onContentChange, ///
-          yapp = Element.fromClass(Class, properties, lexer, parser, tokens, node, contentChangeHandler);
+          document = Document.fromLanguage(language),
+          yapp = Element.fromClass(Class, properties, contentChangeHandler, document);
 
     yapp.initialise(properties);
 
