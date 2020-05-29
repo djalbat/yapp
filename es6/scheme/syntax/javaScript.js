@@ -1,8 +1,10 @@
 "use strict";
 
-import { springWood, cadetBlue, tahiti } from "../../colours";
+import { springWood, cadetBlue, sycamore, tahiti } from "../../colours";
 
 export const jsxColour = springWood;
+
+export const methodColour = sycamore;
 
 export const argumentColour = tahiti;
 

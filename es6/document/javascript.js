@@ -7,12 +7,14 @@ import JavaScriptParser from "../parser/javascript";
 import { Query } from "occam-dom";
 
 import JSXOverlayToken from "../token/overlay/jsx";
+import MethodOverlayToken from "../token/overlay/method";
 import ArgumentOverlayToken from "../token/overlay/argument";
 import VariableOverlayToken from "../token/overlay/variable";
 
 import { JAVASCRIPT_LANGUAGE } from "../constants";
 
 const jsxQuery = Query.fromExpression("//jsx"),
+      methodQuery = Query.fromExpression("//method/@*"),
       functionQuery = Query.fromExpression("//function"),
       argumentQuery = Query.fromExpression("//argument/@*"),
       variableQuery = Query.fromExpression("//variable/@*");
@@ -53,11 +55,26 @@ export default class JavaScriptDocument extends Document {
 
   postProcessFunctionNodes(functionTerminalNodes, tokens) {
     functionTerminalNodes.forEach((functionTerminalNode) => {
-      const argumentNodes = argumentQuery.execute(functionTerminalNode),
-            argumentNames = this.postProcessArgumentNodes(argumentNodes, tokens),
-            variableNodes = variableQuery.execute(functionTerminalNode);
+      const methodNodes = methodQuery.execute(functionTerminalNode),
+            argumentNodes = argumentQuery.execute(functionTerminalNode),
+            variableNodes = variableQuery.execute(functionTerminalNode),
+            argumentNames = this.postProcessArgumentNodes(argumentNodes, tokens);
+
+      this.postProcessMethodNodes(methodNodes, tokens);
 
       this.postProcessVariableNodes(variableNodes, argumentNames, tokens);
+    });
+  }
+
+  postProcessMethodNodes(methodTerminalNodes, tokens) {
+    methodTerminalNodes.forEach((methodTerminalNode) => {
+      const significantToken = methodTerminalNode.getSignificantToken(),
+            overlaidToken = significantToken, ///
+            overlaidTokenIndex = tokens.indexOf(overlaidToken), ///
+            overlayTokenIndex = overlaidTokenIndex,  ///
+            methodOverlayToken = MethodOverlayToken.fromOverlaidToken(overlaidToken);
+
+      this.overlayTokenMap[overlayTokenIndex] = methodOverlayToken;
     });
   }
 

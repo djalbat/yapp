@@ -44,7 +44,7 @@ const bnf = `
     object                     ::=  name | "new" name<NO_WHITESPACE>terms? ;
 
 
-    methodCall                 ::=  name "." name<NO_WHITESPACE>terms? ";" ;
+    methodCall                 ::=  variable "." method<NO_WHITESPACE>terms? ";" ;
 
 
     bracketedTerm              ::=  "{" term "}";
@@ -75,6 +75,9 @@ const bnf = `
 
 
     jsxText                    ::=  ( [special] | [keyword] | [identifier] | [unassigned] )+ ;
+
+
+    method                     ::=  [identifier] ;
 
 
     argument                   ::=  [identifier] ;
