@@ -4,9 +4,9 @@ Yet Another Pretty Printer.
 
 ## Acknowledgements
 
-The following article was invaluable in building the JavaScript BNF:
+The following MDN article was invaluable when writing the JavaScript grammar:
 
-* [MDN web does: Statements and declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements)
+* [Statements and declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements)
 
 ## Contact
 
