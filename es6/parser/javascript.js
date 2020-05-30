@@ -8,6 +8,9 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 const bnf = `
 
+
+
+
     document                   ::=  preamble? ( statement | error )* ;
 
 
@@ -42,6 +45,22 @@ const bnf = `
 
                                  |  destructedExport
 
+                                 |  namesAggregatedExport
+
+                                 |  defaultAggregatedExport
+
+                                 |  wildcardAggregatedExport
+
+                                 |  namesImport
+
+                                 |  anonymousImport
+
+                                 |  namedDefaultImport
+
+                                 |  namedWildcardImport
+
+                                 |  labelledStatement
+
                                  |  blockStatement
 
                                  |  breakStatement  
@@ -70,14 +89,6 @@ const bnf = `
 
                                  |  "debugger" 
 
-
-
-
-
-                                 |  importStatement 
-
-                                 |  exportStatement 
-
                                  ;
 
 
@@ -102,13 +113,30 @@ const bnf = `
 
     generatorExport            ::=  "export" ( ( "default"? generator ) | ( "default" anonymousGenerator ) ) ;
 
-    expressionExport           ::=  "export" expression ";" ;
+    expressionExport           ::=  "export" "default" expression ";" ;
 
     namesExport                ::=  "export" "{" names "}" ";" ;
 
     destructedExport           ::=  "export" "const" "{" fields "}" "=" expression ";" ;
 
+    namesAggregatedExport      ::=  "export" "{" names "}" "from" [string-literal] ";" ;
 
+    defaultAggregatedExport    ::=  "export" "{" "default" "}" "from" [string-literal] ";" ;
+
+    wildcardAggregatedExport   ::=  "export" "*" ( "as" name )? "from" [string-literal] ";" ;
+
+
+
+    namesImport                ::=  "import" "{" names "}" "from" [string-literal] ";" ;
+
+    anonymousImport            ::=  "import" [string-literal] ";" ;
+
+    namedDefaultImport         ::=  "import" name "from" [string-literal] ";" ;
+
+    namedWildcardImport        ::=  "import" "*" "as" name "from" [string-literal] ";" ;
+
+
+    labelledStatement          ::=  label ":" statement ;
 
     blockStatement             ::=  "{" statement "}" ;
 
@@ -196,7 +224,7 @@ const bnf = `
 
     parameters                 ::=  parameter ( "," parameter )* ;
 
-    names                      ::=  name ( "as" ( name | "default" ) )? ( "," name ( "as" ( name | "default" ) )? )* ;
+    names                      ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
 
     fields                     ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
 
@@ -211,6 +239,18 @@ const bnf = `
     parameter                  ::=  variable ;
 
 
+    expression                 ::=  "true" | "false" | object ;
+
+
+    importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
+
+
+
+    variable                   ::=  [identifier] ;
+
+    label                      ::=  [identifier] ; 
+
+    name                       ::=  [identifier] ; 
 
 
 
@@ -228,38 +268,18 @@ const bnf = `
 
 
 
-    importStatement            ::=  "import" ( ( term | bracketedTerm ) "from" )? [string-literal] ";" ;
-
-
-    exportStatement            ::=  "export" "default"? expression ;
-
-
-    expression                 ::=  "true" | "false" |term | object ;
-
-
-    function                   ::=  "function" name arguments "{" body? "}" ;
-
-
-    arguments                  ::=  "(" ( argument ( "," argument )* )? ")";
-
-
-    terms                      ::=  "(" ( term ( "," term )* )? ")";
-
-
-    body                       ::=  ( declaration | methodCall )+ ;
-
-
-    declaration                ::=  "const" variable "=" expression ";" ;
-
-
-    object                     ::=  name | "new" name<NO_WHITESPACE>terms? ;
 
 
 
-    bracketedTerm              ::=  "{" term "}";
+    object                     ::=  name | importMeta | "new" name<NO_WHITESPACE>terms? ;
 
 
-    term                       ::=  variable | name | jsx ;
+
+
+
+
+
+
 
 
     jsx                        ::=  jsxCompleteTag | jsxStartTag jsxText jsxEndTag ;
@@ -288,11 +308,6 @@ const bnf = `
 
     argument                   ::=  [identifier] ;
 
-
-    variable                   ::=  [identifier] ;
-
-
-    name                       ::=  [identifier] ; 
 
 
     error                      ::=  . ;
