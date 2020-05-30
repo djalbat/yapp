@@ -19,10 +19,12 @@ export const blackOlive = "#1c2412";
 export const hunterGreen = "#161d10";
 
 export const cadetBlue = "#5f9ea0";
+export const havelockBlue = "#5B8De1";
 
 export const razzmatazz = "#e3256b";
 export const flamingo = "#f34b44";
 export const tahiti = "#F58A0A";
+export const equator = "#e4aC5e";
 
 export const portica = "#f7e75f";
 export const celery = "#bcb852";

@@ -6,6 +6,8 @@ import { RichTextarea } from "easy-richtextarea";
 
 import firaCodeFontMixin from "./mixin/font/firaCode";
 
+import { caretColour, selectionBackgroundColour } from "./scheme/view";
+
 export default withStyle(class extends RichTextarea {
   setBounds(bounds) {
     const top = bounds.getTop(),
@@ -60,14 +62,17 @@ export default withStyle(class extends RichTextarea {
   z-index: 0;
   tab-size: 2;
   position: absolute;
-  word-wrap: normal;
   border-top: none;
   overflow-x: scroll;
   overflow-y: scroll;
-  caret-color: white;
   white-space: pre;
+  caret-color: ${caretColour};
   overflow-wrap: normal;
   background-color: transparent;
+  
+  ::selection {
+    background-color: ${selectionBackgroundColour};
+  }
 
   ${firaCodeFontMixin}
 

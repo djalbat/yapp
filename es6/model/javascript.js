@@ -22,21 +22,21 @@ const jsxQuery = Query.fromExpression("//jsx"),
 export default class JavaScriptModel extends Model {
   language = JAVASCRIPT_LANGUAGE;
 
-  OverlayTokenMap = {
-    "//error/@*": ErrorOverlayToken,
-    "//method/@*": MethodOverlayToken
-  };
-
-  overlayTokens() {
-    super.overlayTokens();
-
-    const node = this.getNode(),
-          tokens = this.getTokens();
-
-    this.overlayJSXNOdes(node, tokens);
-
-    this.overlayFunctionNodes(node, tokens);
-  }
+  // OverlayTokenMap = {
+  //   "//error/@*": ErrorOverlayToken,
+  //   "//method/@*": MethodOverlayToken
+  // };
+  //
+  // overlayTokens() {
+  //   super.overlayTokens();
+  //
+  //   const node = this.getNode(),
+  //         tokens = this.getTokens();
+  //
+  //   this.overlayJSXNOdes(node, tokens);
+  //
+  //   this.overlayFunctionNodes(node, tokens);
+  // }
 
   overlayJSXNOdes(node, tokens) {
     const jsxNodes = jsxQuery.execute(node);

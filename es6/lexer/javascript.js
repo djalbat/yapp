@@ -15,10 +15,10 @@ const entries = [
     "delimiter": "^(?:`|<\\/|\\/>|<|>)"
   },
   {
-    "special": "^(?:,|=|\\.|\\{|\\}|\\(|\\))"
+    "special": "^(?:,|=|:|\\.|\\{|\\}|\\(|\\)|\\*|\\:)"
   },
   {
-    "keyword": "^(?:import|export|default|function|const|new)"
+    "keyword": "^(?:import|export|default|var|let|const|function|class|extends|constructor|static|break|return|continue|if|else|switch|case|throw|try|catch|finally|async|await|do|while|for|in|of|as|debugger)"
   },
   {
     "identifier": "^[a-zA-Z]+"

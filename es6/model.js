@@ -7,6 +7,8 @@ import ErrorOverlayToken from "./token/overlay/error";
 const { queryByExpression } = queryUtilities;
 
 class Model {
+  overlayTokenMap = {} ;
+
   OverlayTokenMap = {
     "//error/@*": ErrorOverlayToken
   };

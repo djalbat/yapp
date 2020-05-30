@@ -8,22 +8,233 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 const bnf = `
 
-    document                   ::=  preamble? ( statement | function | error )* ;
+    document                   ::=  preamble? ( statement | error )* ;
+
 
 
     preamble                   ::=  ( "\\"use strict\\"" | "'use strict'" ) ";" ;
 
 
-    statement                  ::=  importStatement | exportStatement ;
+
+    statement                  ::=  varDeclaration 
+
+                                 |  letDeclaration 
+
+                                 |  constDeclaration 
+
+                                 |  classDeclaration 
+
+                                 |  functionDeclaration 
+
+                                 |  generatorDeclaration 
+
+                                 |  expressionExport
+
+                                 |  classExport
+
+                                 |  functionExport
+
+                                 |  generatorExport
+
+                                 |  expressionExport
+
+                                 |  namesExport
+
+                                 |  destructedExport
+
+                                 |  blockStatement
+
+                                 |  breakStatement  
+
+                                 |  continueStatement 
+
+                                 |  conditionalStatement 
+
+                                 |  switchStatement 
+
+                                 |  returnStatement 
+
+                                 |  throwStatemennt 
+
+                                 |  tryCatchFinallyStatement 
+
+                                 |  doWhileIterator 
+
+                                 |  forIterator 
+
+                                 |  forInIterator 
+
+                                 |  forOfIterator 
+
+                                 |  whileIterator 
+
+                                 |  "debugger" 
+
+
+
+
+
+                                 |  importStatement 
+
+                                 |  exportStatement 
+
+                                 ;
+
+
+
+    varDeclaration             ::=  "export"? "var" vars ";" ;
+
+    letDeclaration             ::=  "export"? "let" lets ";" ;
+
+    constDeclaration           ::=  "export"? "const" consts ";" ;
+
+    classDeclaration           ::=  class ;
+
+    functionDeclaration        ::=  function ;
+
+    generatorDeclaration       ::=  generator ;
+
+
+
+    classExport                ::=  "export" ( ( "default"? class ) | ( "default" anonymousClass ) ) ;
+
+    functionExport             ::=  "export" ( ( "default"? function ) | ( "default" anonymousFunction ) ) ;
+
+    generatorExport            ::=  "export" ( ( "default"? generator ) | ( "default" anonymousGenerator ) ) ;
+
+    expressionExport           ::=  "export" expression ";" ;
+
+    namesExport                ::=  "export" "{" names "}" ";" ;
+
+    destructedExport           ::=  "export" "const" "{" fields "}" "=" expression ";" ;
+
+
+
+    blockStatement             ::=  "{" statement "}" ;
+
+    breakStatement             ::=  "break" ";" ;
+
+    continueStatement          ::=  "continue" ";" ;
+
+    conditionalStatement       ::=  "if" "(" condition ")" "else" statement ;
+
+    switchStatement            ::=  "switch" "(" expression ")" "{" case* defaultCase? "}" ;
+
+    returnStatement            ::=  "return" expression? ";" ;
+
+    throwStatement             ::=  "throw" exception ";" ;
+
+    tryCatchFinallyStatement   ::=  try ( ( catch* finally ) | catch+ ) ;
+
+
+
+    doWhileIterator            ::=  "do" statement "while" "(" condition ")" ";" ;
+
+    forIterator                ::=  "for" "(" initialiser ( ";" condition )? ( ";" finalExpression )? ")" statement ;
+
+    forInIterator              ::=  "for" "(" variable "in" object ")" statement ;
+
+    forOfIterator              ::=  "for" "await"? "(" variable "of" iterable ")" statement ;
+
+    whileIterator              ::=  "while" "(" condition ")" statement ;
+
+
+
+    class                      ::=  "class" name classBody ;
+
+    function                   ::=  "async"? "function" name functionBody ;
+
+    generator                  ::=  "async"? "function" <NO_WHITESPACE>"*" name functionBody ;
+
+    anonymousClass             ::=  "class" classBody ;
+
+    anonymousFunction          ::=  "async"? "function" functionBody ;
+
+    anonymousGenerator         ::=  "async"? "function" <NO_WHITESPACE>"*" functionBody ;
+
+    constructor                ::=  "constructor" funcctionBody ;
+
+    method                     ::=  "static"? name functionBody ;
+
+    field                      ::=  "static"? name "=" expression ";" ;
+
+
+
+    classBody                  ::=  ( "extends" name )? "{" ( constructor | method | field )* "}" ;
+
+    functionBody               ::=  "(" parameters? ")" "{" statement* "}" ;
+
+
+
+    case                       ::=  "case" expression ":" statement* breakStatement? ;
+
+    defaultCase                ::=  "default" ":" statement* breakStatement? ;
+
+    try                        ::=  "try" "{" statement+ "}" ;
+
+    catch                      ::=  "catch" "(" exception ")" "{" statement+ "}" ;
+
+    finally                    ::=  "finally" "{" statement+ "}" ;
+
+    iterable                   ::=  object ;
+
+    condition                  ::=  expression ;
+
+    exception                  ::=  expression ;
+
+    initialiser                ::=  expression | "var" vars | "let" lets ;
+
+    finalExpression            ::=  expression ;
+
+
+
+    vars                       ::=  var ( "," var )* ;
+
+    lets                       ::=  let ( "," let )* ;
+
+    consts                     ::=  const ( "," const )* ;
+
+    parameters                 ::=  parameter ( "," parameter )* ;
+
+    names                      ::=  name ( "as" ( name | "default" ) )? ( "," name ( "as" ( name | "default" ) )? )* ;
+
+    fields                     ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
+
+
+
+    var                        ::=  variable ( "=" expression )? ;
+
+    let                        ::=  variable ( "=" expression )? ;
+
+    const                      ::=  variable "=" expression ;
+
+    parameter                  ::=  variable ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     importStatement            ::=  "import" ( ( term | bracketedTerm ) "from" )? [string-literal] ";" ;
 
 
-    exportStatement            ::=  "export" "default" expression ;
+    exportStatement            ::=  "export" "default"? expression ;
 
 
-    expression                 ::=  term | object ;
+    expression                 ::=  "true" | "false" |term | object ;
 
 
     function                   ::=  "function" name arguments "{" body? "}" ;
@@ -43,8 +254,6 @@ const bnf = `
 
     object                     ::=  name | "new" name<NO_WHITESPACE>terms? ;
 
-
-    methodCall                 ::=  variable "." method<NO_WHITESPACE>terms? ";" ;
 
 
     bracketedTerm              ::=  "{" term "}";
@@ -77,9 +286,6 @@ const bnf = `
     jsxText                    ::=  ( [special] | [keyword] | [identifier] | [unassigned] )+ ;
 
 
-    method                     ::=  [identifier] ;
-
-
     argument                   ::=  [identifier] ;
 
 
@@ -106,3 +312,7 @@ export default class JavaScriptParser extends CommonParser {
 
   static fromNothing() { return JavaScriptParser.fromBNF(bnf); }
 }
+
+let blah;
+
+export { JavaScriptParser as blah2 }
