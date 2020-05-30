@@ -1,6 +1,7 @@
 "use strict";
 
 import { BNFLexer } from "occam-lexers";
+import { eliminateLeftRecursion } from "occam-grammar-utilities";
 import { BNFParser, CommonParser } from "occam-parsers";
 
 const bnfLexer = BNFLexer.fromNothing(),
@@ -8,10 +9,7 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 const bnf = `
 
-
-
-
-    document                   ::=  preamble? ( statement | error )* ;
+    document                   ::=  preamble? expression ( statement | error )* ;
 
 
 
@@ -74,6 +72,8 @@ const bnf = `
                                  |  returnStatement 
 
                                  |  throwStatemennt 
+
+                                 |  deleteStatement 
 
                                  |  tryCatchFinallyStatement 
 
@@ -151,6 +151,8 @@ const bnf = `
     returnStatement            ::=  "return" expression? ";" ;
 
     throwStatement             ::=  "throw" exception ";" ;
+
+    deleteStatement            ::=  "delete" ( name | "this" ) ( ( <NO_WHITESPACE>"."<NO_WHITESPACE>name ) | ( <NO_WHITESPACE>"[" expression "]" ) )? ";" ;
 
     tryCatchFinallyStatement   ::=  try ( ( catch* finally ) | catch+ ) ;
 
@@ -230,16 +232,46 @@ const bnf = `
 
 
 
-    var                        ::=  variable ( "=" expression )? ;
+    var                        ::=  variable ( "=" expression )? | structure "=" expression ;
 
-    let                        ::=  variable ( "=" expression )? ;
+    let                        ::=  variable ( "=" expression )? | structure "=" expression;
 
-    const                      ::=  variable "=" expression ;
+    const                      ::=  ( variable | structure ) "=" expression ;
 
     parameter                  ::=  variable ;
 
+    structure                  ::=  "[" name ( "," name )* "]" | "{" name ( "," name )* "}"; 
 
-    expression                 ::=  "true" | "false" | object ;
+
+
+    expression                 ::=  expression "?" expression ":" expression
+
+                                 |  expression "," expression 
+
+                                 |  expression [operator] expression 
+
+                                 |  expression [operator] 
+
+                                 |  [operator] expression 
+
+                                 |  object 
+
+                                 |  variable 
+ 
+                                 |  primitive 
+
+                                 |  jsx 
+
+                                 ;
+
+
+
+    object                     ::=  importMeta ;
+
+
+
+    primitive                  ::=  "true" | "false" ;
+
 
 
     importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
@@ -270,8 +302,6 @@ const bnf = `
 
 
 
-
-    object                     ::=  name | importMeta | "new" name<NO_WHITESPACE>terms? ;
 
 
 
@@ -317,17 +347,16 @@ const bnf = `
 export default class JavaScriptParser extends CommonParser {
   static bnf = bnf;
 
-  static fromBNF(bnf) {
+  static fromNothing() {
     const tokens = bnfLexer.tokensFromBNF(bnf),
-          rules = bnfParser.rulesFromTokens(tokens),
-          javascriptParser = new JavaScriptParser(rules);
+          rules = bnfParser.rulesFromTokens(tokens);
+
+    eliminateLeftRecursion(rules);
+
+    const javascriptParser = new JavaScriptParser(rules);
 
     return javascriptParser;
   }
 
-  static fromNothing() { return JavaScriptParser.fromBNF(bnf); }
+  static fromRules(rules) { return new JavaScriptParser(rules); }
 }
-
-let blah;
-
-export { JavaScriptParser as blah2 }

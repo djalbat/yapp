@@ -16,6 +16,7 @@
     "juxtapose": "^2.0.14",
     "necessary": "^4.1.10",
     "occam-dom": "^2.0.15",
+    "occam-grammar-utilities": "^4.0.17",
     "occam-lexers": "^11.0.31",
     "occam-parsers": "^11.0.27"
   },

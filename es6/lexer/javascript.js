@@ -9,19 +9,13 @@ import MiddleOfMultiLineCommentToken from "../token/nonSignificant/comment/multi
 
 const entries = [
   {
-    "terminator": "^;"
+    "special": "^(?:;|:|,|`|\\?|\\.|\\{|\\}|\\[|\\]|\\(|\\)|\\:|<\\/|\\/>)"
   },
   {
-    "delimiter": "^(?:`|<\\/|\\/>|<|>)"
+    "operator": "^(?:&=|>>>=|>>=|<<=|\\*\\*=|\\*=|\\+=|\\-=|\\/=|\\^=|\\|===|==|=|!==|%=|>=|<=|>>>|>>|<<|>|<|=|%|&&|&|~|!|\\^|\\|\\||\\||\\+\\+|\\-\\-|\\*\\*|\\+|\\-|\\*|\\/)"
   },
   {
-    "operator": "^(?:\\*|\\+|\\-|\\/)"
-  },
-  {
-    "special": "^(?:,|=|:|\\.|\\{|\\}|\\(|\\)|\\:)"
-  },
-  {
-    "keyword": "^(?:import|export|default|var|let|const|function|class|extends|constructor|static|break|return|continue|if|else|switch|case|throw|try|catch|finally|async|await|do|while|for|in|of|as|meta|true|false|debugger)"
+    "keyword": "^(?:import|export|default|var|let|const|function|class|extends|constructor|static|break|return|continue|if|else|switch|case|throw|try|catch|finally|async|await|do|while|for|in|of|as|this|delete|meta|true|false|debugger)"
   },
   {
     "identifier": "^[a-zA-Z]+"

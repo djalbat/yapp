@@ -3,7 +3,10 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
+import { BNFLexer } from "occam-lexers";
+import { BNFParser } from "occam-parsers";
 import { RowDiv, RowsDiv, ColumnDiv } from "easy-layout";
+import { eliminateLeftRecursion, removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
 
 import Yapp from "../yapp";
 import SubHeading from "./subHeading";
@@ -19,14 +22,22 @@ import VerticalSplitterDiv from "./div/splitter/vertical";
 import HorizontalSplitterDiv from "./div/splitter/horizontal";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
+const bnfLexer = BNFLexer.fromNothing(),
+      bnfParser = BNFParser.fromNothing();
+
 class View extends Element {
   grammarChangeHandler() {
     try {
       const lexicalEntries = this.getLexicalEntries(),
             entries = lexicalEntries, ///
             bnf = this.getBNF(),
-            lexer = this.Lexer.fromEntries(entries),
-            parser = this.Parser.fromBNF(bnf),
+            tokens = bnfLexer.tokensFromBNF(bnf),
+            rules = bnfParser.rulesFromTokens(tokens);
+
+      eliminateLeftRecursion(rules);
+
+      const lexer = this.Lexer.fromEntries(entries),
+            parser = this.Parser.fromRules(rules),
             yappLexer = lexer,  ///
             yappParser = parser;  ///
 
@@ -50,6 +61,8 @@ class View extends Element {
             node = yappNode;  ///
 
       if (node !== null) {
+        removeOrRenameIntermediateNodes(node);
+
         parseTree = node.asParseTree(tokens);
       }
 
