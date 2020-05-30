@@ -9,13 +9,13 @@ import MiddleOfMultiLineCommentToken from "../token/nonSignificant/comment/multi
 
 const entries = [
   {
-    "special": "^(?:;|:|,|`|\\?|\\.|\\{|\\}|\\[|\\]|\\(|\\)|\\:|<\\/|\\/>)"
+    "special": "^(?:;|:|,|`|=>|\\?|\\{|\\}|\\[|\\]|\\(|\\)|\\:|<\\/|\\/>)"
   },
   {
-    "operator": "^(?:&=|>>>=|>>=|<<=|\\*\\*=|\\*=|\\+=|\\-=|\\/=|\\^=|\\|===|==|=|!==|%=|>=|<=|>>>|>>|<<|>|<|=|%|&&|&|~|!|\\^|\\|\\||\\||\\+\\+|\\-\\-|\\*\\*|\\+|\\-|\\*|\\/)"
+    "operator": "^(?:&=|>>>=|>>=|<<=|\\.\\.\\.|\\.|\\*\\*=|\\*=|\\+=|\\-=|\\/=|\\^=|\\|===|==|=|!==|%=|>=|<=|>>>|>>|<<|>|<|=|%|&&|&|~|!|\\^|\\|\\||\\||\\+\\+|\\-\\-|\\*\\*|\\+|\\-|\\*|\\/)"
   },
   {
-    "keyword": "^(?:import|export|default|var|let|const|function|class|extends|constructor|static|break|return|continue|if|else|switch|case|throw|try|catch|finally|async|await|do|while|for|in|of|as|this|delete|meta|true|false|debugger)"
+    "keyword": "^(?:import|export|default|var|let|const|function|class|extends|constructor|static|break|return|continue|if|else|switch|case|throw|try|catch|finally|instanceof|typeof|async|await|do|while|for|in|of|as|new|this|super|delete|undefined|null|true|false|void|meta|debugger)"
   },
   {
     "identifier": "^[a-zA-Z]+"

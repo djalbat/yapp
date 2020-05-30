@@ -152,7 +152,7 @@ const bnf = `
 
     throwStatement             ::=  "throw" exception ";" ;
 
-    deleteStatement            ::=  "delete" ( name | "this" ) ( ( <NO_WHITESPACE>"."<NO_WHITESPACE>name ) | ( <NO_WHITESPACE>"[" expression "]" ) )? ";" ;
+    deleteStatement            ::=  "delete" expression ";" ;
 
     tryCatchFinallyStatement   ::=  try ( ( catch* finally ) | catch+ ) ;
 
@@ -192,7 +192,7 @@ const bnf = `
 
     classBody                  ::=  ( "extends" name )? "{" ( constructor | method | field )* "}" ;
 
-    functionBody               ::=  "(" parameters? ")" "{" statement* "}" ;
+    functionBody               ::=  "(" arguments? ")" "{" statement* "}" ;
 
 
 
@@ -224,12 +224,6 @@ const bnf = `
 
     consts                     ::=  const ( "," const )* ;
 
-    parameters                 ::=  parameter ( "," parameter )* ;
-
-    names                      ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
-
-    fields                     ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
-
 
 
     var                        ::=  variable ( "=" expression )? | structure "=" expression ;
@@ -238,21 +232,39 @@ const bnf = `
 
     const                      ::=  ( variable | structure ) "=" expression ;
 
-    parameter                  ::=  variable ;
-
     structure                  ::=  "[" name ( "," name )* "]" | "{" name ( "," name )* "}"; 
 
 
 
-    expression                 ::=  expression "?" expression ":" expression
+    expression                 ::=  "(" expression ")"
 
-                                 |  expression "," expression 
+                                 |  expression "?" expression ":" expression
 
                                  |  expression [operator] expression 
 
+                                 |  expression "instanceof" expression
+
+                                 |  expression "in" expression 
+
+                                 |  expression "," expression 
+
                                  |  expression [operator] 
 
+                                 |  expression<NO_WHITESPACE>"."<NO_WHITESPACE>name 
+
+                                 |  expression<NO_WHITESPACE>"[" expression "]"
+
                                  |  [operator] expression 
+
+                                 |  "typeof" ( expression | ( "(" expression ")") ) 
+
+                                 |  "void" ( expression | ( "(" expression ")") ) 
+
+                                 |  "new" name<NO_WHITESPACE>"(" arguments? ")"
+
+                                 |  "this"
+
+                                 |  "super"
 
                                  |  object 
 
@@ -263,6 +275,8 @@ const bnf = `
                                  |  jsx 
 
                                  ;
+
+
 
 
 
@@ -277,6 +291,16 @@ const bnf = `
     importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
 
 
+
+    arguments                  ::=  argument ( "," argument )* ;
+
+    fields                     ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
+
+    names                      ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
+
+
+
+    argument                   ::=  [identifier] ;
 
     variable                   ::=  [identifier] ;
 
