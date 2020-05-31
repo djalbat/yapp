@@ -138,6 +138,7 @@ const bnf = `
     namedWildcardImport        ::=  "import" "*" "as" name "from" [string-literal] ";" ;
 
 
+
     labelledStatement          ::=  label ":" statement ;
 
     blockStatement             ::=  "{" statement "}" ;
@@ -146,13 +147,13 @@ const bnf = `
 
     continueStatement          ::=  "continue" ";" ;
 
-    conditionalStatement       ::=  "if" "(" condition ")" "else" statement ;
+    conditionalStatement       ::=  "if" "(" expression ")" statement ( "else" statement )? ;
 
     switchStatement            ::=  "switch" "(" expression ")" "{" case* defaultCase? "}" ;
 
     returnStatement            ::=  "return" expression? ";" ;
 
-    throwStatement             ::=  "throw" exception ";" ;
+    throwStatement             ::=  "throw" expression ";" ;
 
     deleteStatement            ::=  "delete" expression ";" ;
 
@@ -162,15 +163,15 @@ const bnf = `
 
 
 
-    doWhileIterator            ::=  "do" statement "while" "(" condition ")" ";" ;
+    doWhileIterator            ::=  "do" statement "while" "(" expression ")" ";" ;
 
-    forIterator                ::=  "for" "(" initialiser ( ";" condition )? ( ";" finalExpression )? ")" statement ;
+    forIterator                ::=  "for" "(" initialiser ( ";" expression )? ( ";" finalExpression )? ")" statement ;
 
-    forInIterator              ::=  "for" "(" variable "in" object ")" statement ;
+    forInIterator              ::=  "for" "(" variable "in" expression ")" statement ;
 
-    forOfIterator              ::=  "for" "await"? "(" variable "of" iterable ")" statement ;
+    forOfIterator              ::=  "for" "await"? "(" variable "of" expression ")" statement ;
 
-    whileIterator              ::=  "while" "(" condition ")" statement ;
+    whileIterator              ::=  "while" "(" expression ")" statement ;
 
 
 
@@ -206,15 +207,9 @@ const bnf = `
 
     try                        ::=  "try" "{" statement+ "}" ;
 
-    catch                      ::=  "catch" "(" exception ")" "{" statement+ "}" ;
+    catch                      ::=  "catch" "(" argument ")" "{" statement+ "}" ;
 
     finally                    ::=  "finally" "{" statement+ "}" ;
-
-    iterable                   ::=  object ;
-
-    condition                  ::=  expression ;
-
-    exception                  ::=  expression ;
 
     initialiser                ::=  expression | "var" vars | "let" lets ;
 
@@ -230,13 +225,17 @@ const bnf = `
 
 
 
-    var                        ::=  variable ( "=" expression )? | structure "=" expression ;
+    var                        ::=  variable ( "=" expression )? | destructure "=" expression ;
 
-    let                        ::=  variable ( "=" expression )? | structure "=" expression;
+    let                        ::=  variable ( "=" expression )? | destructure "=" expression;
 
-    const                      ::=  ( variable | structure ) "=" expression ;
+    const                      ::=  ( variable | destructure ) "=" expression ;
 
-    structure                  ::=  "[" name ( "," name )* "]" | "{" name ( "," name )* "}"; 
+    destructure                ::=  "[" name ( "=" expression )? ( "," name ( "=" expression )? )* "]" 
+
+                                 |  "{" name ( "=" expression )? ( "," name ( "=" expression )? )* "}"
+
+                                 ; 
 
 
 
@@ -246,6 +245,10 @@ const bnf = `
 
                                  |  "(" expression ")"
 
+                                 |  "{" ( property ( "," property )* )? "}"
+
+                                 |  "[" ( expression ( "," expression )* ","? )? "]"
+
                                  |  expression [operator] expression 
 
                                  |  expression "?" expression ":" expression
@@ -253,8 +256,6 @@ const bnf = `
                                  |  expression "instanceof" expression
 
                                  |  expression "in" expression 
-
-                                 |  expression "," expression 
 
                                  |  "typeof" ( expression | ( "(" expression ")") ) 
 
@@ -282,23 +283,9 @@ const bnf = `
 
                                  |  [string-literal]
 
-                                 |  "super" | "this" | "true" | "false" | "null"
+                                 |  "super" | "this" | "true" | "false" | "null" | "undefined"
 
                                  ;
-
-
-
-    importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
-
-    arrowFunction              ::=  ( argument | ( "(" arguments? ")" ) ) "=>" ( expression | ( "{" statement* "}" ) ) ; 
-
-
-
-    arguments                  ::=  argument ( "," argument )* ;
-
-    fields                     ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
-
-    names                      ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
 
 
 
@@ -315,6 +302,22 @@ const bnf = `
     jsxAttribute               ::=  name ( <NO_WHITESPACE>"=" ( ( <NO_WHITESPACE>[string-literal] ) | ( <NO_WHITESPACE>"{" expression "}" ) ) )? ;
 
     jsxText                    ::=  ( [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
+
+
+
+    property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | name ) ;
+
+    importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
+
+    arrowFunction              ::=  ( argument | ( "(" arguments? ")" ) ) "=>" ( expression | ( "{" statement* "}" ) ) ; 
+
+
+
+    arguments                  ::=  argument ( "," argument )* ;
+
+    fields                     ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
+
+    names                      ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
 
 
 
