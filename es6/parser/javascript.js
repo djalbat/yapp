@@ -242,17 +242,13 @@ const bnf = `
 
     expression                 ::=  jsx
     
-                                 |  expression "?" expression ":" expression
+                                 |  arrowFunction
 
-                                 |  expression<NO_WHITESPACE>[operator] 
-
-                                 |  expression<NO_WHITESPACE>"."<NO_WHITESPACE>name
-
-                                 |  expression<NO_WHITESPACE>"(" expression ")"
-
-                                 |  expression<NO_WHITESPACE>"[" expression "]"
+                                 |  "(" expression ")"
 
                                  |  expression [operator] expression 
+
+                                 |  expression "?" expression ":" expression
 
                                  |  expression "instanceof" expression
 
@@ -260,35 +256,41 @@ const bnf = `
 
                                  |  expression "," expression 
 
-                                 |  [operator]<NO_WHITESPACE>expression 
-
                                  |  "typeof" ( expression | ( "(" expression ")") ) 
 
                                  |  "void" ( expression | ( "(" expression ")") ) 
 
                                  |  "new" name<NO_WHITESPACE>"(" expression? ")"
 
-                                 |  "(" expression ")"
+                                 |  [operator]<NO_WHITESPACE>expression 
 
-                                 |  "super"
+                                 |  expression<NO_WHITESPACE>[operator] 
 
-                                 |  "this"
+                                 |  expression<NO_WHITESPACE>"."<NO_WHITESPACE>name
 
-                                 |  object 
+                                 |  expression<NO_WHITESPACE>"(" expression? ")"
+
+                                 |  expression<NO_WHITESPACE>"[" expression "]"
 
                                  |  variable 
  
                                  |  primitive 
+ 
+                                 |  importMeta 
+
+                                 |  arrowFunction 
+
+                                 |  [string-literal]
+
+                                 |  "super" | "this" | "true" | "false" | "null"
 
                                  ;
 
 
 
-    object                     ::=  importMeta ;
-
-    primitive                  ::=  "true" | "false" | "null";
-
     importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
+
+    arrowFunction              ::=  ( argument | ( "(" arguments? ")" ) ) "=>" ( expression | ( "{" statement* "}" ) ) ; 
 
 
 
@@ -308,7 +310,7 @@ const bnf = `
 
     jsxEndTag                  ::=  "</"<NO_WHITESPACE>name ">" ;
 
-    jsxAttribute               ::=  name ( <NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] )? ;
+    jsxAttribute               ::=  name ( <NO_WHITESPACE>"=" ( ( <NO_WHITESPACE>[string-literal] ) | ( <NO_WHITESPACE>"{" expression "}" ) ) )? ;
 
     jsxText                    ::=  ( [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
 

@@ -20,8 +20,8 @@ import "juxtapose";
 
 import { Body } from "easy";
 
-function simpleApp(selector) {
-  const body = new Body(selector);
+function simpleApp() {
+  const body = new Body();
 
   body.mount(
   
