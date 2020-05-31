@@ -165,7 +165,7 @@ const bnf = `
 
     doWhileIterator            ::=  "do" statement "while" "(" expression ")" ";" ;
 
-    forIterator                ::=  "for" "(" initialiser ( ";" expression )? ( ";" finalExpression )? ")" statement ;
+    forIterator                ::=  "for" "(" initialiser ( ";" expression )? ( ";" expression )? ")" statement ;
 
     forInIterator              ::=  "for" "(" variable "in" expression ")" statement ;
 
@@ -213,8 +213,6 @@ const bnf = `
 
     initialiser                ::=  expression | "var" vars | "let" lets ;
 
-    finalExpression            ::=  expression ;
-
 
 
     vars                       ::=  var ( "," var )* ;
@@ -261,7 +259,7 @@ const bnf = `
 
                                  |  "void" ( expression | ( "(" expression ")") ) 
 
-                                 |  "new" name<NO_WHITESPACE>"(" expression? ")"
+                                 |  "new" name<NO_WHITESPACE>"(" expressions? ")"
 
                                  |  [operator]<NO_WHITESPACE>expression 
 
@@ -269,9 +267,9 @@ const bnf = `
 
                                  |  expression<NO_WHITESPACE>"."<NO_WHITESPACE>name
 
-                                 |  expression<NO_WHITESPACE>"(" expression? ")"
+                                 |  expression<NO_WHITESPACE>"(" expressions? ")"
 
-                                 |  expression<NO_WHITESPACE>"[" expression "]"
+                                 |  expression<NO_WHITESPACE>"[" expressions "]"
 
                                  |  variable 
  
@@ -312,6 +310,8 @@ const bnf = `
     arrowFunction              ::=  ( argument | ( "(" arguments? ")" ) ) "=>" ( expression | ( "{" statement* "}" ) ) ; 
 
 
+
+    expressions                ::=  expression ( "," expression )* ;
 
     arguments                  ::=  argument ( "," argument )* ;
 
