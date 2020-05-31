@@ -302,13 +302,15 @@ const bnf = `
 
 
 
-    jsx                        ::=  jsxCompleteTag | jsxStartTag ( jsx | jsxText )? jsxEndTag ;
+    jsx                        ::=  jsxCompleteTag | jsxStartTag ( jsx | jsxExpression | jsxText )* jsxEndTag ;
 
     jsxCompleteTag             ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
 
     jsxStartTag                ::=  "<"<NO_WHITESPACE>name jsxAttribute* ">" ;
 
     jsxEndTag                  ::=  "</"<NO_WHITESPACE>name ">" ;
+
+    jsxExpression              ::=  "{" expression "}" ;
 
     jsxAttribute               ::=  name ( <NO_WHITESPACE>"=" ( ( <NO_WHITESPACE>[string-literal] ) | ( <NO_WHITESPACE>"{" expression "}" ) ) )? ;
 
