@@ -9,7 +9,7 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 const bnf = `
 
-    document                   ::=  preamble? expression ( statement | error )* ;
+    document                   ::=  preamble? ( statement | error )* ;
 
 
 
@@ -74,6 +74,8 @@ const bnf = `
                                  |  throwStatemennt 
 
                                  |  deleteStatement 
+
+                                 |  expressionStatement
 
                                  |  tryCatchFinallyStatement 
 
@@ -153,6 +155,8 @@ const bnf = `
     throwStatement             ::=  "throw" exception ";" ;
 
     deleteStatement            ::=  "delete" expression ";" ;
+
+    expressionStatement        ::=  expression! ";" ;
 
     tryCatchFinallyStatement   ::=  try ( ( catch* finally ) | catch+ ) ;
 
@@ -236,9 +240,17 @@ const bnf = `
 
 
 
-    expression                 ::=  "(" expression ")"
-
+    expression                 ::=  jsx
+    
                                  |  expression "?" expression ":" expression
+
+                                 |  expression<NO_WHITESPACE>[operator] 
+
+                                 |  expression<NO_WHITESPACE>"."<NO_WHITESPACE>name
+
+                                 |  expression<NO_WHITESPACE>"(" expression ")"
+
+                                 |  expression<NO_WHITESPACE>"[" expression "]"
 
                                  |  expression [operator] expression 
 
@@ -248,23 +260,19 @@ const bnf = `
 
                                  |  expression "," expression 
 
-                                 |  expression [operator] 
-
-                                 |  expression<NO_WHITESPACE>"."<NO_WHITESPACE>name 
-
-                                 |  expression<NO_WHITESPACE>"[" expression "]"
-
-                                 |  [operator] expression 
+                                 |  [operator]<NO_WHITESPACE>expression 
 
                                  |  "typeof" ( expression | ( "(" expression ")") ) 
 
                                  |  "void" ( expression | ( "(" expression ")") ) 
 
-                                 |  "new" name<NO_WHITESPACE>"(" arguments? ")"
+                                 |  "new" name<NO_WHITESPACE>"(" expression? ")"
 
-                                 |  "this"
+                                 |  "(" expression ")"
 
                                  |  "super"
+
+                                 |  "this"
 
                                  |  object 
 
@@ -272,21 +280,13 @@ const bnf = `
  
                                  |  primitive 
 
-                                 |  jsx 
-
                                  ;
-
-
 
 
 
     object                     ::=  importMeta ;
 
-
-
-    primitive                  ::=  "true" | "false" ;
-
-
+    primitive                  ::=  "true" | "false" | "null";
 
     importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
 
@@ -300,6 +300,20 @@ const bnf = `
 
 
 
+    jsx                        ::=  jsxCompleteTag | jsxStartTag ( jsx | jsxText )? jsxEndTag ;
+
+    jsxCompleteTag             ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
+
+    jsxStartTag                ::=  "<"<NO_WHITESPACE>name jsxAttribute* ">" ;
+
+    jsxEndTag                  ::=  "</"<NO_WHITESPACE>name ">" ;
+
+    jsxAttribute               ::=  name ( <NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] )? ;
+
+    jsxText                    ::=  ( [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
+
+
+
     argument                   ::=  [identifier] ;
 
     variable                   ::=  [identifier] ;
@@ -307,60 +321,6 @@ const bnf = `
     label                      ::=  [identifier] ; 
 
     name                       ::=  [identifier] ; 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    jsx                        ::=  jsxCompleteTag | jsxStartTag jsxText jsxEndTag ;
-
-
-    jsxCompleteTag             ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
-
-
-    jsxStartTag                ::=  "<"<NO_WHITESPACE>name jsxAttribute* ">" ;
-
-
-    jsxEndTag                  ::=  "</"<NO_WHITESPACE>name ">" ;
-
-
-    jsxAttribute               ::=  jsxStandardAttribute | jsxBooleanAttribute ;
-
-
-    jsxStandardAttribute       ::=  name<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
-
-
-    jsxBooleanAttribute        ::=  name ;
-
-
-    jsxText                    ::=  ( [special] | [keyword] | [identifier] | [unassigned] )+ ;
-
-
-    argument                   ::=  [identifier] ;
 
 
 
