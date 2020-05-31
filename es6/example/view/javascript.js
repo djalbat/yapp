@@ -20,17 +20,24 @@ import "juxtapose";
 
 import { Body } from "easy";
 
-export default function simpleApp() {
+function simpleApp() {
   const body = new Body();
 
   body.mount(
-  
+
     <p>
       A simple application.
     </p>
-    
+
   );
 }
+
+export default withStyle(simpleApp)\`
+
+  color: \${backgroundColour};
+
+\`;
+
 `;
 
   static defaultProperties = {

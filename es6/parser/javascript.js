@@ -243,6 +243,8 @@ const bnf = `
     
                                  |  arrowFunction
 
+                                 |  templateLiteral
+
                                  |  "(" expression ")"
 
                                  |  "{" ( property ( "," property )* )? "}"
@@ -269,9 +271,9 @@ const bnf = `
 
                                  |  expression<NO_WHITESPACE>"."<NO_WHITESPACE>name
 
-                                 |  expression<NO_WHITESPACE>"(" expressions? ")"
-
                                  |  expression<NO_WHITESPACE>"[" expressions "]"
+
+                                 |  expression<NO_WHITESPACE>"(" expressions? ")"<NO_WHITESPACE>templateLiteral?
 
                                  |  variable 
  
@@ -289,7 +291,7 @@ const bnf = `
 
 
 
-    jsx                        ::=  jsxCompleteTag | jsxStartTag ( jsx | jsxExpression | jsxText )* jsxEndTag ;
+    jsx                        ::=  jsxCompleteTag | jsxStartTag ( jsx | ( "{" expression? "}" ) | text )* jsxEndTag ;
 
     jsxCompleteTag             ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
 
@@ -297,11 +299,7 @@ const bnf = `
 
     jsxEndTag                  ::=  "</"<NO_WHITESPACE>name ">" ;
 
-    jsxExpression              ::=  "{" expression "}" ;
-
     jsxAttribute               ::=  name ( <NO_WHITESPACE>"=" ( ( <NO_WHITESPACE>[string-literal] ) | ( <NO_WHITESPACE>"{" expression "}" ) ) )? ;
-
-    jsxText                    ::=  ( [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
 
 
 
@@ -315,11 +313,17 @@ const bnf = `
     
 
 
+    arrowFunction              ::=  ( argument | ( "(" arguments? ")" ) ) "=>" ( expression | ( "{" statement* "}" ) ) ; 
+
+    templateLiteral            ::=  "\`" ( ( "\${" expression? "}" ) | text ) * "\`" ; 
+
+
+
+    text                       ::=  ( [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
+
     property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | name ) ;
 
     importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
-
-    arrowFunction              ::=  ( argument | ( "(" arguments? ")" ) ) "=>" ( expression | ( "{" statement* "}" ) ) ; 
 
 
 
