@@ -20,7 +20,7 @@ import "juxtapose";
 
 import { Body } from "easy";
 
-function simpleApp() {
+export default function simpleApp() {
   const body = new Body();
 
   body.mount(
@@ -31,8 +31,6 @@ function simpleApp() {
     
   );
 }
-
-export default simpleApp;
 `;
 
   static defaultProperties = {

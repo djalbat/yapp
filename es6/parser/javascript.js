@@ -239,6 +239,8 @@ const bnf = `
 
     expression                 ::=  jsx
     
+                                 |  json
+    
                                  |  arrowFunction
 
                                  |  "(" expression ")"
@@ -301,6 +303,16 @@ const bnf = `
 
     jsxText                    ::=  ( [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
 
+
+
+    json                       ::=  jsonArray | jsonObject ;
+
+    jsonArray                  ::=  "[" ( jsonElement ( "," jsonElement )* )? "]" ;
+
+    jsonObject                 ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
+    
+    jsonElement                ::=  json | "true" | "false" | "null" ;
+    
 
 
     property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | name ) ;
