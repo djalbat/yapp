@@ -10,38 +10,13 @@ import { lineNumbersColour } from "./scheme/view";
 
 class LineNumbers extends Element {
   update(lineCount) {
-    const previousLineCount = this.getPreviousLineCount();
-
-    if (lineCount !== previousLineCount) {
-      const previousLineCount = lineCount;  ///
-
-      this.setPreviousLineCount(previousLineCount);
-
-      this.html(lineCount);
-    }
-  }
-
-  html(lineCount) {
     let html = "";
 
     for (let lineNumber = 1; lineNumber <= lineCount; lineNumber++) {
       html = `${html}${lineNumber}<br/>`;
     }
 
-    super.html(html);
-  }
-
-  getPreviousLineCount() {
-    const state = this.getState(),
-          { previousLineCount } = state;
-
-    return previousLineCount;
-  }
-
-  setPreviousLineCount(previousLineCount) {
-    this.updateState({
-      previousLineCount
-    });
+    this.html(html);
   }
 
   parentContext() {
@@ -52,39 +27,18 @@ class LineNumbers extends Element {
     });
   }
 
-  setInitialState() {
-    const previousLineCount = 0;
-
-    this.setState({
-      previousLineCount
-    });
-  }
-
-  initialise(properties) {
-    this.setInitialState();
-  }
-
   static tagName = "div";
 
   static defaultProperties = {
     className: "line-numbers"
   };
-
-  static fromClass(Class, properties) {
-    const lineNumbers = Element.fromClass(Class, properties);
-
-    lineNumbers.initialise(properties);
-
-    return lineNumbers;
-  }
 }
 
 export default withStyle(LineNumbers)`
 
-  float: left;
-  margin-left: 6px;
-  margin-right: 6px;
   color: ${lineNumbersColour};
+  float: left;
+  margin: 0 6px 0 6px;
   
   ${firaCodeFontMixin}
   
