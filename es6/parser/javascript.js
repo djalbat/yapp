@@ -275,6 +275,8 @@ const bnf = `
 
                                  |  expression<NO_WHITESPACE>"(" expressions? ")"<NO_WHITESPACE>templateLiteral?
 
+                                 |  [number]
+
                                  |  variable 
  
                                  |  primitive 
@@ -309,17 +311,17 @@ const bnf = `
 
     jsonObject                 ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
     
-    jsonElement                ::=  json | "true" | "false" | "null" ;
+    jsonElement                ::=  json | [number] | "true" | "false" | "null" ;
     
 
 
     arrowFunction              ::=  ( argument | ( "(" arguments? ")" ) ) "=>" ( expression | ( "{" statement* "}" ) ) ; 
 
-    templateLiteral            ::=  "\`" ( ( "\${" expression? "}" ) | text ) * "\`" ; 
+    templateLiteral            ::=  "\`" ( ( "${" expression? "}" ) | text ) * "\`" ; 
 
 
 
-    text                       ::=  ( [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
+    text                       ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
 
     property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | name ) ;
 

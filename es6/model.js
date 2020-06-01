@@ -50,7 +50,7 @@ class Model {
     if (this.node !== null) {
       this.resetOverlayTokenMap();
 
-      this.overlayTokens();
+      // this.overlayTokens();
     }
   }
 
