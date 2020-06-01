@@ -6,9 +6,10 @@ import javaScriptSyntaxStyle from "../style/syntax/javaScript";
 
 const syntaxStyle = `
     
-  .syntax,
-  .syntax > * {
+  .syntax {
+  
     ${firaCodeFontMixin}
+    
   }
 
   ${defaultSyntaxStyle}
