@@ -1,31 +1,18 @@
 "use strict";
 
-import { queryUtilities } from "occam-dom";
-
-import ErrorOverlayToken from "./token/overlay/error";
-
-const { queryByExpression } = queryUtilities;
-
 class Model {
-  overlayTokenMap = {} ;
-
-  OverlayTokenMap = {
-    "//error/@*": ErrorOverlayToken
-  };
-
-  constructor(lexer, parser, tokens, node) {
+  constructor(lexer, parser, processor, tokens, node) {
     this.lexer = lexer;
     this.parser = parser;
+    this.processor = processor;
     this.tokens = tokens;
     this.node = node;
   }
 
-  getLanguage() {
-    return this.language;
-  }
+  getLanguage() { return this.language; }
 
   getTokens() {
-    const tokens = this.tokens.map((token, index) => this.overlayTokenMap[index] || token); ///
+    const tokens = this.processor.getTokens(this.tokens);
 
     return tokens;
   }
@@ -47,40 +34,13 @@ class Model {
 
     this.node = this.parser.parse(this.tokens);
 
-    if (this.node !== null) {
-      this.resetOverlayTokenMap();
-
-      // this.overlayTokens();
-    }
+    this.processor.process(this.tokens, this.node);
   }
 
-  overlayTokens() {
-    const queryExpressions = Object.keys(this.OverlayTokenMap);
-
-    queryExpressions.forEach((queryExpression) => {
-      const nodes = queryByExpression(this.node, queryExpression),
-            OverlayToken = this.OverlayTokenMap[queryExpression];
-
-      nodes.forEach((node) => {
-        const significantToken = node.getSignificantToken(),
-              overlaidToken = significantToken, ///
-              overlaidTokenIndex = this.tokens.indexOf(overlaidToken),
-              overlayTokenIndex = overlaidTokenIndex,  ///
-              overlayToken = OverlayToken.fromOverlaidToken(overlaidToken);
-
-        this.overlayTokenMap[overlayTokenIndex] = overlayToken;
-      });
-    });
-  }
-
-  resetOverlayTokenMap() {
-    this.overlayTokenMap = {};
-  }
-
-  static fromLexerAndParser(Class, lexer, parser) {
+  static fromLexerParserAndProcessor(Class, lexer, parser, processor) {
     const tokens = null,
           node = null,
-          model = new Class(lexer, parser, tokens, node);
+          model = new Class(lexer, parser, processor, tokens, node);
 
     return model;
   }

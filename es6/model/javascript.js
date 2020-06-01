@@ -3,6 +3,7 @@
 import Model from "../model";
 import JavaScriptLexer from "../lexer/javascript";
 import JavaScriptParser from "../parser/javascript";
+import JavaScriptProcessor from "../processor/javascript";
 
 import { Query } from "occam-dom";
 
@@ -38,80 +39,82 @@ export default class JavaScriptModel extends Model {
   //   this.overlayFunctionNodes(node, tokens);
   // }
 
-  overlayJSXNOdes(node, tokens) {
-    const jsxNodes = jsxQuery.execute(node);
+  // overlayJSXNOdes(node, tokens) {
+  //   const jsxNodes = jsxQuery.execute(node);
+  //
+  //   jsxNodes.forEach((jsxNode) => {
+  //     const jsxNodeFirstSignificantToken = jsxNode.getFirstSignificantToken(),
+  //           jsxNodeLastSignificantToken = jsxNode.getLastSignificantToken(),
+  //           firstJSXToken = jsxNodeFirstSignificantToken, ///
+  //           lastJSXToken = jsxNodeLastSignificantToken,
+  //           firstJSXTokenIndex = tokens.indexOf(firstJSXToken),
+  //           lastJSXTokenIndex = tokens.indexOf(lastJSXToken);
+  //
+  //     for (let jsxTokenIndex = firstJSXTokenIndex; jsxTokenIndex <= lastJSXTokenIndex; jsxTokenIndex++) {
+  //       const jsxToken = tokens[jsxTokenIndex],
+  //             overlaidToken = jsxToken, ///
+  //             overlayTokenIndex = jsxTokenIndex,  ///
+  //             jsxOverlayToken = JSXOverlayToken.fromOverlaidToken(overlaidToken);
+  //
+  //       this.overlayTokenMap[overlayTokenIndex] = jsxOverlayToken;
+  //     }
+  //   });
+  // }
 
-    jsxNodes.forEach((jsxNode) => {
-      const jsxNodeFirstSignificantToken = jsxNode.getFirstSignificantToken(),
-            jsxNodeLastSignificantToken = jsxNode.getLastSignificantToken(),
-            firstJSXToken = jsxNodeFirstSignificantToken, ///
-            lastJSXToken = jsxNodeLastSignificantToken,
-            firstJSXTokenIndex = tokens.indexOf(firstJSXToken),
-            lastJSXTokenIndex = tokens.indexOf(lastJSXToken);
+  // overlayFunctionNodes(node, tokens) {
+  //   const functionNodes = functionQuery.execute(node);
+  //
+  //   functionNodes.forEach((functionNode) => {
+  //     const argumentNodes = argumentQuery.execute(functionNode),
+  //           variableNodes = variableQuery.execute(functionNode),
+  //           argumentNames = this.overlayArgumentNodes(argumentNodes, tokens);
+  //
+  //     this.overlayVariableNodes(variableNodes, argumentNames, tokens);
+  //   });
+  // }
 
-      for (let jsxTokenIndex = firstJSXTokenIndex; jsxTokenIndex <= lastJSXTokenIndex; jsxTokenIndex++) {
-        const jsxToken = tokens[jsxTokenIndex],
-              overlaidToken = jsxToken, ///
-              overlayTokenIndex = jsxTokenIndex,  ///
-              jsxOverlayToken = JSXOverlayToken.fromOverlaidToken(overlaidToken);
+  // overlayArgumentNodes(argumentTerminalNodes, tokens) {
+  //   const argumentNames = argumentTerminalNodes.map((argumentTerminalNode) => {
+  //     const significantToken = argumentTerminalNode.getSignificantToken(),
+  //           content = significantToken.getContent(),
+  //           argumentName = content, ///
+  //           overlaidToken = significantToken, ///
+  //           overlaidTokenIndex = tokens.indexOf(overlaidToken),
+  //           overlayTokenIndex = overlaidTokenIndex,  ///
+  //           argumentOverlayToken = ArgumentOverlayToken.fromOverlaidToken(overlaidToken);
+  //
+  //     this.overlayTokenMap[overlayTokenIndex] = argumentOverlayToken;
+  //
+  //     return argumentName;
+  //   });
+  //
+  //   return argumentNames;
+  // }
 
-        this.overlayTokenMap[overlayTokenIndex] = jsxOverlayToken;
-      }
-    });
-  }
-
-  overlayFunctionNodes(node, tokens) {
-    const functionNodes = functionQuery.execute(node);
-
-    functionNodes.forEach((functionNode) => {
-      const argumentNodes = argumentQuery.execute(functionNode),
-            variableNodes = variableQuery.execute(functionNode),
-            argumentNames = this.overlayArgumentNodes(argumentNodes, tokens);
-
-      this.overlayVariableNodes(variableNodes, argumentNames, tokens);
-    });
-  }
-
-  overlayArgumentNodes(argumentTerminalNodes, tokens) {
-    const argumentNames = argumentTerminalNodes.map((argumentTerminalNode) => {
-      const significantToken = argumentTerminalNode.getSignificantToken(),
-            content = significantToken.getContent(),
-            argumentName = content, ///
-            overlaidToken = significantToken, ///
-            overlaidTokenIndex = tokens.indexOf(overlaidToken), ///
-            overlayTokenIndex = overlaidTokenIndex,  ///
-            argumentOverlayToken = ArgumentOverlayToken.fromOverlaidToken(overlaidToken);
-
-      this.overlayTokenMap[overlayTokenIndex] = argumentOverlayToken;
-
-      return argumentName;
-    });
-
-    return argumentNames;
-  }
-
-  overlayVariableNodes(variableTerminalNodes, argumentNames, tokens) {
-    variableTerminalNodes.forEach((variableTerminalNode) => {
-      const significantToken = variableTerminalNode.getSignificantToken(),
-            content = significantToken.getContent(),
-            name = content, ///
-            overlaidToken = significantToken, ///
-            overlaidTokenIndex = tokens.indexOf(overlaidToken), ///
-            overlayTokenIndex = overlaidTokenIndex,  ///
-            variableOverlayToken = (argumentNames.includes(name)) ?
-                                      ArgumentOverlayToken.fromOverlaidToken(overlaidToken) :
-                                        VariableOverlayToken.fromOverlaidToken(overlaidToken);
-
-      this.overlayTokenMap[overlayTokenIndex] = variableOverlayToken;
-    });
-  }
+  // overlayVariableNodes(variableTerminalNodes, argumentNames, tokens) {
+  //   variableTerminalNodes.forEach((variableTerminalNode) => {
+  //     const significantToken = variableTerminalNode.getSignificantToken(),
+  //           content = significantToken.getContent(),
+  //           name = content, ///
+  //           overlaidToken = significantToken, ///
+  //           overlaidTokenIndex = tokens.indexOf(overlaidToken), ///
+  //           overlayTokenIndex = overlaidTokenIndex,  ///
+  //           variableOverlayToken = (argumentNames.includes(name)) ?
+  //                                     ArgumentOverlayToken.fromOverlaidToken(overlaidToken) :
+  //                                       VariableOverlayToken.fromOverlaidToken(overlaidToken);
+  //
+  //     this.overlayTokenMap[overlayTokenIndex] = variableOverlayToken;
+  //   });
+  // }
 
   static fromNothing() {
     const javaScriptLexer = JavaScriptLexer.fromNothing(),
           javaScriptParser = JavaScriptParser.fromNothing(),
+          javaScriptProcessor = JavaScriptProcessor.fromNothing(),
           lexer = javaScriptLexer,  ///
           parser = javaScriptParser,  ///
-          javaScriptModel = Model.fromLexerAndParser(JavaScriptModel, lexer, parser);
+          processor = javaScriptProcessor,  ///
+          javaScriptModel = Model.fromLexerParserAndProcessor(JavaScriptModel, lexer, parser, processor);
 
     return javaScriptModel;
   }

@@ -4,30 +4,34 @@ import Textarea from "../textarea";
 
 export default class TokensTextarea extends Textarea {
   setTokens(tokens) {
-    let lineNumber = 1,
-        previousToken = null;
+    if (tokens !== null) {
+      let lineNumber = 1,
+          previousToken = null;
 
-    const html = tokens.reduce((html, token) => {
-      const tokenHTML = token.asHTML();
+      const html = tokens.reduce((html, token) => {
+        const tokenHTML = token.asHTML();
 
-      if (previousToken === null) {
-        html += `${lineNumber++}: `;
-      } else {
-        const previousTokenEndOfLineToken = previousToken.isEndOfLineToken();
-
-        if (previousTokenEndOfLineToken) {
+        if (previousToken === null) {
           html += `${lineNumber++}: `;
+        } else {
+          const previousTokenEndOfLineToken = previousToken.isEndOfLineToken();
+
+          if (previousTokenEndOfLineToken) {
+            html += `${lineNumber++}: `;
+          }
         }
-      }
 
-      html += tokenHTML;
+        html += tokenHTML;
 
-      previousToken = token;
+        previousToken = token;
 
-      return html;
-    }, "");
+        return html;
+      }, "");
 
-    this.html(html);
+      this.html(html);
+    } else {
+      this.clearTokens();
+    }
   }
 
   clearTokens() {

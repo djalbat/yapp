@@ -55,8 +55,8 @@ class View extends Element {
     try {
       let parseTree = null;
 
-      const yappNode = this.getYappNode(),
-            yappTokens = this.getYappTokens(),
+      const yappTokens = this.getYappTokens(),
+            yappNode = this.getYappNode(),
             tokens = yappTokens,  ///
             node = yappNode;  ///
 

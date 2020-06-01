@@ -17,7 +17,7 @@
     "necessary": "^4.1.10",
     "occam-dom": "^2.0.20",
     "occam-grammar-utilities": "^4.0.20",
-    "occam-lexers": "^11.0.42",
+    "occam-lexers": "^11.0.47",
     "occam-parsers": "^11.0.35"
   },
   "devDependencies": {
