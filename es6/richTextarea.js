@@ -4,8 +4,6 @@ import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
 
-import firaCodeFontMixin from "./mixin/font/firaCode";
-
 import { caretColour, selectionBackgroundColour } from "./scheme/view";
 
 export default withStyle(class extends RichTextarea {
@@ -70,11 +68,15 @@ export default withStyle(class extends RichTextarea {
   overflow-wrap: normal;
   background-color: transparent;
   
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  text-rendering: inherit;
+  font-feature-settings: inherit;
+
   ::selection {
     color: ${caretColour};
     background-color: ${selectionBackgroundColour};
   }
-
-  ${firaCodeFontMixin}
 
 `;

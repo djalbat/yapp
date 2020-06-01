@@ -4,8 +4,6 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import firaCodeFontMixin from "./mixin/font/firaCode";
-
 import { lineNumbersColour } from "./scheme/view";
 
 class LineNumbers extends Element {
@@ -39,7 +37,5 @@ export default withStyle(LineNumbers)`
   color: ${lineNumbersColour};
   float: left;
   margin: 0 6px 0 6px;
-  
-  ${firaCodeFontMixin}
   
 `;
