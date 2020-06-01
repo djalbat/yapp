@@ -59,7 +59,7 @@ export default withStyle(class extends RichTextarea {
   cursor: auto;
   resize: none;
   outline: none;
-  z-index: 0;
+  z-index: 1;
   tab-size: 2;
   position: absolute;
   border-top: none;
@@ -71,6 +71,7 @@ export default withStyle(class extends RichTextarea {
   background-color: transparent;
   
   ::selection {
+    color: ${caretColour};
     background-color: ${selectionBackgroundColour};
   }
 

@@ -95,11 +95,10 @@ class Syntax extends BoundedScrollableElement {
 
 export default withStyle(Syntax)`
 
-  z-index: 1;
+  z-index: 0;
   overflow: hidden;
   position: absolute;
   white-space: pre;
-  user-select: none;
   pointer-events: none;
   background-color: transparent;
   
