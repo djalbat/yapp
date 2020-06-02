@@ -37,7 +37,6 @@ export default withStyle(simpleApp)\`
   color: \${backgroundColour};
 
 \`;
-
 `;
 
   static defaultProperties = {

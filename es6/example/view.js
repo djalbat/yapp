@@ -46,12 +46,34 @@ class View extends Element {
       this.setYappParser(yappParser);
 
       this.updateYapp();
+
+      this.update();
     } catch (error) {
       console.log(error);
     }
   }
 
   contentChangeHandler() {
+    this.update();
+  }
+
+  keyUpHandler() {
+    this.grammarChangeHandler();  ///
+  }
+
+  dragHandler() {
+    const leftSizeableDivWidth = this.getLeftSizeableDivWidth(),
+          topSizeableDivHeight = this.getTopSizeableDivHeight(),
+          yappWidth = leftSizeableDivWidth, ///
+          yappHeight = topSizeableDivHeight;  ///
+
+    this.setYappWidth(yappWidth);
+    this.setYappHeight(yappHeight);
+
+    this.resizeYapp();
+  }
+
+  update() {
     try {
       let parseTree = null;
 
@@ -78,28 +100,10 @@ class View extends Element {
     }
   }
 
-  keyUpHandler() {
-    this.grammarChangeHandler();  ///
-
-    this.contentChangeHandler();  ///
-  }
-
-  dragHandler() {
-    const leftSizeableDivWidth = this.getLeftSizeableDivWidth(),
-          topSizeableDivHeight = this.getTopSizeableDivHeight(),
-          yappWidth = leftSizeableDivWidth, ///
-          yappHeight = topSizeableDivHeight;  ///
-
-    this.setYappWidth(yappWidth);
-    this.setYappHeight(yappHeight);
-
-    this.resizeYapp();
-  }
-
   didMount() {
     this.dragHandler(); ///
 
-    this.contentChangeHandler();  ///
+    this.update();
   }
 
   willUnmount() {
