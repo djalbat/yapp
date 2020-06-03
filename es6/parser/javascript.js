@@ -89,7 +89,7 @@ const bnf = `
 
                                  |  whileIterator 
 
-                                 |  "debugger" 
+                                 |  debuggerStatement
 
                                  ;
 
@@ -172,6 +172,10 @@ const bnf = `
     forOfIterator              ::=  "for" "await"? "(" variable "of" expression ")" statement ;
 
     whileIterator              ::=  "while" "(" expression ")" statement ;
+
+
+
+    debuggerStatement          ::=  "debugger" ";"? ;
 
 
 

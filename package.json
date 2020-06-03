@@ -10,10 +10,10 @@
     "url": "https://github.com/djalbat/yapp"
   },
   "dependencies": {
-    "easy": "^10.3.12",
-    "easy-richtextarea": "^2.2.35",
-    "easy-with-style": "^2.0.26",
-    "juxtapose": "^2.0.14",
+    "easy": "^11.0.1",
+    "easy-richtextarea": "^3.0.1",
+    "easy-with-style": "^3.0.0",
+    "juxtapose": "^3.0.0",
     "necessary": "^4.1.10",
     "occam-dom": "^2.0.20",
     "occam-grammar-utilities": "^4.0.20",
@@ -26,7 +26,7 @@
     "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
     "browserify": "^16.5.0",
-    "easy-layout": "^4.1.28",
+    "easy-layout": "^5.0.1",
     "watchful-cli": "^1.4.6"
   },
   "scripts": {

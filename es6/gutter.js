@@ -47,7 +47,7 @@ class Gutter extends Element {
     });
   }
 
-  childElements(properties) {
+  childElements() {
     return ([
 
       <LineNumbers />,
@@ -77,7 +77,7 @@ class Gutter extends Element {
     });
   }
 
-  initialise(properties) {
+  initialise() {
     this.assignContext();
 
     this.setInitialState();
@@ -92,7 +92,7 @@ class Gutter extends Element {
   static fromClass(Class, properties) {
     const gutter = Element.fromClass(Class, properties);
 
-    gutter.initialise(properties);
+    gutter.initialise();
     
     return gutter;
   }

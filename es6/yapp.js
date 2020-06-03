@@ -11,10 +11,8 @@ import { modelFromLanguage } from "./models";
 import { contentFromChildElements } from "./utilities/content";
 
 class Yapp extends Element {
-  constructor(selectorOrDOMElement, contentChangeHandler, model) {
-    super(selectorOrDOMElement);
-
-    this.contentChangeHandler = contentChangeHandler;
+  constructor(selector, model) {
+    super(selector);
 
     this.model = model;
   }
@@ -74,9 +72,12 @@ class Yapp extends Element {
           contentChanged = richTextarea.hasContentChanged();
 
     if (contentChanged) {
+      const { onContentChange } = this.properties,
+            contentChangeHandler = onContentChange; ///
+
       this.update();
 
-      this.contentChangeHandler && this.contentChangeHandler(event, element);
+      contentChangeHandler && contentChangeHandler(event, element); ///
     }
   }
 
@@ -88,7 +89,7 @@ class Yapp extends Element {
     this.scrollView(scrollTop, scrollLeft);
   }
 
-  childElements(properties) {
+  childElements() {
     const changeHandler = this.changeHandler.bind(this),
           scrollHandler = this.scrollHandler.bind(this);
 
@@ -124,10 +125,10 @@ class Yapp extends Element {
     });
   }
 
-  initialise(properties) {
+  initialise() {
     this.assignContext();
 
-    const { childElements, autoResize = "true" } = properties,
+    const { childElements, autoResize = "true" } = this.properties,
           language = this.model.getLanguage(),
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
@@ -151,12 +152,11 @@ class Yapp extends Element {
   };
 
   static fromClass(Class, properties) {
-    const { language, onContentChange = null } = properties,
-          contentChangeHandler = onContentChange, ///
+    const { language } = properties,
           model = modelFromLanguage(language),
-          yapp = Element.fromClass(Class, properties, contentChangeHandler, model);
+          yapp = Element.fromClass(Class, properties, model);
 
-    yapp.initialise(properties);
+    yapp.initialise();
 
     return yapp;
   }

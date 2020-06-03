@@ -110,7 +110,7 @@ class View extends Element {
     ///
   }
 
-  childElements(properties) {
+  childElements() {
     const dragHandler = this.dragHandler.bind(this),
           keyUpHandler = this.keyUpHandler.bind(this),
           contentChangeHandler = this.contentChangeHandler.bind(this);
@@ -174,7 +174,7 @@ class View extends Element {
     ]);
   }
 
-  initialise(properties) {
+  initialise() {
     this.assignContext();
 
     const { bnf } = this.Parser,
@@ -195,7 +195,7 @@ class View extends Element {
   static fromClass(Class, properties) {
     const exampleView = Element.fromClass(Class, properties);
 
-    exampleView.initialise(properties);
+    exampleView.initialise();
 
     return exampleView
   }

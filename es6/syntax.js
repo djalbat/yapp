@@ -74,7 +74,7 @@ class Syntax extends BoundedScrollableElement {
     this.setState(initialState);
   }
 
-  initialise(properties) {
+  initialise() {
     this.setInitialState();
   }
 
@@ -87,7 +87,7 @@ class Syntax extends BoundedScrollableElement {
   static fromClass(Class, properties) {
     const syntax = BoundedScrollableElement.fromClass(Class, properties);
 
-    syntax.initialise(properties);
+    syntax.initialise();
 
     return syntax;
   }

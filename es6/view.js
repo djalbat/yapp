@@ -148,7 +148,7 @@ class View extends Element {
     });
   }
 
-  childElements(properties) {
+  childElements() {
     return ([
 
       <Gutter />,
@@ -185,7 +185,7 @@ class View extends Element {
     })
   }
 
-  initialise(properties) {
+  initialise() {
     this.assignContext([
       "getGutterWidth",
       "setSyntaxBounds",
@@ -208,7 +208,7 @@ class View extends Element {
   static fromClass(Class, properties) {
     const view = Element.fromClass(Class, properties);
 
-    view.initialise(properties);
+    view.initialise();
     
     return view;
   }
