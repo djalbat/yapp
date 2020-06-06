@@ -5,7 +5,6 @@ import { Query } from "occam-dom";
 import Processor from "../processor";
 import JSXToken from "../token/significant/jsx";
 import ErrorToken from "../token/significant/error";
-import MethodToken from "../token/significant/method";
 import VariableToken from "../token/significant/variable";
 import ArgumentToken from "../token/significant/argument";
 
@@ -13,30 +12,41 @@ const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpression("//jsx"),
       argumentTerminalNodeQuery = Query.fromExpression("//argument/@*"),
       variableTerminalNodeQuery = Query.fromExpression("//variable/@*"),
-      functionNonTerminalNodeQuery = Query.fromExpression("//function");
+      functionNonTerminalNodeQuery = Query.fromExpression("//function"),
+      constVariableTerminalNodeQuery = Query.fromExpression("//constDeclaration//variable[0]/@*");
 
 export default class JavaScriptProcessor extends Processor {
   process(tokens, node) {
     if (node !== null) {
-      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, (content) => ErrorToken.fromContent(content), tokens, node);
+      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, (content) => ErrorToken, tokens, node);
 
-      this.replaceNonTerminalNodesSignificantTokens(jsxNonTerminalNodeQuery, (content) => JSXToken.fromContent(content), tokens, node);
+      this.replaceNonTerminalNodesSignificantTokens(jsxNonTerminalNodeQuery, (content) => JSXToken, tokens, node);
 
-      const functionNodes = functionNonTerminalNodeQuery.execute(node);
+      const functionNonTerminalNodes = functionNonTerminalNodeQuery.execute(node);
 
-      functionNodes.forEach((functionNode) => {
-        const argumentNames = this.replaceTerminalNodesSignificantToken(argumentTerminalNodeQuery, (content) => ArgumentToken.fromContent(content), tokens, functionNode);
+      functionNonTerminalNodes.forEach((functionNonTerminalNode) => {
+        const argumentNames = this.replaceTerminalNodesSignificantToken(argumentTerminalNodeQuery, (content) => ArgumentToken, tokens, functionNonTerminalNode),
+              constNames = this.replaceTerminalNodesSignificantToken(constVariableTerminalNodeQuery, (content) => VariableToken, tokens, functionNonTerminalNode);
 
         this.replaceTerminalNodesSignificantToken(variableTerminalNodeQuery, (content) => {
-          const variableName = content, ///
-                argumentNamesIncludesVariableName = argumentNames.includes(variableName),
-                Token = (argumentNamesIncludesVariableName) ?
-                          ArgumentToken :
-                            VariableToken,
-                token = Token.fromContent(content);
+          let Token;
 
-          return token;
-        }, tokens, functionNode);
+          const variableName = content, ///
+                constNamesIncludesVariableName = constNames.includes(variableName),
+                argumentNamesIncludesVariableName = argumentNames.includes(variableName);
+
+          if (false) {
+            ///
+          } else if (constNamesIncludesVariableName) {
+            Token = VariableToken;
+          } else if (argumentNamesIncludesVariableName) {
+            Token = ArgumentToken;
+          } else {
+            Token = null;
+          }
+
+          return Token;
+        }, tokens, functionNonTerminalNode);
       });
     }
   }
