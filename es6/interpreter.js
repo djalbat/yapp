@@ -1,6 +1,6 @@
 "use strict";
 
-class Model {
+class Interpreter {
   constructor(lexer, parser, processor, tokens, node) {
     this.lexer = lexer;
     this.parser = parser;
@@ -29,6 +29,10 @@ class Model {
     this.parser = parser;
   }
 
+  setProcessor(processor) {
+    this.processor = processor;
+  }
+
   update(content) {
     this.tokens = this.lexer.tokenise(content);
 
@@ -37,13 +41,16 @@ class Model {
     this.processor.process(this.tokens, this.node);
   }
 
-  static fromLexerParserAndProcessor(Class, lexer, parser, processor) {
-    const tokens = null,
+  static fromLexerParserAndProcessor(Class, Lexer, Parser, Processor) {
+    const lexer = Lexer.fromNothing(),
+          parser = Parser.fromNothing(),
+          processor = Processor.fromNothing(),
+          tokens = null,
           node = null,
-          model = new Class(lexer, parser, processor, tokens, node);
+          interpreter = new Class(lexer, parser, processor, tokens, node);
 
-    return model;
+    return interpreter;
   }
 }
 
-export default Model;
+export default Interpreter;

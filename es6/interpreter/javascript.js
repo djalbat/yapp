@@ -1,6 +1,6 @@
 "use strict";
 
-import Model from "../model";
+import Interpreter from "../interpreter";
 import JavaScriptLexer from "../lexer/javascript";
 import JavaScriptParser from "../parser/javascript";
 import JavaScriptProcessor from "../processor/javascript";
@@ -20,7 +20,7 @@ const jsxQuery = Query.fromExpression("//jsx"),
       argumentQuery = Query.fromExpression("//argument/@*"),
       variableQuery = Query.fromExpression("//variable/@*");
 
-export default class JavaScriptModel extends Model {
+export default class JavaScriptInterpreter extends Interpreter {
   language = JAVASCRIPT_LANGUAGE;
 
   // OverlayTokenMap = {
@@ -107,15 +107,5 @@ export default class JavaScriptModel extends Model {
   //   });
   // }
 
-  static fromNothing() {
-    const javaScriptLexer = JavaScriptLexer.fromNothing(),
-          javaScriptParser = JavaScriptParser.fromNothing(),
-          javaScriptProcessor = JavaScriptProcessor.fromNothing(),
-          lexer = javaScriptLexer,  ///
-          parser = javaScriptParser,  ///
-          processor = javaScriptProcessor,  ///
-          javaScriptModel = Model.fromLexerParserAndProcessor(JavaScriptModel, lexer, parser, processor);
-
-    return javaScriptModel;
-  }
+  static fromNothing() { return Interpreter.fromLexerParserAndProcessor(JavaScriptInterpreter, JavaScriptLexer, JavaScriptParser, JavaScriptProcessor); }
 }

@@ -4,17 +4,17 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import View from "./view";
 import RichTextarea from "./richTextarea";
+import PrettyPrinter from "./prettyPrinter";
+import JavaScriptInterpreter from "./interpreter/javascript";
 
-import { modelFromLanguage } from "./models";
 import { contentFromChildElements } from "./utilities/content";
 
 class Yapp extends Element {
-  constructor(selector, model) {
+  constructor(selector, interpreter) {
     super(selector);
 
-    this.model = model;
+    this.interpreter = interpreter;
   }
 
   getContent() {
@@ -24,18 +24,18 @@ class Yapp extends Element {
     return content;
   }
 
-  getTokens() { return this.model.getTokens(); }
+  getTokens() { return this.interpreter.getTokens(); }
 
-  getNode() { return this.model.getNode(); }
+  getNode() { return this.interpreter.getNode(); }
 
-  setLexer(lexer) { this.model.setLexer(lexer); }
+  setLexer(lexer) { this.interpreter.setLexer(lexer); }
 
-  setParser(parser) { this.model.setParser(parser); }
+  setParser(parser) { this.interpreter.setParser(parser); }
 
   update() {
     const content = this.getContent();
 
-    this.model.update(content);
+    this.interpreter.update(content);
 
     const tokens = this.getTokens(),
           richTextareaBounds = this.updateView(tokens);
@@ -95,7 +95,7 @@ class Yapp extends Element {
 
     return ([
 
-      <View />,
+      <PrettyPrinter />,
       <RichTextarea onChange={changeHandler} onScroll={scrollHandler} active />
 
     ]);
@@ -129,7 +129,7 @@ class Yapp extends Element {
     this.assignContext();
 
     const { childElements, autoResize = "true" } = this.properties,
-          language = this.model.getLanguage(),
+          language = this.interpreter.getLanguage(),
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
           scrollLeft = 0; ///
@@ -152,9 +152,9 @@ class Yapp extends Element {
   };
 
   static fromClass(Class, properties) {
-    const { language } = properties,
-          model = modelFromLanguage(language),
-          yapp = Element.fromClass(Class, properties, model);
+    const { Interpreter = JavaScriptInterpreter } = properties,
+          interpreter = Interpreter.fromNothing(),
+          yapp = Element.fromClass(Class, properties, interpreter);
 
     yapp.initialise();
 

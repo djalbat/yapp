@@ -13,7 +13,7 @@ import { borderColour, backgroundColour } from "./scheme/view";
 
 const { second } = arrayUtilities;
 
-class View extends Element {
+class PrettyPrinter extends Element {
   getWidth(includeBorder) {
     const hidden = this.isHidden();
 
@@ -162,9 +162,9 @@ class View extends Element {
           resizeView = this.resize.bind(this), ///
           updateView = this.update.bind(this), ///
           scrollView = this.scroll.bind(this), ///
-			    setViewWidth = this.setWidth.bind(this), ///
-				  setViewHeight = this.setHeight.bind(this), ///
-				  isViewDisplayed = this.isDisplayed.bind(this), ///
+          setViewWidth = this.setWidth.bind(this), ///
+          setViewHeight = this.setHeight.bind(this), ///
+          isViewDisplayed = this.isDisplayed.bind(this), ///
           parentContext = Object.assign(context, {
             resizeView,
             updateView,
@@ -214,7 +214,7 @@ class View extends Element {
   }
 }
 
-export default withStyle(View)`
+export default withStyle(PrettyPrinter)`
 
   border: 1px solid ${borderColour};
   position: relative;
