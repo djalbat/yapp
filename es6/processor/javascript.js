@@ -24,28 +24,6 @@ export default class JavaScriptProcessor extends Processor {
     }
   }
 
-  // overlayJSXNOdes(node, tokens) {
-  //   const jsxNodes = jsxNonTerminalNodeQuery.execute(node);
-  //
-  //   jsxNodes.forEach((jsxNode) => {
-  //     const jsxNodeFirstSignificantToken = jsxNode.getFirstSignificantToken(),
-  //           jsxNodeLastSignificantToken = jsxNode.getLastSignificantToken(),
-  //           firstJSXToken = jsxNodeFirstSignificantToken, ///
-  //           lastJSXToken = jsxNodeLastSignificantToken,
-  //           firstJSXTokenIndex = tokens.indexOf(firstJSXToken),
-  //           lastJSXTokenIndex = tokens.indexOf(lastJSXToken);
-  //
-  //     for (let jsxTokenIndex = firstJSXTokenIndex; jsxTokenIndex <= lastJSXTokenIndex; jsxTokenIndex++) {
-  //       const jsxToken = tokens[jsxTokenIndex],
-  //             overlaidToken = jsxToken, ///
-  //             overlayTokenIndex = jsxTokenIndex,  ///
-  //             jsxOverlayToken = JSXOverlayToken.fromOverlaidToken(overlaidToken);
-  //
-  //       this.overlayTokenMap[overlayTokenIndex] = jsxOverlayToken;
-  //     }
-  //   });
-  // }
-
   // overlayFunctionNodes(node, tokens) {
   //   const functionNodes = functionNonTerminalNodeQuery.execute(node);
   //

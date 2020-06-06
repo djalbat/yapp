@@ -325,7 +325,7 @@ const bnf = `
 
 
 
-    text                       ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [unassigned] )+ ;
+    text                       ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
 
     property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | name ) ;
 
