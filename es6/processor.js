@@ -10,47 +10,56 @@ const errorTerminalNodeQuery = Query.fromExpression("//error/@*");
 class Processor {
   process(tokens, node) {
     if (node !== null) {
-      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, ErrorToken, tokens, node);
+      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, (content) => ErrorToken.fromContent(content), tokens, node);
     }
   }
 
-  replaceNonTerminalNodesSignificantTokens(nonTerminalNodeQuery, SignificantToken, tokens, node) {
+  replaceNonTerminalNodesSignificantTokens(nonTerminalNodeQuery, callback, tokens, node) {
     const nonTerminalNodes = nonTerminalNodeQuery.execute(node);
 
-    nonTerminalNodes.forEach((nonTerminalNode) => this.replaceNonTerminalNodeSignificantTokens(nonTerminalNode, SignificantToken, tokens));
+    nonTerminalNodes.forEach((nonTerminalNode) => this.replaceNonTerminalNodeSignificantTokens(nonTerminalNode, callback, tokens));
   }
 
-  replaceNonTerminalNodeSignificantTokens(nonTerminalNode, SignificantToken, tokens) {
+  replaceNonTerminalNodeSignificantTokens(nonTerminalNode, callback, tokens) {
     const terminalNodes = terminalNodeQuery.execute(nonTerminalNode);
 
-    terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, SignificantToken, tokens));
+    terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, callback, tokens));
   }
 
-  replaceTerminalNodesSignificantToken(terminalNodeQuery, SignificantToken, tokens, node) {
-    const terminalNodes = terminalNodeQuery.execute(node);
+  replaceTerminalNodesSignificantToken(terminalNodeQuery, callback, tokens, node) {
+    const contents = [],
+          terminalNodes = terminalNodeQuery.execute(node);
 
-    terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, SignificantToken, tokens));
+    terminalNodes.forEach((terminalNode) => {
+      const content = this.replaceTerminalNodeSignificantToken(terminalNode, callback, tokens);
+
+      if (content !== null) {
+        contents.push(content);
+      }
+    });
+
+    return contents;
   }
 
-  replaceTerminalNodeSignificantToken(terminalNode, SignificantToken, tokens) {
+  replaceTerminalNodeSignificantToken(terminalNode, callback, tokens) {
     let significantToken;
 
     significantToken = terminalNode.getSignificantToken();
 
     if (significantToken === null) {
-      return;
+      return null;
     }
 
     const endOfLineToken = significantToken.isEndOfLineToken();
 
     if (endOfLineToken) {
-      return;
+      return null;
     }
 
     const content = significantToken.getContent(),
           index = tokens.indexOf(significantToken);
 
-    significantToken = SignificantToken.fromContent(content); ///
+    significantToken = callback(content); ///
 
     const start = index,  ///
           deleteCount = 1;
@@ -58,6 +67,8 @@ class Processor {
     tokens.splice(start, deleteCount, significantToken);
 
     terminalNode.setSignificantToken(significantToken);
+
+    return content;
   }
 
   static fromNothing(Class ) { return new Class(); }

@@ -18,57 +18,28 @@ const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
 export default class JavaScriptProcessor extends Processor {
   process(tokens, node) {
     if (node !== null) {
-      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, ErrorToken, tokens, node);
+      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, (content) => ErrorToken.fromContent(content), tokens, node);
 
-      this.replaceNonTerminalNodesSignificantTokens(jsxNonTerminalNodeQuery, JSXToken, tokens, node);
+      this.replaceNonTerminalNodesSignificantTokens(jsxNonTerminalNodeQuery, (content) => JSXToken.fromContent(content), tokens, node);
+
+      const functionNodes = functionNonTerminalNodeQuery.execute(node);
+
+      functionNodes.forEach((functionNode) => {
+        const argumentNames = this.replaceTerminalNodesSignificantToken(argumentTerminalNodeQuery, (content) => ArgumentToken.fromContent(content), tokens, functionNode);
+
+        this.replaceTerminalNodesSignificantToken(variableTerminalNodeQuery, (content) => {
+          const variableName = content, ///
+                argumentNamesIncludesVariableName = argumentNames.includes(variableName),
+                Token = (argumentNamesIncludesVariableName) ?
+                          ArgumentToken :
+                            VariableToken,
+                token = Token.fromContent(content);
+
+          return token;
+        }, tokens, functionNode);
+      });
     }
   }
-
-  // overlayFunctionNodes(node, tokens) {
-  //   const functionNodes = functionNonTerminalNodeQuery.execute(node);
-  //
-  //   functionNodes.forEach((functionNode) => {
-  //     const argumentNodes = argumentTerminalNodeQuery.execute(functionNode),
-  //           variableNodes = variableTerminalNodeQuery.execute(functionNode),
-  //           argumentNames = this.overlayArgumentNodes(argumentNodes, tokens);
-  //
-  //     this.overlayVariableNodes(variableNodes, argumentNames, tokens);
-  //   });
-  // }
-
-  // overlayArgumentNodes(argumentTerminalNodes, tokens) {
-  //   const argumentNames = argumentTerminalNodes.map((argumentTerminalNode) => {
-  //     const significantToken = argumentTerminalNode.getSignificantToken(),
-  //           content = significantToken.getContent(),
-  //           argumentName = content, ///
-  //           overlaidToken = significantToken, ///
-  //           overlaidTokenIndex = tokens.indexOf(overlaidToken),
-  //           overlayTokenIndex = overlaidTokenIndex,  ///
-  //           argumentOverlayToken = ArgumentOverlayToken.fromOverlaidToken(overlaidToken);
-  //
-  //     this.overlayTokenMap[overlayTokenIndex] = argumentOverlayToken;
-  //
-  //     return argumentName;
-  //   });
-  //
-  //   return argumentNames;
-  // }
-
-  // overlayVariableNodes(variableTerminalNodes, argumentNames, tokens) {
-  //   variableTerminalNodes.forEach((variableTerminalNode) => {
-  //     const significantToken = variableTerminalNode.getSignificantToken(),
-  //           content = significantToken.getContent(),
-  //           name = content, ///
-  //           overlaidToken = significantToken, ///
-  //           overlaidTokenIndex = tokens.indexOf(overlaidToken), ///
-  //           overlayTokenIndex = overlaidTokenIndex,  ///
-  //           variableOverlayToken = (argumentNames.includes(name)) ?
-  //                                     ArgumentOverlayToken.fromOverlaidToken(overlaidToken) :
-  //                                       VariableOverlayToken.fromOverlaidToken(overlaidToken);
-  //
-  //     this.overlayTokenMap[overlayTokenIndex] = variableOverlayToken;
-  //   });
-  // }
 
   static fromNothing() { return Processor.fromNothing(JavaScriptProcessor); }
 }
