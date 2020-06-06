@@ -12,9 +12,7 @@ class Interpreter {
   getLanguage() { return this.language; }
 
   getTokens() {
-    const tokens = this.processor.getTokens(this.tokens);
-
-    return tokens;
+    return this.tokens;
   }
 
   getNode() {

@@ -1,62 +1,63 @@
 "use strict";
 
-import { queryUtilities } from "occam-dom";
+import { Query } from "occam-dom";
 
-import ErrorOverlayToken from "./token/overlay/error";
+import ErrorToken from "./token/significant/error";
 
-const { queryByExpression } = queryUtilities;
+const terminalNodeQuery = Query.fromExpression("//@*");
+const errorTerminalNodeQuery = Query.fromExpression("//error/@*");
 
 class Processor {
-  overlayTokenMap = {} ;
-
-  OverlayTokenMap = {
-    "//error/@*": ErrorOverlayToken
-  };
-
-  getTokens(tokens) {
-    tokens = (tokens !== null) ?
-               tokens.map((token, index) => this.overlayTokenMap[index] || token) : ///
-                 null;
-
-    return tokens;
-  }
-
   process(tokens, node) {
     if (node !== null) {
-      this.resetOverlayTokenMap();
-
-      this.overlayTokens(tokens, node);
+      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, ErrorToken, tokens, node);
     }
   }
 
-  overlayTokens(tokens, node) {
-    const queryExpressions = Object.keys(this.OverlayTokenMap);
+  replaceNonTerminalNodesTokens(nonTerminalNodeQuery, SignificantToken, tokens, node) {
+    const nonTerminalNodes = nonTerminalNodeQuery.execute(node);
 
-    queryExpressions.forEach((queryExpression) => {
-      const nodes = queryByExpression(node, queryExpression),
-            OverlayToken = this.OverlayTokenMap[queryExpression];
-
-      nodes.forEach((node) => {
-        let significantToken;
-
-        significantToken = node.getSignificantToken();
-
-        const overlaidToken = significantToken, ///
-              overlaidTokenIndex = tokens.indexOf(overlaidToken),
-              overlayTokenIndex = overlaidTokenIndex,  ///
-              overlayToken = OverlayToken.fromOverlaidToken(overlaidToken);
-
-        significantToken = overlayToken;  ///
-
-        node.setSignificantToken(significantToken);
-
-        this.overlayTokenMap[overlayTokenIndex] = overlayToken;
-      });
-    });
+    nonTerminalNodes.forEach((nonTerminalNode) => this.replaceNonTerminalNodeTokens(nonTerminalNode, SignificantToken, tokens));
   }
 
-  resetOverlayTokenMap() {
-    this.overlayTokenMap = {};
+  replaceNonTerminalNodeTokens(nonTerminalNode, SignificantToken, tokens) {
+    const terminalNodes = terminalNodeQuery.execute(nonTerminalNode);
+
+    terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, SignificantToken, tokens));
+  }
+
+  replaceTerminalNodesSignificantToken(terminalNodeQuery, SignificantToken, tokens, node) {
+    const terminalNodes = terminalNodeQuery.execute(node);
+
+    terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, SignificantToken, tokens));
+  }
+
+  replaceTerminalNodeSignificantToken(terminalNode, SignificantToken, tokens) {
+    let significantToken;
+
+    significantToken = terminalNode.getSignificantToken();
+
+    if (significantToken === null) {
+      return;
+    }
+
+    const endOfLineToken = significantToken.isEndOfLineToken();
+
+    if (endOfLineToken) {
+      return;
+    }
+
+    const content = significantToken.getContent(),
+          index = tokens.indexOf(significantToken);
+
+    significantToken = SignificantToken.fromContent(content); ///
+
+    const start = index,  ///
+          deleteCount = 1;
+
+    tokens.splice(start, deleteCount, significantToken);
+
+    terminalNode.setSignificantToken(significantToken);
   }
 
   static fromNothing(Class ) { return new Class(); }
