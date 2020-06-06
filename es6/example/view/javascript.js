@@ -34,7 +34,7 @@ function simpleApp(selector) {
 
 export default withStyle(simpleApp)\`
 
-  background-color: #ddd;
+  color: #333;
 
 \`;
 `;
