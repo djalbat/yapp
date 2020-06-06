@@ -20,7 +20,7 @@ export default class JavaScriptProcessor extends Processor {
     if (node !== null) {
       this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, ErrorToken, tokens, node);
 
-      this.replaceNonTerminalNodesTokens(jsxNonTerminalNodeQuery, JSXToken, tokens, node);
+      this.replaceNonTerminalNodesSignificantTokens(jsxNonTerminalNodeQuery, JSXToken, tokens, node);
     }
   }
 

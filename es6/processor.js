@@ -14,13 +14,13 @@ class Processor {
     }
   }
 
-  replaceNonTerminalNodesTokens(nonTerminalNodeQuery, SignificantToken, tokens, node) {
+  replaceNonTerminalNodesSignificantTokens(nonTerminalNodeQuery, SignificantToken, tokens, node) {
     const nonTerminalNodes = nonTerminalNodeQuery.execute(node);
 
-    nonTerminalNodes.forEach((nonTerminalNode) => this.replaceNonTerminalNodeTokens(nonTerminalNode, SignificantToken, tokens));
+    nonTerminalNodes.forEach((nonTerminalNode) => this.replaceNonTerminalNodeSignificantTokens(nonTerminalNode, SignificantToken, tokens));
   }
 
-  replaceNonTerminalNodeTokens(nonTerminalNode, SignificantToken, tokens) {
+  replaceNonTerminalNodeSignificantTokens(nonTerminalNode, SignificantToken, tokens) {
     const terminalNodes = terminalNodeQuery.execute(nonTerminalNode);
 
     terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, SignificantToken, tokens));
