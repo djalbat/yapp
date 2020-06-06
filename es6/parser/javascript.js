@@ -297,7 +297,7 @@ const bnf = `
 
 
 
-    jsx                        ::=  jsxCompleteTag | jsxStartTag ( jsx | ( "{" expression? "}" ) | text )* jsxEndTag ;
+    jsx                        ::=  jsxCompleteTag | jsxStartTag ( jsx | ( "{" expression? "}" ) | string )* jsxEndTag ;
 
     jsxCompleteTag             ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
 
@@ -321,11 +321,11 @@ const bnf = `
 
     arrowFunction              ::=  ( argument | ( "(" arguments? ")" ) ) "=>" ( expression | ( "{" statement* "}" ) ) ; 
 
-    templateLiteral            ::=  "\`" ( ( "\${" expression? "}" ) | text )* "\`" ; 
+    templateLiteral            ::=  "\`" ( ( "\${" expression? "}" ) | string )* "\`" ; 
 
 
 
-    text                       ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
+    string                     ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
 
     property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | name ) ;
 

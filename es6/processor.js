@@ -76,7 +76,7 @@ class Processor {
     return content;
   }
 
-  static fromNothing(Class ) { return new Class(); }
+  static fromNothing(Class) { return new Class(); }
 }
 
 export default Processor;
