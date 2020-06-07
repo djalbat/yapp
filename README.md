@@ -2,7 +2,7 @@
 
 Yet Another Pretty Printer.
 
-*Please note that Yapp is currently in beta, as the grammars are still under development. There is also a short wait for the package name to become available. If you are interested in contributing to Yapp, in particular contributing to its grammars, see the contribution section below.*
+*Please note that Yapp is currently in beta, as the grammars are still under development. There is also a short wait for the package name to become available, so any mention of installing via `npm` below should be ignored. If you are interested in contributing to Yapp, in particular contributing to its grammars, see the contribution section below.*
 
 Yapp is a fully fledged pretty printer that can also double as an editor. It has advanced functionality to not only tokenise and parse content, but also to post-process it. This results in a degree of refinement that rivals commercial editors. Here are three short examples. Some JavaScript...
 
@@ -20,7 +20,9 @@ Yapp is fully configurable. You can supply it with plugins for any language you 
 
 ## Installation
 
-*Again, please note that Yapp is not currently available as an [npm](https://www.npmjs.com/) package, it can only be cloned.*
+You can install Yapp with [npm](https://www.npmjs.com/):
+
+    npm install yapp
 
 You can clone the repository with [Git](https://git-scm.com/)...
 
@@ -43,9 +45,9 @@ Yapp's standalone use is covered first. The following code will insert will appe
 ```
 "use strict";
 
-import Yapp from "./index"; ///
+import Yapp from "yapp";
 
-import { renderStyles } from "./index"; ///
+import { renderStyles } from "yapp";
 
 const yapp = Yapp.fromContent(`
 
@@ -53,9 +55,9 @@ const yapp = Yapp.fromContent(`
 
 `);
 
-const body = document.querySelector("body");
-
 renderStyles();
+
+const body = document.querySelector("body");
 
 body.appendChild(yapp.domElement);
 
@@ -63,9 +65,9 @@ yapp.didMount();
 ```
 Note that you *must*:
 
-1. Call the `renderStyles()` function before you append the DOM element.
+1. Call the `renderStyles()` function before you append Yapp's DOM element.
 
-2. Call the `didMount()` method immediately thereafter.
+2. Call Yapp's `didMount()` method immediately thereafter.
 
 ## Contributing
 
