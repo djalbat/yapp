@@ -36,7 +36,7 @@ class View extends Element {
 
       eliminateLeftRecursion(rules);
 
-      const { Lexer, Parser } = this.Interpreter,
+      const { Lexer, Parser } = this.Plugin,
             lexer = Lexer.fromEntries(entries),
             parser = Parser.fromRules(rules),
             yappLexer = lexer,  ///
@@ -122,7 +122,7 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Interpreter={this.Interpreter} autoResize="false" onContentChange={contentChangeHandler} >
+              <Yapp Plugin={this.Plugin} autoResize="false" onContentChange={contentChangeHandler} >
                 {this.initialContent}
               </Yapp>
             </TopSizeableDiv>
@@ -178,7 +178,7 @@ class View extends Element {
   initialise() {
     this.assignContext();
 
-    const { Lexer, Parser } = this.Interpreter,
+    const { Lexer, Parser } = this.Plugin,
           { bnf } = Parser,
           { entries } = Lexer,
           lexicalEntries = entries; ///

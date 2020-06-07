@@ -4,11 +4,19 @@ Yet Another Pretty Printer.
 
 *Please note that Yapp is currently in beta, as the grammars are still under development. There is also a short wait for the package name to become available. If you are interested in contributing to Yapp, in particular to its grammars, see the contribution section below.*
 
-Yapp is a fully fledged pretty printer, meant for code listings, that can also double as a code editor. It has advanced functionality to not only tokenise and parse code, but also to post-process it. This allows for a degree of refinement in syntax highlighting that rivals commercial editors.
+Yapp is a fully fledged pretty printer, meant for code listings, that can also double as a code editor. It has advanced functionality to not only tokenise and parse code, but also to post-process it. This allows for a degree of refinement in syntax highlighting that rivals commercial editors. Here are three short examples. Here is some JavaScript...
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
-![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
+
+..., a small amount of XML...
+
 ![XML](https://github.com/djalbat/yapp/blob/master/assets/xml.png)
+
+..., and some JSON.
+
+![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
+
+Yapp is fully configurable. You can supply it with plugins for any language you choose, or in order to override the built-in plugins for languages that are already supported. You can also style it with your own themes to support your plugins or override existing ones. Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default.
 
 ## Installation
 

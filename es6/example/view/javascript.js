@@ -2,10 +2,10 @@
 
 import View from "../view";
 
-import JavaScriptInterpreter from "../../interpreter/javascript";
+import JavaScriptPlugin from "../../plugin/javascript";
 
 export default class JavaScriptView extends View {
-  Interpreter = JavaScriptInterpreter;
+  Plugin = JavaScriptPlugin;
 
   initialContent = `"use strict";
 

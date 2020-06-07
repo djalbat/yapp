@@ -1,13 +1,13 @@
 "use strict";
 
-import Interpreter from "../interpreter";
+import Plugin from "../plugin";
 import XMLLexer from "../lexer/xml";
 import XMLParser from "../parser/xml";
 import XMLProcessor from "../processor/xml";
 
 import { XML_LANGUAGE } from "../constants"
 
-export default class XMLInterpreter extends Interpreter {
+export default class XMLPlugin extends Plugin {
   language = XML_LANGUAGE;
 
   static Lexer = XMLLexer;
@@ -16,5 +16,5 @@ export default class XMLInterpreter extends Interpreter {
 
   static Processor = XMLProcessor;
 
-  static fromNothing() { return Interpreter.fromNothing(XMLInterpreter); }
+  static fromNothing() { return Plugin.fromNothing(XMLPlugin); }
 }

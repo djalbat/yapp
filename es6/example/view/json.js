@@ -2,10 +2,10 @@
 
 import View from "../view";
 
-import JSONInterpreter from "../../interpreter/json";
+import JSONPlugin from "../../plugin/json";
 
 export default class JSONView extends View {
-  Interpreter = JSONInterpreter;
+  Plugin = JSONPlugin;
 
   initialContent = `{  
   "type": "book",

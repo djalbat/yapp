@@ -6,15 +6,15 @@ import { React, Element } from "easy";
 
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
-import JavaScriptInterpreter from "./interpreter/javascript";
+import JavaScriptPlugin from "./plugin/javascript";
 
 import { contentFromChildElements } from "./utilities/content";
 
 class Yapp extends Element {
-  constructor(selector, interpreter) {
+  constructor(selector, plugin) {
     super(selector);
 
-    this.interpreter = interpreter;
+    this.plugin = plugin;
   }
 
   getContent() {
@@ -24,18 +24,18 @@ class Yapp extends Element {
     return content;
   }
 
-  getTokens() { return this.interpreter.getTokens(); }
+  getTokens() { return this.plugin.getTokens(); }
 
-  getNode() { return this.interpreter.getNode(); }
+  getNode() { return this.plugin.getNode(); }
 
-  setLexer(lexer) { this.interpreter.setLexer(lexer); }
+  setLexer(lexer) { this.plugin.setLexer(lexer); }
 
-  setParser(parser) { this.interpreter.setParser(parser); }
+  setParser(parser) { this.plugin.setParser(parser); }
 
   update() {
     const content = this.getContent();
 
-    this.interpreter.update(content);
+    this.plugin.update(content);
 
     const tokens = this.getTokens(),
           richTextareaBounds = this.updateView(tokens);
@@ -129,7 +129,7 @@ class Yapp extends Element {
     this.assignContext();
 
     const { childElements, autoResize = "true" } = this.properties,
-          language = this.interpreter.getLanguage(),
+          language = this.plugin.getLanguage(),
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
           scrollLeft = 0; ///
@@ -152,9 +152,9 @@ class Yapp extends Element {
   };
 
   static fromClass(Class, properties) {
-    const { Interpreter = JavaScriptInterpreter } = properties,
-          interpreter = Interpreter.fromNothing(),
-          yapp = Element.fromClass(Class, properties, interpreter);
+    const { Plugin = JavaScriptPlugin } = properties,
+          plugin = Plugin.fromNothing(),
+          yapp = Element.fromClass(Class, properties, plugin);
 
     yapp.initialise();
 

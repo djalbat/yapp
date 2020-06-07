@@ -1,6 +1,6 @@
 "use strict";
 
-class Interpreter {
+class Plugin {
   constructor(lexer, parser, processor, tokens, node) {
     this.lexer = lexer;
     this.parser = parser;
@@ -58,10 +58,10 @@ class Interpreter {
           processor = Processor.fromNothing(),
           tokens = null,
           node = null,
-          interpreter = new Class(lexer, parser, processor, tokens, node);
+          plugin = new Class(lexer, parser, processor, tokens, node);
 
-    return interpreter;
+    return plugin;
   }
 }
 
-export default Interpreter;
+export default Plugin;
