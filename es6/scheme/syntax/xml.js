@@ -1,7 +1,7 @@
 "use strict";
 
-import { razzmatazz, citron } from "../../colours";
+import { cadetBlue, citron } from "../../colours";
 
-export const nameColour = citron;
+export const nameColour = cadetBlue;
 
-export const attributeColour = razzmatazz;
+export const attributeColour = citron;
