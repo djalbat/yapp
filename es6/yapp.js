@@ -10,7 +10,7 @@ import PrettyPrinter from "./prettyPrinter";
 import scrollBarThickness from "./scrollbarThickness";
 
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
-import { propertiesFromContentLanguageOptionsAndPlugin } from "./utilities/properties";
+import { propertiesFromContentLanguageAndPlugin } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 
 class Yapp extends Element {
@@ -20,16 +20,16 @@ class Yapp extends Element {
     this.plugin = plugin;
   }
 
+  getPlugin() {
+    return this.plugin;
+  }
+
   getContent() {
     const richTextareaContent = this.getRichTextareaContent(),
           content = richTextareaContent;  ///
 
     return content;
   }
-
-  getTokens() { return this.plugin.getTokens(); }
-
-  getNode() { return this.plugin.getNode(); }
 
   setLexer(lexer) { this.plugin.setLexer(lexer); }
 
@@ -40,7 +40,7 @@ class Yapp extends Element {
 
     this.plugin.update(content);
 
-    const tokens = this.getTokens(),
+    const tokens = this.plugin.getTokens(),
           richTextareaBounds = this.updateView(tokens);
 
     if (richTextareaBounds !== null) {
@@ -114,33 +114,27 @@ class Yapp extends Element {
   }
 
   parentContext() {
-    const updateYapp = this.update.bind(this),  ///
-          resizeYapp = this.resize.bind(this),  ///
-          getYappContent = this.getContent.bind(this),  ///
-          getYappTokens = this.getTokens.bind(this),  ///
-          getYappNode = this.getNode.bind(this),  ///
+    const getPlugin = this.getPlugin.bind(this),
+          updateYapp = this.update.bind(this),  ///
           setYappWidth = this.setWidth.bind(this),  ///
+          setYappHeight = this.setHeight.bind(this),  ///
           setYappLexer = this.setLexer.bind(this),  ///
-          setYappParser = this.setParser.bind(this),  ///
-          setYappHeight = this.setHeight.bind(this);  ///
+          setYappParser = this.setParser.bind(this);  ///
 
     return ({
+      getPlugin,
       updateYapp,
-      resizeYapp,
-      getYappContent,
-      getYappTokens,
-      getYappNode,
       setYappWidth,
+      setYappHeight,
       setYappLexer,
-      setYappParser,
-      setYappHeight
+      setYappParser
     });
   }
 
   initialise() {
     this.assignContext();
 
-    const { childElements, autoResize = "true" } = this.properties,
+    const { childElements } = this.properties,
           language = this.plugin.getLanguage(),
           content = contentFromChildElements(childElements),
           scrollTop = 0,  ///
@@ -152,9 +146,7 @@ class Yapp extends Element {
 
     this.setRichTextareaContent(content);
 
-    if (autoResize === "true") {
-      this.onResize(() => this.resize());
-    }
+    this.onResize(() => this.resize());
   }
 
   static tagName = "div";
@@ -163,10 +155,11 @@ class Yapp extends Element {
     className: "yapp"
   };
 
-  static fromContent(content, language, options, Plugin) {
-    const properties = propertiesFromContentLanguageOptionsAndPlugin(content, language, options, Plugin),
+  static fromContent(content, language, Plugin) {
+    const Class = Yapp,
+          properties = propertiesFromContentLanguageAndPlugin(content, language, Plugin),
           plugin = pluginFromLanguageAndPlugin(language, Plugin),
-          yapp = Element.fromClass(Yapp, properties, plugin);
+          yapp = Element.fromClass(Class, properties, plugin);
 
     yapp.initialise();
 

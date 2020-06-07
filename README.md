@@ -68,13 +68,7 @@ Note that you *must*:
 * Call the `renderStyles()` function before you append Yapp's DOM element.
 * Call Yapp's `didMount()` method immediately thereafter.
 
-As well as the content argument, the `fromContent(...)` factory method takes the following optional arguments in order:
-
-* `language`
-* `options`
-* `Plugin`
-
-The `options` argument should be a plain old JavaScript. It's properties should correspond to the attributes supported by the JSX, see below. IF you want to only set the `Plugin` argument, say, leave the intervening arguments `null`.
+As well as the `content` argument, the `fromContent(...)` factory method takes `language` and `Plugin` arguments. The `language` argument can be set to `null` should you only want to set the `Plugin` argument.
 
 ## Contributing
 

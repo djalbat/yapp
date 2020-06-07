@@ -70,18 +70,15 @@ class View extends Element {
 
     this.setYappWidth(yappWidth);
     this.setYappHeight(yappHeight);
-
-    this.resizeYapp();
   }
 
   update() {
     try {
       let parseTree = null;
 
-      const yappTokens = this.getYappTokens(),
-            yappNode = this.getYappNode(),
-            tokens = yappTokens,  ///
-            node = yappNode;  ///
+      const plugin = this.getPlugin(),
+            tokens = plugin.getTokens(),
+            node = plugin.getNode();
 
       if (node !== null) {
         removeOrRenameIntermediateNodes(node);
@@ -114,14 +111,7 @@ class View extends Element {
   childElements() {
     const dragHandler = this.dragHandler.bind(this),
           keyUpHandler = this.keyUpHandler.bind(this),
-          contentChangeHandler = this.contentChangeHandler.bind(this),
-          yapp =
-
-            <Yapp Plugin={this.Plugin} autoResize="false" onContentChange={contentChangeHandler} >
-              {this.initialContent}
-            </Yapp>
-
-          ;
+          contentChangeHandler = this.contentChangeHandler.bind(this);
 
     return ([
 
@@ -129,7 +119,9 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              {yapp}
+              <Yapp Plugin={this.Plugin} onContentChange={contentChangeHandler} >
+                {this.initialContent}
+              </Yapp>
             </TopSizeableDiv>
             <HorizontalSplitterDiv onDrag={dragHandler}/>
             <RowDiv>
