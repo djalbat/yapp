@@ -2,13 +2,19 @@
 
 Yet Another Pretty Printer.
 
-*Please note that Yapp is currently in alpha, as the grammars are still under development. There is also a short wait for the package name to become available on npm.*
+*Please note that Yapp is currently in beta, as the grammars are still under development. There is also a short wait for the package name to become available. If you are interested in contributing to Yapp, in particular to its grammars, see the contribution section below.*
 
-*If you are interested in contributing to Yapp, in particular to its grammars, please see the contribution section below.*
+Yapp is a fully fledged pretty printer, meant for code listings, that can also double as a simple code editor. It has advanced functionality to not only tokenise and parse code, but also to post-process the parse tree. This allows for a degree of refinement in syntax highlighting that rivals commercial editors.
+
+![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
+
+![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
+
+![XML](https://github.com/djalbat/yapp/blob/master/assets/xml.png)
 
 ## Installation
 
-*Please note that Yapp is not currently available as an [npm](https://www.npmjs.com/) packge, it can only be cloned.*
+*Again please note that Yapp is not currently available as an [npm](https://www.npmjs.com/) packge, it can only be cloned.*
 
 You can clone the repository with [Git](https://git-scm.com/)...
 
