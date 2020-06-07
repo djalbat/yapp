@@ -1,6 +1,6 @@
 "use strict";
 
-import { jsxColour, methodColour, argumentColour, variableColour } from "../../scheme/syntax/javaScript";
+import { jsxColour, argumentColour, variableColour } from "../../scheme/syntax/javaScript";
 
 const javaScriptSyntaxStyle = `
 
@@ -8,8 +8,6 @@ const javaScriptSyntaxStyle = `
     color: ${jsxColour};
     font-weight: bold; 
   }
-
-  .javascript.syntax > .method { color: ${methodColour}; }
 
   .javascript.syntax > .variable { color: ${variableColour}; }
 
