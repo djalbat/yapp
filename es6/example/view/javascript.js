@@ -2,17 +2,10 @@
 
 import View from "../view";
 
-import JavaScriptLexer from "../../lexer/javascript";
-import JavaScriptParser from "../../parser/javascript";
-
-import { JAVASCRIPT_LANGUAGE } from "../../constants";
+import JavaScriptInterpreter from "../../interpreter/javascript";
 
 export default class JavaScriptView extends View {
-  Lexer = JavaScriptLexer;
-
-  Parser = JavaScriptParser;
-
-  language = JAVASCRIPT_LANGUAGE;
+  Interpreter = JavaScriptInterpreter;
 
   initialContent = `"use strict";
 

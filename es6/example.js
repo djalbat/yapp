@@ -6,23 +6,27 @@ import withStyle from "easy-with-style";  ///
 
 import { Body } from "easy";
 
-import syntaxStyle from "./style/syntax";
-import firaCodeStyle from "./style/firaCode";
+import XMLView from "./example/view/xml";
+import JSONView from "./example/view/json";
 import JavaScriptView from "./example/view/javascript";
 
-const { renderStyle, renderStyles } = withStyle;
+const { renderStyles } = withStyle;
+
+let View;
 
 const body = new Body(),
-      view =
+      example = window.location.search.substring(1);  ///
 
-        <JavaScriptView />
-
-      ;
+switch (example) {
+  case "xml": View = XMLView; break;
+  case "json": View = JSONView; break;
+  case "javascript": View = JavaScriptView; break;
+}
 
 renderStyles();
 
-renderStyle(syntaxStyle);
+body.mount(
 
-renderStyle(firaCodeStyle);
+    <View />
 
-body.mount(view);
+);

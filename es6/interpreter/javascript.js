@@ -10,5 +10,11 @@ import { JAVASCRIPT_LANGUAGE } from "../constants"
 export default class JavaScriptInterpreter extends Interpreter {
   language = JAVASCRIPT_LANGUAGE;
 
-  static fromNothing() { return Interpreter.fromLexerParserAndProcessor(JavaScriptInterpreter, JavaScriptLexer, JavaScriptParser, JavaScriptProcessor); }
+  static Lexer = JavaScriptLexer;
+
+  static Parser = JavaScriptParser;
+
+  static Processor = JavaScriptProcessor;
+
+  static fromNothing() { return Interpreter.fromNothing(JavaScriptInterpreter); }
 }
