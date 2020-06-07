@@ -4,11 +4,14 @@ import withStyle from "easy-with-style";  ///
 
 import { React, Element } from "easy";
 
+import yappStyle from "./style/yapp";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
+import scrollBarThickness from "./scrollbarThickness";
 
-import { contentFromChildElements } from "./utilities/content";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
+import { propertiesFromContentLanguageOptionsAndPlugin } from "./utilities/properties";
+import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 
 class Yapp extends Element {
   constructor(selector, plugin) {
@@ -58,6 +61,15 @@ class Yapp extends Element {
   }
 
   didMount() {
+    const content = this.getContent(),
+          lineCount = lineCountFromContent(content),
+          lineHeight = this.getLneHeight(),
+          borderTopWidth = this.getBorderTopWidth(),
+          borderBottomWidth = this.getBorderBottomWidth(),
+          height = lineCount * lineHeight + scrollBarThickness + borderTopWidth + borderBottomWidth;
+
+    this.setHeight(height);
+
     this.resize();
 
     this.update();
@@ -151,6 +163,16 @@ class Yapp extends Element {
     className: "yapp"
   };
 
+  static fromContent(content, language, options, Plugin) {
+    const properties = propertiesFromContentLanguageOptionsAndPlugin(content, language, options, Plugin),
+          plugin = pluginFromLanguageAndPlugin(language, Plugin),
+          yapp = Element.fromClass(Yapp, properties, plugin);
+
+    yapp.initialise();
+
+    return yapp;
+  }
+
   static fromClass(Class, properties) {
     const { language, Plugin } = properties,
           plugin = pluginFromLanguageAndPlugin(language, Plugin),
@@ -164,13 +186,6 @@ class Yapp extends Element {
 
 export default withStyle(Yapp)`
 
-  overflow: hidden;
-  position: relative;
-
-  font-size: 13px;
-  line-height: 20px;
-  font-family: "Fira Code", monospace;
-  text-rendering: optimizeLegibility; /* Force ligatures for Webkit, Blink, Gecko */
-  font-feature-settings: "calt" 1;  /* Enable ligatures for IE 10+, Edge */
+  ${yappStyle}
 
 `;

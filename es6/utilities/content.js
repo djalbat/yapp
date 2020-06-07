@@ -18,3 +18,11 @@ export function contentFromChildElements(childElements) {
 
   return content;
 }
+
+export function lineCountFromContent(content) {
+  const matches = content.match(/\r\n|\r|\n/g),
+        matchesLength = matches.length,
+        lineCount = matchesLength + 1;
+
+  return lineCount;
+}

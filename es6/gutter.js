@@ -14,6 +14,8 @@ class Gutter extends Element {
   update(tokens) {
     const lineCount = lineCountFromTokens(tokens);
 
+    this.setLineCount(lineCount);
+
     this.updateLineNumbers(lineCount);
   }
 
@@ -34,13 +36,26 @@ class Gutter extends Element {
     this.css(css);
   }
 
+  getLineCount() {
+    const state = this.getState(),
+          { lineCount } = state;
+
+    return lineCount;
+  }
+
   getScrollTop() {
     const state = this.getState(),
           { scrollTop } = state;
 
     return scrollTop;
   }
-  
+
+  setLineCount(lineCount) {
+    this.updateState({
+      lineCount
+    });
+  }
+
   setScrollTop(scrollTop) {
     this.updateState({
       scrollTop
@@ -56,12 +71,14 @@ class Gutter extends Element {
   }
 
   parentContext() {
-	  const getGutterWidth = this.getWidth.bind(this),  ///
+	  const getLineCount = this.getLineCount.bind(this),
+          getGutterWidth = this.getWidth.bind(this),  ///
 				  positionGutter = this.position.bind(this),  ///
 				  updateGutter = this.update.bind(this),  ///
 				  scrollGutter = this.scroll.bind(this);  ///
 
     return ({
+      getLineCount,
       getGutterWidth,
       positionGutter,
       updateGutter,
@@ -70,10 +87,12 @@ class Gutter extends Element {
   }
   
   setInitialState() {
-    const scrollTop = 0;
+    const scrollTop = 0,
+          lineCount = null;
 
     this.setState({
-      scrollTop
+      scrollTop,
+      lineCount
     });
   }
 

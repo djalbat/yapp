@@ -1,6 +1,6 @@
 "use strict";
 
-import { Body } from "easy";
+import { React, Body } from "easy";
 
 const body = new Body(),
       style = {

@@ -1,38 +1,38 @@
 "use strict";
 
-import "juxtapose";
+import Yapp from "./index"; ///
 
-import withStyle from "easy-with-style";  ///
+import { renderStyles } from "./index"; ///
+
+const yapp = Yapp.fromContent(`"use strict";
+
+import "juxtapose";
 
 import { Body } from "easy";
 
-import XMLView from "./example/view/xml";
-import JSONView from "./example/view/json";
-import syntaxStyle from "./style/syntax"
-import firaCodeStyle from "./style/firaCode"
-import JavaScriptView from "./example/view/javascript";
+function simpleApp(selector) {
+  const body = new Body(selector);
 
-const { renderStyle, renderStyles } = withStyle;
+  body.mount(
 
-let View;
+    <p>
+      A simple application.
+    </p>
 
-const body = new Body(),
-      example = window.location.search.substring(1);  ///
-
-switch (example) {
-  case "xml": View = XMLView; break;
-  case "json": View = JSONView; break;
-  case "javascript": View = JavaScriptView; break;
+  );
 }
+
+export default withStyle(simpleApp)\`
+
+  color: #333;
+
+\`;
+`);
+
+const body = document.querySelector("body");
 
 renderStyles();
 
-renderStyle( syntaxStyle );
+body.appendChild(yapp.domElement);
 
-renderStyle( firaCodeStyle );
-
-body.mount(
-
-    <View />
-
-);
+yapp.didMount();

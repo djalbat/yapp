@@ -46,22 +46,50 @@ class PrettyPrinter extends Element {
     return height;
   }
 
-  getBorderTopWidth() {
-    const borderTopWidthInPixels = this.css("border-top-width"),
-          matches = borderTopWidthInPixels.match(/^(\d+)px$/),
+  getLneHeight() {
+    const lineHeightInPixels = this.css("line-height"),
+          matches = lineHeightInPixels.match(/^(\d+)px$/),
           secondMatch = second(matches),
-          borderTopWidth = Number(secondMatch); ///
+          lineHeight = Number(secondMatch); ///
+
+    return lineHeight;
+  }
+
+  getBorderTopWidth() {
+    const side = "top",
+          borderTopWidth = this.getBorderWidth(side);
 
     return borderTopWidth;
   }
 
   getBorderLeftWidth() {
-    const borderLeftWidthInPixels = this.css("border-top-width"),
-          matches = borderLeftWidthInPixels.match(/^(\d+)px$/),
-          secondMatch = second(matches),
-          borderLeftWidth = Number(secondMatch); ///
+    const side = "left",
+          borderTopWidth = this.getBorderWidth(side);
 
-    return borderLeftWidth;
+    return borderTopWidth;
+  }
+
+  getBorderRightWidth() {
+    const side = "right",
+          borderTopWidth = this.getBorderWidth(side);
+
+    return borderTopWidth;
+  }
+
+  getBorderBottomWidth() {
+    const side = "bottom",
+          borderTopWidth = this.getBorderWidth(side);
+
+    return borderTopWidth;
+  }
+
+  getBorderWidth(side) {
+    const borderWidthInPixels = this.css(`border-${side}-width`),
+          matches = borderWidthInPixels.match(/^(\d+)px$/),
+          secondMatch = second(matches),
+          borderWidth = Number(secondMatch); ///
+
+    return borderWidth;
   }
 
   getInnerBounds(previousGutterWidth) {
@@ -165,13 +193,19 @@ class PrettyPrinter extends Element {
           setViewWidth = this.setWidth.bind(this), ///
           setViewHeight = this.setHeight.bind(this), ///
           isViewDisplayed = this.isDisplayed.bind(this), ///
+          getLneHeight = this.getLneHeight.bind(this),
+          getBorderTopWidth = this.getBorderTopWidth.bind(this),
+          getBorderBottomWidth = this.getBorderBottomWidth.bind(this),
           parentContext = Object.assign(context, {
             resizeView,
             updateView,
             scrollView,
             setViewWidth,
             setViewHeight,
-            isViewDisplayed
+            isViewDisplayed,
+            getLneHeight,
+            getBorderTopWidth,
+            getBorderBottomWidth
           });
     
     return parentContext;

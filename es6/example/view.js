@@ -114,7 +114,14 @@ class View extends Element {
   childElements() {
     const dragHandler = this.dragHandler.bind(this),
           keyUpHandler = this.keyUpHandler.bind(this),
-          contentChangeHandler = this.contentChangeHandler.bind(this);
+          contentChangeHandler = this.contentChangeHandler.bind(this),
+          yapp =
+
+            <Yapp Plugin={this.Plugin} autoResize="false" onContentChange={contentChangeHandler} >
+              {this.initialContent}
+            </Yapp>
+
+          ;
 
     return ([
 
@@ -122,9 +129,7 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Plugin={this.Plugin} autoResize="false" onContentChange={contentChangeHandler} >
-                {this.initialContent}
-              </Yapp>
+              {yapp}
             </TopSizeableDiv>
             <HorizontalSplitterDiv onDrag={dragHandler}/>
             <RowDiv>
