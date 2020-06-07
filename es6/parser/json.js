@@ -12,13 +12,16 @@ const bnf = `
     document                   ::=  json error* | error+ ;
 
 
-    json                       ::=  jsonArray | jsonObject ;
+    json                       ::=  array | object ;
 
-    jsonArray                  ::=  "[" ( jsonElement ( "," jsonElement )* )? "]" ;
 
-    jsonObject                 ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
+    array                      ::=  "[" ( element ( "," element )* )? "]" ;
+
+
+    object                     ::=  "{" ( [string-literal] ":" element ( "," [string-literal] ":" element )* )? "}" ;
+
     
-    jsonElement                ::=  json |  [string-literal] | [number] | "true" | "false" | "null" ;
+    element                    ::=  json |  [string-literal] | [number] | "true" | "false" | "null" ;
 
 
     error                      ::=  . ;
