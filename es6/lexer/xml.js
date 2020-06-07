@@ -4,6 +4,12 @@ import { CommonLexer, EndOfLineNonSignificantToken } from "occam-lexers";
 
 const entries = [
   {
+    "delimiter": "^(?:=|<\\?|\\?>|<\\/|\\/>|<!--|-->|<|>)"
+  },
+  {
+    "identifier": "^[a-zA-Z]+"
+  },
+  {
     "unassigned": "^[^\\s]+"
   }
 ];
@@ -20,6 +26,8 @@ export default class XMLLexer extends CommonLexer {
   matchMultiLineCommentNotInComment(content, inComment) { return null; }
 
   matchRegularExpression(content) { return null; }
+
+  matchSinglyQuotedStringLiteral(content) { return null; }
 
   static entries = entries;
 
