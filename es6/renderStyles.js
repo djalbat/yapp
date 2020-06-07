@@ -2,8 +2,8 @@
 
 import withStyle from "easy-with-style";  ///
 
-import yappStyle from "./style/yapp"
 import syntaxStyle from "./style/syntax"
+import defaultStyle from "./style/default"
 import firaCodeStyle from "./style/firaCode"
 
 export function renderStyles() {
@@ -13,7 +13,11 @@ export function renderStyles() {
 
   renderStyle(`
   
-    ${yappStyle}
+    .yapp {
+    
+      ${defaultStyle}
+      
+    }
   
     ${syntaxStyle}
   

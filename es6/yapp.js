@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { React, Element } from "easy";
 
-import yappStyle from "./style/yapp";
+import defaultStyle from "./style/default";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 import scrollBarThickness from "./scrollbarThickness";
@@ -179,6 +179,6 @@ class Yapp extends Element {
 
 export default withStyle(Yapp)`
 
-  ${yappStyle}
+  ${defaultStyle}
 
 `;
