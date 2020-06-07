@@ -2,6 +2,6 @@
 
 import { razzmatazz, citron } from "../../colours";
 
-export const attributeColour = razzmatazz;
+export const nameColour = citron;
 
-export const identifierColour = citron;
+export const attributeColour = razzmatazz;

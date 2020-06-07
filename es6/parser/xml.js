@@ -21,19 +21,22 @@ const bnf = `
     comment                    ::=  "<!--" text* "-->" ;
 
 
-    completeTag                ::=  "<"<NO_WHITESPACE>[identifier] attribute* "/>" ;
+    completeTag                ::=  "<"<NO_WHITESPACE>name attribute* "/>" ;
 
 
-    startTag                   ::=  "<"<NO_WHITESPACE>[identifier] attribute* ">" ;
+    startTag                   ::=  "<"<NO_WHITESPACE>name attribute* ">" ;
 
 
-    endTag                     ::=  "</"<NO_WHITESPACE>[identifier] ">" ;
+    endTag                     ::=  "</"<NO_WHITESPACE>name ">" ;
     
 
     attribute                  ::=  [identifier]<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
 
 
     text                       ::=  ( [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
+    
+    
+    name                       ::=  [identifier] ;
 
 
     error                      ::=  . ;

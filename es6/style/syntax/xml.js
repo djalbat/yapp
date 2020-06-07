@@ -1,12 +1,12 @@
 "use strict";
 
-import { attributeColour, identifierColour } from "../../scheme/syntax/xml";
+import { nameColour, attributeColour } from "../../scheme/syntax/xml";
 
 const xmlSyntaxStyle = `
 
-  .xml.syntax > .attribute { color: ${attributeColour}; }
+  .xml.syntax > .name { color: ${nameColour}; }
 
-  .xml.syntax > .identifier { color: ${identifierColour}; }
+  .xml.syntax > .attribute { color: ${attributeColour}; }
 
 `;
 

@@ -4,8 +4,8 @@ import { Query } from "occam-dom";
 
 import ErrorToken from "./token/significant/error";
 
-const terminalNodeQuery = Query.fromExpression("//@*");
-const errorTerminalNodeQuery = Query.fromExpression("//error/@*");
+const terminalNodeQuery = Query.fromExpression("//@*"),
+      errorTerminalNodeQuery = Query.fromExpression("//error/@*");
 
 class Processor {
   process(tokens, node) {
