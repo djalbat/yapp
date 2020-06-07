@@ -9,7 +9,7 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 const bnf = `
 
-    document                   ::=  preamble? ( statement | error )* ;
+    document                   ::=  ( preamble ( statement | error )* ) | ( statement | error )+ ;
 
 
 
