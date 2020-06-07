@@ -32,7 +32,7 @@ You can clone the repository with [Git](https://git-scm.com/)...
 
 You will need to do this if you want to look at the examples.
 
-Although there is no special configuration to do, you do need to provide the necessary font files if you want FiraCode support. These can be found in the `css/` directory and can be copied as-is to your file folder or server. There is also a small squiggle image that is used to highlight error tokens. This should also be served along with your page, or just do without the squiggle. Yapp's style can be overridden easily if the paths will not work, or if you want to supply other web fonts and images.
+Although there is no special configuration to do, you do need to provide the necessary font files if you want FiraCode support. These can be found in the `css/` directory and can be copied as-is to your file folder or server. There is also a small squiggle image that is used to highlight error tokens. This should also be supplied, or just do without the squiggle. Yapp's style can be overridden easily if the paths will not work as-is, or if you want to supply other web fonts and images, say.
 
 ## Examples
 
