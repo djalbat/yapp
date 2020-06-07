@@ -9,7 +9,16 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 const bnf = `
 
-    document                   ::=  error+ ;
+    document                   ::=  json error* | error+ ;
+
+
+    json                       ::=  jsonArray | jsonObject ;
+
+    jsonArray                  ::=  "[" ( jsonElement ( "," jsonElement )* )? "]" ;
+
+    jsonObject                 ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
+    
+    jsonElement                ::=  json |  [string-literal] | [number] | "true" | "false" | "null" ;
 
 
     error                      ::=  . ;

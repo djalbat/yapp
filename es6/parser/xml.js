@@ -9,7 +9,10 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 const bnf = `
 
-    document                   ::=  ( preamble ( element | error )* ) | ( element | error )+ ;
+    document                   ::=  xml error* | error+ ;
+
+
+    xml                        ::=  ( preamble element* ) | element+ ;
 
 
     preamble                   ::=  "<?"<NO_WHITESPACE>"xml" attribute* "?>" ;

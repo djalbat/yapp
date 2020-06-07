@@ -315,7 +315,7 @@ const bnf = `
 
     jsonObject                 ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
     
-    jsonElement                ::=  json | [number] | "true" | "false" | "null" ;
+    jsonElement                ::=  json | [string-literal] | [number] | "true" | "false" | "null" ;
     
 
 
