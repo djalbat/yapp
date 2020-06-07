@@ -8,9 +8,11 @@ import { Body } from "easy";
 
 import XMLView from "./example/view/xml";
 import JSONView from "./example/view/json";
+import syntaxStyle from "./style/syntax"
+import firaCodeStyle from "./style/firaCode"
 import JavaScriptView from "./example/view/javascript";
 
-const { renderStyles } = withStyle;
+const { renderStyle, renderStyles } = withStyle;
 
 let View;
 
@@ -24,6 +26,10 @@ switch (example) {
 }
 
 renderStyles();
+
+renderStyle( syntaxStyle );
+
+renderStyle( firaCodeStyle );
 
 body.mount(
 
