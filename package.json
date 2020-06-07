@@ -27,9 +27,11 @@
     "@babel/preset-env": "^7.8.6",
     "browserify": "^16.5.0",
     "easy-layout": "^5.0.1",
+    "express": "^4.17.1",
     "watchful-cli": "^1.4.6"
   },
   "scripts": {
+    "start": "node ./bin/main.js",
     "clean": "rm -rf ./lib",
     "watchful": "watchful --source-directory=./es6 --temp-directory=./lib --entry-file=example.js --bundle-file=./example.js --pause=100",
     "batch": "npm run watchful batch --",
