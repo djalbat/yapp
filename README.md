@@ -8,19 +8,19 @@ Yapp is a fully fledged pretty printer, meant for code listings, that can also d
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
-..., a small amount of XML...
+..., some XML...
 
 ![XML](https://github.com/djalbat/yapp/blob/master/assets/xml.png)
 
-..., and some JSON.
+..., and some JSON:
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
 
-Yapp is fully configurable. You can supply it with plugins for any language you choose, or in order to override the built-in plugins for languages that are already supported. You can also style it with your own themes to support your plugins or override existing ones. Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default.
+Yapp is fully configurable. You can supply it with plugins for any language you choose, or in order to override the built-in plugins for languages that are already supported. You can also style it with your own styles, to support your plugins or to override existing styles. Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default. It is ideally suited to [Justapose](https://github.com/djalbat/juxtapose), but it can also be invoked standalone with no need for any third party front-end framework.
 
 ## Installation
 
-*Again please note that Yapp is not currently available as an [npm](https://www.npmjs.com/) packge, it can only be cloned.*
+*Again please note that Yapp is not currently available as an [npm](https://www.npmjs.com/) package, it can only be cloned.*
 
 You can clone the repository with [Git](https://git-scm.com/)...
 
@@ -31,6 +31,8 @@ You can clone the repository with [Git](https://git-scm.com/)...
     npm install
 
 You will need to do this if you want to look at the examples.
+
+Although there is no special configuration to do, you do need to provide the necessary font files if you want FiraCode support. These can be found in the `css/` directory and can be copied as-is to your file folder or server. There is also a small squiggle image that is used to highlight error tokens. This should also be served along with your page, or just do without the squiggle. Yapp's style can be overridden easily if the paths will not work, or if you want to supply other web fonts and images.
 
 ## Examples
 
