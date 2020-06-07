@@ -3,7 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { arrayUtilities } from "necessary";
-import { Bounds, Element } from "easy";
+import { React, Bounds, Element } from "easy";
 
 import Gutter from "./gutter";
 import Syntax from "./syntax";

@@ -2,7 +2,7 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { Element } from "easy";
+import { React, Element } from "easy";
 
 import LineNumbers from "./lineNumbers";
 
