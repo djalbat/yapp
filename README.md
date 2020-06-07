@@ -41,8 +41,31 @@ If you simply want to see Yapp in action with no further ado, open the `examples
 Yapp's standalone use is covered first. The following code will insert will append an instance of Yapp to the `body` DOM element:
 
 ```
+"use strict";
 
+import Yapp from "./index"; ///
+
+import { renderStyles } from "./index"; ///
+
+const yapp = Yapp.fromContent(`
+
+  ...
+
+`);
+
+const body = document.querySelector("body");
+
+renderStyles();
+
+body.appendChild(yapp.domElement);
+
+yapp.didMount();
 ```
+Note that you *must*:
+
+1. Call the `renderStyles()` function before you append the DOM element.
+
+2. Call the `didMount()` method immediately thereafter.
 
 ## Contributing
 
