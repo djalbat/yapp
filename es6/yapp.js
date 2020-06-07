@@ -6,9 +6,9 @@ import { React, Element } from "easy";
 
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
-import JavaScriptPlugin from "./plugin/javascript";
 
 import { contentFromChildElements } from "./utilities/content";
+import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
 
 class Yapp extends Element {
   constructor(selector, plugin) {
@@ -152,8 +152,8 @@ class Yapp extends Element {
   };
 
   static fromClass(Class, properties) {
-    const { Plugin = JavaScriptPlugin } = properties,
-          plugin = Plugin.fromNothing(),
+    const { language, Plugin } = properties,
+          plugin = pluginFromLanguageAndPlugin(language, Plugin),
           yapp = Element.fromClass(Class, properties, plugin);
 
     yapp.initialise();
