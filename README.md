@@ -38,7 +38,7 @@ Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you 
 
 ## Usage
 
-If you simply want to see Yapp in action without further ado, open the `examples.html` file in the root of this repository and choose a language from there. Yapp's standalone use is covered first.
+If you simply want to see Yapp in action without further ado, open the `examples.html` file in the root of this repository and choose a language from there, otherwise read on.
 
 ### Using Yapp standalone
 
@@ -51,8 +51,12 @@ import Yapp from "yapp";
 
 import { renderYappStyles } from "yapp";
 
-const yapp = Yapp.fromContent(` ... `),
-      body = document.querySelector("body");
+const body = document.querySelector("body"),
+      yapp = Yapp.fromContent(`
+
+  ...
+
+`);
 
 renderYappStyles();
 
@@ -65,7 +69,7 @@ Note that you *must*:
 * Call the `renderYappStyles()` function before you append the DOM element.
 * Call the `didMount()` method immediately thereafter.
 
-As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set one of the later arguments. The `options` argument, if set, should be a plain old JavaScript object, the properties of which should correspond to the attributes when Yapp is invoked by way of JSX, see below.
+As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set one of the later arguments. The `options` argument, if set, should be a plain old JavaScript object, the properties of which should correspond to the attributes bar the arguments already given when Yapp is invoked by way of JSX.
 
 If you are prepared to use [Easy](https://github.com/djalbat/easy), then the following is a little less cumbersome:
 
@@ -92,7 +96,7 @@ Note that you still need to call the `renderYappStyles()` function, but that you
 
 ### Using Yapp by way of JSX
 
-Making use of JSX simply means that a different factory method is called under the hood. It is arguably slightly more elegant, and means that fewer styles have to be rendered:
+Making use of JSX simply results in a different factory method being called under the hood. It is arguably slightly more elegant, and means that fewer styles have to be rendered:
 
 ```
 "use strict";
@@ -122,13 +126,19 @@ renderStyle(firaCodeStyle);
 
 body.mount(
 
-  <Yapp>{`
+  <Yapp language="xml">{`
 
   ...
 
 `}</Yapp>
+
 );
 ```
+Note that the styles have been rendered in a slightly different fashion, see below.
+
+### Styling Yapp
+
+
 
 ## Contributing
 
