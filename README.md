@@ -182,7 +182,7 @@ import { renderYappStyles } from "yapp";
 
 renderYappStyles();
 ```
-Note that in either case, rendering the styles must happen before Yapp is added to the DOM.
+Note that in either case, rendering the styles must happen before any instance of Yapp is added to the DOM.
 
 The remainder of this section explains how to override the default and syntax styles.
 
@@ -241,7 +241,9 @@ export default withStyle(Yapp)`
 ```
 Note that in this case you should specify the `text-rendering` and `font-feature-settings` properties in order to prevent the underlying ones still being used.
 
-The syntax styles cannot be overridden by the above method, because the selectors largely target the pretty printer's child `span` elements and these are not generated programmatically for performance reasons. Therefore the only approach is the standalone one. The best way to see what styles can be altered is to look at the styles in the [`style/syntax`](https://github.com/djalbat/yapp/tree/master/es6/style/syntax) folder. You can see how these are pulled together into a single syntax style in the [`style/syntax.js`](https://github.com/djalbat/yapp/blob/master/es6/style/syntax.js) file. You should aim for something similar, in particular note that the syntax styles each employ a corresponding scheme that maps colours to properties. You may want to start by just changing a scheme, in fact, rather than a style. In doing do, if you keep to the same outline, you are guaranteed the expected result. For example, the XML scheme only has two colours:
+The syntax styles cannot be overridden by the above method, because the selectors largely target the pretty printer's child `span` elements and these are not generated programmatically for performance reasons. Therefore the only approach is the standalone one.
+
+The best way to see what styles can be altered is to look at the styles in the [`style/syntax`](https://github.com/djalbat/yapp/tree/master/es6/style/syntax) folder. You can see how these are pulled together into a single syntax style in the [`style/syntax.js`](https://github.com/djalbat/yapp/blob/master/es6/style/syntax.js) file. You should aim for something similar, in particular note that the syntax styles each employ a corresponding scheme that maps colours to properties. You may want to start by just changing a scheme, in fact, rather than a style. For example, the XML scheme only has two colours:
 
 ```
 "use strict";
