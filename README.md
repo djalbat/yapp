@@ -2,7 +2,7 @@
 
 Yet Another Pretty Printer.
 
-*Please note that Yapp is currently in beta, as the grammars are still under development. There is also a short wait for the package name to become available, so any mention of installing via `npm` below should be ignored. If you wish to install Yapp for now, please do so from GitHub by adding the following dependency to your `package.json` file:*
+*Please note that Yapp is currently in beta, as the grammars are still under development. There is also currently a short wait for the package name to become available, so any mention of installing Yapp via `npm` below should be ignored. If you wish to install Yapp for now, please do so from GitHub by adding the following dependency to your `package.json` file:*
 
 ```
 "yapp": "git://github.com/djalbat/yapp.git"
@@ -22,7 +22,7 @@ Yapp is a fully fledged pretty printer that can also double as an editor. It has
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
 
-Yapp is fully configurable. You can supply it with plugins for any language you choose, or in order to override the built-in plugins for languages that are already supported. You can also style it with your own styles, to support your plugins or to override existing styles. It is ideally suited to [Juxtapose](https://github.com/djalbat/juxtapose) and [Easy with Style](https://github.com/djalbat/easy-with-style), however it can be used standalone, with no dependencies on any front-end frameworks.
+Yapp is fully configurable. You can supply it with plugins for any language you choose, or in order to override the built-in plugins. You can also style it with your own styles, to support your plugins or to override existing styles. It is ideally suited to [Juxtapose](https://github.com/djalbat/juxtapose) and [Easy with Style](https://github.com/djalbat/easy-with-style), however it can be used standalone, with no dependencies on any front-end frameworks.
 
 ## Installation
 
@@ -30,7 +30,7 @@ You can install Yapp with [npm](https://www.npmjs.com/):
 
     npm install yapp
 
-You can clone the repository with [Git](https://git-scm.com/)...
+You can also clone the repository with [Git](https://git-scm.com/)...
 
     git clone https://github.com/djalbat/yapp.git
 
@@ -38,15 +38,15 @@ You can clone the repository with [Git](https://git-scm.com/)...
 
     npm install
 
-You will need to do this if you want to look at the examples.
+You will need to do this if you want to look at the examples or contribute.
 
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to your file folder or server. Additionally, there is a small squiggle image that is used to highlight error tokens. This should also be supplied, or just do without the squiggle.
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight error tokens. This should also be supplied, or just do without the squiggle.
 
 ## Usage
 
 If you simply want to see Yapp in action without further ado, open the `examples.html` file in the root of this repository and choose a language from there. Otherwise read on.
 
-As well as inserting an instance of Yapp into the DOM, you also need to style it. Instructions for doing so are given in the sub-section for styling Yapp further on. The requisite code is left out of the listings in the next two sub-sections for brevity's sake, however you will need to add it the style rendering code, too.
+As well as inserting an instance of Yapp into the DOM, you will need to style it. Instructions for doing so are given in the sub-section for styling Yapp further on. The requisite code is left out of the listings in the next two sub-sections for brevity's sake, however you will need to add the style rendering code at some point.
 
 ### Using Yapp standalone
 
@@ -68,11 +68,11 @@ body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
-Note that you *must* Call the `didMount()` method immediately after the DOM element has been added. Also note that the body DOM element does not have to be the one that is used.
+Please note that you *must* call the `didMount()` method immediately after the DOM element has been added. Also note that you do not have to amke use of the body DOM element, any one can be used.
 
-As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set one of the later arguments. The `options` argument, if set, should be a plain old JavaScript object, the properties of which should correspond to the attributes bar the arguments already given when Yapp is invoked by way of JSX.
+As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set one of the later arguments. The `options` argument, if set, should be a plain old JavaScript object, the properties of which correspond to the attributes when Yapp is invoked by way of JSX, bar the arguments already given.
 
-If you are prepared to use [Easy](https://github.com/djalbat/easy), then the following is a little less cumbersome:
+If you are prepared to use [Easy](https://github.com/djalbat/easy), then the following is perhaps a little less cumbersome:
 
 ```
 "use strict";
@@ -117,7 +117,7 @@ body.mount(
 
 );
 ```
-As in the standalone case, you don't have to make do with the body DOM element, any can be used. For example:
+As in the standalone case, you don't have to make do with the body DOM element, any can be used:
 
 ```
 "use strict";
@@ -136,7 +136,7 @@ rootDiv.mount(
 
 );
 ```
-If using jSX, you need to install Babel's [`plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and add a reference to it to your `babel.config.json` file:
+If using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
 
 ```
 {
@@ -153,14 +153,6 @@ If using jSX, you need to install Babel's [`plugin-transform-react-jsx`](https:/
 Other than that, there are no changes needed.
 
 ### Styling Yapp
-
-Three styles are utilised:
-
-1. **Yapp's default style** only needs to be rendered if you are using Yapp standalone.
-
-2. **The syntax style** always needs to be rendered either way.
-
-3. **The FiraCode style** obviously only needs to be rendered if you want FiraCode support.
 
 The recommended way of rendering styles is the following:
 
@@ -181,6 +173,17 @@ renderStyle(syntaxStyle); // Likely always needed
 
 renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
+If this seems unwieldy, and if you don't want to make any changes to the styles and you do want FiraCode support, all of the above can be replaced with the following:
+
+```
+"use strict";
+
+import { renderYappStyles } from "yapp";
+
+renderYappStyles();
+```
+In either case, rendering the styles must happen before Yapp is added to the DOM.
+
 ## Contributing
 
 ## Building
