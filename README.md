@@ -256,7 +256,21 @@ export const attributeColour = citron;
 ```
 If you want to change the colours of pretty printed XML, therefore, you can duplicate this scheme and change the colours to the ones you like. You then only need to change the scheme that the XML style utilises, otherwise leaving the style as-is.
 
+Perhaps the best way to get started with rendering your own styles is to look at the example code, see below.
+
+## The examples
+
+Open the `index.html` file in the root of the repository. There is an example for each of the supported languages.
+
 ## Contributing
+
+All development is best done in the context of the examples, at least initially. There are three main areas that would benefit hugely from contributions.
+
+1. **More and improved syntax styles.** These can be contributed individually or as a whole. There will likely be no need to do any programming beyond changing some variables in order to make a contribution.
+
+2. **Improving the grammars for existing languages.** This can in theory be done with virtually no programming at all, since both the lexical entries and BNF can be changed directly in the examples.
+
+3. **Altering existing plugins or creating new ones.** This is likely to be more work, however it should not be considered as out of reach. The best way to create a new plugin is to effectively clone an existing one. See the source for details.
 
 ## Building
 
