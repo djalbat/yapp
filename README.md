@@ -272,6 +272,8 @@ All development is best done in the context of the examples, at least initially.
 
 3. **Altering existing plugins or creating new ones.** This is likely to be more work, however it should not be considered out of reach. The best way to create a new plugin is to effectively clone an existing one. See the source for details.
 
+Contributions are best made in the form of pull requests.
+
 ## Building
 
 Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
