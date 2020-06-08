@@ -173,7 +173,7 @@ renderStyle(syntaxStyle); // Likely always needed
 
 renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
-If this seems unwieldy, and if you don't want to make any changes to the styles and you do want FiraCode support, all of the above can be replaced with the following:
+If this all seems unwieldy, and if you don't want to make any changes to the styles and you do want FiraCode support, all of the above can be replaced with the following:
 
 ```
 "use strict";
@@ -182,7 +182,68 @@ import { renderYappStyles } from "yapp";
 
 renderYappStyles();
 ```
-In either case, rendering the styles must happen before Yapp is added to the DOM.
+Note that in either case, rendering the styles must happen before Yapp is added to the DOM.
+
+The remainder of this section explains how to override the default and syntax styles.
+
+The default style looks like this:
+
+```
+position: relative;
+
+font-size: 13px;
+line-height: 20px;
+font-family: "Fira Code", monospace;
+text-rendering: optimizeLegibility; /* Force ligatures for Webkit, Blink, Gecko */
+font-feature-settings: "calt" 1;  /* Enable ligatures for IE 10+, Edge */
+
+```
+So if you want Yapp to use a different font, simply replace the above with something more to your liking. If you do so, you must set the `line-height` property, because Yapp makes use of it when calculating its initial height. The other properties are all effectively optional, however it is recommended you at least explicitly specify the font family and size.
+
+If you are using Yapp standalone, you need to enclose the above styles in a selector to target Yapp:
+
+```
+...
+
+const yappStyle = `
+
+  .yapp {
+    position: relative;
+
+    font-size: ... ;
+    line-height: ... ;
+    font-family: ... ;
+
+    ...
+  }
+
+`;
+
+renderStyle(yappStyle);
+
+...
+```
+If you are using JSX and programmatic styles, the two essentially go together, the following approach is probably best:
+
+```
+"use strict";
+
+import Yapp from "yapp";
+import withStyle from "easy-with-style";  ///
+
+export default withStyle(Yapp)`
+
+  font-size: ... ;
+  line-height: ... ;
+  font-family: ... ;
+  text-rendering: initial;
+  font-feature-settings: initial;
+
+`;
+```
+Note that in this case you should specify the `text-rendering` and `font-feature-settings` properties in order to prevent the underlying ones still being used.
+
+The syntax styles cannot be overridden by the above method, because the selectors largely target the pretty printer's child `span` elements and these are not generated programmatically for performance reasons. Therefore the only approach is the standalone approach.
 
 ## Contributing
 
