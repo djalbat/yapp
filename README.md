@@ -2,7 +2,13 @@
 
 Yet Another Pretty Printer.
 
-*Please note that Yapp is currently in beta, as the grammars are still under development. There is also a short wait for the package name to become available, so any mention of installing via `npm` below should be ignored. If you are interested in contributing to Yapp, in particular contributing to its grammars, see the contribution section below.*
+*Please note that Yapp is currently in beta, as the grammars are still under development. There is also a short wait for the package name to become available, so any mention of installing via `npm` below should be ignored. If you wish to install Yapp for now, please do so from GitHub by adding the following dependency to your `package.json` file:*
+
+```
+"yapp": "git://github.com/djalbat/yapp.git"
+```
+
+*If you are interested in contributing to Yapp, in particular contributing to its grammars, see the contribution section below.*
 
 Yapp is a fully fledged pretty printer that can also double as an editor. It has advanced functionality to not only tokenise and parse content, but also to post-process it. This results in a degree of refinement that rivals commercial editors. Here are three short examples. Some JavaScript...
 
@@ -38,7 +44,9 @@ Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you 
 
 ## Usage
 
-If you simply want to see Yapp in action without further ado, open the `examples.html` file in the root of this repository and choose a language from there, otherwise read on.
+If you simply want to see Yapp in action without further ado, open the `examples.html` file in the root of this repository and choose a language from there. Otherwise read on.
+
+As well as inserting an instance of Yapp into the DOM, you also need to style it. Instructions for doing so are given in the sub-section for styling Yapp further on. The requisite code is left out of the listings in the next two sub-sections for brevity's sake, however you will need to add it the style rendering code, too.
 
 ### Using Yapp standalone
 
@@ -49,8 +57,6 @@ The following will add an instance of Yapp to the DOM:
 
 import Yapp from "yapp";
 
-import { renderYappStyles } from "yapp";
-
 const body = document.querySelector("body"),
       yapp = Yapp.fromContent(`
 
@@ -58,16 +64,11 @@ const body = document.querySelector("body"),
 
 `);
 
-renderYappStyles();
-
 body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
-Note that you *must*:
-
-* Call the `renderYappStyles()` function before you append the DOM element.
-* Call the `didMount()` method immediately thereafter.
+Note that you *must* Call the `didMount()` method immediately after the DOM element has been added. Also note that the body DOM element does not have to be the one that is used.
 
 As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set one of the later arguments. The `options` argument, if set, should be a plain old JavaScript object, the properties of which should correspond to the attributes bar the arguments already given when Yapp is invoked by way of JSX.
 
@@ -79,7 +80,6 @@ If you are prepared to use [Easy](https://github.com/djalbat/easy), then the fol
 import Yapp from "yapp";
 
 import { Body } from "easy";
-import { renderYappStyles } from "yapp";
 
 const body = new Body(),
       yapp = Yapp.fromContent(`
@@ -88,41 +88,24 @@ const body = new Body(),
 
 `);
 
-renderYappStyles();
-
 body.mount(yapp);
 ```
-Note that you still need to call the `renderYappStyles()` function, but that you can dispense with the `didMount()` method.
+Note that you can dispense with the `didMount()` method with this approach.
 
 ### Using Yapp by way of JSX
 
-Making use of JSX simply results in a different factory method being called under the hood. It is arguably slightly more elegant, and means that fewer styles have to be rendered:
+Making use of JSX is arguably more elegant:
 
 ```
 "use strict";
 
-import "juxtapose"";
+import "juxtapose";
 
 import Yapp from "yapp";
-import withStyle from "easy-with-style";  ///
 
 import { Body } from "easy";
-import { syntaxStyle, firaCodeStyle } from "yapp";
 
-const { renderStyle, renderStyles } = withStyle;
-
-const body = new Body(),
-      yapp = Yapp.fromContent(`
-
-  ...
-
-`);
-
-renderStyles();
-
-renderStyle(syntaxStyle);
-
-renderStyle(firaCodeStyle);
+const body = new Body();
 
 body.mount(
 
@@ -134,12 +117,70 @@ body.mount(
 
 );
 ```
-Note that the styles have been rendered in a slightly different fashion, see below.
+As in the standalone case, you don't have to make do with the body DOM element, any can be used. For example:
+
+```
+"use strict";
+
+import "juxtapose";
+
+import Yapp from "yapp";
+
+import { Element } from "easy";
+
+const rootDiv = new Element("div#root");
+
+rootDiv.mount(
+
+  ...
+
+);
+```
+If using jSX, you need to install Babel's [`plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and add a reference to it to your `babel.config.json` file:
+
+```
+{
+  "presets": [
+    [
+      "@babel/env"
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-react-jsx"
+  ]
+}
+```
+Other than that, there are no changes needed.
 
 ### Styling Yapp
 
+Three styles are utilised:
 
+1. **Yapp's default style** only needs to be rendered if you are using Yapp standalone.
 
+2. **The syntax style** always needs to be rendered either way.
+
+3. **The FiraCode style** obviously only needs to be rendered if you want FiraCode support.
+
+The recommended way of rendering styles is the following:
+
+```
+"use strict";
+
+import withStyle from "easy-with-style";  ///
+
+import { yappStyle, syntaxStyle, firaCodeStyle } from "yapp";
+
+const { renderStyle, renderStyles } = withStyle;
+
+renderStyles(); // Always needed
+
+renderStyle(yappStyle); // Not needed if using JSX
+
+renderStyle(syntaxStyle); // Likely always needed
+
+renderStyle(firaCodeStyle); // Only needed for FiraCode support.
+```
 ## Contributing
 
 ## Building

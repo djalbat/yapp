@@ -2,7 +2,6 @@
 
 const defaultStyle = `
     
-  overflow: hidden;
   position: relative;
 
   font-size: 13px;
