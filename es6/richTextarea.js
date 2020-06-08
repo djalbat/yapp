@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
 
-import { caretColour, selectionBackgroundColour } from "./scheme/view";
+import { caretColour, selectionBackgroundColour } from "./scheme/prettyPrinter";
 
 export default withStyle(class extends RichTextarea {
   setBounds(bounds) {

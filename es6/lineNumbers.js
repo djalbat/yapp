@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import { lineNumbersColour } from "./scheme/view";
+import { lineNumbersColour } from "./scheme/prettyPrinter";
 
 class LineNumbers extends Element {
   update(lineCount) {

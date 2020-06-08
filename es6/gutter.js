@@ -8,7 +8,7 @@ import LineNumbers from "./lineNumbers";
 
 import { GUTTER_HEIGHT } from "./constants";
 import { lineCountFromTokens } from "./utilities/tokens";
-import { gutterBorderColour, gutterBackgroundColour } from "./scheme/view";
+import { gutterBorderColour, gutterBackgroundColour } from "./scheme/prettyPrinter";
 
 class Gutter extends Element {
   update(tokens) {

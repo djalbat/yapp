@@ -154,7 +154,7 @@ Other than that, there are no changes needed.
 
 ### Styling Yapp
 
-The recommended way of rendering styles is the following:
+The recommended way of rendering styles is to do so individually:
 
 ```
 "use strict";
@@ -173,7 +173,7 @@ renderStyle(syntaxStyle); // Likely always needed
 
 renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
-If this all seems unwieldy, and if you don't want to make any changes to the styles and you do want FiraCode support, all of the above can be replaced with the following:
+If this all seems a bit too unwieldy, and if you don't want to make any changes to the styles and you do want FiraCode support, the above can be replaced with the following:
 
 ```
 "use strict";
@@ -198,7 +198,7 @@ text-rendering: optimizeLegibility; /* Force ligatures for Webkit, Blink, Gecko 
 font-feature-settings: "calt" 1;  /* Enable ligatures for IE 10+, Edge */
 
 ```
-So if you want Yapp to use a different font, simply replace the above with something more to your liking. If you do so, you must set the `line-height` property, because Yapp makes use of it when calculating its initial height. The other properties are all effectively optional, however it is recommended you at least explicitly specify the font family and size.
+So if you want Yapp to use a different font, simply replace the above with something more to your liking. If you do so, you must set the `line-height` property, because Yapp makes use of it when calculating its own height. The other properties are all effectively optional, however it is recommended you at least specify the font family and size.
 
 If you are using Yapp standalone, you need to enclose the above styles in a selector to target Yapp:
 
@@ -220,8 +220,6 @@ const yappStyle = `
 `;
 
 renderStyle(yappStyle);
-
-...
 ```
 If you are using JSX and programmatic styles, the two essentially go together, the following approach is probably best:
 
@@ -243,7 +241,18 @@ export default withStyle(Yapp)`
 ```
 Note that in this case you should specify the `text-rendering` and `font-feature-settings` properties in order to prevent the underlying ones still being used.
 
-The syntax styles cannot be overridden by the above method, because the selectors largely target the pretty printer's child `span` elements and these are not generated programmatically for performance reasons. Therefore the only approach is the standalone approach.
+The syntax styles cannot be overridden by the above method, because the selectors largely target the pretty printer's child `span` elements and these are not generated programmatically for performance reasons. Therefore the only approach is the standalone one. The best way to see what styles can be altered is to look at the styles in the [`style/syntax`](https://github.com/djalbat/yapp/tree/master/es6/style/syntax) folder. You can see how these are pulled together into a single syntax style in the [`style/syntax.js`](https://github.com/djalbat/yapp/blob/master/es6/style/syntax.js) file. You should aim for something similar, in particular note that the syntax styles each employ a corresponding scheme that maps colours to properties. You may want to start by just changing a scheme, in fact, rather than a style. In doing do, if you keep to the same outline, you are guaranteed the expected result. For example, the XML scheme only has two colours:
+
+```
+"use strict";
+
+import { cadetBlue, citron } from "../../colours";
+
+export const nameColour = cadetBlue;
+
+export const attributeColour = citron;
+```
+If you want to change the colours of pretty printed XML, therefore, you can duplicate this scheme and change the colours to the ones you like. You then only need to change the scheme that the XML style utilises, otherwise leaving the style as-is.
 
 ## Contributing
 

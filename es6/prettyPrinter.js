@@ -9,7 +9,7 @@ import Gutter from "./gutter";
 import Syntax from "./syntax";
 
 import { lineHeight } from "./constants";
-import { borderColour, backgroundColour } from "./scheme/view";
+import { borderColour, backgroundColour } from "./scheme/prettyPrinter";
 
 const { second } = arrayUtilities;
 
