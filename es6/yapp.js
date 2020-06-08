@@ -134,9 +134,10 @@ class Yapp extends Element {
   initialise() {
     this.assignContext();
 
-    const { childElements } = this.properties,
+    const { childElements, editable = false } = this.properties,
           language = this.plugin.getLanguage(),
           content = contentFromChildElements(childElements),
+          readOnly = !editable,
           scrollTop = 0,  ///
           scrollLeft = 0; ///
 
@@ -145,6 +146,8 @@ class Yapp extends Element {
     this.scrollView(scrollTop, scrollLeft);
 
     this.setRichTextareaContent(content);
+
+    this.setRichTextareaReadOnly(readOnly);
 
     this.onResize(() => this.resize());
   }

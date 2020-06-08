@@ -37,12 +37,14 @@ export default withStyle(class extends RichTextarea {
   parentContext() {
     const getRichTextareaContent = this.getContent.bind(this),
           setRichTextareaBounds = this.setBounds.bind(this),  ///
-          setRichTextareaContent = this.setContent.bind(this); ///
+          setRichTextareaContent = this.setContent.bind(this),  ///
+          setRichTextareaReadOnly = this.setReadOnly.bind(this); ///
 
     return ({
       getRichTextareaContent,
       setRichTextareaBounds,
-      setRichTextareaContent
+      setRichTextareaContent,
+      setRichTextareaReadOnly
     });
   }
 

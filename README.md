@@ -16,7 +16,7 @@ Yapp is a fully fledged pretty printer that can also double as an editor. It has
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
 
-Yapp is fully configurable. You can supply it with plugins for any language you choose, or in order to override the built-in plugins for languages that are already supported. You can also style it with your own styles, to support your plugins or to override existing styles. It is ideally suited to [Juxtapose](https://github.com/djalbat/juxtapose) and [Easy with Style](https://github.com/djalbat/easy-with-style), however it can just as easily be used standalone, with no dependencies on any front-end frameworks.
+Yapp is fully configurable. You can supply it with plugins for any language you choose, or in order to override the built-in plugins for languages that are already supported. You can also style it with your own styles, to support your plugins or to override existing styles. It is ideally suited to the [Juxtapose](https://github.com/djalbat/juxtapose) and [Easy with Style](https://github.com/djalbat/easy-with-style) packages, however it can be used standalone, with no dependencies on any front-end frameworks.
 
 ## Installation
 
@@ -38,7 +38,7 @@ Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you 
 
 ## Usage
 
-If you simply want to see Yapp in action with no further ado, open the `examples.html` file in the root of this repository and choose a language from there.
+If you simply want to see Yapp in action without further ado, open the `examples.html` file in the root of this repository and choose a language from there.
 
 Yapp's standalone use is covered first. The following will add an instance of Yapp to the DOM:
 
@@ -47,17 +47,14 @@ Yapp's standalone use is covered first. The following will add an instance of Ya
 
 import Yapp from "yapp";
 
-import { renderStyles } from "yapp";
+import { renderYappStyles } from "yapp";
 
-const yapp = Yapp.fromContent(`
+const yapp = Yapp.fromContent(` ... `),
+      body = document.querySelector("body");
 
-  ...
+renderYappStyles();
 
-`);
-
-renderStyles();
-
-const body = document.querySelector("body");
+const ;
 
 body.appendChild(yapp.domElement);
 
@@ -65,10 +62,30 @@ yapp.didMount();
 ```
 Note that you *must*:
 
-* Call the `renderStyles()` function before you append Yapp's DOM element.
-* Call Yapp's `didMount()` method immediately thereafter.
+* Call the `renderYappStyles()` function before you append the DOM element.
+* Call the `didMount()` method immediately thereafter.
 
-As well as the `content` argument, the `fromContent(...)` factory method takes `language` and `Plugin` arguments. The `language` argument can be set to `null` should you only want to set the `Plugin` argument.
+As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set the `Plugin` or `options` argument, say. The `options` argument, if set, should be a plain old JavaScript object, the properties of which should correspond to the JSX attributes when Yapp is invoked that way, see below.
+
+If you are prepared to use the [Easy](https://github.com/djalbat/easy) package, the following is a little less cumbersome:
+
+```
+"use strict";
+
+import Yapp from "yapp";
+
+import { Body } from "easy";
+import { renderYappStyles } from "yapp";
+
+const yapp = Yapp.fromContent(` ... `);
+
+renderYappStyles();
+
+const body = new Body();
+
+body.mount(yapp);
+```
+Note that you still need to call the `renderYappStyles()` function, but that you can dispense with the `didMount()` method.
 
 ## Contributing
 

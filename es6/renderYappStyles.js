@@ -2,22 +2,19 @@
 
 import withStyle from "easy-with-style";  ///
 
+import yappStyle from "./style/yapp"
 import syntaxStyle from "./style/syntax"
-import defaultStyle from "./style/default"
 import firaCodeStyle from "./style/firaCode"
 
-export function renderStyles() {
-  const { renderStyle, renderStyles } = withStyle;
+const { renderStyle, renderStyles } = withStyle;
+
+export function renderYappStyles() {
 
   renderStyles();
 
   renderStyle(`
   
-    .yapp {
-    
-      ${defaultStyle}
-      
-    }
+    ${yappStyle}
   
     ${syntaxStyle}
   
