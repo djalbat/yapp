@@ -89,6 +89,8 @@ class Yapp extends Element {
 
       this.update();
 
+      element = this; ///
+
       contentChangeHandler && contentChangeHandler(event, element); ///
     }
   }

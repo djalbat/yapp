@@ -26,7 +26,11 @@ const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
 class View extends Element {
-  grammarChangeHandler() {
+  contentChangeHandler(event, element) {
+    this.update();
+  }
+
+  keyUpHandler(event, element) {
     try {
       const lexicalEntries = this.getLexicalEntries(),
             entries = lexicalEntries, ///
@@ -52,14 +56,6 @@ class View extends Element {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  contentChangeHandler() {
-    this.update();
-  }
-
-  keyUpHandler() {
-    this.grammarChangeHandler();  ///
   }
 
   dragHandler() {

@@ -71,7 +71,6 @@ A slightly less cumbersome approach is to use an [Easy](https://github.com/djalb
 import Yapp from "yapp";
 
 import { Body } from "easy";
-
 import { renderYappStyles } from "yapp";
 
 const body = new Body(),
@@ -85,7 +84,7 @@ renderYappStyles();
 
 body.mount(yapp);
 ```
-Arguably the most elegant approach is to use JSX in invoke Yapp:
+Arguably the most elegant approach, however, is to use JSX to invoke Yapp:
 
 ```
 "use strict";
@@ -95,7 +94,6 @@ import "juxtapose";
 import Yapp from "yapp";
 
 import { Body } from "easy";
-
 import { renderYappStyles } from "yapp";
 
 const body = new Body();
@@ -114,17 +112,21 @@ body.mount(
 ```
 If you go for the first approach, you must call the `didMount()` method explicitly.
 
-Yapp will set its own height, based on its content, and its width is preset as `100%`, so you will probably want to mount it in a containing element rather than the body.
+Yapp will set its own height, based on its content, and its width is preset as `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like:
 
+```
+import { Element } from "easy";
 
-As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set one of the latter arguments. The `options` argument, if set, should be a plain old JavaScript object. See the JSX usage section for its properties, which are passed as additional attributes via JSX.
+const rootDiv = new Element("div#root");
 
-### Using Yapp by way of JSX
+rootDiv.mount(
 
-Yapp is built with [Juxtapose](https://github.com/djalbat/juxtapose) and [Easy with Style](https://github.com/djalbat/easy-with-style), and can be used with these frameworks. In particular, invoking it by way of JSX is arguably a little more elegant:
+  ...
+);
+```
+Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes by way of JSX. You can leave intermediate arguments as `null` or `undefined` if you want to pass just the latter arguments to the `fromContent(...)` method. The `options` argument is explained below.
 
-
-If using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
+If you are using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
 
 ```
 {
@@ -138,7 +140,27 @@ If using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](
   ]
 }
 ```
-Other than that, there are no changes needed.
+
+You can set Yapp's height explicitly with the `setHeight(...)` method and you can make it editable, and supply it with a callback to be invoked whenever its content changes, as follows:
+
+```
+const options = {
+  editable: true,
+  onContentChange: (event, element) => {
+
+    const yapp = element, ///
+          content = yapp.getContent();
+
+    ...
+
+  }
+};
+
+const yapp = Yapp.fromContent(..., "javascript", null, options);
+
+...
+```
+If you are using JSX, you can pass these options as attributes.
 
 ### Styling Yapp
 
