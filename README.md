@@ -10,7 +10,7 @@ Yet Another Pretty Printer.
 
 *If you are interested in contributing to Yapp, in particular contributing to its grammars, see the contribution section below.*
 
-Yapp is a fully fledged pretty printer that can also double as an editor. It has a powerful lexer and parser under the hood as well as the ability to further process parsed content to refine its appearance still further. In this respect it rivals commercial editors. Here are three short examples of some JavaScript, XML and JSON, respectively:
+Yapp is a fully fledged pretty printer that can also double as an editor. It has a powerful lexer and parser under the hood as well as the ability to further process parsed content in order to refine its appearance still further. In this respect it rivals commercial editors. Here are three short examples of some JavaScript, XML and JSON, respectively:
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
@@ -18,9 +18,7 @@ Yapp is a fully fledged pretty printer that can also double as an editor. It has
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
 
-Yapp is fully configurable. You can style it as a whole or target a specific syntax. As well as specifying languages, you can supply it with plugins for any language of your choice.
-
-It is ideally suited to [Juxtapose](https://github.com/djalbat/juxtapose) and [Easy with Style](https://github.com/djalbat/easy-with-style), however it can be used standalone with no dependencies on any front-end frameworks.
+Yapp is fully configurable. You can style it as a whole or target a specific syntax. As well as specifying languages, you can supply it with plugins for additional language support.
 
 ## Installation
 
@@ -36,7 +34,7 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
     npm install
 
-You will need to do this if you want to look at the examples or contribute.
+You will need to do this if you want to look at the examples or if you wish to contribute.
 
 Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight error tokens. This should also be supplied, or just do without the squiggle.
 
@@ -91,6 +89,8 @@ body.mount(yapp);
 Note that you can dispense with the `didMount()` method with this approach.
 
 ### Using Yapp by way of JSX
+
+Yapp is ideally suited to JSX in the guise of [Juxtapose](https://github.com/djalbat/juxtapose) and programmatic styles in the guise of [Easy with Style](https://github.com/djalbat/easy-with-style).
 
 Making use of JSX is arguably more elegant:
 
