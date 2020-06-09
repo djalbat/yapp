@@ -42,18 +42,18 @@ Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you 
 
 ## Getting started
 
-**If you simply want to see Yapp in action without further ado**, then clone this repository, open the `examples.html` file therein and choose a language. Otherwise read on.
-
-As well as inserting an instance of Yapp into the DOM, you will need to style it. Instructions for doing so are given in the sub-section for styling Yapp further on. The requisite code is left out of the listings in the next two sub-sections for brevity's sake, however you will need to add the style rendering code at some point.
+**If you simply want to see Yapp in action without further ado**, then clone this repository, open the `index.html` file and choose a language. Otherwise read on.
 
 ### Using Yapp standalone
 
-The following will add an instance of Yapp to the DOM:
+The following will mount Yapp and render the necessary styles:
 
 ```
 "use strict";
 
 import Yapp from "yapp";
+
+import { renderYappStyles } from "yapp";
 
 const body = document.querySelector("body"),
       yapp = Yapp.fromContent(`
@@ -62,22 +62,20 @@ const body = document.querySelector("body"),
 
 `);
 
+renderYappStyles();
+
 body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
-Please note that you *must* call the `didMount()` method immediately after the DOM element has been added. Also note that you do not have to amke use of the body DOM element, any one can be used.
-
-As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set one of the later arguments. The `options` argument, if set, should be a plain old JavaScript object, the properties of which correspond to the attributes when Yapp is invoked by way of JSX, bar the arguments already given.
-
-If you are prepared to use [Easy](https://github.com/djalbat/easy), then the following is perhaps a little less cumbersome:
-
+A slightly less cumbersome approach is to use an [Easy](https://github.com/djalbat/easy) for mounting:
 ```
 "use strict";
 
 import Yapp from "yapp";
 
 import { Body } from "easy";
+import { renderYappStyles } from "yapp";
 
 const body = new Body(),
       yapp = Yapp.fromContent(`
@@ -86,15 +84,20 @@ const body = new Body(),
 
 `);
 
+renderYappStyles();
+
 body.mount(yapp);
 ```
-Note that you can dispense with the `didMount()` method with this approach.
+If you go for the first approach, you must call the `didMount()` method explicitly.
+
+Yapp will set its own height, based on its content, and its width is preset as `100%`, so you will probably want to mount it in a containing element rather than the body.
+
+
+As well as the `content` argument, the `fromContent(...)` factory method takes `language`, `Plugin` and `options` arguments. Intermediate arguments can be set to `null` should you only want to set one of the latter arguments. The `options` argument, if set, should be a plain old JavaScript object. See the JSX usage section for its properties, which are passed as additional attributes via JSX.
 
 ### Using Yapp by way of JSX
 
-Yapp is ideally suited to JSX in the guise of [Juxtapose](https://github.com/djalbat/juxtapose) and programmatic styles in the guise of [Easy with Style](https://github.com/djalbat/easy-with-style).
-
-Making use of JSX is arguably more elegant:
+Yapp is built with [Juxtapose](https://github.com/djalbat/juxtapose) and [Easy with Style](https://github.com/djalbat/easy-with-style), and can be used with these frameworks. In particular, invoking it by way of JSX is arguably a little more elegant:
 
 ```
 "use strict";
@@ -104,8 +107,11 @@ import "juxtapose";
 import Yapp from "yapp";
 
 import { Body } from "easy";
+import { renderYappStyles } from "yapp";
 
 const body = new Body();
+
+renderYappStyles();
 
 body.mount(
 
@@ -117,25 +123,7 @@ body.mount(
 
 );
 ```
-As in the standalone case, you don't have to make do with the body DOM element, any can be used:
 
-```
-"use strict";
-
-import "juxtapose";
-
-import Yapp from "yapp";
-
-import { Element } from "easy";
-
-const rootDiv = new Element("div#root");
-
-rootDiv.mount(
-
-  ...
-
-);
-```
 If using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
 
 ```
