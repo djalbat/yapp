@@ -12,15 +12,15 @@ Yet Another Pretty Printer.
 
 Yapp is a fully fledged pretty printer that can also double as an editor. It has a powerful lexer and parser under the hood as well as the ability to process parsed content in order to refine its appearance still further. The result is an experience that rivals commercial editors.
 
-Yapp is fully configurable. You can style it overall or target a specific languages. Its plugin architecture allows support to be added for any additional language.
+Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
+
+**If you simply want to see Yapp in action without further ado**, then clone this repository, open the `index.html` file and choose a language. Otherwise read on.
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
 ![XML](https://github.com/djalbat/yapp/blob/master/assets/xml.png)
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
-
-**If you simply want to see Yapp in action without further ado**, then clone this repository, open the `index.html` file and choose a language. Otherwise read on.
 
 ## Installation
 
@@ -38,11 +38,11 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
 You will need to do this if you want to look at the examples or if you wish to contribute.
 
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight error. This should also be supplied, or just do without the squiggle.
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
 
 ## Getting started
 
-The following will mount Yapp and render the necessary styles:
+The following will mount Yapp and render the necessary styles to boot:
 
 ```
 "use strict";
@@ -84,7 +84,7 @@ renderYappStyles();
 
 body.mount(yapp);
 ```
-Arguably the most elegant approach, however, is to use JSX to invoke Yapp:
+Arguably the most elegant approach is to use JSX to invoke Yapp:
 
 ```
 "use strict";
@@ -110,7 +110,7 @@ body.mount(
 
 );
 ```
-If you go for the first approach, you must call the `didMount()` method explicitly.
+Note that If you go for the first approach, then you must call the `didMount()` method explicitly.
 
 Yapp will set its own height by default, based on its content, and its default width is set to `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like:
 
@@ -128,7 +128,7 @@ You can set Yapp's height explicitly with the `setHeight(...)` method, by the wa
 
 Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. You can leave intermediate arguments as `null` or `undefined` if you want to pass just the latter arguments to the `fromContent(...)` method.
 
-You can make Yapp editable and supply it with a callback invoked whenever its content changes, as follows:
+You can make Yapp editable and supply it with a callback to be invoked whenever its content changes as follows:
 
 ```
 const options = {
@@ -144,8 +144,6 @@ const options = {
 };
 
 const yapp = Yapp.fromContent(..., "javascript", null, options);
-
-...
 ```
 If you are using JSX, you can pass these options as attributes.
 
