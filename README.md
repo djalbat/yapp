@@ -14,7 +14,7 @@ Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and p
 
 Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
 
-**If you simply want to see Yapp in action without further ado**, then simply clone this repository, open the `index.html` file and choose a language. Otherwise read on.
+**If you just want to see Yapp in action without further ado** then simply clone this repository, open the `index.html` file and choose a language. Otherwise read on.
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
@@ -64,7 +64,7 @@ body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
-Note that if take this approach, then you must call the `didMount()` method explicitly.
+Note that if take this approach then you must call the `didMount()` method explicitly.
 
 A slightly less cumbersome approach is to use an [Easy](https://github.com/djalbat/easy) element for mounting:
 ```
@@ -142,9 +142,26 @@ const options = {
 
 const yapp = Yapp.fromContent(` ... `, "javascript", null, options);
 ```
-These options are passed as individual attributes if invoking Yapp by way of JSX.
+These options are passed as individual attributes if invoking Yapp by way of JSX:
 
-Finally, if you are using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
+```
+<Yapp editable
+      onContentChange={(event, element) => {
+
+                        const yapp = element, ///
+                              content = yapp.getContent();
+
+                        ...
+
+                      }}
+>{`
+
+...
+
+`}</Yapp>
+```
+
+If you are using jSX then you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
 
 ```
 {
