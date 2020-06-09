@@ -14,7 +14,7 @@ Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and p
 
 Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
 
-**If you simply want to see Yapp in action without further ado**, then clone this repository, open the `index.html` file and choose a language. Otherwise read on.
+**If you simply want to see Yapp in action without further ado**, then simply clone this repository, open the `index.html` file and choose a language. Otherwise read on.
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
@@ -42,7 +42,7 @@ Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you 
 
 ## Getting started
 
-The following will mount Yapp and render the necessary styles to boot:
+The following will mount an instance of Yapp and render the necessary styles to boot:
 
 ```
 "use strict";
@@ -64,6 +64,8 @@ body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
+Note that if take this approach, then you must call the `didMount()` method explicitly.
+
 A slightly less cumbersome approach is to use an [Easy](https://github.com/djalbat/easy) element for mounting:
 ```
 "use strict";
@@ -110,25 +112,20 @@ body.mount(
 
 );
 ```
-Note that If you go for the first approach, then you must call the `didMount()` method explicitly.
-
-Yapp will set its own height by default, based on its content, and its default width is set to `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like:
+Yapp will set its own height by default, based on its content, and its default width is set to `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like the following:
 
 ```
 import { Element } from "easy";
 
 const rootDiv = new Element("div#root");
 
-rootDiv.mount(
-
-  ...
-);
+rootDiv.mount(yapp);
 ```
-You can set Yapp's height explicitly with the `setHeight(...)` method, by the way. This should be called after mounting.
+You can choose to set Yapp's height explicitly with the `setHeight(...)` method. This should be called after mounting.
 
 Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. You can leave intermediate arguments as `null` or `undefined` if you want to pass just the latter arguments to the `fromContent(...)` method.
 
-You can make Yapp editable and supply it with a callback to be invoked whenever its content changes as follows:
+Yapp is not editable by default. If you want to make it editable and supply it with a callback to be invoked whenever its content changes, you can do so as follows:
 
 ```
 const options = {
@@ -143,9 +140,9 @@ const options = {
   }
 };
 
-const yapp = Yapp.fromContent(..., "javascript", null, options);
+const yapp = Yapp.fromContent(` ... `, "javascript", null, options);
 ```
-If you are using JSX, you can pass these options as attributes.
+These options are passed as individual attributes if invoking Yapp by way of JSX.
 
 Finally, if you are using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
 
@@ -161,7 +158,7 @@ Finally, if you are using jSX, you need to install Babel's [`@babel/plugin-trans
   ]
 }
 ```
-We recommend the standalone approach to get you started, however take a look at the example source code if you are interested in JSX.
+We recommend the standalone approach to get you started.
 
 ### Styling Yapp
 
