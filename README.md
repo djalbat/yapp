@@ -142,10 +142,11 @@ const options = {
 
 const yapp = Yapp.fromContent(` ... `, "javascript", null, options);
 ```
-These options are passed as individual attributes if invoking Yapp by way of JSX:
+These options are passed as individual attributes alongside the other parameters if invoking Yapp by way of JSX:
 
 ```
 <Yapp editable
+      language="javascript"
       onContentChange={(event, element) => {
 
                         const yapp = element, ///
