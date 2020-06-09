@@ -112,7 +112,7 @@ body.mount(
 ```
 If you go for the first approach, you must call the `didMount()` method explicitly.
 
-Yapp will set its own height, based on its content, and its width is preset as `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like:
+Yapp will set its own height by default, based on its content, and its default width is set to `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like:
 
 ```
 import { Element } from "easy";
@@ -124,6 +124,8 @@ rootDiv.mount(
   ...
 );
 ```
+You can set Yapp's height explicitly with the `setHeight(...)` method, by the way. This should be called after mounting.
+
 Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes by way of JSX. You can leave intermediate arguments as `null` or `undefined` if you want to pass just the latter arguments to the `fromContent(...)` method. The `options` argument is explained below.
 
 If you are using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
@@ -141,7 +143,7 @@ If you are using jSX, you need to install Babel's [`@babel/plugin-transform-reac
 }
 ```
 
-You can set Yapp's height explicitly with the `setHeight(...)` method and you can make it editable, and supply it with a callback to be invoked whenever its content changes, as follows:
+You can make it editable and supply it with a callback to be invoked whenever its content changes, as follows:
 
 ```
 const options = {
