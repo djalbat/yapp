@@ -126,24 +126,9 @@ rootDiv.mount(
 ```
 You can set Yapp's height explicitly with the `setHeight(...)` method, by the way. This should be called after mounting.
 
-Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes by way of JSX. You can leave intermediate arguments as `null` or `undefined` if you want to pass just the latter arguments to the `fromContent(...)` method. The `options` argument is explained below.
+Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. You can leave intermediate arguments as `null` or `undefined` if you want to pass just the latter arguments to the `fromContent(...)` method.
 
-If you are using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
-
-```
-{
-  "presets": [
-    [
-      "@babel/env"
-    ]
-  ],
-  "plugins": [
-    "@babel/plugin-transform-react-jsx"
-  ]
-}
-```
-
-You can make it editable and supply it with a callback to be invoked whenever its content changes, as follows:
+You can make Yapp editable and supply it with a callback invoked whenever its content changes, as follows:
 
 ```
 const options = {
@@ -163,6 +148,22 @@ const yapp = Yapp.fromContent(..., "javascript", null, options);
 ...
 ```
 If you are using JSX, you can pass these options as attributes.
+
+Finally, if you are using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
+
+```
+{
+  "presets": [
+    [
+      "@babel/env"
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-react-jsx"
+  ]
+}
+```
+We recommend the standalone approach to get you started, however take a look at the example source code if you are interested in JSX.
 
 ### Styling Yapp
 
