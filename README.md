@@ -12,7 +12,7 @@ Yet Another Pretty Printer.
 
 Yapp is a fully fledged pretty printer that can also double as an editor. It has a powerful lexer and parser under the hood as well as the ability to process parsed content in order to refine its appearance still further. The result is an experience that rivals commercial editors.
 
-Here are three short examples:
+Yapp is fully configurable. You can style it overall or target a specific languages. Its plugin architecture allows support to be added for any additional language.
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
@@ -20,7 +20,7 @@ Here are three short examples:
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
 
-Yapp is fully configurable. You can style it overall or target a specific languages. Its plugin architecture allows support to be added for any additional language.
+**If you simply want to see Yapp in action without further ado**, then clone this repository, open the `index.html` file and choose a language. Otherwise read on.
 
 ## Installation
 
@@ -41,10 +41,6 @@ You will need to do this if you want to look at the examples or if you wish to c
 Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight error. This should also be supplied, or just do without the squiggle.
 
 ## Getting started
-
-**If you simply want to see Yapp in action without further ado**, then clone this repository, open the `index.html` file and choose a language. Otherwise read on.
-
-### Using Yapp standalone
 
 The following will mount Yapp and render the necessary styles:
 
@@ -68,13 +64,14 @@ body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
-A slightly less cumbersome approach is to use an [Easy](https://github.com/djalbat/easy) for mounting:
+A slightly less cumbersome approach is to use an [Easy](https://github.com/djalbat/easy) element for mounting:
 ```
 "use strict";
 
 import Yapp from "yapp";
 
 import { Body } from "easy";
+
 import { renderYappStyles } from "yapp";
 
 const body = new Body(),
@@ -88,6 +85,33 @@ renderYappStyles();
 
 body.mount(yapp);
 ```
+Arguably the most elegant approach is to use JSX in invoke Yapp:
+
+```
+"use strict";
+
+import "juxtapose";
+
+import Yapp from "yapp";
+
+import { Body } from "easy";
+
+import { renderYappStyles } from "yapp";
+
+const body = new Body();
+
+renderYappStyles();
+
+body.mount(
+
+  <Yapp>{`
+
+  ...
+
+`}</Yapp>
+
+);
+```
 If you go for the first approach, you must call the `didMount()` method explicitly.
 
 Yapp will set its own height, based on its content, and its width is preset as `100%`, so you will probably want to mount it in a containing element rather than the body.
@@ -99,30 +123,6 @@ As well as the `content` argument, the `fromContent(...)` factory method takes `
 
 Yapp is built with [Juxtapose](https://github.com/djalbat/juxtapose) and [Easy with Style](https://github.com/djalbat/easy-with-style), and can be used with these frameworks. In particular, invoking it by way of JSX is arguably a little more elegant:
 
-```
-"use strict";
-
-import "juxtapose";
-
-import Yapp from "yapp";
-
-import { Body } from "easy";
-import { renderYappStyles } from "yapp";
-
-const body = new Body();
-
-renderYappStyles();
-
-body.mount(
-
-  <Yapp language="xml">{`
-
-  ...
-
-`}</Yapp>
-
-);
-```
 
 If using jSX, you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
 
