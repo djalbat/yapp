@@ -10,7 +10,9 @@ Yet Another Pretty Printer.
 
 *If you are interested in contributing to Yapp, in particular contributing to its grammars, see the contribution section below.*
 
-Yapp is a fully fledged pretty printer that can also double as an editor. It has a powerful lexer and parser under the hood as well as the ability to further process parsed content in order to refine its appearance still further. In this respect it rivals commercial editors. Here are three short examples of some JavaScript, XML and JSON, respectively:
+Yapp is a fully fledged pretty printer that can also double as an editor. It has a powerful lexer and parser under the hood as well as the ability to process parsed content in order to refine its appearance still further. The result is an experience that rivals commercial editors.
+
+Here are three short examples:
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
@@ -18,7 +20,7 @@ Yapp is a fully fledged pretty printer that can also double as an editor. It has
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
 
-Yapp is fully configurable. You can style it as a whole or target a specific syntax. As well as specifying languages, you can supply it with plugins for additional language support.
+Yapp is fully configurable. You can style it overall or target a specific languages. Its plugin architecture allows support to be added for any additional language.
 
 ## Installation
 
@@ -36,11 +38,11 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
 You will need to do this if you want to look at the examples or if you wish to contribute.
 
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight error tokens. This should also be supplied, or just do without the squiggle.
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight error. This should also be supplied, or just do without the squiggle.
 
-## Usage
+## Getting started
 
-If you simply want to see Yapp in action without further ado, open the `examples.html` file in the root of this repository and choose a language from there. Otherwise read on.
+**If you simply want to see Yapp in action without further ado**, then clone this repository, open the `examples.html` file therein and choose a language. Otherwise read on.
 
 As well as inserting an instance of Yapp into the DOM, you will need to style it. Instructions for doing so are given in the sub-section for styling Yapp further on. The requisite code is left out of the listings in the next two sub-sections for brevity's sake, however you will need to add the style rendering code at some point.
 
