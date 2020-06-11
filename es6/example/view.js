@@ -1,6 +1,5 @@
 "use strict";
 
-import Yapp from "../index";  ///
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
@@ -9,6 +8,7 @@ import { BNFParser } from "occam-parsers";
 import { RowDiv, RowsDiv, ColumnDiv } from "easy-layout";
 import { eliminateLeftRecursion, removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
 
+import Yapp from "./yapp";
 import SubHeading from "./subHeading";
 import ColumnsDiv from "./div/columns";
 import BNFTextarea from "./textarea/bnf";

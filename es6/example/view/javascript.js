@@ -29,8 +29,7 @@ export default withStyle(simpleApplication)\`
 
   color: #333;
 
-\`;
-`;
+\`;`;
 
   static defaultProperties = {
     className: "javascript"

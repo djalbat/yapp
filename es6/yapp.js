@@ -71,8 +71,13 @@ class Yapp extends Element {
   }
 
   resize() {
-    const width = this.getWidth(),
-          height = this.getHeight();
+    let width = this.getWidth(),
+        height = this.getHeight();
+
+    const borderTopWidth = this.getBorderTopWidth(),
+          borderBottomWidth = this.getBorderBottomWidth();
+
+    height -= borderTopWidth + borderBottomWidth;
 
     this.setPrettyPrinterWidth(width);
     this.setPrettyPrinterHeight(height);
@@ -88,7 +93,7 @@ class Yapp extends Element {
           lineHeight = this.getLneHeight(),
           borderTopWidth = this.getBorderTopWidth(),
           borderBottomWidth = this.getBorderBottomWidth(),
-          height = lineCount * lineHeight + scrollBarThickness;
+          height = lineCount * lineHeight + scrollBarThickness + borderTopWidth + borderBottomWidth;
 
     this.setHeight(height);
 
