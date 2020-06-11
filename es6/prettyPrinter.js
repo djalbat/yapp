@@ -48,7 +48,7 @@ class PrettyPrinter extends Element {
 
   getLneHeight() {
     const lineHeightInPixels = this.css("line-height"),
-          matches = lineHeightInPixels.match(/^(\d+)px$/),
+          matches = lineHeightInPixels.match(/^(\d+(?:\.\d+)?)px$/),
           secondMatch = second(matches),
           lineHeight = Number(secondMatch); ///
 
@@ -85,7 +85,7 @@ class PrettyPrinter extends Element {
 
   getBorderWidth(side) {
     const borderWidthInPixels = this.css(`border-${side}-width`),
-          matches = borderWidthInPixels.match(/^(\d+)px$/),
+          matches = borderWidthInPixels.match(/^(\d+(?:\.\d+)?)px$/),
           secondMatch = second(matches),
           borderWidth = Number(secondMatch); ///
 
