@@ -40,14 +40,14 @@ class Yapp extends Element {
   }
 
   getBorderTopWidth() {
-    const topBorderWidthInPixels = this.css("top-border-width"),
+    const topBorderWidthInPixels = this.css("border-top-width"),
           topBorderWidth = stripPixels(topBorderWidthInPixels);
 
     return topBorderWidth;
   }
 
   getBorderBottomWidth() {
-    const bottomBorderWidthInPixels = this.css("bottom-border-width"),
+    const bottomBorderWidthInPixels = this.css("border-bottom-width"),
           bottomBorderWidth = stripPixels(bottomBorderWidthInPixels);
 
     return bottomBorderWidth;
