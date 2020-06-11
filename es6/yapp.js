@@ -9,6 +9,7 @@ import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 import scrollBarThickness from "./scrollbarThickness";
 
+import { stripPixels } from "./utilities/css";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
 import { propertiesFromContentLanguageAndPlugin } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
@@ -31,6 +32,27 @@ class Yapp extends Element {
     return content;
   }
 
+  getLneHeight() {
+    const lineHeightInPixels = this.css("line-height"),
+          lineHeight = stripPixels(lineHeightInPixels);
+
+    return lineHeight;
+  }
+
+  getBorderTopWidth() {
+    const topBorderWidthInPixels = this.css("top-border-width"),
+          topBorderWidth = stripPixels(topBorderWidthInPixels);
+
+    return topBorderWidth;
+  }
+
+  getBorderBottomWidth() {
+    const bottomBorderWidthInPixels = this.css("bottom-border-width"),
+          bottomBorderWidth = stripPixels(bottomBorderWidthInPixels);
+
+    return bottomBorderWidth;
+  }
+
   setLexer(lexer) { this.plugin.setLexer(lexer); }
 
   setParser(parser) { this.plugin.setParser(parser); }
@@ -41,7 +63,7 @@ class Yapp extends Element {
     this.plugin.update(content);
 
     const tokens = this.plugin.getTokens(),
-          richTextareaBounds = this.updateView(tokens);
+          richTextareaBounds = this.updatePrettyPrinter(tokens);
 
     if (richTextareaBounds !== null) {
       this.setRichTextareaBounds(richTextareaBounds);
@@ -52,10 +74,10 @@ class Yapp extends Element {
     const width = this.getWidth(),
           height = this.getHeight();
 
-    this.setViewWidth(width);
-    this.setViewHeight(height);
+    this.setPrettyPrinterWidth(width);
+    this.setPrettyPrinterHeight(height);
 
-    const richTextareaBounds = this.resizeView();
+    const richTextareaBounds = this.resizePrettyPrinter();
 
     this.setRichTextareaBounds(richTextareaBounds);
   }
@@ -100,7 +122,7 @@ class Yapp extends Element {
           scrollTop = richTextarea.getScrollTop(),
           scrollLeft = richTextarea.getScrollLeft();
 
-    this.scrollView(scrollTop, scrollLeft);
+    this.scrollPrettyPrinter(scrollTop, scrollLeft);
   }
 
   childElements() {
@@ -145,7 +167,7 @@ class Yapp extends Element {
 
     this.setLanguage(language);
 
-    this.scrollView(scrollTop, scrollLeft);
+    this.scrollPrettyPrinter(scrollTop, scrollLeft);
 
     this.setRichTextareaContent(content);
 

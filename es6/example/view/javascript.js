@@ -13,7 +13,7 @@ import "juxtapose";
 
 import { Body } from "easy";
 
-function simpleApp(selector) {
+function simpleApplication(selector) {
   const body = new Body(selector);
 
   body.mount(
@@ -25,7 +25,7 @@ function simpleApp(selector) {
   );
 }
 
-export default withStyle(simpleApp)\`
+export default withStyle(simpleApplication)\`
 
   color: #333;
 
