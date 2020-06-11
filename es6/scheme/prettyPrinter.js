@@ -4,8 +4,6 @@ import { hunterGreen, stormDust, blackOlive, bonjour, havelockBlue } from "../co
 
 export const caretColour = bonjour;
 
-export const borderColour = stormDust;
-
 export const backgroundColour = hunterGreen;
 
 export const lineNumbersColour = stormDust;

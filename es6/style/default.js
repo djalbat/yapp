@@ -2,6 +2,7 @@
 
 const defaultStyle = `
     
+  width: 100%;
   position: relative;
 
   font-size: 13px;
