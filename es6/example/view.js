@@ -2,14 +2,13 @@
 
 import withStyle from "easy-with-style";  ///
 
-import Yapp from "../index";
-
 import { Element } from "easy";
 import { BNFLexer } from "occam-lexers";
 import { BNFParser } from "occam-parsers";
 import { RowDiv, RowsDiv, ColumnDiv } from "easy-layout";
 import { eliminateLeftRecursion, removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
 
+import Yapp from "./yapp";
 import SubHeading from "./subHeading";
 import ColumnsDiv from "./div/columns";
 import BNFTextarea from "./textarea/bnf";
@@ -96,9 +95,11 @@ class View extends Element {
   }
 
   didMount() {
-    // this.dragHandler(); ///
-    //
-    // this.update();
+    this.update();
+
+    this.dragHandler(); ///
+
+    this.resizeYapp();  ///
   }
 
   willUnmount() {

@@ -12,6 +12,7 @@ import scrollBarThickness from "./scrollbarThickness";
 import { stripPixels } from "./utilities/css";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
 import { propertiesFromContentLanguageAndPlugin } from "./utilities/properties";
+import { TOP_SIDE, LEFT_SIDE, RIGHT_SIDE, BOTTOM_SIDE } from "./constants";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 
 class Yapp extends Element {
@@ -39,18 +40,39 @@ class Yapp extends Element {
     return lineHeight;
   }
 
-  getBorderTopWidth() {
-    const topBorderWidthInPixels = this.css("border-top-width"),
-          topBorderWidth = stripPixels(topBorderWidthInPixels);
+  getBorderWidth(side) {
+    const borderWidthInPixels = this.css(`border-${side}-width`),
+          borderWidth = stripPixels(borderWidthInPixels);
 
-    return topBorderWidth;
+    return borderWidth;
+  }
+
+  getBorderTopWidth() {
+    const side = TOP_SIDE,
+          borderTopWidth = this.getBorderWidth(side);
+
+    return borderTopWidth;
+  }
+
+  getBorderLeftWidth() {
+    const side = LEFT_SIDE,
+          borderLeftWidth = this.getBorderWidth(side);
+
+    return borderLeftWidth;
+  }
+
+  getBorderRightWidth() {
+    const side = RIGHT_SIDE,
+          borderRightWidth = this.getBorderWidth(side);
+
+    return borderRightWidth;
   }
 
   getBorderBottomWidth() {
-    const bottomBorderWidthInPixels = this.css("border-bottom-width"),
-          bottomBorderWidth = stripPixels(bottomBorderWidthInPixels);
+    const side = BOTTOM_SIDE,
+          borderBottomWidth = this.getBorderWidth(side);
 
-    return bottomBorderWidth;
+    return borderBottomWidth;
   }
 
   setLexer(lexer) { this.plugin.setLexer(lexer); }
@@ -75,9 +97,12 @@ class Yapp extends Element {
         height = this.getHeight();
 
     const borderTopWidth = this.getBorderTopWidth(),
+          borderLeftWidth = this.getBorderLeftWidth(),
+          borderRightWidth = this.getBorderRightWidth(),
           borderBottomWidth = this.getBorderBottomWidth();
 
-    height -= borderTopWidth + borderBottomWidth;
+    height -= ( borderTopWidth + borderBottomWidth );
+    width -= ( borderLeftWidth + borderRightWidth );
 
     this.setPrettyPrinterWidth(width);
     this.setPrettyPrinterHeight(height);
@@ -148,7 +173,8 @@ class Yapp extends Element {
           setYappWidth = this.setWidth.bind(this),  ///
           setYappHeight = this.setHeight.bind(this),  ///
           setYappLexer = this.setLexer.bind(this),  ///
-          setYappParser = this.setParser.bind(this);  ///
+          setYappParser = this.setParser.bind(this),  ///
+          resizeYapp = this.resize.bind(this);  ///
 
     return ({
       getPlugin,
@@ -156,7 +182,8 @@ class Yapp extends Element {
       setYappWidth,
       setYappHeight,
       setYappLexer,
-      setYappParser
+      setYappParser,
+      resizeYapp
     });
   }
 
