@@ -204,8 +204,6 @@ class Yapp extends Element {
     this.setRichTextareaContent(content);
 
     this.setRichTextareaReadOnly(readOnly);
-
-    this.onResize(() => this.resize());
   }
 
   static tagName = "div";

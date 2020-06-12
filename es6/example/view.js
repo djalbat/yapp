@@ -66,6 +66,8 @@ class View extends Element {
 
     this.setYappWidth(yappWidth);
     this.setYappHeight(yappHeight);
+
+    this.resizeYapp();  ///
   }
 
   update() {
@@ -98,8 +100,6 @@ class View extends Element {
     this.update();
 
     this.dragHandler(); ///
-
-    this.resizeYapp();  ///
   }
 
   willUnmount() {
