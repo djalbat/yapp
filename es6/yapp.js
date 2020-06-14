@@ -79,6 +79,18 @@ class Yapp extends Element {
 
   setParser(parser) { this.plugin.setParser(parser); }
 
+  setWidth(width) {
+    console.log(`width ${width}`)
+
+    super.setWidth(width);
+  }
+
+  setHeight(height) {
+    console.log(`height ${height}`)
+
+    super.setHeight(height);
+  }
+
   update() {
     const content = this.getContent();
 
@@ -93,6 +105,8 @@ class Yapp extends Element {
   }
 
   resize() {
+    console.log("resize")
+
     let width = this.getWidth(),
         height = this.getHeight();
 
@@ -204,6 +218,8 @@ class Yapp extends Element {
     this.setRichTextareaContent(content);
 
     this.setRichTextareaReadOnly(readOnly);
+
+    this.onResize((event, element) => this.resize());
   }
 
   static tagName = "div";
