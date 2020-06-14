@@ -66,8 +66,6 @@ class View extends Element {
 
     this.setYappWidth(yappWidth);
     this.setYappHeight(yappHeight);
-
-    this.resizeYapp();  ///
   }
 
   update() {
