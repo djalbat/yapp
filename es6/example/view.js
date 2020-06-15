@@ -98,6 +98,8 @@ class View extends Element {
     this.update();
 
     this.dragHandler(); ///
+
+    this.resizeYapp();  ///
   }
 
   willUnmount() {
