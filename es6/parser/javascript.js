@@ -277,7 +277,9 @@ const bnf = `
 
                                  |  expression<NO_WHITESPACE>"[" expressions "]"
 
-                                 |  expression<NO_WHITESPACE>"(" expressions? ")" ( <NO_WHITESPACE>templateLiteral )?
+                                 |  expression<NO_WHITESPACE>"(" expressions? ")"
+
+                                 |  expression<NO_WHITESPACE>templateLiteral
 
                                  |  [number]
 
