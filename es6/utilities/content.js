@@ -20,9 +20,17 @@ export function contentFromChildElements(childElements) {
 }
 
 export function lineCountFromContent(content) {
-  const matches = content.match(/\r\n|\r|\n/g),
-        matchesLength = matches.length,
-        lineCount = matchesLength + 1;
+  let lineCount;
+
+  const matches = content.match(/\r\n|\r|\n/g);
+
+  if (matches === null) {
+    lineCount = 1;
+  } else {
+    const matchesLength = matches.length;
+
+    lineCount = matchesLength + 1;
+  }
 
   return lineCount;
 }
