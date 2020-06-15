@@ -233,9 +233,9 @@ const bnf = `
 
     const                      ::=  ( variable | destructure ) "=" expression ;
 
-    destructure                ::=  "[" name ( "=" expression )? ( "," name ( "=" expression )? )* "]" 
+    destructure                ::=  "[" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "]" 
 
-                                 |  "{" name ( "=" expression )? ( "," name ( "=" expression )? )* "}"
+                                 |  "{" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "}"
 
                                  ; 
 

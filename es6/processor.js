@@ -10,38 +10,43 @@ const terminalNodeQuery = Query.fromExpression("//@*"),
 class Processor {
   process(tokens, node) {
     if (node !== null) {
-      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, (content) => ErrorToken, tokens, node);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => ErrorToken, errorTerminalNodeQuery);
     }
   }
 
-  replaceNonTerminalNodesSignificantTokens(nonTerminalNodeQuery, callback, tokens, node) {
-    const nonTerminalNodes = nonTerminalNodeQuery.execute(node);
+  replaceNonTerminalNodesSignificantTokens(tokens, node, callback, ...nonTerminalNodeQueries) {
+    nonTerminalNodeQueries.forEach((nonTerminalNodeQuery) => {
+      const nonTerminalNodes = nonTerminalNodeQuery.execute(node);
 
-    nonTerminalNodes.forEach((nonTerminalNode) => this.replaceNonTerminalNodeSignificantTokens(nonTerminalNode, callback, tokens));
+      nonTerminalNodes.forEach((nonTerminalNode) => this.replaceNonTerminalNodeSignificantTokens(nonTerminalNode, tokens, callback));
+    });
   }
 
-  replaceNonTerminalNodeSignificantTokens(nonTerminalNode, callback, tokens) {
-    const terminalNodes = terminalNodeQuery.execute(nonTerminalNode);
+  replaceTerminalNodesSignificantToken(tokens, node, callback, ...terminalNodeQueries) {
+    const contents = [];
 
-    terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, callback, tokens));
-  }
+    terminalNodeQueries.forEach((terminalNodeQuery) => {
+      const terminalNodes = terminalNodeQuery.execute(node);
 
-  replaceTerminalNodesSignificantToken(terminalNodeQuery, callback, tokens, node) {
-    const contents = [],
-          terminalNodes = terminalNodeQuery.execute(node);
+      terminalNodes.forEach((terminalNode) => {
+        const content = this.replaceTerminalNodeSignificantToken(terminalNode, tokens, callback);
 
-    terminalNodes.forEach((terminalNode) => {
-      const content = this.replaceTerminalNodeSignificantToken(terminalNode, callback, tokens);
-
-      if (content !== null) {
-        contents.push(content);
-      }
+        if (content !== null) {
+          contents.push(content);
+        }
+      });
     });
 
     return contents;
   }
 
-  replaceTerminalNodeSignificantToken(terminalNode, callback, tokens) {
+  replaceNonTerminalNodeSignificantTokens(nonTerminalNode, tokens, callback) {
+    const terminalNodes = terminalNodeQuery.execute(nonTerminalNode);
+
+    terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, tokens, callback));
+  }
+
+  replaceTerminalNodeSignificantToken(terminalNode, tokens, callback) {
     let significantToken;
 
     significantToken = terminalNode.getSignificantToken();
@@ -56,9 +61,10 @@ class Processor {
       return null;
     }
 
-    const content = significantToken.getContent(),
+    const type = significantToken.getType(),
+          content = significantToken.getContent(),
           index = tokens.indexOf(significantToken),
-          Token = callback(content); ///
+          Token = callback(content, type); ///
 
     if (Token === null) {
       return null;

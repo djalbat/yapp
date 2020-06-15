@@ -9,59 +9,54 @@ import StringToken from "../token/significant/string";
 import VariableToken from "../token/significant/variable";
 import ArgumentToken from "../token/significant/argument";
 
-import { TEMPLATE_LITERAL_DELIMITER_CONTENT } from "../constants";
+import { VARIABLE_TYPE, TEMPLATE_LITERAL_DELIMITER_CONTENT } from "../constants";
 
 const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpression("//jsx"),
       argumentTerminalNodeQuery = Query.fromExpression("//argument/@*"),
       variableTerminalNodeQuery = Query.fromExpression("//variable/@*"),
       functionNonTerminalNodeQuery = Query.fromExpression("//function"),
-      variableDeclarationTerminalNodeQuery = Query.fromExpression("//varDeclaration|letDeclaration|constDeclaration//variable[0]/@*"),
+      varDeclarationTerminalNodeQuery = Query.fromExpression("//varDeclaration//variable[0]/@*"),
+      letDeclarationTerminalNodeQuery = Query.fromExpression("//letDeclaration//variable[0]/@*"),
+      constDeclarationTerminalNodeQuery = Query.fromExpression("//constDeclaration//variable[0]/@*"),
       templateLiteralStringTerminalNodeQuery = Query.fromExpression("//templateLiteral/string/@*"),
-      templateLiteralDelimiterTerminalNodeQuery = Query.fromExpression("//templateLiteral/@delimiter");
+      templateLiteralDelimiterTerminalNodeQuery = Query.fromExpression("//templateLiteral/@delimiter"),
+      destructuredConstDeclarationTerminalNodeQuery = Query.fromExpression("//constDeclaration//destructure/variable/@*");
 
 export default class JavaScriptProcessor extends Processor {
   process(tokens, node) {
     if (node !== null) {
       const functionNonTerminalNodes = functionNonTerminalNodeQuery.execute(node);
 
-      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, (content) => ErrorToken, tokens, node);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => ErrorToken, errorTerminalNodeQuery);
 
-      this.replaceNonTerminalNodesSignificantTokens(jsxNonTerminalNodeQuery, (content) => JSXToken, tokens, node);
+      this.replaceNonTerminalNodesSignificantTokens(tokens, node, (content, type) => (type === VARIABLE_TYPE) ? null : JSXToken, jsxNonTerminalNodeQuery, );
 
-      this.replaceTerminalNodesSignificantToken(templateLiteralStringTerminalNodeQuery, (content) => StringToken, tokens, node);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => StringToken, templateLiteralStringTerminalNodeQuery);
 
-      this.replaceTerminalNodesSignificantToken(templateLiteralDelimiterTerminalNodeQuery, (content) => {
-        let Token = null;
-
-        if (content === TEMPLATE_LITERAL_DELIMITER_CONTENT) {
-          Token = StringToken;  ///
-        }
-
-        return Token;
-      }, tokens, node);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => (content === TEMPLATE_LITERAL_DELIMITER_CONTENT) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
 
       functionNonTerminalNodes.forEach((functionNonTerminalNode) => {
-        const constNames = this.replaceTerminalNodesSignificantToken(variableDeclarationTerminalNodeQuery, (content) => VariableToken, tokens, functionNonTerminalNode),
-              argumentNames = this.replaceTerminalNodesSignificantToken(argumentTerminalNodeQuery, (content) => ArgumentToken, tokens, functionNonTerminalNode);
+        const variableNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => VariableToken, varDeclarationTerminalNodeQuery, letDeclarationTerminalNodeQuery, constDeclarationTerminalNodeQuery, destructuredConstDeclarationTerminalNodeQuery),
+              argumentNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => ArgumentToken, argumentTerminalNodeQuery);
 
-        this.replaceTerminalNodesSignificantToken(variableTerminalNodeQuery, (content) => {
+        this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => {
           let Token = null;
 
           const variableName = content, ///
-                constNamesIncludesVariableName = constNames.includes(variableName),
+                variableNamesIncludesVariableName = variableNames.includes(variableName),
                 argumentNamesIncludesVariableName = argumentNames.includes(variableName);
 
           if (false) {
             ///
-          } else if (constNamesIncludesVariableName) {
+          } else if (variableNamesIncludesVariableName) {
             Token = VariableToken;
           } else if (argumentNamesIncludesVariableName) {
             Token = ArgumentToken;
           }
 
           return Token;
-        }, tokens, functionNonTerminalNode);
+        }, variableTerminalNodeQuery);
       });
     }
   }

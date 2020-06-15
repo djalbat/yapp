@@ -16,13 +16,13 @@ const nameTerminalNodeQuery = Query.fromExpression("//name/@*"),
 export default class XMLProcessor extends Processor {
   process(tokens, node) {
     if (node !== null) {
-      this.replaceTerminalNodesSignificantToken(errorTerminalNodeQuery, (content) => ErrorToken, tokens, node);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => ErrorToken, errorTerminalNodeQuery);
 
-      this.replaceTerminalNodesSignificantToken(nameTerminalNodeQuery, (content) => NameToken, tokens, node);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => NameToken, nameTerminalNodeQuery);
 
-      this.replaceTerminalNodesSignificantToken(attributeTerminalNodeQuery, (content) => AttributeToken, tokens, node);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => AttributeToken, attributeTerminalNodeQuery);
 
-      this.replaceNonTerminalNodesSignificantTokens(commentNonTerminalNodeQuery, (content) => CommentToken, tokens, node);
+      this.replaceNonTerminalNodesSignificantTokens(tokens, node, (content, type) => CommentToken, commentNonTerminalNodeQuery);
     }
   }
 
