@@ -289,8 +289,6 @@ const bnf = `
  
                                  |  importMeta 
 
-                                 |  arrowFunction 
-
                                  |  [string-literal]
 
                                  |  "super" | "this" | "true" | "false" | "null" | "undefined"
