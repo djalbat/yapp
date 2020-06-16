@@ -15,9 +15,10 @@ const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpression("//jsx"),
       argumentTerminalNodeQuery = Query.fromExpression("//argument/@*"),
       variableTerminalNodeQuery = Query.fromExpression("//variable/@*"),
-      functionNonTerminalNodeQuery = Query.fromExpression("//function"),
       varDeclarationTerminalNodeQuery = Query.fromExpression("//varDeclaration//variable[0]/@*"),
       letDeclarationTerminalNodeQuery = Query.fromExpression("//letDeclaration//variable[0]/@*"),
+      namedFunctionNonTerminalNodeQuery = Query.fromExpression("//function"),
+      arrowFunctionNonTerminalNodeQuery = Query.fromExpression("//constDeclaration//arrowFunction"),
       constDeclarationTerminalNodeQuery = Query.fromExpression("//constDeclaration//variable[0]/@*"),
       templateLiteralStringTerminalNodeQuery = Query.fromExpression("//templateLiteral/string/@*"),
       templateLiteralDelimiterTerminalNodeQuery = Query.fromExpression("//templateLiteral/@delimiter"),
@@ -26,7 +27,12 @@ const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
 export default class JavaScriptProcessor extends Processor {
   process(tokens, node) {
     if (node !== null) {
-      const functionNonTerminalNodes = functionNonTerminalNodeQuery.execute(node);
+      const namedFunctionNonTerminalNodes = namedFunctionNonTerminalNodeQuery.execute(node),
+            arrowFunctionNonTerminalNodes = arrowFunctionNonTerminalNodeQuery.execute(node),
+            functionNonTerminalNodes = [
+              ...namedFunctionNonTerminalNodes,
+              ...arrowFunctionNonTerminalNodes
+            ];
 
       this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => ErrorToken, errorTerminalNodeQuery);
 
