@@ -8,9 +8,11 @@ export default class JavaScriptView extends View {
   Plugin = JavaScriptPlugin;
 
   initialContent = `const simpleApp = (selector) => {  
-  const body = new Body();
-
-  return selector;
+  return (
+  
+    <jsx selector={\`\${selector}\`}></jsx>
+    
+  );
 };`;
 
   static defaultProperties = {

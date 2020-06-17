@@ -4,6 +4,8 @@ import { BNFLexer } from "occam-lexers";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
 import { BNFParser, CommonParser } from "occam-parsers";
 
+import { startRuleFromRules, ruleMapFromRules } from "../utilities/rules";
+
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
@@ -362,14 +364,20 @@ export default class JavaScriptParser extends CommonParser {
 
   static fromNothing() {
     const tokens = bnfLexer.tokensFromBNF(bnf),
-          rules = bnfParser.rulesFromTokens(tokens);
-
-    eliminateLeftRecursion(rules);
-
-    const javascriptParser = new JavaScriptParser(rules);
+          rules = bnfParser.rulesFromTokens(tokens),
+          javascriptParser = JavaScriptParser.fromRules(rules);
 
     return javascriptParser;
   }
 
-  static fromRules(rules) { return new JavaScriptParser(rules); }
+  static fromRules(rules) {
+    const startRule = startRuleFromRules(rules),
+          ruleMap = ruleMapFromRules(rules);
+
+    eliminateLeftRecursion(startRule, ruleMap);
+
+    const javascriptParser = new JavaScriptParser(startRule, ruleMap);
+
+    return javascriptParser;
+  }
 }
