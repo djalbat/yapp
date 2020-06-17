@@ -257,14 +257,6 @@ const bnf = `
 
                                  |  "[" ( expression ( "," expression )* ","? )? "]"
 
-                                 |  expression [operator] expression 
-
-                                 |  expression "?" expression ":" expression
-
-                                 |  expression "instanceof" expression
-
-                                 |  expression "in" expression 
-
                                  |  "typeof" ( expression | ( "(" expression ")") ) 
 
                                  |  "void" ( expression | ( "(" expression ")") ) 
@@ -273,15 +265,9 @@ const bnf = `
 
                                  |  [operator]<NO_WHITESPACE>expression 
 
-                                 |  expression<NO_WHITESPACE>[operator] 
+                                 |  expression<NO_WHITESPACE>( [operator] | ( "."<NO_WHITESPACE>name ) | ( "[" expressions "]" ) | ( "(" expressions? ")" ) | templateLiteral )   
 
-                                 |  expression<NO_WHITESPACE>"."<NO_WHITESPACE>name
-
-                                 |  expression<NO_WHITESPACE>"[" expressions "]"
-
-                                 |  expression<NO_WHITESPACE>"(" expressions? ")"
-
-                                 |  expression<NO_WHITESPACE>templateLiteral
+                                 |  expression ( ( [operator] expression ) | ( "?" expression ":" expression ) | ( "instanceof" expression ) | ( "in" expression ) ) 
 
                                  |  [number]
 
