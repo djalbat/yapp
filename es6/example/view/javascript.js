@@ -7,13 +7,7 @@ import JavaScriptPlugin from "../../plugin/javascript";
 export default class JavaScriptView extends View {
   Plugin = JavaScriptPlugin;
 
-  initialContent = `const simpleApp = (selector) => {  
-  return (
-  
-    <jsx selector={\`\${selector}\`}></jsx>
-    
-  );
-};`;
+  initialContent = `withStyle.p;`;
 
   static defaultProperties = {
     className: "javascript"

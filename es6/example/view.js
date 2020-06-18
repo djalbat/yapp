@@ -22,6 +22,8 @@ import VerticalSplitterDiv from "./div/splitter/vertical";
 import HorizontalSplitterDiv from "./div/splitter/horizontal";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
+import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
+
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
@@ -36,13 +38,16 @@ class View extends Element {
             entries = lexicalEntries, ///
             bnf = this.getBNF(),
             tokens = bnfLexer.tokensFromBNF(bnf),
-            rules = bnfParser.rulesFromTokens(tokens);
+            rules = bnfParser.rulesFromTokens(tokens),
+            ruleMap = ruleMapFromRules(rules);
 
-      eliminateLeftRecursion(rules);
+      let startRule = startRuleFromRules(rules);
+
+      startRule = eliminateLeftRecursion(startRule, ruleMap);
 
       const { Lexer, Parser } = this.Plugin,
             lexer = Lexer.fromEntries(entries),
-            parser = Parser.fromRules(rules),
+            parser = new Parser(startRule, ruleMap),  ///
             yappLexer = lexer,  ///
             yappParser = parser;  ///
 

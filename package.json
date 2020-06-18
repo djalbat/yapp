@@ -15,7 +15,7 @@
     "easy-with-style": "^3.0.10",
     "necessary": "^4.1.10",
     "occam-dom": "^2.0.32",
-    "occam-grammar-utilities": "^5.0.2",
+    "occam-grammar-utilities": "^5.0.6",
     "occam-lexers": "^12.0.3",
     "occam-parsers": "^12.0.3"
   },

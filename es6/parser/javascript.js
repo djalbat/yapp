@@ -357,10 +357,25 @@ export default class JavaScriptParser extends CommonParser {
   }
 
   static fromRules(rules) {
-    const startRule = startRuleFromRules(rules),
-          ruleMap = ruleMapFromRules(rules);
+    const ruleMap = ruleMapFromRules(rules);
 
-    eliminateLeftRecursion(startRule, ruleMap);
+    let startRule = startRuleFromRules(rules);
+
+    startRule = eliminateLeftRecursion(startRule, ruleMap);
+
+    rules = Object.values(ruleMap); ///
+
+    const rulesString = rules.reduce((rulesString, rule) => {
+      const ruleString = rule.asString();
+
+      rulesString = `${rulesString}
+        
+${ruleString}`;
+
+      return rulesString;
+    }, "");
+
+    console.log(rulesString)
 
     const javascriptParser = new JavaScriptParser(startRule, ruleMap);
 
