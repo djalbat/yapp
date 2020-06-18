@@ -48,13 +48,17 @@ export default class JavaScriptProcessor extends Processor {
 
       this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => (content === TEMPLATE_LITERAL_DELIMITER_CONTENT) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
 
-      jsxNonTerminalNodes.forEach((jsxNonTerminalNode) => {
-        this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content, type) => JSXToken, jsxTagTerminalNodeQuery, jsxTagNameTerminalNodeQuery, jsxTagAttributeTerminalNodeQuery, jsxTagAttributeNameTerminalNodeQuery);
-      });
+      jsxNonTerminalNodes.forEach((jsxNonTerminalNode) => this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content, type) => JSXToken, jsxTagTerminalNodeQuery,
+                                                                                                                                                             jsxTagNameTerminalNodeQuery,
+                                                                                                                                                             jsxTagAttributeTerminalNodeQuery,
+                                                                                                                                                             jsxTagAttributeNameTerminalNodeQuery));
 
       functionNonTerminalNodes.forEach((functionNonTerminalNode) => {
-        const variableNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => VariableToken, varDeclarationTerminalNodeQuery, letDeclarationTerminalNodeQuery, constDeclarationTerminalNodeQuery, destructuredConstDeclarationTerminalNodeQuery),
-              argumentNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => ArgumentToken, argumentTerminalNodeQuery);
+        const argumentNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => ArgumentToken, argumentTerminalNodeQuery),
+              variableNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => VariableToken, varDeclarationTerminalNodeQuery,
+                                                                                                                                           letDeclarationTerminalNodeQuery,
+                                                                                                                                           constDeclarationTerminalNodeQuery,
+                                                                                                                                           destructuredConstDeclarationTerminalNodeQuery);
 
         this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => {
           let Token = null;
