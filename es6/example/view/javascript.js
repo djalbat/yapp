@@ -8,10 +8,11 @@ export default class JavaScriptView extends View {
   Plugin = JavaScriptPlugin;
 
   initialContent = `function getEmailAddress(selector) {
-  const value = this.getValue(),
-        emailAddress = value; ///
+  var emailAddress;
   
-  return emailAddress;  
+  return ({
+    emailAddress
+  });  
 }`;
 
   static defaultProperties = {

@@ -335,7 +335,7 @@ const bnf = `
 
     string                     ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
 
-    property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | name ) ;
+    property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | variable ) ;
 
     importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
 
