@@ -251,6 +251,8 @@ const bnf = `
 
                                  |  templateLiteral
 
+                                 |  anonymousFunction
+
                                  |  "(" expression ")"
 
                                  |  "{" ( property ( "," property )* )? "}"
