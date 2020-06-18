@@ -265,9 +265,27 @@ const bnf = `
 
                                  |  [operator]<NO_WHITESPACE>expression 
 
-                                 |  expression<NO_WHITESPACE>( [operator] | ( "."<NO_WHITESPACE>name ) | ( "[" expressions "]" ) | ( "(" expressions? ")" ) | templateLiteral )   
+                                 |  expression<NO_WHITESPACE>( ( "."<NO_WHITESPACE>name ) 
+                                                             
+                                                             | ( "[" expressions "]" ) 
+                                                             
+                                                             | ( "(" expressions? ")" ) 
+                                                             
+                                                             | templateLiteral 
+                                                             
+                                                             | [operator] 
+                                 
+                                                             )   
 
-                                 |  expression ( ( [operator] expression ) | ( "?" expression ":" expression ) | ( "instanceof" expression ) | ( "in" expression ) ) 
+                                 |  expression ( ( [operator] expression ) 
+                                 
+                                               | ( "?" expression ":" expression ) 
+                                               
+                                               | ( "instanceof" expression ) 
+                                               
+                                               | ( "in" expression ) 
+                                               
+                                               ) 
 
                                  |  [number]
 
@@ -362,20 +380,6 @@ export default class JavaScriptParser extends CommonParser {
     let startRule = startRuleFromRules(rules);
 
     startRule = eliminateLeftRecursion(startRule, ruleMap);
-
-    rules = Object.values(ruleMap); ///
-
-    const rulesString = rules.reduce((rulesString, rule) => {
-      const ruleString = rule.asString();
-
-      rulesString = `${rulesString}
-        
-${ruleString}`;
-
-      return rulesString;
-    }, "");
-
-    console.log(rulesString)
 
     const javascriptParser = new JavaScriptParser(startRule, ruleMap);
 
