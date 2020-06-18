@@ -60,10 +60,11 @@ export default class XMLParser extends CommonParser {
   }
 
   static fromRules(rules) {
-    const startRule = startRuleFromRules(rules),
-          ruleMap = ruleMapFromRules(rules);
+    const ruleMap = ruleMapFromRules(rules);
 
-    eliminateLeftRecursion(startRule, ruleMap);
+    let startRule = startRuleFromRules(rules);
+
+    startRule = eliminateLeftRecursion(startRule, ruleMap);
 
     const xmlParser = new XMLParser(startRule, ruleMap);
 

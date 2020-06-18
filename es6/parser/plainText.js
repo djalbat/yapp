@@ -27,10 +27,11 @@ export default class PlainTextParser extends CommonParser {
   }
 
   static fromRules(rules) {
-    const startRule = startRuleFromRules(rules),
-          ruleMap = ruleMapFromRules(rules);
+    const ruleMap = ruleMapFromRules(rules);
 
-    eliminateLeftRecursion(startRule, ruleMap);
+    let startRule = startRuleFromRules(rules);
+
+    startRule = eliminateLeftRecursion(startRule, ruleMap);
 
     const plainTextParser = new PlainTextParser(startRule, ruleMap);
 
