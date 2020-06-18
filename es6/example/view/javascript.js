@@ -7,14 +7,12 @@ import JavaScriptPlugin from "../../plugin/javascript";
 export default class JavaScriptView extends View {
   Plugin = JavaScriptPlugin;
 
-  initialContent = `<SubmitButton onClick={function(event, element) {
-
-                event.preventDefault();
-
-                this.submit();
-
-              }}
-/>;`;
+  initialContent = `function getEmailAddress(selector) {
+  const value = this.getValue(),
+        emailAddress = value; ///
+  
+  return emailAddress;  
+}`;
 
   static defaultProperties = {
     className: "javascript"
