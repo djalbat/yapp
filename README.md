@@ -2,12 +2,6 @@
 
 Yet Another Pretty Printer.
 
-*Please note that Yapp is currently in beta, as the grammars are still under development. There is also currently a short wait for the package name to become available, so any mention of installing Yapp via `npm` below should be ignored for the time being. If you wish to install Yapp now, you can do so by adding the following dependency to your `package.json` file:*
-
-```
-"yapp": "git://github.com/djalbat/yapp.git"
-```
-
 *If you are interested in contributing to Yapp, in particular contributing to its grammars, see the contribution section below.*
 
 Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance still further after parsing. The result is an experience that rivals commercial editors.
