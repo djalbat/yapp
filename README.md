@@ -4,7 +4,7 @@ Yet Another Pretty Printer.
 
 **If you are interested in contributing to Yapp**, in particular contributing to its grammars, then see the contribution section below.
 
-**If you just want to see Yapp in action without further ado** then simply clone this repository, then open the `index.html` file and choose a language. Otherwise read on.
+**If you just want to see Yapp in action without further ado**, then simply clone this repository, open the `index.html` file and choose a language. Otherwise read on.
 
 Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance still further after parsing. The result is an experience that rivals commercial editors.
 
