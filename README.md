@@ -42,7 +42,7 @@ There are three ways to use Yapp:
 
 2. Make use of an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
 
-3. Use JSX by way of [Juxtapose](http://juxtapose.info). This is arguably the most elegant approach.
+3. Use JSX by way of [Juxtapose](http://juxtapose.info), arguably the most elegant approach.
 
 The second approach is recommended, at least to begin with.
 
@@ -199,7 +199,7 @@ These options are passed as individual attributes alongside the other parameters
 ```
 Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means.
 
-### Styling Yapp
+## Styling Yapp
 
 The recommended way of rendering styles is to do so individually:
 
