@@ -36,7 +36,19 @@ You will need to do this if you want to look at the examples.
 
 ## Getting started
 
-The following will mount an instance of Yapp and render the necessary styles to boot:
+There are three approaches to using Yapp:
+
+1. Vanilla JavaScript, with no need to install any additional packages.
+
+2. Leverage an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
+
+3. Use JSX by way of [Juxtapose](https://github.com/djalbat/juxtapose). This is arguably the most elegant approach.
+
+The second approach is recommended to begin with.
+
+### Vanilla JavaScript
+
+The following will mount an instance of Yapp and render the necessary styles:
 
 ```
 "use strict";
@@ -58,9 +70,11 @@ body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
-Note that if take this approach then you must call the `didMount()` method explicitly.
+Note that if you take this approach then you must call the `didMount()` method explicitly.
 
-A slightly less cumbersome approach is to use an [Easy](https://github.com/djalbat/easy) element for mounting:
+### Leverage an Easy element
+
+A slightly less cumbersome approach is to leverage an [Easy](https://github.com/djalbat/easy) element:
 ```
 "use strict";
 
@@ -80,7 +94,11 @@ renderYappStyles();
 
 body.mount(yapp);
 ```
-Arguably the most elegant approach is to use JSX to invoke Yapp:
+Note that there is no need now to call the `didMount()` method.
+
+### Use JSX by way of Juxtapose
+
+Arguably the most elegant approach is to use JSX by way of [Juxtapose](https://github.com/djalbat/juxtapose):
 
 ```
 "use strict";
@@ -106,6 +124,9 @@ body.mount(
 
 );
 ```
+
+### Other considerations
+
 Yapp will set its own height by default, based on its content, and its default width is set to `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like the following:
 
 ```
