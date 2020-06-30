@@ -236,7 +236,7 @@ renderStyle(syntaxStyle); // Likely always needed
 
 renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
-This almost exactly the definition of the [`renderYappStyles()``](https://github.com/djalbat/yapp/blob/master/es6/renderYappStyles.js) function, in fact.
+This almost exactly the definition of the [`renderYappStyles()`](https://github.com/djalbat/yapp/blob/master/es6/renderYappStyles.js) function, in fact.
 
 So if you are invoking Yapp by way of JSX and do not want FiraCode support, for example, you only need to render the syntax styles. Note that the `renderStyles()` and `renderStyle()` functions are now being employed, available via the [Easy with Style](https://github.com/djalbat/easy-with-style) package.
 
