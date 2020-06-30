@@ -38,11 +38,11 @@ You will need to do this if you want to look at the examples.
 
 There are three ways to use Yapp:
 
-1. Vanilla JavaScript, with no need to install any additional packages,
+1. Vanilla JavaScript, with no need to install any additional packages.
 
-2. leverage an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome,
+2. Leverage an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
 
-3. or use JSX by way of [Juxtapose](https://github.com/djalbat/juxtapose). This is arguably the most elegant approach.
+3. Use JSX by way of [Juxtapose](http://juxtapose.info). This is arguably the most elegant approach.
 
 The second approach is recommended to begin with.
 
@@ -94,11 +94,11 @@ renderYappStyles();
 
 body.mount(yapp);
 ```
-Note that there is no need now to call the `didMount()` method.
+Note that there is now no need to call the `didMount()` method.
 
 ### Use JSX by way of Juxtapose
 
-Arguably the most elegant approach is to use JSX by way of [Juxtapose](https://github.com/djalbat/juxtapose):
+Arguably the most elegant approach is to use JSX by way of [Juxtapose](http://juxtapose.info):
 
 ```
 "use strict";
