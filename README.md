@@ -34,11 +34,7 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
 You will need to do this if you want to look at the examples.
 
-## The examples
-
-Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
-
-## Getting started
+## Usage
 
 There are three ways to use Yapp:
 
@@ -203,9 +199,13 @@ These options are passed as individual attributes alongside the other parameters
 ```
 Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means.
 
+## Examples
+
+Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
+
 ## Styling Yapp
 
-Each of the usage examples in the getting started section includes the following code:
+Each of the usage examples in the usage section includes the following code:
 
 ```
 "use strict";
