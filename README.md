@@ -10,7 +10,7 @@ Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and p
 
 Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
 
-Yapp also supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for instructions.
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for more details.
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
@@ -44,7 +44,7 @@ There are three ways to use Yapp:
 
 3. Use JSX by way of [Juxtapose](http://juxtapose.info). This is arguably the most elegant approach.
 
-The second approach is recommended to begin with.
+The second approach is recommended, at least to begin with.
 
 ### Vanilla JavaScript
 
@@ -127,7 +127,7 @@ body.mount(
 
 ### Other considerations
 
-Yapp will set its own height by default, based on its content, and its default width is set to `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like the following:
+Yapp will set its own height by default, based on its content. On the other hand its width is set to `100%`. So you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like the following:
 
 ```
 import { Element } from "easy";
@@ -136,9 +136,19 @@ const rootDiv = new Element("div#root");
 
 rootDiv.mount(yapp);
 ```
-You can choose to set Yapp's height explicitly with the `setHeight(...)` method. This should be called after mounting.
+Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. You can leave intermediate arguments as falsey when passing the latter arguments to the `fromContent(...)` method. For example:
 
-Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. You can leave intermediate arguments as `null` or `undefined` if you want to pass just the latter arguments to the `fromContent(...)` method.
+```
+const language = "json",
+      options = {
+        ...
+      },
+      yapp = Yapp.fromContent(`
+
+        ...
+
+      `, language, null, options);
+```
 
 Yapp is not editable by default. If you want to make it editable and supply it with a callback to be invoked whenever its content changes, you can do so as follows:
 
