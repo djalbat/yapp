@@ -6,7 +6,7 @@ Yet Another Pretty Printer.
 
 **If you are interested in contributing to Yapp**, in particular contributing to its grammars, then see the contribution section below.
 
-Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance after parsing. The result is an experience that rivals commercial editors.
+Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance after parsing. The result is an experience that rivals the best open source and commercial editors.
 
 Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
 
