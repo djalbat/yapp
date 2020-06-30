@@ -30,9 +30,9 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
     npm install
 
-You will need to do this if you want to look at the examples or if you wish to contribute.
+You will need to do this if you want to look at the examples.
 
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode), see the dedicated section below for installation instructions.
 
 ## Getting started
 
@@ -281,6 +281,10 @@ Perhaps the best way to get started with rendering your own styles is to look at
 ## The examples
 
 Open the `index.html` file in the root of the repository. There is an example for each of the supported languages.
+
+## FiraCode
+
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
 
 ## Contributing
 
