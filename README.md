@@ -40,7 +40,7 @@ There are three ways to use Yapp:
 
 1. Vanilla JavaScript, with no need to install any additional packages.
 
-2. Leverage an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
+2. Make use of an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
 
 3. Use JSX by way of [Juxtapose](http://juxtapose.info). This is arguably the most elegant approach.
 
@@ -72,9 +72,9 @@ yapp.didMount();
 ```
 Note that if you take this approach then you must call the `didMount()` method explicitly.
 
-### Leverage an Easy element
+### Make use of an Easy element
 
-A slightly less cumbersome approach is to leverage an [Easy](https://github.com/djalbat/easy) element:
+A slightly less cumbersome approach is to make use of an [Easy](https://github.com/djalbat/easy) element:
 ```
 "use strict";
 
@@ -127,12 +127,17 @@ body.mount(
 
 ### Other considerations
 
-Yapp will set its own height by default, based on its content. On the other hand its width is set to `100%`. So you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like the following:
+Yapp will set its own height by default, based on its content. On the other hand its width is set to `100%`. So you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, for example, something like the following will do:
 
 ```
 import { Element } from "easy";
 
-const rootDiv = new Element("div#root");
+const rootDiv = new Element("div#root"),
+      yapp =
+
+        ...
+
+      ;
 
 rootDiv.mount(yapp);
 ```
@@ -150,22 +155,28 @@ const language = "json",
       `, language, null, options);
 ```
 
-Yapp is not editable by default. If you want to make it editable and supply it with a callback to be invoked whenever its content changes, you can do so as follows:
+Yapp is not editable by default. If you want to make it editable and supply it with a callback to be invoked whenever its content changes, you can do via the options:
 
 ```
-const options = {
-  editable: true,
-  onContentChange: (event, element) => {
+const edtiable = true,
+      onContentChange = changeHandler,  ///
+      options = {
+        editable
+        onContentChange
+      },
+      yapp = Yapp.fromContent(`
 
-    const yapp = element, ///
-          content = yapp.getContent();
+        ...
 
-    ...
+      `, null, null, options);
 
-  }
-};
+function changeHandler(event, element) {
+  const yapp = element, ///
+        content = yapp.getContent();
 
-const yapp = Yapp.fromContent(` ... `, "javascript", null, options);
+  ...
+
+}
 ```
 These options are passed as individual attributes alongside the other parameters if invoking Yapp by way of JSX:
 
@@ -186,22 +197,7 @@ These options are passed as individual attributes alongside the other parameters
 
 `}</Yapp>
 ```
-
-If you are using jSX then you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
-
-```
-{
-  "presets": [
-    [
-      "@babel/env"
-    ]
-  ],
-  "plugins": [
-    "@babel/plugin-transform-react-jsx"
-  ]
-}
-```
-We recommend the standalone approach to get you started.
+Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means.
 
 ### Styling Yapp
 
