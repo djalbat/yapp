@@ -16,6 +16,8 @@ Yapp is fully configurable. You can style it overall or target specific syntaxes
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
 
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for instructions.
+
 ## Installation
 
 You can install Yapp with [npm](https://www.npmjs.com/):
@@ -31,8 +33,6 @@ You can also clone the repository with [Git](https://git-scm.com/)...
     npm install
 
 You will need to do this if you want to look at the examples.
-
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode), see the dedicated section below for installation instructions.
 
 ## Getting started
 
