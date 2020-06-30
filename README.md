@@ -34,6 +34,10 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
 You will need to do this if you want to look at the examples.
 
+## The examples
+
+Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For details on building and live reloading the examples, see the section on building near the foot of this readme file.
+
 ## Getting started
 
 There are three ways to use Yapp:
@@ -172,8 +176,7 @@ const edtiable = true,
       `, null, null, options);
 
 function changeHandler(event, element) {
-  const yapp = element, ///
-        content = yapp.getContent();
+  const content = yapp.getContent();
 
   ...
 
@@ -214,7 +217,7 @@ renderYappStyles();
 
 Rendering the styles in this manner should always be done before any instance of Yapp is mounted, but only needs to be done once. If you do not want to alter Yapp's styles, either overall or for a particular syntax, then you never need to do any more than this.
 
-The recommended way of rendering styles is to do so individually:
+In fact Yapp's styles can be further broken down:
 
 ```
 "use strict";
@@ -233,11 +236,9 @@ renderStyle(syntaxStyle); // Likely always needed
 
 renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
-If this all seems a bit too unwieldy, and if you don't want to make any changes to the styles and you do want FiraCode support, the above can be replaced with the following:
+Note that the previous `renderYappStyles()` function has been replaced with the `renderStyles()` and `renderStyle()` functions, and that these are from the [Easy with Style](https://github.com/djalbat/easy-with-style) package.
 
-Note that in either case, rendering the styles must happen before any instance of Yapp is added to the DOM.
-
-The remainder of this section explains how to override the default and syntax styles.
+The remainder of this section explains how to override the default and syntax styles. FiraCode is dealt with separately in its own section further on.
 
 The default style looks like this:
 
@@ -310,10 +311,6 @@ export const attributeColour = citron;
 If you want to change the colours of pretty printed XML, therefore, you can duplicate this scheme and change the colours to the ones you like. You then only need to change the scheme that the XML style utilises, otherwise leaving the style as-is.
 
 Perhaps the best way to get started with rendering your own styles is to look at the example code, see below.
-
-## The examples
-
-Open the `index.html` file in the root of the repository. There is an example for each of the supported languages.
 
 ## FiraCode
 
