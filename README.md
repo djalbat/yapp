@@ -10,13 +10,13 @@ Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and p
 
 Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
 
+Yapp also supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for instructions.
+
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
 ![XML](https://github.com/djalbat/yapp/blob/master/assets/xml.png)
 
 ![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
-
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for instructions.
 
 ## Installation
 
