@@ -36,7 +36,7 @@ You will need to do this if you want to look at the examples.
 
 ## The examples
 
-Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For details on building and live reloading the examples, see the section on building near the foot of this readme file.
+Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on how to build and live reload the examples, see the section on building near the foot of this readme file.
 
 ## Getting started
 
