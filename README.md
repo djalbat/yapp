@@ -236,7 +236,7 @@ renderStyle(syntaxStyle); // Likely always needed
 
 renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
-So if you are invoking Yapp by way of JSX and do not want FiraCode support, for example, you need only to specifically render the syntax styles. Note that the `renderStyles()` and `renderStyle()` functions are now being employed, available via the [Easy with Style](https://github.com/djalbat/easy-with-style) package.
+So if you are invoking Yapp by way of JSX and do not want FiraCode support, for example, you only need to render the syntax styles. Note that the `renderStyles()` and `renderStyle()` functions are now being employed, available via the [Easy with Style](https://github.com/djalbat/easy-with-style) package.
 
 The remainder of this section shows how to override the default and syntax styles. FiraCode is dealt with separately in its own section further on.
 
