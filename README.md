@@ -124,6 +124,7 @@ body.mount(
 
 );
 ```
+Yapp has been used for the code listings on the Juxtapose site.
 
 ### Other considerations
 
@@ -201,6 +202,18 @@ Note that the second of the callback's arguments is a reference to the instance 
 
 ## Styling Yapp
 
+Each of the usage examples in the getting started section includes the following code:
+
+```
+"use strict";
+
+import { renderYappStyles } from "yapp";
+
+renderYappStyles();
+```
+
+Rendering the styles in this manner should always be done before any instance of Yapp is mounted, but only needs to be done once. If you do not want to alter Yapp's styles, either overall or for a particular syntax, then you never need to do any more than this.
+
 The recommended way of rendering styles is to do so individually:
 
 ```
@@ -222,13 +235,6 @@ renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
 If this all seems a bit too unwieldy, and if you don't want to make any changes to the styles and you do want FiraCode support, the above can be replaced with the following:
 
-```
-"use strict";
-
-import { renderYappStyles } from "yapp";
-
-renderYappStyles();
-```
 Note that in either case, rendering the styles must happen before any instance of Yapp is added to the DOM.
 
 The remainder of this section explains how to override the default and syntax styles.
