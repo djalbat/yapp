@@ -9,16 +9,11 @@ import firaCodeStyle from "./style/firaCode"
 const { renderStyle, renderStyles } = withStyle;
 
 export function renderYappStyles() {
-
   renderStyles();
 
-  renderStyle(`
-  
-    ${yappStyle}
-  
-    ${syntaxStyle}
-  
-    ${firaCodeStyle}
+  renderStyle(yappStyle);
 
-  `);
+  renderStyle(syntaxStyle);
+
+  renderStyle(firaCodeStyle);
 }

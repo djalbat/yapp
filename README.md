@@ -2,13 +2,15 @@
 
 Yet Another Pretty Printer.
 
+**If you just want to see Yapp in action without further ado**, then clone this repository, open the `index.html` file and choose a language.
+
 **If you are interested in contributing to Yapp**, in particular contributing to its grammars, then see the contribution section below.
 
-**If you just want to see Yapp in action without further ado**, then simply clone this repository, open the `index.html` file and choose a language. Otherwise read on.
-
-Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance still further after parsing. The result is an experience that rivals commercial editors.
+Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance after parsing. The result is an experience that rivals the best open source and commercial editors.
 
 Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
+
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for more details.
 
 ![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
 
@@ -30,13 +32,23 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
     npm install
 
-You will need to do this if you want to look at the examples or if you wish to contribute.
+You will need to do this if you want to look at the examples.
 
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
+## Usage
 
-## Getting started
+There are three ways to use Yapp:
 
-The following will mount an instance of Yapp and render the necessary styles to boot:
+1. Vanilla JavaScript, with no need to install any additional packages.
+
+2. Make use of an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
+
+3. Use JSX by way of [Juxtapose](http://juxtapose.info), arguably the most elegant approach.
+
+The second approach is recommended, at least to begin with.
+
+### Vanilla JavaScript
+
+The following will mount an instance of Yapp and render the necessary styles:
 
 ```
 "use strict";
@@ -58,9 +70,11 @@ body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
-Note that if take this approach then you must call the `didMount()` method explicitly.
+Note that if you take this approach then you must call the `didMount()` method explicitly.
 
-A slightly less cumbersome approach is to use an [Easy](https://github.com/djalbat/easy) element for mounting:
+### Make use of an Easy element
+
+A slightly less cumbersome approach is to make use of an [Easy](https://github.com/djalbat/easy) element:
 ```
 "use strict";
 
@@ -80,7 +94,11 @@ renderYappStyles();
 
 body.mount(yapp);
 ```
-Arguably the most elegant approach is to use JSX to invoke Yapp:
+Note that there is now no need to call the `didMount()` method.
+
+### Use JSX by way of Juxtapose
+
+Arguably the most elegant approach is to use JSX by way of [Juxtapose](http://juxtapose.info):
 
 ```
 "use strict";
@@ -106,35 +124,59 @@ body.mount(
 
 );
 ```
-Yapp will set its own height by default, based on its content, and its default width is set to `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, something like the following:
+Yapp has been used for the code listings on the Juxtapose site.
+
+### Other considerations
+
+Yapp will set its own height by default, based on its content. On the other hand its width is set to `100%`. So you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, for example, something like the following will do:
 
 ```
 import { Element } from "easy";
 
-const rootDiv = new Element("div#root");
+const rootDiv = new Element("div#root"),
+      yapp =
+
+        ...
+
+      ;
 
 rootDiv.mount(yapp);
 ```
-You can choose to set Yapp's height explicitly with the `setHeight(...)` method. This should be called after mounting.
-
-Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. You can leave intermediate arguments as `null` or `undefined` if you want to pass just the latter arguments to the `fromContent(...)` method.
-
-Yapp is not editable by default. If you want to make it editable and supply it with a callback to be invoked whenever its content changes, you can do so as follows:
+Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. You can leave intermediate arguments as falsey when passing the latter arguments to the `fromContent(...)` method. For example:
 
 ```
-const options = {
-  editable: true,
-  onContentChange: (event, element) => {
+const language = "json",
+      options = {
+        ...
+      },
+      yapp = Yapp.fromContent(`
 
-    const yapp = element, ///
-          content = yapp.getContent();
+        ...
 
-    ...
+      `, language, null, options);
+```
 
-  }
-};
+Yapp is not editable by default. If you want to make it editable and supply it with a callback to be invoked whenever its content changes, you can do via the options:
 
-const yapp = Yapp.fromContent(` ... `, "javascript", null, options);
+```
+const edtiable = true,
+      onContentChange = changeHandler,  ///
+      options = {
+        editable
+        onContentChange
+      },
+      yapp = Yapp.fromContent(`
+
+        ...
+
+      `, null, null, options);
+
+function changeHandler(event, element) {
+  const content = yapp.getContent();
+
+  ...
+
+}
 ```
 These options are passed as individual attributes alongside the other parameters if invoking Yapp by way of JSX:
 
@@ -155,26 +197,27 @@ These options are passed as individual attributes alongside the other parameters
 
 `}</Yapp>
 ```
+Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means.
 
-If you are using jSX then you need to install Babel's [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin and then add a reference to it to your `babel.config.json` file:
+## Examples
+
+Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
+
+## Styling Yapp
+
+Each of the usage examples in the usage section includes the following code:
 
 ```
-{
-  "presets": [
-    [
-      "@babel/env"
-    ]
-  ],
-  "plugins": [
-    "@babel/plugin-transform-react-jsx"
-  ]
-}
+"use strict";
+
+import { renderYappStyles } from "yapp";
+
+renderYappStyles();
 ```
-We recommend the standalone approach to get you started.
 
-### Styling Yapp
+Rendering the styles in this manner should always be done before any instance of Yapp is mounted, but only needs to be done once. If you do not want to alter Yapp's styles, either overall or for a particular syntax, then you never need to do any more than this.
 
-The recommended way of rendering styles is to do so individually:
+Yapp's styles can be further broken down, however:
 
 ```
 "use strict";
@@ -193,18 +236,9 @@ renderStyle(syntaxStyle); // Likely always needed
 
 renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
-If this all seems a bit too unwieldy, and if you don't want to make any changes to the styles and you do want FiraCode support, the above can be replaced with the following:
+This almost exactly the definition of the [`renderYappStyles()`](https://github.com/djalbat/yapp/blob/master/es6/renderYappStyles.js) function, in fact. Note that the `renderStyles()` and `renderStyle()` functions are now being employed, available via the [Easy with Style](https://github.com/djalbat/easy-with-style) package.
 
-```
-"use strict";
-
-import { renderYappStyles } from "yapp";
-
-renderYappStyles();
-```
-Note that in either case, rendering the styles must happen before any instance of Yapp is added to the DOM.
-
-The remainder of this section explains how to override the default and syntax styles.
+The remainder of this section shows how to override the default and syntax styles. FiraCode is dealt with separately in its own section further down.
 
 The default style looks like this:
 
@@ -278,9 +312,9 @@ If you want to change the colours of pretty printed XML, therefore, you can dupl
 
 Perhaps the best way to get started with rendering your own styles is to look at the example code, see below.
 
-## The examples
+## FiraCode
 
-Open the `index.html` file in the root of the repository. There is an example for each of the supported languages.
+Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
 
 ## Contributing
 
