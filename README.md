@@ -2,9 +2,9 @@
 
 Yet Another Pretty Printer.
 
-**If you just want to see Yapp in action without further ado**, then clone this repository, open the `index.html` file and choose a language.
+*If you just want to see Yapp in action without further ado*, then clone this repository, open the `index.html` file and choose a language.
 
-**If you are interested in contributing to Yapp**, in particular contributing to its grammars, then see the contribution section below.
+*If you are interested in contributing to Yapp*, in particular contributing to its grammars, then see the contribution section below.
 
 Otherwise read on.
 
