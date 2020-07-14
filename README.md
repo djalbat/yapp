@@ -4,15 +4,13 @@ Yet Another Pretty Printer.
 
 *If you just want to see Yapp in action without further ado*, then clone this repository, open the `index.html` file and choose a language.
 
-*If you are interested in contributing to Yapp*, in particular contributing to its grammars, then see the contribution section below.
+*If you are interested in contributing to Yapp*, in particular contributing to its grammars, then see the contributions section below.
 
 Otherwise read on.
 
-Yapp is a fully fledged pretty printer and text editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance still further after parsing. The result is an appearance that rivals the best open source and commercial editors.
+Yapp is a fully fledged pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors.
 
-Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
-
-Yapp also supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for more details.
+Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages. Yapp also supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for more details.
 
 ## Installation
 
@@ -29,10 +27,6 @@ You can also clone the repository with [Git](https://git-scm.com/)...
     npm install
 
 You will need to do this if you want to look at the examples.
-
-## Examples
-
-Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
 
 ## Usage
 
@@ -308,11 +302,15 @@ If you want to change the colours of pretty printed XML, therefore, you can dupl
 
 Perhaps the best way to get started with rendering your own styles is to look at the example code, see below.
 
+## Examples
+
+Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
+
 ## FiraCode
 
 Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
 
-## Contributing
+## Contributions
 
 All development is best done in the context of the examples, at least initially. There are three main areas that would benefit from contributions.
 
