@@ -231,7 +231,7 @@ renderStyle(syntaxStyle); // Likely always needed
 
 renderStyle(firaCodeStyle); // Only needed for FiraCode support.
 ```
-This almost exactly the definition of the [`renderYappStyles()`](https://github.com/djalbat/yapp/blob/master/es6/renderYappStyles.js) function, in fact. Note that the `renderStyles()` and `renderStyle()` functions are now being employed, available via the [Easy with Style](https://github.com/djalbat/easy-with-style) package.
+Note that the `renderStyles()` and `renderStyle()` functions, available via the [Easy with Style](https://github.com/djalbat/easy-with-style) package, are now being employed.
 
 The remainder of this section shows how to override the default and syntax styles. FiraCode is dealt with separately in its own section further down.
 
