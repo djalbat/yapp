@@ -64,7 +64,7 @@ body.appendChild(yapp.domElement);
 
 yapp.didMount();
 ```
-Note that if you take this approach then you must call the `didMount()` method explicitly.
+Note that if you take this approach then you must call Yapp's `didMount()` method explicitly.
 
 ### Make use of an Easy element
 
@@ -118,9 +118,11 @@ body.mount(
 
 );
 ```
-Yapp has been used for the code listings on the Juxtapose site.
+Unless you plan to use Juxtapose to build your site, however, or at least some portion of it, this may not be ideal.
 
 ### Other considerations
+
+Note that in all of the three use cases above you must call Yapp's `renderStyles()` method before you mount an instance of it. There is more on this in the section on styling Yapp further on.
 
 Yapp will set its own height by default, based on its content. On the other hand its width is set to `100%`. So you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, for example, something like the following will do:
 
@@ -136,7 +138,10 @@ const rootDiv = new Element("div#root"),
 
 rootDiv.mount(yapp);
 ```
-Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. You can leave intermediate arguments as falsey when passing the latter arguments to the `fromContent(...)` method. For example:
+The code to render styles has been left out for brevity, but bear in mind that it always need to be included regardless of where you mount Yapp.
+
+
+Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` method. For example:
 
 ```
 const language = "json",
@@ -150,7 +155,7 @@ const language = "json",
       `, language, null, options);
 ```
 
-Yapp is not editable by default. If you want to make it editable and supply it with a callback to be invoked whenever its content changes, you can do via the options:
+Yapp is not editable by default. If you want to make it editable and supply it with a callback function to be invoked whenever its content changes, you can do via the options object:
 
 ```
 const editable = true,
@@ -191,7 +196,7 @@ These options are passed as individual attributes alongside the other parameters
 
 `}</Yapp>
 ```
-Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means.
+Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means. Note also that a `getContent()` method is supplied.
 
 ## Styling Yapp
 
