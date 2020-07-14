@@ -6,17 +6,13 @@ Yet Another Pretty Printer.
 
 **If you are interested in contributing to Yapp**, in particular contributing to its grammars, then see the contribution section below.
 
-Yapp is a fully fledged pretty printer and editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance after parsing. The result is an experience that rivals the best open source and commercial editors.
+Otherwise read on.
+
+Yapp is a fully fledged pretty printer and text editor. It has a powerful lexer and parser under the hood, as well as the ability to process content in order to refine its appearance still further after parsing. The result is an appearance that rivals the best open source and commercial editors.
 
 Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages.
 
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for more details.
-
-![JavaScript](https://github.com/djalbat/yapp/blob/master/assets/javascript.png)
-
-![XML](https://github.com/djalbat/yapp/blob/master/assets/xml.png)
-
-![JSON](https://github.com/djalbat/yapp/blob/master/assets/json.png)
+Yapp also supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for more details.
 
 ## Installation
 
@@ -33,6 +29,10 @@ You can also clone the repository with [Git](https://git-scm.com/)...
     npm install
 
 You will need to do this if you want to look at the examples.
+
+## Examples
+
+Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
 
 ## Usage
 
@@ -159,7 +159,7 @@ const language = "json",
 Yapp is not editable by default. If you want to make it editable and supply it with a callback to be invoked whenever its content changes, you can do via the options:
 
 ```
-const edtiable = true,
+const editable = true,
       onContentChange = changeHandler,  ///
       options = {
         editable
@@ -198,10 +198,6 @@ These options are passed as individual attributes alongside the other parameters
 `}</Yapp>
 ```
 Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means.
-
-## Examples
-
-Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
 
 ## Styling Yapp
 
