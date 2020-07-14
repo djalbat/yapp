@@ -138,7 +138,7 @@ const rootDiv = new Element("div#root"),
 
 rootDiv.mount(yapp);
 ```
-The code to render styles has been left out for brevity, but bear in mind that it always need to be included regardless of where you mount Yapp.
+The code to render styles has been left out for the sake of brevity, but bear in mind that it always need to be included regardless of where you mount Yapp.
 
 
 Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` method. For example:
