@@ -17,7 +17,7 @@
     "occam-dom": "^2.0.47",
     "occam-grammar-utilities": "^5.0.26",
     "occam-lexers": "^13.0.1",
-    "occam-parsers": "^13.0.1"
+    "occam-parsers": "^13.0.21"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
