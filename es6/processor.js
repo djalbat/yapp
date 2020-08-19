@@ -10,7 +10,7 @@ const terminalNodeQuery = Query.fromExpression("//@*"),
 class Processor {
   process(tokens, node) {
     if (node !== null) {
-      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => ErrorToken, errorTerminalNodeQuery);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => ErrorToken, errorTerminalNodeQuery);
     }
   }
 
@@ -61,10 +61,9 @@ class Processor {
       return null;
     }
 
-    const type = significantToken.getType(),
-          content = significantToken.getContent(),
+    const content = significantToken.getContent(),
           index = tokens.indexOf(significantToken),
-          Token = callback(content, type); ///
+          Token = callback(content); ///
 
     if (Token === null) {
       return null;

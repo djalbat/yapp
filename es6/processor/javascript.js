@@ -31,23 +31,23 @@ export default class JavaScriptProcessor extends Processor {
       const jsxNonTerminalNodes = jsxNonTerminalNodeQuery.execute(node),
             functionNonTerminalNodes = functionNonTerminalNodeQuery.execute(node);
 
-      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => ErrorToken, errorTerminalNodeQuery);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => ErrorToken, errorTerminalNodeQuery);
 
-      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => StringToken, templateLiteralStringTerminalNodeQuery);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => StringToken, templateLiteralStringTerminalNodeQuery);
 
-      this.replaceTerminalNodesSignificantToken(tokens, node, (content, type) => (content === TEMPLATE_LITERAL_DELIMITER_CONTENT) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => (content === TEMPLATE_LITERAL_DELIMITER_CONTENT) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
 
-      jsxNonTerminalNodes.forEach((jsxNonTerminalNode) => this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content, type) => JSXToken, jsxTagTerminalNodeQuery,
-                                                                                                                                                             jsxTagNameTerminalNodeQuery,
-                                                                                                                                                             jsxTagAttributeTerminalNodeQuery,
-                                                                                                                                                             jsxTagAttributeNameTerminalNodeQuery));
+      jsxNonTerminalNodes.forEach((jsxNonTerminalNode) => this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content) => JSXToken, jsxTagTerminalNodeQuery,
+                                                                                                                                                       jsxTagNameTerminalNodeQuery,
+                                                                                                                                                       jsxTagAttributeTerminalNodeQuery,
+                                                                                                                                                       jsxTagAttributeNameTerminalNodeQuery));
 
       functionNonTerminalNodes.forEach((functionNonTerminalNode) => {
-        const argumentNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => ArgumentToken, argumentTerminalNodeQuery),
-              variableNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => VariableToken, variableDeclarationTerminalNodeQuery,
-                                                                                                                                           destructuredConstDeclarationTerminalNodeQuery);
+        const argumentNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content) => ArgumentToken, argumentTerminalNodeQuery),
+              variableNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content) => VariableToken, variableDeclarationTerminalNodeQuery,
+                                                                                                                                     destructuredConstDeclarationTerminalNodeQuery);
 
-        this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content, type) => {
+        this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content) => {
           let Token = null;
 
           const variableName = content, ///
