@@ -7,21 +7,7 @@ import JavaScriptPlugin from "../../plugin/javascript";
 export default class JavaScriptView extends View {
   Plugin = JavaScriptPlugin;
 
-  initialContent = `function getEmailAddress(selector) {
-  var emailAddress;
-  
-  return ({
-    emailAddress
-  });  
-}`;
-
-  static defaultProperties = {
-    className: "javascript"
-  };
-};
-
-/*
-"use strict";
+  initialContent = `"use strict";
 
 import "juxtapose";
 
@@ -41,9 +27,13 @@ function simpleApplication(selector) {
   );
 }
 
-export default withStyle(simpleApplication)`
+export default withStyle(simpleApplication)\`
 
   color: #333;
 
-`;
-*/
+\`;`;
+
+  static defaultProperties = {
+    className: "javascript"
+  };
+};
