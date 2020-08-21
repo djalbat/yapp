@@ -10,7 +10,7 @@ Otherwise read on.
 
 Yapp is a fully fledged pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors.
 
-Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages. Yapp also supports [FiraCode](https://github.com/tonsky/FiraCode). See the dedicated section below for more details.
+Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages. Yapp additionally supports [Fira Code](https://github.com/tonsky/FiraCode), see the dedicated section below for more details.
 
 ## Installation
 
@@ -32,7 +32,7 @@ You will need to do this if you want to look at the examples.
 
 There are three ways to use Yapp:
 
-1. Vanilla JavaScript, with no need to install any additional packages.
+1. Vanilla JavaScript, with no need to install additional packages.
 
 2. Make use of an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
 
@@ -122,7 +122,7 @@ Unless you plan to use Juxtapose to build your site, however, or at least some p
 
 ### Other considerations
 
-Note that in all of the three use cases above you must call Yapp's `renderStyles()` method before you mount an instance of it. There is more on this in the section on styling Yapp further on.
+Note that in all of the three use cases above you must call Yapp's `renderStyles()` method before you mount an instance of it. More details is given in the section on styling Yapp further on.
 
 Yapp will set its own height by default, based on its content. On the other hand its width is set to `100%`. So you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, for example, something like the following will do:
 
@@ -138,10 +138,7 @@ const rootDiv = new Element("div#root"),
 
 rootDiv.mount(yapp);
 ```
-The code to render styles has been left out for the sake of brevity, but bear in mind that it always need to be included regardless of where you mount Yapp.
-
-
-Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` method. For example:
+Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` factory method. For example:
 
 ```
 const language = "json",
@@ -229,11 +226,11 @@ renderStyle(yappStyle); // Not needed if using JSX
 
 renderStyle(syntaxStyle); // Likely always needed
 
-renderStyle(firaCodeStyle); // Only needed for FiraCode support.
+renderStyle(firaCodeStyle); // Only needed for Fira Code support.
 ```
 Note that the `renderStyles()` and `renderStyle()` functions, available via the [Easy with Style](https://github.com/djalbat/easy-with-style) package, are now being employed.
 
-The remainder of this section shows how to override the default and syntax styles. FiraCode is dealt with separately in its own section further down.
+The remainder of this section shows how to override the default and syntax styles. Fira Code is dealt with separately in its own section further down.
 
 The default style looks like this:
 
@@ -311,9 +308,9 @@ Perhaps the best way to get started with rendering your own styles is to look at
 
 Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
 
-## FiraCode
+## Fira Code
 
-Yapp supports [FiraCode](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
+Yapp supports [Fira Code](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
 
 ## Contributions
 
@@ -350,3 +347,15 @@ The following MDN articles were invaluable when writing the JavaScript grammar:
 
 - james.smith@djalbat.com
 - http://djalbat.com
+
+
+AWS_ACCESS_KEY_ID=AKIAZIP7YYLHOW4VDQS3
+AWS_SECRET_ACCESS_KEY=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
+NLTK_DATA=/usr/local/share/nltk_data
+
+/Users/james.smith/Private/PHE/foodscanner_data_pipeline/service/pipeline.py
+
+--settings s3://foodscanner-pipeline-etl-statics/supplements/etl_settings.yaml
+
+/Users/james.smith/Private/PHE/foodscanner_data_pipeline.screwed
+
