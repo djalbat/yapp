@@ -190,7 +190,7 @@ class Yapp extends Element {
   initialise() {
     this.assignContext();
 
-    const { childElements, editable = false } = this.properties,
+    const { childElements, editable = false, resizeable = false } = this.properties,
           language = this.plugin.getLanguage(),
           content = contentFromChildElements(childElements),
           readOnly = !editable,
@@ -205,14 +205,17 @@ class Yapp extends Element {
 
     this.setRichTextareaReadOnly(readOnly);
 
-    this.onResize((event, element) => this.resize());
+    if (resizeable) {
+      this.onResize((event, element) => this.resize());
+    }
   }
 
-  static tagName = "div";
-
-  static defaultProperties = {
-    className: "yapp"
-  };
+  static ignoredProperties = [
+    "Plugin",
+    "language",
+    "editable",
+    "resizeable"
+  ];
 
   static fromContent(content, language, Plugin) {
     const Class = Yapp,
