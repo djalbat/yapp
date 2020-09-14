@@ -210,6 +210,12 @@ class Yapp extends Element {
     }
   }
 
+  static tagName = "div";
+
+  static defaultProperties = {
+    className: "yapp"
+  };
+
   static ignoredProperties = [
     "Plugin",
     "language",
