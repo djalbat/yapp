@@ -19,165 +19,81 @@ const bnf = `
 
 
 
-    statement                  ::=  varDeclaration 
+    statement                  ::=  class
 
-                                 |  letDeclaration 
+                                 |  function 
 
-                                 |  constDeclaration 
+                                 |  generator 
 
-                                 |  classDeclaration 
+                                 |  "export"? ( ( "var" var ( "," var )* ) 
+    
+                                              | ( "let" let ( "," let )* ) 
+                                              
+                                              | ( "const" const ( "," const )* ) 
+                                              
+                                              ) ";" 
 
-                                 |  functionDeclaration 
+                                 |  "export" "default" expression ";"
+                                 
+                                 |  "export" "default"? ( class | function | generator )
 
-                                 |  generatorDeclaration 
+                                 |  "export" "default" ( anonymousClass | anonymousFunction | anonymousGenerator )
+                                 
+                                 |  "export" ( ( "export" "{" names "}" ( "from" [string-literal] )? ) 
+                                 
+                                             | ( "export" "const" "{" fields "}" "=" expression )
+                                             
+                                             | ( "export" "{" "default" "}" "from" [string-literal] )
+                                             
+                                             | ( "export" "*" ( "as" name )? "from" [string-literal] )
+                                             
+                                             ) ";"
 
-                                 |  expressionExport
+                                 |  "import" ( [string-literal]
+                                             
+                                             | ( name "from" [string-literal] ) 
+                                             
+                                             | ( "{" names "}" "from" [string-literal] ) 
+                                 
+                                             | ( "*" "as" name "from" [string-literal] ) 
+                                             
+                                             ) ";"
 
-                                 |  classExport
+                                 |  label ":" statement
 
-                                 |  functionExport
+                                 |  "{" statement "}"
 
-                                 |  generatorExport
+                                 |  "break" ";"  
 
-                                 |  expressionExport
+                                 |  "continue" ";" 
 
-                                 |  namesExport
+                                 |  "if" "(" expression ")" statement ( "else" statement )? 
 
-                                 |  destructedExport
+                                 |  "switch" "(" expression ")" "{" case* defaultCase? "}" 
 
-                                 |  namesAggregatedExport
+                                 |  "return" expression? ";" 
 
-                                 |  defaultAggregatedExport
+                                 |  "throw" expression ";" 
 
-                                 |  wildcardAggregatedExport
+                                 |  "delete" expression ";" 
 
-                                 |  namesImport
+                                 |  expression! ";"
 
-                                 |  anonymousImport
+                                 |  try ( ( catch* finally ) | catch+ ) 
 
-                                 |  namedDefaultImport
+                                 |  "do" statement "while" "(" expression ")" ";" 
 
-                                 |  namedWildcardImport
+                                 |  "for" "(" initialiser ( ";" expression )? ( ";" expression )? ")" statement 
 
-                                 |  labelledStatement
+                                 |  "for" "(" variable "in" expression ")" statement 
 
-                                 |  blockStatement
+                                 |  "for" "await"? "(" variable "of" expression ")" statement 
 
-                                 |  breakStatement  
+                                 |  "while" "(" expression ")" statement 
 
-                                 |  continueStatement 
-
-                                 |  conditionalStatement 
-
-                                 |  switchStatement 
-
-                                 |  returnStatement 
-
-                                 |  throwStatemennt 
-
-                                 |  deleteStatement 
-
-                                 |  expressionStatement
-
-                                 |  tryCatchFinallyStatement 
-
-                                 |  doWhileIterator 
-
-                                 |  forIterator 
-
-                                 |  forInIterator 
-
-                                 |  forOfIterator 
-
-                                 |  whileIterator 
-
-                                 |  debuggerStatement
+                                 |  "debugger" ";"?
 
                                  ;
-
-
-
-    varDeclaration             ::=  "export"? "var" vars ";" ;
-
-    letDeclaration             ::=  "export"? "let" lets ";" ;
-
-    constDeclaration           ::=  "export"? "const" consts ";" ;
-
-    classDeclaration           ::=  class ;
-
-    functionDeclaration        ::=  function ;
-
-    generatorDeclaration       ::=  generator ;
-
-
-
-    classExport                ::=  "export" ( ( "default"? class ) | ( "default" anonymousClass ) ) ;
-
-    functionExport             ::=  "export" ( ( "default"? function ) | ( "default" anonymousFunction ) ) ;
-
-    generatorExport            ::=  "export" ( ( "default"? generator ) | ( "default" anonymousGenerator ) ) ;
-
-    expressionExport           ::=  "export" "default" expression ";" ;
-
-    namesExport                ::=  "export" "{" names "}" ";" ;
-
-    destructedExport           ::=  "export" "const" "{" fields "}" "=" expression ";" ;
-
-    namesAggregatedExport      ::=  "export" "{" names "}" "from" [string-literal] ";" ;
-
-    defaultAggregatedExport    ::=  "export" "{" "default" "}" "from" [string-literal] ";" ;
-
-    wildcardAggregatedExport   ::=  "export" "*" ( "as" name )? "from" [string-literal] ";" ;
-
-
-
-    namesImport                ::=  "import" "{" names "}" "from" [string-literal] ";" ;
-
-    anonymousImport            ::=  "import" [string-literal] ";" ;
-
-    namedDefaultImport         ::=  "import" name "from" [string-literal] ";" ;
-
-    namedWildcardImport        ::=  "import" "*" "as" name "from" [string-literal] ";" ;
-
-
-
-    labelledStatement          ::=  label ":" statement ;
-
-    blockStatement             ::=  "{" statement "}" ;
-
-    breakStatement             ::=  "break" ";" ;
-
-    continueStatement          ::=  "continue" ";" ;
-
-    conditionalStatement       ::=  "if" "(" expression ")" statement ( "else" statement )? ;
-
-    switchStatement            ::=  "switch" "(" expression ")" "{" case* defaultCase? "}" ;
-
-    returnStatement            ::=  "return" expression? ";" ;
-
-    throwStatement             ::=  "throw" expression ";" ;
-
-    deleteStatement            ::=  "delete" expression ";" ;
-
-    expressionStatement        ::=  expression! ";" ;
-
-    tryCatchFinallyStatement   ::=  try ( ( catch* finally ) | catch+ ) ;
-
-
-
-    doWhileIterator            ::=  "do" statement "while" "(" expression ")" ";" ;
-
-    forIterator                ::=  "for" "(" initialiser ( ";" expression )? ( ";" expression )? ")" statement ;
-
-    forInIterator              ::=  "for" "(" variable "in" expression ")" statement ;
-
-    forOfIterator              ::=  "for" "await"? "(" variable "of" expression ")" statement ;
-
-    whileIterator              ::=  "while" "(" expression ")" statement ;
-
-
-
-    debuggerStatement          ::=  "debugger" ";"? ;
 
 
 
@@ -193,7 +109,7 @@ const bnf = `
 
     anonymousGenerator         ::=  "async"? "function" <NO_WHITESPACE>"*" functionBody ;
 
-    constructor                ::=  "constructor" funcctionBody ;
+    constructor                ::=  "constructor" functionBody ;
 
     method                     ::=  "static"? name functionBody ;
 
@@ -207,9 +123,9 @@ const bnf = `
 
 
 
-    case                       ::=  "case" expression ":" statement* breakStatement? ;
+    case                       ::=  "case" expression ":" statement* ( "break" ";" )? ;
 
-    defaultCase                ::=  "default" ":" statement* breakStatement? ;
+    defaultCase                ::=  "default" ":" statement* ( "break" ";" )? ;
 
     try                        ::=  "try" "{" statement+ "}" ;
 
@@ -217,15 +133,7 @@ const bnf = `
 
     finally                    ::=  "finally" "{" statement+ "}" ;
 
-    initialiser                ::=  expression | "var" vars | "let" lets ;
-
-
-
-    vars                       ::=  var ( "," var )* ;
-
-    lets                       ::=  let ( "," let )* ;
-
-    consts                     ::=  const ( "," const )* ;
+    initialiser                ::=  expression | "var" var ( "," var )* | "let" let ( "," let )* ;
 
 
 
