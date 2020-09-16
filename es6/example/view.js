@@ -122,7 +122,7 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Plugin={this.Plugin} onContentChange={contentChangeHandler} editable >
+              <Yapp Plugin={this.Plugin} onContentChange={contentChangeHandler} editable resizeable >
                 {this.initialContent}
               </Yapp>
             </TopSizeableDiv>
