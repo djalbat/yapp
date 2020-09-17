@@ -4,7 +4,7 @@ Yet Another Pretty Printer.
 
 *If you just want to see Yapp in action without further ado*, then clone this repository, open the `index.html` file and choose a language.
 
-*If you are interested in contributing to Yapp*, in particular contributing to its grammars, then see the contributions section below.
+*If you are interested in contributing to Yapp*, in particular in contributing to its grammars, then see the contributions section below.
 
 Otherwise read on.
 
@@ -26,7 +26,7 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
     npm install
 
-You will need to do this if you want to look at the examples.
+You can also run a development server, see the section on building later on.
 
 ## Usage
 
