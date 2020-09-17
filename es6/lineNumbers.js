@@ -4,6 +4,8 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
+import commonFontMixin from "./mixin/font/common";
+
 import { lineNumbersColour } from "./scheme/prettyPrinter";
 
 class LineNumbers extends Element {
@@ -17,11 +19,19 @@ class LineNumbers extends Element {
     this.html(html);
   }
 
+  setLineHeight(lineHeight) {
+    lineHeight = `${lineHeight}px`; ///
+
+    this.style("line-height", lineHeight);
+  }
+
   parentContext() {
-	  const updateLineNumbers = this.update.bind(this);  ///
+	  const updateLineNumbers = this.update.bind(this),  ///
+          setLineNumbersLineHeight = this.setLineHeight.bind(this); ///
 
     return ({
-      updateLineNumbers
+      updateLineNumbers,
+      setLineNumbersLineHeight
     });
   }
 
@@ -38,4 +48,6 @@ export default withStyle(LineNumbers)`
   float: left;
   margin: 0 6px 0 6px;
   
+  ${commonFontMixin}
+
 `;

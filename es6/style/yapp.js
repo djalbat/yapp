@@ -1,10 +1,9 @@
 "use strict";
 
-import defaultStyle from "../style/default";
-
 const yappStyle = `
     
-  ${defaultStyle}
+  width: 100%;
+  position: relative;
 
 `;
 

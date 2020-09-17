@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { React, Element } from "easy";
 
-import defaultStyle from "./style/default";
+import yappStyle from "./style/yapp";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 import scrollBarThickness from "./scrollbarThickness";
@@ -31,13 +31,6 @@ class Yapp extends Element {
           content = richTextareaContent;  ///
 
     return content;
-  }
-
-  getLneHeight() {
-    const lineHeightInPixels = this.css("line-height"),
-          lineHeight = stripPixels(lineHeightInPixels);
-
-    return lineHeight;
   }
 
   getBorderWidth(side) {
@@ -79,6 +72,18 @@ class Yapp extends Element {
 
   setParser(parser) { this.plugin.setParser(parser); }
 
+  enableFiraCode() {
+    this.enableRichTextareaFiraCode();
+
+    this.enablePrettyPrinterFiraCode();
+  }
+
+  disableFiraCode() {
+    this.disableRichTextareaFiraCode();
+
+    this.disablePrettyPrinterFiraCode();
+  }
+
   update() {
     const content = this.getContent();
 
@@ -115,7 +120,9 @@ class Yapp extends Element {
   didMount() {
     const content = this.getContent(),
           lineCount = lineCountFromContent(content),
-          lineHeight = this.getLneHeight(),
+          richTextareaLineHeight = this.getRichTextareaLineHeight(),
+          lineNumbersLineHeight = richTextareaLineHeight, ///
+          lineHeight = richTextareaLineHeight, ///
           borderTopWidth = this.getBorderTopWidth(),
           borderBottomWidth = this.getBorderBottomWidth(),
           height = lineCount * lineHeight + scrollBarThickness + borderTopWidth + borderBottomWidth;
@@ -125,6 +132,8 @@ class Yapp extends Element {
     this.resize();
 
     this.update();
+
+    this.setLineNumbersLineHeight(lineNumbersLineHeight);
   }
 
   willUnmout() {
@@ -190,7 +199,7 @@ class Yapp extends Element {
   initialise() {
     this.assignContext();
 
-    const { childElements, editable = false, resizeable = false } = this.properties,
+    const { childElements, firaCode = false, editable = false, resizeable = false } = this.properties,
           language = this.plugin.getLanguage(),
           content = contentFromChildElements(childElements),
           readOnly = !editable,
@@ -204,6 +213,10 @@ class Yapp extends Element {
     this.setRichTextareaContent(content);
 
     this.setRichTextareaReadOnly(readOnly);
+
+    if (firaCode) {
+      this.enableFiraCode();
+    }
 
     if (resizeable) {
       this.onResize((event, element) => this.resize());
@@ -219,6 +232,7 @@ class Yapp extends Element {
   static ignoredProperties = [
     "Plugin",
     "language",
+    "firaCode",
     "editable",
     "resizeable"
   ];
@@ -247,6 +261,6 @@ class Yapp extends Element {
 
 export default withStyle(Yapp)`
 
-  ${defaultStyle}
+  ${yappStyle}
 
 `;

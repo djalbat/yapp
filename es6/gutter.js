@@ -71,19 +71,21 @@ class Gutter extends Element {
   }
 
   parentContext() {
-	  const getLineCount = this.getLineCount.bind(this),
+	  const context = this.getContext(),
+          getLineCount = this.getLineCount.bind(this),
           getGutterWidth = this.getWidth.bind(this),  ///
 				  positionGutter = this.position.bind(this),  ///
 				  updateGutter = this.update.bind(this),  ///
-				  scrollGutter = this.scroll.bind(this);  ///
+				  scrollGutter = this.scroll.bind(this),  ///
+          parentContext = Object.assign({}, context, {
+            getLineCount,
+            getGutterWidth,
+            positionGutter,
+            updateGutter,
+            scrollGutter
+          });
 
-    return ({
-      getLineCount,
-      getGutterWidth,
-      positionGutter,
-      updateGutter,
-      scrollGutter
-    });
+    return parentContext;
   }
   
   setInitialState() {
@@ -97,7 +99,9 @@ class Gutter extends Element {
   }
 
   initialise() {
-    this.assignContext();
+    this.assignContext([
+      "updateLineNumbers"
+    ]);
 
     this.setInitialState();
   }

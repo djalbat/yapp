@@ -4,8 +4,7 @@ import { colour, keywordColour, commentColour, stringLiteralColour } from "../..
 
 const defaultSyntaxStyle = `
 
-  .syntax { 
-    color: ${colour};     
+  .syntax * { 
     font-size: inherit;
     line-height: inherit;
     font-family: inherit;
@@ -13,6 +12,11 @@ const defaultSyntaxStyle = `
     font-feature-settings: inherit;
   }
   
+  .syntax, 
+  .syntax > * { 
+    color: ${colour}; 
+  }
+    
   .syntax > .keyword { color: ${keywordColour}; }
   
   .syntax > .comment { color: ${commentColour}; }

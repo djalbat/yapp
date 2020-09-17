@@ -4,6 +4,10 @@ import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
 
+import firaCodeFontMixin from "./mixin/font/firaCode";
+import monospaceFontMixin from "./mixin/font/monospace";
+
+import { stripPixels } from "./utilities/css";
 import { caretColour, selectionBackgroundColour } from "./scheme/prettyPrinter";
 
 export default withStyle(class extends RichTextarea {
@@ -34,17 +38,38 @@ export default withStyle(class extends RichTextarea {
     this.css(css);
   }
 
+  enableFiraCode() {
+    this.addClass("fira-code");
+  }
+
+  disableFiraCode() {
+    this.removeClass("fira-code");
+  }
+
+  getLineHeight() {
+    const lineHeightInPixels = this.css("line-height"),
+          lineHeight = stripPixels(lineHeightInPixels);
+
+    return lineHeight;
+  }
+
   parentContext() {
     const getRichTextareaContent = this.getContent.bind(this),
           setRichTextareaBounds = this.setBounds.bind(this),  ///
           setRichTextareaContent = this.setContent.bind(this),  ///
-          setRichTextareaReadOnly = this.setReadOnly.bind(this); ///
+          setRichTextareaReadOnly = this.setReadOnly.bind(this), ///
+          getRichTextareaLineHeight = this.getLineHeight.bind(this),  ///
+          enableRichTextareaFiraCode = this.enableFiraCode.bind(this),  ///
+          disableRichTextareaFiraCode = this.disableFiraCode.bind(this);  ///
 
     return ({
       getRichTextareaContent,
       setRichTextareaBounds,
       setRichTextareaContent,
-      setRichTextareaReadOnly
+      setRichTextareaReadOnly,
+      getRichTextareaLineHeight,
+      enableRichTextareaFiraCode,
+      disableRichTextareaFiraCode
     });
   }
 
@@ -79,6 +104,14 @@ export default withStyle(class extends RichTextarea {
   ::selection {
     color: ${caretColour};
     background-color: ${selectionBackgroundColour};
+  }
+
+  ${monospaceFontMixin}
+
+  .fira-code {
+
+    ${firaCodeFontMixin}
+    
   }
 
 `;

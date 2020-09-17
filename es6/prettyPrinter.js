@@ -7,7 +7,6 @@ import { React, Bounds, Element } from "easy";
 import Gutter from "./gutter";
 import Syntax from "./syntax";
 
-import { lineHeight } from "./constants";
 import { backgroundColour } from "./scheme/prettyPrinter";
 
 class PrettyPrinter extends Element {
@@ -76,8 +75,9 @@ class PrettyPrinter extends Element {
     let richTextareaBounds = null,
         previousGutterWidth = this.getPreviousGutterWidth();
 
-    this.updateGutter(tokens);
     this.updateSyntax(tokens);
+
+    this.updateGutter(tokens);
 
     const gutterWidth = this.getGutterWidth();
 
@@ -103,6 +103,14 @@ class PrettyPrinter extends Element {
     this.setSyntaxBounds(bounds);
 
     return richTextareaBounds;
+  }
+
+  enableFiraCode() {
+    this.enableSyntaxFiraCode();
+  }
+
+  disableFiraCode() {
+    this.disableSyntaxFiraCode();
   }
 
   getPreviousGutterWidth() {
@@ -134,12 +142,16 @@ class PrettyPrinter extends Element {
           scrollPrettyPrinter = this.scroll.bind(this), ///
           setPrettyPrinterWidth = this.setWidth.bind(this), ///
           setPrettyPrinterHeight = this.setHeight.bind(this), ///
+          enablePrettyPrinterFiraCode = this.enableFiraCode.bind(this), ///
+          disablePrettyPrinterFiraCode = this.disableFiraCode.bind(this), ///
           parentContext = Object.assign({}, context, {
             resizePrettyPrinter,
             updatePrettyPrinter,
             scrollPrettyPrinter,
             setPrettyPrinterWidth,
-            setPrettyPrinterHeight
+            setPrettyPrinterHeight,
+            enablePrettyPrinterFiraCode,
+            disablePrettyPrinterFiraCode
           });
     
     return parentContext;
@@ -161,7 +173,9 @@ class PrettyPrinter extends Element {
       "updateGutter",
       "updateSyntax",
       "scrollGutter",
-      "scrollSyntax"
+      "scrollSyntax",
+      "enableSyntaxFiraCode",
+      "disableSyntaxFiraCode"
     ]);
 
     this.setInitialState();
