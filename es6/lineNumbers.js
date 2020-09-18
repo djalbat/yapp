@@ -4,8 +4,6 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import { lineNumbersColour } from "./scheme/prettyPrinter";
-
 class LineNumbers extends Element {
   update(lineCount) {
     let html = "";
@@ -34,10 +32,11 @@ class LineNumbers extends Element {
 
 export default withStyle(LineNumbers)`
 
-  color: ${lineNumbersColour};
   float: left;
   margin: 0 6px 0 6px;
   
+  color: inherit;
+
   font-size: inherit;
   line-height: inherit;
   font-family: 'DejaVu Sans Mono', Menlo, 'Lucida Console', Monaco, monospace;

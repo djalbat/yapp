@@ -10,6 +10,7 @@ import scrollBarThickness from "./scrollbarThickness";
 
 import { stripPixels } from "./utilities/css";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
+import { colour, borderColour, backgroundColour } from "./scheme/colour";
 import { TOP_SIDE, LEFT_SIDE, RIGHT_SIDE, BOTTOM_SIDE } from "./constants";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
@@ -261,6 +262,12 @@ export default withStyle(Yapp)`
 
   width: 100%;
   position: relative;
+
+  border: 1px solid;
+  
+  color: ${colour};
+  border-color: ${borderColour};
+  background-color: ${backgroundColour};
 
   font-size: 13px;
   line-height: 20px;

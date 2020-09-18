@@ -8,7 +8,6 @@ import LineNumbers from "./lineNumbers";
 
 import { GUTTER_HEIGHT } from "./constants";
 import { lineCountFromTokens } from "./utilities/tokens";
-import { gutterBorderColour, gutterBackgroundColour } from "./scheme/prettyPrinter";
 
 class Gutter extends Element {
   update(tokens) {
@@ -126,11 +125,13 @@ export default withStyle(Gutter)`
   position: absolute;
   text-align: right;
   user-select: none;
-  border-color: ${gutterBorderColour};
   pointer-events: none;
-  background-color: ${gutterBackgroundColour};
   border-right-style: dotted;
   border-right-width: 1px;
+
+  color: inherit;
+  border-color: inherit;
+  background-color: inherit;
 
   font-size: inherit;
   line-height: inherit;

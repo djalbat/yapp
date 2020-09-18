@@ -102,6 +102,8 @@ export default withStyle(Syntax)`
   pointer-events: none;
   background-color: transparent;
   
+  background-color: inherit;
+
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;

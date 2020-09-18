@@ -244,6 +244,79 @@ renderYappStyles();
 
 Rendering the styles in this manner should always be done before any instance of Yapp is mounted, but only needs to be done once. If you do not want to alter Yapp's styles, either overall or for a particular syntax, then you never need to do any more than this.
 
+### Overall styles
+
+A handful of overall styles, mainly colours, can be overridden directly. The most elegant way to do this is with programmatic styles. For example, you can use the following approach:
+
+```
+"use strict";
+
+import Yapp from "yapp";
+import withStyle from "easy-with-style";  ///
+
+export default withStyle(Yapp)`
+
+  border: 2px dotted;
+
+  color: green;
+  border-color: yellow;
+  background-color: red;
+
+`;
+```
+Now you can import this class rather than the normal `Yapp` class (these colours are not recommended, by the way).
+
+Some CSS propoerties cannot be inherited and must therefore be targeted directly. For example, the selection styles for the textarea:
+
+```
+.yaap > textarea {
+
+  caret-color: white !important;
+
+  ::selection {
+    color: white !important;
+    background-color: orange !important;
+  }
+
+}
+```
+In fact the `caret-color` CSS property is inheritable, but is included here to go with the properties for related selections.
+
+This CSS can be applied programmatically if you wish:
+```
+import withStyle from "easy-with-style";  ///
+
+const { renderStyle } = withStyle;
+
+renderStyle(`
+
+  .yaap > textarea.rich {
+
+    caret-color: white !important;
+
+    ::selection {
+      color: white !important;
+      background-color: orange !important;
+    }
+
+  }
+`);
+```
+All the HTML elements have of which Yapp is comprised have placeholder classes, for example the textarea element has a `rich` placeholder class, and can therefore be targeted in this way.
+
+
+
+
+
+
+
+
+
+
+
+
+______________
+
 Yapp's styles can be further broken down, however:
 
 ```

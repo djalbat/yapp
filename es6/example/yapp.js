@@ -6,6 +6,8 @@ import Yapp from "../index";  ///
 
 export default withStyle(Yapp)`
 
-  border: 1px solid darkgrey;
+  color: green;
+  border-color: yellow;
+  background-color: red;
   
 `;

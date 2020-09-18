@@ -7,8 +7,6 @@ import { React, Bounds, Element } from "easy";
 import Gutter from "./gutter";
 import Syntax from "./syntax";
 
-import { backgroundColour } from "./scheme/prettyPrinter";
-
 class PrettyPrinter extends Element {
   getWidth() {
     const hidden = this.isHidden();
@@ -186,7 +184,10 @@ export default withStyle(PrettyPrinter)`
 
   position: relative;
   overflow: hidden;
-  background-color: ${backgroundColour};
+  
+  color: inherit;
+  border-color: inherit;
+  background-color: inherit;
 
   font-size: inherit;
   line-height: inherit;
