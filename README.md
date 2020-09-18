@@ -246,7 +246,7 @@ Rendering the styles in this manner should always be done before any instance of
 
 ### Overall styles
 
-A handful of overall styles, mainly colours, can be overridden directly. The most elegant way to do this is with programmatic styles. For example, you can use the following approach:
+A handful of overall styles, mainly colours, can be overridden directly. The most elegant way to do this is with programmatic styles. You can take the following approach, for example:
 
 ```
 "use strict";
@@ -264,20 +264,18 @@ export default withStyle(Yapp)`
 
 `;
 ```
-Now you can import this class rather than the normal `Yapp` class (these colours are not recommended, by the way).
+Now you can import this class rather than the usual `Yapp` class (these colours are not recommended).
 
-Some CSS propoerties cannot be inherited and must therefore be targeted directly. For example, the selection styles for the textarea:
+Some CSS properties cannot be inherited and must therefore be targeted directly. The selection styles for the textarea, for example:
 
 ```
 .yaap > textarea {
-
   caret-color: white !important;
+}
 
-  ::selection {
-    color: white !important;
-    background-color: orange !important;
-  }
-
+.yaap > textarea::selection {
+  color: white !important;
+  background-color: orange !important;
 }
 ```
 In fact the `caret-color` CSS property is inheritable, but is included here to go with the properties for related selections.
@@ -290,19 +288,18 @@ const { renderStyle } = withStyle;
 
 renderStyle(`
 
-  .yaap > textarea.rich {
-
+  .yaap > textarea {
     caret-color: white !important;
-
-    ::selection {
-      color: white !important;
-      background-color: orange !important;
-    }
-
   }
+
+  .yaap > textarea::selection {
+    color: white !important;
+    background-color: orange !important;
+  }
+
 `);
 ```
-All the HTML elements have of which Yapp is comprised have placeholder classes, for example the textarea element has a `rich` placeholder class, and can therefore be targeted in this way.
+All the HTML elements of which Yapp is comprised have placeholder classes, for example the textarea element has a `rich` placeholder class, and can therefore be targeted in this way.
 
 
 
