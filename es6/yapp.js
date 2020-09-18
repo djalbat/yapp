@@ -10,8 +10,8 @@ import scrollBarThickness from "./scrollbarThickness";
 
 import { stripPixels } from "./utilities/css";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
-import { propertiesFromContentLanguageAndPlugin } from "./utilities/properties";
 import { TOP_SIDE, LEFT_SIDE, RIGHT_SIDE, BOTTOM_SIDE } from "./constants";
+import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 
 class Yapp extends Element {
@@ -30,6 +30,13 @@ class Yapp extends Element {
           content = richTextareaContent;  ///
 
     return content;
+  }
+
+  getLineHeight() {
+    const lineHeightInPixels = this.css("line-height"),
+        lineHeight = stripPixels(lineHeightInPixels);
+
+    return lineHeight;
   }
 
   getBorderWidth(side) {
@@ -72,15 +79,35 @@ class Yapp extends Element {
   setParser(parser) { this.plugin.setParser(parser); }
 
   enableFiraCode() {
-    this.enableRichTextareaFiraCode();
-
-    this.enablePrettyPrinterFiraCode();
+    this.addClass("fira-code");
   }
 
   disableFiraCode() {
-    this.disableRichTextareaFiraCode();
+    this.removeClass("fira-code");
+  }
 
-    this.disablePrettyPrinterFiraCode();
+  changeHandler(event, element) {
+    const richTextarea = element, ///
+          contentChanged = richTextarea.hasContentChanged();
+
+    if (contentChanged) {
+      const { onContentChange } = this.properties,
+            contentChangeHandler = onContentChange; ///
+
+      this.update();
+
+      element = this; ///
+
+      contentChangeHandler && contentChangeHandler(event, element); ///
+    }
+  }
+
+  scrollHandler(event, element) {
+    const richTextarea = element, ///
+          scrollTop = richTextarea.getScrollTop(),
+          scrollLeft = richTextarea.getScrollLeft();
+
+    this.scrollPrettyPrinter(scrollTop, scrollLeft);
   }
 
   update() {
@@ -119,9 +146,7 @@ class Yapp extends Element {
   didMount() {
     const content = this.getContent(),
           lineCount = lineCountFromContent(content),
-          richTextareaLineHeight = this.getRichTextareaLineHeight(),
-          lineNumbersLineHeight = richTextareaLineHeight, ///
-          lineHeight = richTextareaLineHeight, ///
+          lineHeight = this.getLineHeight(),
           borderTopWidth = this.getBorderTopWidth(),
           borderBottomWidth = this.getBorderBottomWidth(),
           height = lineCount * lineHeight + scrollBarThickness + borderTopWidth + borderBottomWidth;
@@ -131,36 +156,10 @@ class Yapp extends Element {
     this.resize();
 
     this.update();
-
-    this.setLineNumbersLineHeight(lineNumbersLineHeight);
   }
 
   willUnmout() {
     ///
-  }
-
-  changeHandler(event, element) {
-    const richTextarea = element, ///
-          contentChanged = richTextarea.hasContentChanged();
-
-    if (contentChanged) {
-      const { onContentChange } = this.properties,
-            contentChangeHandler = onContentChange; ///
-
-      this.update();
-
-      element = this; ///
-
-      contentChangeHandler && contentChangeHandler(event, element); ///
-    }
-  }
-
-  scrollHandler(event, element) {
-    const richTextarea = element, ///
-          scrollTop = richTextarea.getScrollTop(),
-          scrollLeft = richTextarea.getScrollLeft();
-
-    this.scrollPrettyPrinter(scrollTop, scrollLeft);
   }
 
   childElements() {
@@ -236,9 +235,9 @@ class Yapp extends Element {
     "resizeable"
   ];
 
-  static fromContent(content, language, Plugin) {
+  static fromContent(content, language, Plugin, options) {
     const Class = Yapp,
-          properties = propertiesFromContentLanguageAndPlugin(content, language, Plugin),
+          properties = propertiesFromContentLanguagePluginAndOptions(content, language, Plugin, options),
           plugin = pluginFromLanguageAndPlugin(language, Plugin),
           yapp = Element.fromClass(Class, properties, plugin);
 
@@ -262,5 +261,21 @@ export default withStyle(Yapp)`
 
   width: 100%;
   position: relative;
+
+  font-size: 13px;
+  line-height: 20px;
+  font-family: "Menlo", "Lucida Sans Typewriter", monospace;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: normal;
+
+  .fira-code {
+
+    font-size: 13px;
+    line-height: 20px;
+    font-family: "Fira Code";
+    text-rendering: optimizeLegibility; /* Force ligatures for Webkit, Blink, Gecko */
+    font-feature-settings: "calt" 1;  /* Enable ligatures for IE 10+, Edge */
+    
+  }
 
 `;

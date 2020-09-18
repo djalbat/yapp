@@ -156,9 +156,10 @@ Yapp is not editable by default. If you want to make it editable and supply it w
 
 ```
 const editable = true,
+      resizeable = true,
       onContentChange = changeHandler,  ///
       options = {
-        editable
+        editable,
         onContentChange
       },
       yapp = Yapp.fromContent(`
@@ -194,6 +195,8 @@ These options are passed as individual attributes alongside the other parameters
 `}</Yapp>
 ```
 Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means. Note also that a `getContent()` method is supplied.
+
+If you are using Yapp in a responsive site where its width may change, say, as part of a flexible user interface, etc, you can force it to redraw whenever its dimensions change with the `resizeable` option.
 
 ## Styling Yapp
 

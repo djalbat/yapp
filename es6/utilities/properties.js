@@ -1,15 +1,15 @@
 "use strict";
 
-export function propertiesFromContentLanguageAndPlugin(content, language, Plugin) {
+export function propertiesFromContentLanguagePluginAndOptions(content, language, Plugin, options) {
   const text = content, ///
         childElements = [{
           getText: () => text,
         }],
-        properties = {
+        properties = Object.assign({
           childElements,
           language,
           Plugin
-        };
+        }, options);
 
   return properties;
 }

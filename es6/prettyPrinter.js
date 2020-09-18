@@ -105,14 +105,6 @@ class PrettyPrinter extends Element {
     return richTextareaBounds;
   }
 
-  enableFiraCode() {
-    this.enableSyntaxFiraCode();
-  }
-
-  disableFiraCode() {
-    this.disableSyntaxFiraCode();
-  }
-
   getPreviousGutterWidth() {
     const state = this.getState(),
           { previousGutterWidth } = state;
@@ -142,16 +134,12 @@ class PrettyPrinter extends Element {
           scrollPrettyPrinter = this.scroll.bind(this), ///
           setPrettyPrinterWidth = this.setWidth.bind(this), ///
           setPrettyPrinterHeight = this.setHeight.bind(this), ///
-          enablePrettyPrinterFiraCode = this.enableFiraCode.bind(this), ///
-          disablePrettyPrinterFiraCode = this.disableFiraCode.bind(this), ///
           parentContext = Object.assign({}, context, {
             resizePrettyPrinter,
             updatePrettyPrinter,
             scrollPrettyPrinter,
             setPrettyPrinterWidth,
-            setPrettyPrinterHeight,
-            enablePrettyPrinterFiraCode,
-            disablePrettyPrinterFiraCode
+            setPrettyPrinterHeight
           });
     
     return parentContext;
@@ -173,9 +161,7 @@ class PrettyPrinter extends Element {
       "updateGutter",
       "updateSyntax",
       "scrollGutter",
-      "scrollSyntax",
-      "enableSyntaxFiraCode",
-      "disableSyntaxFiraCode"
+      "scrollSyntax"
     ]);
 
     this.setInitialState();

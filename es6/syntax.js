@@ -2,8 +2,6 @@
 
 import withStyle from "easy-with-style";  ///
 
-import firaCodeFontMixin from "./mixin/font/firaCode";
-import monospaceFontMixin from "./mixin/font/monospace";
 import BoundedScrollableElement from "./element/bounded/scrollable";
 
 class Syntax extends BoundedScrollableElement {
@@ -53,29 +51,17 @@ class Syntax extends BoundedScrollableElement {
     this.html(html);
   }
 
-  enableFiraCode() {
-    this.addClass("fira-code");
-  }
-
-  disableFiraCode() {
-    this.removeClass("fira-code");
-  }
-
   parentContext() {
 	  const setLanguage = this.setLanguage.bind(this),
           updateSyntax = this.update.bind(this), ///
 				  scrollSyntax = this.scroll.bind(this), ///
-          setSyntaxBounds = this.setBounds.bind(this), ///
-          enableSyntaxFiraCode = this.enableFiraCode.bind(this),  ///
-          disableSyntaxFiraCode = this.disableFiraCode.bind(this);  ///
+          setSyntaxBounds = this.setBounds.bind(this);  ///
 
     return ({
       setLanguage,
       updateSyntax,
       scrollSyntax,
-      setSyntaxBounds,
-      enableSyntaxFiraCode,
-      disableSyntaxFiraCode
+      setSyntaxBounds
     });
   }
 
@@ -116,12 +102,10 @@ export default withStyle(Syntax)`
   pointer-events: none;
   background-color: transparent;
   
-  ${monospaceFontMixin}
-  
-  .fira-code {
-
-    ${firaCodeFontMixin}
-    
-  }
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  text-rendering: inherit;
+  font-feature-settings: inherit;
 
 `;

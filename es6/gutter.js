@@ -99,9 +99,7 @@ class Gutter extends Element {
   }
 
   initialise() {
-    this.assignContext([
-      "updateLineNumbers"
-    ]);
+    this.assignContext();
 
     this.setInitialState();
   }
