@@ -10,7 +10,9 @@ Otherwise read on.
 
 Yapp is a fully fledged pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors.
 
-Yapp is also fully configurable. You can style it overall or target specific syntaxes, plus its plugin architecture makes it easy to support additional languages. Yapp additionally supports [Fira Code](https://github.com/tonsky/FiraCode), see the dedicated section below for more details.
+Yapp is also fully configurable. You can style it overall or target specific syntaxes, plus its plugin architecture makes it easy to support additional languages.
+
+Yapp supports [Fira Code](https://github.com/tonsky/FiraCode), see the relevant section below for more details.
 
 ## Installation
 
@@ -198,11 +200,35 @@ Note that the second of the callback's arguments is a reference to the instance 
 If you are using Yapp in a responsive site where its width may change, say, as part of a flexible user interface, you can force it to redraw whenever its dimensions change with the `resizeable` option:
 
 ```
-<Yapp editable resizeable >{`
+<Yapp resizeable ... >{`
 
   ...
 `}</Yapp>
 ```
+
+## Fira Code support
+
+Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). To enable it, add the `firaCode` option either to the `options` object if you are using the `fromContent(...)` factory method or as an attribute if using JSX:
+
+```
+<Yapp firaCode ... >{`
+
+  ...
+`}</Yapp>
+```
+
+If you choose to enable Fira Code support, you need to provide the necessary web font files if you. These can be found in the `css/` directory of this repository and can be copied as-is to the necessary file folder, server, etc in order to make them available to the browser. Here is an example of the CSS that references the web font files:
+
+```
+  @font-face {
+    font-family: "Fira Code";
+    src: url("css/woff2/FiraCode-Light.woff2") format("woff2"),
+    url("css/woff2/FiraCode-Light.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+  }
+```
+Yuo should check the network tab in your browser's developer tools to ensure that these files are being picked up.
 
 ## Styling Yapp
 
@@ -316,10 +342,6 @@ Perhaps the best way to get started with rendering your own styles is to look at
 ## Examples
 
 Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
-
-## Fira Code
-
-Yapp supports [Fira Code](https://github.com/tonsky/FiraCode) by default, so you need to provide the necessary font files if you want this. These can be found in the `css/` directory and can be copied as-is to the necessary file folder, server, etc. Additionally, there is a small squiggle image that is used to highlight errors. This should also be supplied, or just do without the squiggle.
 
 ## Contributions
 
