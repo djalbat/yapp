@@ -262,11 +262,19 @@ export default withStyle(Yapp)`
   border-color: yellow;
   background-color: red;
 
+  font-size: 14px;
+  line-height: 20px;
+  font-family:  monospace;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: normal;
+
 `;
 ```
 Now you can import this class rather than the usual `Yapp` class (these colours are not recommended).
 
-Some CSS properties cannot be inherited and must therefore be targeted directly. The selection styles for the textarea, for example:
+By the way, the five font properties given above are the ones that are inherited by all of the HTML elements of which Yapp is comprised where appropriate.
+
+Some CSS properties either cannot be or are not inherited and must therefore be targeted directly. The selection styles for the textarea, for example:
 
 ```
 .yaap > textarea {
@@ -300,6 +308,10 @@ renderStyle(`
 `);
 ```
 All the HTML elements of which Yapp is comprised have placeholder classes, for example the textarea element has a `rich` placeholder class, and can therefore be targeted in this way.
+
+### Syntax styles
+
+How to approach styling Yapp's syntax boils down to whether or not you want to set the style for a new language, supported by a plugin that you also supply, or override the style for an existing language.
 
 
 
