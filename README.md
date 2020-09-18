@@ -152,7 +152,7 @@ const language = "json",
       `, language, null, options);
 ```
 
-Yapp is not editable by default. If you want to make it editable and supply it with a callback function to be invoked whenever its content changes, you can do via the options object:
+Yapp is not editable by default. If you want to make it editable and optionally supply it with a callback function to be invoked whenever its content changes, you can do via the options object:
 
 ```
 const editable = true,
@@ -175,11 +175,10 @@ function changeHandler(event, element) {
 
 }
 ```
-These options are passed as individual attributes alongside the other parameters if invoking Yapp by way of JSX:
+Options are passed as individual attributes alongside the other parameters if invoking Yapp by way of JSX:
 
 ```
 <Yapp editable
-      language="javascript"
       onContentChange={(event, element) => {
 
                         const yapp = element, ///
@@ -196,7 +195,14 @@ These options are passed as individual attributes alongside the other parameters
 ```
 Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means. Note also that a `getContent()` method is supplied.
 
-If you are using Yapp in a responsive site where its width may change, say, as part of a flexible user interface, etc, you can force it to redraw whenever its dimensions change with the `resizeable` option.
+If you are using Yapp in a responsive site where its width may change, say, as part of a flexible user interface, you can force it to redraw whenever its dimensions change with the `resizeable` option:
+
+```
+<Yapp editable resizeable >{`
+
+  ...
+`}</Yapp>
+```
 
 ## Styling Yapp
 

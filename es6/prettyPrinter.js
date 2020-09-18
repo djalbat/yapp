@@ -188,4 +188,10 @@ export default withStyle(PrettyPrinter)`
   overflow: hidden;
   background-color: ${backgroundColour};
 
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  text-rendering: inherit;
+  font-feature-settings: inherit;
+
 `;

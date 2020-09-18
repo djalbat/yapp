@@ -132,4 +132,10 @@ export default withStyle(Gutter)`
   border-right-style: dotted;
   border-right-width: 1px;
 
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  text-rendering: inherit;
+  font-feature-settings: inherit;
+
 `;
