@@ -118,11 +118,11 @@ body.mount(
 
 );
 ```
-Unless you plan to use Juxtapose to build your site, however, or at least some portion of it, this may not be ideal.
-
-### Other considerations
+Unless you plan to use Juxtapose to build your site, however, this may not be ideal.
 
 Note that in all of the three use cases above you must call the `renderYappStyles()` function. More detail is given in the section on styling Yapp further on.
+
+### Other considerations
 
 Yapp will set its own height by default, based on its content. On the other hand its width is set to `100%`, so you will probably want to mount it in a containing element rather than the body element. If you are using Easy elements, for example, something like the following will work:
 
