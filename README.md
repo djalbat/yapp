@@ -217,7 +217,7 @@ Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). To enable it, add
 `}</Yapp>
 ```
 
-If you choose to enable Fira Code support, you need to provide the necessary web font files if you. These can be found in the `css/` directory of this repository and can be copied as-is to the necessary file folder, server, etc in order to make them available to the browser. Here is an example of the CSS that references the web font files:
+If you choose to enable Fira Code then you need to provide the necessary web font files. These can be found in the `css/` directory of this repository and can be copied as-is to the necessary file folder, server, etc in order to make them available to the browser. Here is an example of the CSS that references the web font files:
 
 ```
   @font-face {
@@ -228,7 +228,7 @@ If you choose to enable Fira Code support, you need to provide the necessary web
     font-style: normal;
   }
 ```
-Yuo should check the network tab in your browser's developer tools to ensure that these files are being picked up.
+You should check the network tab in your browser's developer tools to ensure that these files are being picked up.
 
 ## Styling Yapp
 
