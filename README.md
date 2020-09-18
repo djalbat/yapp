@@ -122,7 +122,7 @@ body.mount(
 ```
 Unless you plan to use Juxtapose to build your site, however, this may not be ideal.
 
-Note that in all of the three use cases above you must call the `renderYappStyles()` function. More detail is given in the section on styling Yapp further on.
+Note that in all of the three use cases above you must call the `renderYappStyles()` function before mounting any instance of Yapp.
 
 ### Other considerations
 
@@ -311,7 +311,7 @@ All the HTML elements of which Yapp is comprised have placeholder classes, for e
 
 ### Syntax styles
 
-How to approach styling Yapp's syntax boils down to whether or not you want to set the style for a new language, supported by a plugin that you also supply, or override the style for an existing language.
+How to approach styling Yapp's syntax boils down to whether or not you want to set the style for a new language, supported by a plugin that you supply, or override the style for an existing language.
 
 
 
