@@ -10,7 +10,7 @@ Otherwise read on.
 
 Yapp is a fully fledged pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors.
 
-Yapp is fully configurable. You can style it overall or target specific syntaxes. Yapp's plugin architecture also makes it easy to support additional languages. Yapp additionally supports [Fira Code](https://github.com/tonsky/FiraCode), see the dedicated section below for more details.
+Yapp is also fully configurable. You can style it overall or target specific syntaxes, plus its plugin architecture makes it easy to support additional languages. Yapp additionally supports [Fira Code](https://github.com/tonsky/FiraCode), see the dedicated section below for more details.
 
 ## Installation
 
