@@ -4,15 +4,11 @@ Yet Another Pretty Printer.
 
 *If you just want to see Yapp in action without further ado*, then clone this repository, open the `index.html` file and choose a language.
 
-*If you are interested in contributing to Yapp*, in particular in contributing to its grammars, then see the contributions section below.
+*If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
 
 Otherwise read on.
 
-Yapp is a fully fledged pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors.
-
-Yapp is also fully configurable. You can style it overall or target specific syntaxes, plus its plugin architecture makes it easy to support additional languages.
-
-Yapp supports [Fira Code](https://github.com/tonsky/FiraCode), see the relevant section below for more details.
+Yapp is an advanced pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors. Moreover, Yapp is fully configurable. You can style it overall or target specific syntaxes. Its plugin architecture also makes it easy to support additional languages. Lastly, Yapp supports [Fira Code](https://github.com/tonsky/FiraCode).
 
 ## Installation
 
@@ -35,9 +31,7 @@ You can also run a development server, see the section on building later on.
 There are three ways to use Yapp:
 
 1. Vanilla JavaScript, with no need to install additional packages.
-
 2. Make use of an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
-
 3. Use JSX by way of [Juxtapose](http://juxtapose.info), arguably the most elegant approach.
 
 The second approach is recommended, at least to begin with.
@@ -177,7 +171,7 @@ function changeHandler(event, element) {
 
 }
 ```
-Options are passed as individual attributes alongside the other parameters if invoking Yapp by way of JSX:
+Options are passed as attributes if invoking Yapp by way of JSX:
 
 ```
 <Yapp editable
@@ -217,7 +211,7 @@ Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). To enable it, add
 `}</Yapp>
 ```
 
-If you choose to enable Fira Code then you need to provide the necessary web font files. These can be found in the `css/` directory of this repository and can be copied as-is to the necessary file folder, server, etc in order to make them available to the browser. Here is an example of the CSS that references the web font files:
+If you choose to enable Fira Code then you need to provide the necessary web font files. These can be found in the `css/` directory of this repository and can be utilised as-is in order to make them available to the browser. Here is an example of the CSS that references them:
 
 ```
   @font-face {
