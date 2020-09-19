@@ -214,13 +214,13 @@ Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). To enable it, add
 If you choose to enable Fira Code then you need to provide the necessary web font files. These can be found in the `css/` directory of this repository and can be utilised as-is in order to make them available to the browser. Here is an example of the CSS that references them:
 
 ```
-  @font-face {
-    font-family: "Fira Code";
-    src: url("css/woff2/FiraCode-Light.woff2") format("woff2"),
-    url("css/woff2/FiraCode-Light.woff") format("woff");
-    font-weight: 300;
-    font-style: normal;
-  }
+@font-face {
+  font-family: "Fira Code";
+  src: url("css/woff2/FiraCode-Light.woff2") format("woff2"),
+  url("css/woff2/FiraCode-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
 ```
 You should check the network tab in your browser's developer tools to ensure that these files are being picked up.
 
