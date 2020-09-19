@@ -126,26 +126,18 @@ Yapp will set its own height by default, based on its content. On the other hand
 import { Element } from "easy";
 
 const rootDiv = new Element("div#root"),
-      yapp =
-
-        ...
-
-      ;
+      yapp = ... ;
 
 rootDiv.mount(yapp);
 ```
-Yapp takes some additional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` factory method. For example:
+Yapp takes some additional, optional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` factory method. For example:
 
 ```
 const language = "json",
       options = {
         ...
       },
-      yapp = Yapp.fromContent(`
-
-        ...
-
-      `, language, null, options);
+      yapp = Yapp.fromContent(` ... `, language, null, options);
 ```
 
 Yapp is not editable by default. If you want to make it editable and optionally supply it with a callback function to be invoked whenever its content changes, you can do via the options object:
