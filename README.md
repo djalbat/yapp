@@ -317,11 +317,15 @@ To begin to author your own plugin, follow these steps:
 
 Once these files are in place, the examples should build again.
 
+The fun now starts with devising the necessary lexical entries and BNF for your plugin. This can be done dynamically within the example. Whenever you make progress, you can copy lexical entries and BNF back into the requisite variables in your lexer and parser. For the processor, if that functionality is needed, it is recommended that you have a look at the JavaScript processor.
+
 ## Contributions
 
 All development is best done in the context of the examples, at least initially. There are three main areas that would benefit from contributions.
 
-1. **More and improved syntax styles.** These can be contributed individually or as a whole. There is no need to do any programming beyond changing some variables.
+1. **More and improved syntax styles.** There is no need to do any programming beyond changing the existing styles. THe following file and directory are relevant:
+    - [`es6/style/syntax.js`](https://github.com/djalbat/yapp/blob/master/es6/style/syntax.js)
+    - [`es6/style/syntax`](https://github.com/djalbat/yapp/tree/master/es6/style/syntax)
 
 2. **Improving the grammars for existing languages.** This can also be done with virtually no programming at all, since both the lexical entries and BNF can be changed directly in the examples.
 
@@ -352,15 +356,3 @@ The following MDN articles were invaluable when writing the JavaScript grammar:
 
 - james.smith@djalbat.com
 - http://djalbat.com
-
-
-AWS_ACCESS_KEY_ID=AKIAZIP7YYLHOW4VDQS3
-AWS_SECRET_ACCESS_KEY=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
-NLTK_DATA=/usr/local/share/nltk_data
-
-/Users/james.smith/Private/PHE/foodscanner_data_pipeline/service/pipeline.py
-
---settings s3://foodscanner-pipeline-etl-statics/supplements/etl_settings.yaml
-
-/Users/james.smith/Private/PHE/foodscanner_data_pipeline.screwed
-
