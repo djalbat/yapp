@@ -265,38 +265,25 @@ All the HTML elements of which Yapp is comprised have placeholder classes, for e
 
 ### Syntax styles
 
-How to approach styling Yapp's syntax broadly boils down to whether or not you want to set the style for the syntax of a new language, supported by a plugin that you supply, or override the style for an existing language.
+How to approach styling Yapp's syntax broadly boils down to whether you want to set the style for the syntax of a new language, supported by a plugin that you supply, or to override the style for an existing language.
 
-In the first instance, the approach can be the same as for overall styles, that is, you can supply a set of CSS properties that target the syntax elements either programmatically or in a CSS file. For example, suppose that you have have a plugin for the Java language, then you could add the following style to go with it:
+In the first instance, the approach can be the same as for overall styles, that is, you can supply a set of CSS properties that target the syntax elements either programmatically or in a CSS file. For example, if you have have a plugin for the Java language, then you could add the following style to go with it:
 
 ```
 .yapp .java.syntax > .keyword { color: #a93927; }
 
 .yapp .java.syntax > .string-literal { color: "#f5087a"; }
 ```
-Bear in mind that there is a default syntax style that is applied, found in the [default.js](https://github.com/djalbat/yapp/blob/master/es6/style/syntax/default.js) file. You can override its individual CSS properties easily enough, however, because the specificity of your own CSS selectors will be greater.
+Bear in mind that there is a default syntax style that is applied, found in the [default.js](https://github.com/djalbat/yapp/blob/master/es6/style/syntax/default.js) file. You can override its individual CSS properties easily enough, however, because the specificity of your own style, with the additional language selector, will be greater.
 
-
-
-
-
-
-
-
-
-
-
-
-______________
-
-Yapp's styles can be further broken down, however:
+In the second instance, or if you want to remove the default style altogether rather than override it, the approach is to render Yapp's styles individually to give yourself the opportunity to leave out the syntax styles:
 
 ```
 "use strict";
 
 import withStyle from "easy-with-style";  ///
 
-import { yappStyle, syntaxStyle, firaCodeStyle } from "yapp";
+import { yappStyle, firaCodeStyle } from "yapp";
 
 const { renderStyle, renderStyles } = withStyle;
 
@@ -304,85 +291,8 @@ renderStyles(); // Always needed
 
 renderStyle(yappStyle); // Not needed if using JSX
 
-renderStyle(syntaxStyle); // Likely always needed
-
 renderStyle(firaCodeStyle); // Only needed for Fira Code support.
 ```
-Note that the `renderStyles()` and `renderStyle()` functions, available via the [Easy with Style](https://github.com/djalbat/easy-with-style) package, are now being employed.
-
-The remainder of this section shows how to override the default and syntax styles. Fira Code is dealt with separately in its own section further down.
-
-The default style looks like this:
-
-```
-position: relative;
-
-font-size: 13px;
-line-height: 20px;
-font-family: "Fira Code", monospace;
-text-rendering: optimizeLegibility; /* Force ligatures for Webkit, Blink, Gecko */
-font-feature-settings: "calt" 1;  /* Enable ligatures for IE 10+, Edge */
-
-```
-So if you want Yapp to use a different font, simply replace the above with something more to your liking. If you do so, you must set the `line-height` property, because Yapp makes use of it when calculating its own height. The other properties are all effectively optional, however it is recommended you at least specify the font family and size.
-
-If you are using Yapp standalone, you need to enclose the above styles in a selector to target Yapp:
-
-```
-...
-
-const yappStyle = `
-
-  .yapp {
-    position: relative;
-
-    font-size: ... ;
-    line-height: ... ;
-    font-family: ... ;
-
-    ...
-  }
-
-`;
-
-renderStyle(yappStyle);
-```
-If you are using JSX and programmatic styles, the two essentially go together, the following approach is probably best:
-
-```
-"use strict";
-
-import Yapp from "yapp";
-import withStyle from "easy-with-style";  ///
-
-export default withStyle(Yapp)`
-
-  font-size: ... ;
-  line-height: ... ;
-  font-family: ... ;
-  text-rendering: initial;
-  font-feature-settings: initial;
-
-`;
-```
-Note that in this case you should specify the `text-rendering` and `font-feature-settings` properties in order to prevent the underlying ones still being used.
-
-The syntax styles cannot be overridden by the above method, because the selectors largely target the pretty printer's child `span` elements and these are not generated programmatically for performance reasons. Therefore the only approach is the standalone one.
-
-The best way to see what styles can be altered is to look at the styles in the [`style/syntax`](https://github.com/djalbat/yapp/tree/master/es6/style/syntax) folder. You can see how these are pulled together into a single syntax style in the [`style/syntax.js`](https://github.com/djalbat/yapp/blob/master/es6/style/syntax.js) file. You should aim for something similar, in particular note that the syntax styles each employ a corresponding scheme that maps colours to properties. You may want to start by just changing a scheme, in fact, rather than a style. For example, the XML scheme only has two colours:
-
-```
-"use strict";
-
-import { cadetBlue, citron } from "../../colours";
-
-export const nameColour = cadetBlue;
-
-export const attributeColour = citron;
-```
-If you want to change the colours of pretty printed XML, therefore, you can duplicate this scheme and change the colours to the ones you like. You then only need to change the scheme that the XML style utilises, otherwise leaving the style as-is.
-
-Perhaps the best way to get started with rendering your own styles is to look at the example code, see below.
 
 ## Examples
 
