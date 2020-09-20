@@ -276,27 +276,25 @@ In the first instance, the approach can be the same as for overall styles, that 
 ```
 Bear in mind that a default syntax style that is applied, found in the [default.js](https://github.com/djalbat/yapp/blob/master/es6/style/syntax/default.js) file. You can override its individual CSS properties easily enough, however, because the specificity of your own style, given the additional language selector, will be greater.
 
-In the second instance, or if you want to remove the default style altogether rather than override it, the approach is to render Yapp's styles individually to give yourself the opportunity to leave out the syntax styles:
+In the second instance, or if you want to remove the default style altogether rather than override it, the approach is to render Yapp's styles individually to give yourself the opportunity of leaving out specific ones:
 
 ```
 "use strict";
 
 import withStyle from "easy-with-style";  ///
 
-import { yappStyle, firaCodeStyle } from "yapp";
+import { syntaxStyle, firaCodeStyle } from "yapp";
 
 const { renderStyle, renderStyles } = withStyle;
 
 renderStyles(); // Always needed
 
-renderStyle(yappStyle); // Not needed if using JSX
+renderStyle(syntaxStyle); // Leave this out if you wish.
 
 renderStyle(firaCodeStyle); // Only needed for Fira Code support.
 ```
+In fact the above is just what the `renderYappStyles()` function does. In leaving out the syntax style, which includes the defaults, you have clean slate to work with.
 
-## Examples
-
-Open the `index.html` file in the root of the repository. There is an example for each of the supported languages. For instructions on building and live reloading, see the section on building near the foot of this readme file.
 
 ## Contributions
 
