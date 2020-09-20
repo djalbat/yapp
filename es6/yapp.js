@@ -198,7 +198,7 @@ class Yapp extends Element {
   initialise() {
     this.assignContext();
 
-    const { childElements, firaCode = false, editable = false, resizeable = false } = this.properties,
+    const { childElements, firaCode = false, editable = false } = this.properties,
           language = this.plugin.getLanguage(),
           content = contentFromChildElements(childElements),
           readOnly = !editable,
@@ -217,9 +217,7 @@ class Yapp extends Element {
       this.enableFiraCode();
     }
 
-    if (resizeable) {
-      this.onResize((event, element) => this.resize());
-    }
+    this.onResize((event, element) => this.resize());
   }
 
   static tagName = "div";
@@ -232,8 +230,7 @@ class Yapp extends Element {
     "Plugin",
     "language",
     "firaCode",
-    "editable",
-    "resizeable"
+    "editable"
   ];
 
   static fromContent(content, language, Plugin, options) {

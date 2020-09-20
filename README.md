@@ -48,11 +48,7 @@ import Yapp from "yapp";
 import { renderYappStyles } from "yapp";
 
 const body = document.querySelector("body"),
-      yapp = Yapp.fromContent(`
-
-  ...
-
-`);
+      yapp = Yapp.fromContent(` ... `);
 
 renderYappStyles();
 
@@ -74,11 +70,7 @@ import { Body } from "easy";
 import { renderYappStyles } from "yapp";
 
 const body = new Body(),
-      yapp = Yapp.fromContent(`
-
-  ...
-
-`);
+      yapp = Yapp.fromContent(` ... `);
 
 renderYappStyles();
 
@@ -130,67 +122,39 @@ const rootDiv = new Element("div#root"),
 
 rootDiv.mount(yapp);
 ```
-Yapp takes some additional, optional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` factory method. For example:
+Yapp takes some additional, optional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` factory method:
 
 ```
 const language = "json",
       options = {
-        ...
+        editable: true,
+        onContentChange: contentChangeHandler
       },
       yapp = Yapp.fromContent(` ... `, language, null, options);
 ```
-
-Yapp is not editable by default. If you want to make it editable and optionally supply it with a callback function to be invoked whenever its content changes, you can do via the options object:
+When using JSX, the properties of the `options` parameter are in fact passed individually:
 
 ```
-const editable = true,
-      resizeable = true,
-      onContentChange = changeHandler,  ///
-      options = {
-        editable,
-        onContentChange
-      },
-      yapp = Yapp.fromContent(`
+<Yapp language="json" editable onContentChange={contentChangeHandler} >{`
 
-        ...
+  ...
 
-      `, null, null, options);
+`}</Yapp>
+```
+If Yapp is made editable, the `contentChangeHandler(...)` callback should take the following form:
 
-function changeHandler(event, element) {
-  const content = yapp.getContent();
+```
+function contentChangeHandler(event, element) {
+  const yapp = element, ///
+        content = yapp.getContent();
 
   ...
 
 }
 ```
-Options are passed as attributes if invoking Yapp by way of JSX:
-
-```
-<Yapp editable
-      onContentChange={(event, element) => {
-
-                        const yapp = element, ///
-                              content = yapp.getContent();
-
-                        ...
-
-                      }}
->{`
-
-...
-
-`}</Yapp>
-```
 Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means. Note also that a `getContent()` method is supplied.
 
-If you are using Yapp in a responsive site where its width may change, say, as part of a flexible user interface, you can force it to redraw whenever its dimensions change with the `resizeable` option:
-
-```
-<Yapp resizeable ... >{`
-
-  ...
-`}</Yapp>
-```
+The only other option is the `firaCode` option, covered next.
 
 ## Fira Code support
 
