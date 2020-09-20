@@ -2,6 +2,10 @@
 
 Yet Another Pretty Printer.
 
+*If you just want to see Yapp in action without further ado*, then clone this repository, open the `index.html` file and choose a language.
+
+*If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
+
 ### Contents
 
 - [Introduction](#introduction)
@@ -14,12 +18,6 @@ Yet Another Pretty Printer.
 - [Contact](#contact)
 
 ## Introduction
-
-*If you just want to see Yapp in action without further ado*, then clone this repository, open the `index.html` file and choose a language.
-
-*If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
-
-Otherwise read on.
 
 Yapp is an advanced pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors. Yapp is also fully configurable. You can style it overall or target specific syntaxes. Its plugin architecture additionally makes it easy to support any language. Lastly, Yapp supports [Fira Code](https://github.com/tonsky/FiraCode).
 
