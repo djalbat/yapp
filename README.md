@@ -321,15 +321,15 @@ The fun now starts with devising the necessary lexical entries and BNF for your 
 
 ## Contributions
 
-All development is best done in the context of the examples, at least initially. There are three main areas that would benefit from contributions.
+All development is best done in the context of the examples. There are three main areas that would benefit from contributions.
 
-1. **More and improved syntax styles.** There is no need to do any programming beyond changing the existing styles. THe following file and directory are relevant:
+1. **Work on the existing syntax styles.** There is no need to do any programming beyond changing the existing styles. THe following file and directory are relevant:
     - [`es6/style/syntax.js`](https://github.com/djalbat/yapp/blob/master/es6/style/syntax.js)
     - [`es6/style/syntax`](https://github.com/djalbat/yapp/tree/master/es6/style/syntax)
 
-2. **Improving the grammars for existing languages.** This can also be done with virtually no programming at all, since both the lexical entries and BNF can be changed directly in the examples.
+2. **Improving the grammars for existing languages.** This can also be done with virtually no programming at all, since both the lexical entries and BNF can be changed dynamically in the examples. Changes can then be copied to the requisite variables in the relevant lexer and parser files.
 
-3. **Altering existing plugins or creating new ones.** This is likely to be more work, however it should not be considered out of reach. The best way to create a new plugin is to effectively clone an existing one. See the source for details.
+3. **Creating new plugins.** This is likely to be more work, however it should not be considered out of reach. See the plugins section above for more details.
 
 Contributions are best made in the form of pull requests.
 
