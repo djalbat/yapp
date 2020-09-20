@@ -274,7 +274,7 @@ In the first instance, the approach can be the same as for overall styles, that 
 
 .yapp .java.syntax > .string-literal { color: "#f5087a"; }
 ```
-Bear in mind that there is a default syntax style that is applied, found in the [default.js](https://github.com/djalbat/yapp/blob/master/es6/style/syntax/default.js) file. You can override its individual CSS properties easily enough, however, because the specificity of your own style, with the additional language selector, will be greater.
+Bear in mind that a default syntax style that is applied, found in the [default.js](https://github.com/djalbat/yapp/blob/master/es6/style/syntax/default.js) file. You can override its individual CSS properties easily enough, however, because the specificity of your own style, given the additional language selector, will be greater.
 
 In the second instance, or if you want to remove the default style altogether rather than override it, the approach is to render Yapp's styles individually to give yourself the opportunity to leave out the syntax styles:
 
