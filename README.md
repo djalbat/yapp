@@ -311,9 +311,9 @@ To begin to author your own plugin, follow these steps:
 4. Create the plugin itself. Again, plugins are entirely boilerplate and the best approach is  to copy the file of an existing one, for example the [`es6/plugin/javascript.js`](https://github.com/djalbat/yapp/blob/master/es6/plugin/javascript.js) file.
 
 5. Do the same for your plugin's constituent lexer, parser and processor files. Each of these constituents are non-trivial and it is recommended that you copy those of the simple plain text plugin rather than those of an advanced plugin such as the JavaScript plugin. The relevant files are:
-  - [`es6/lexer/plainText.js`](https://github.com/djalbat/yapp/blob/master/es6/lexer/plainText.js)
-  - [`es6/parser/plainText.js`](https://github.com/djalbat/yapp/blob/master/es6/parser/plainText.js)
-  - [`es6/processor/plainText.js`](https://github.com/djalbat/yapp/blob/master/es6/processor/plainText.js)
+    - [`es6/lexer/plainText.js`](https://github.com/djalbat/yapp/blob/master/es6/lexer/plainText.js)
+    - [`es6/parser/plainText.js`](https://github.com/djalbat/yapp/blob/master/es6/parser/plainText.js)
+    - [`es6/processor/plainText.js`](https://github.com/djalbat/yapp/blob/master/es6/processor/plainText.js)
 
 Once these files are in place, the examples should build again.
 
