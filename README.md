@@ -14,6 +14,7 @@ Yet Another Pretty Printer.
 - [Configuration](#configuration)
 - [Fira Code support](#fira-code-support)
 - [Styling Yapp](#styling-yapp)
+- [Plugins](#plugins)
 - [Building](#building)
 - [Contact](#contact)
 
@@ -295,6 +296,11 @@ renderStyle(firaCodeStyle); // Only needed for Fira Code support.
 ```
 In fact the above is just what the `renderYappStyles()` function does. In leaving out the syntax style, which includes the defaults, you have clean slate to work with.
 
+## Plugins
+
+If you have been supplied with a plugin, or have written your own, it is easy to appraise Yapp of it by way of the aforementioned `Plugin` parameter, passed as either an argument to the `fromContent(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, see the section on building later on.
+
+
 
 ## Contributions
 
@@ -315,7 +321,7 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
     npm run build-debug
     npm run watch-debug
 
-As well as building the XGL library itself, this will build the examples. The source code for the examples can be found in the `es6/example.js` file and in the files and sub-directories of the `es6/example` directory.
+As well as building Yapp itself, this will build the examples. The source code for the examples can be found in the `es6/example.js` file and in the files and sub-directories of the `es6/example` directory.
 
 If you wish to make use of live reloading while working on the examples, use `npm start` and the examples index page wll be available at http://localhost:8888.
 
