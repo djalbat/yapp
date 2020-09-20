@@ -298,7 +298,7 @@ In fact the above is just what the `renderYappStyles()` function does. In leavin
 
 ## Plugins
 
-If you have been supplied with a plugin, or have written your own, it is easy to appraise Yapp of it by way of the aforementioned `Plugin` parameter, passed as either an argument to the `fromContent(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, see the section on building later on.
+If you have been supplied with a plugin, or have written your own, it is straightforward to appraise Yapp of it by way of the aforementioned `Plugin` parameter, passed as either an argument to the `fromContent(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, each of which corresponds to a built-in plugin. See the section on building later on for details.
 
 
 
