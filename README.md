@@ -134,6 +134,9 @@ const rootDiv = new Element("div#root"),
 
 rootDiv.mount(yapp);
 ```
+
+## Configuration
+
 Yapp takes some additional, optional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` factory method:
 
 ```
