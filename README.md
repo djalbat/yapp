@@ -224,6 +224,7 @@ export default withStyle(Yapp)`
   border: 2px dotted;
 
   color: green;
+  caret-color: white;
   border-color: yellow;
   background-color: red;
 
@@ -235,35 +236,25 @@ export default withStyle(Yapp)`
 
 `;
 ```
-Now you can import this class rather than the usual `Yapp` class (these colours are not recommended).
+Now you can import this class rather than the package's `Yapp` class and your overridden styles will always be used without the need for repetition.
 
-By the way, the five font properties given above are the ones that are inherited by all of the HTML elements of which Yapp is comprised where appropriate.
+Along with the `border` and the four colour related properties, the five font properties given above are the ones that are inherited by Yapp's child elements, if and when appropriate.
 
-Some CSS properties either cannot be or are not inherited and must therefore be targeted directly. The selection styles for the textarea, for example:
+Some of the relevant CSS properties of child elements are not inheritable and must therefore be targeted directly. The selection styles for the textarea, for example:
 
 ```
-.yaap > textarea {
-  caret-color: white !important;
-}
-
 .yaap > textarea::selection {
   color: white !important;
   background-color: orange !important;
 }
 ```
-In fact the `caret-color` CSS property is inheritable, but is included here to go with the properties for related selections.
-
-This CSS can be applied programmatically if you wish:
+This CSS can be applied by way of your own CSS files or programmatically if you prefer:
 ```
 import withStyle from "easy-with-style";  ///
 
 const { renderStyle } = withStyle;
 
 renderStyle(`
-
-  .yaap > textarea {
-    caret-color: white !important;
-  }
 
   .yaap > textarea::selection {
     color: white !important;

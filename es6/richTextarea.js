@@ -3,7 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
-import { caretColour, selectionColour, selectionBackgroundColour  } from "./scheme/colour";
+import { selectionColour, selectionBackgroundColour  } from "./scheme/colour";
 
 export default withStyle(class extends RichTextarea {
   setBounds(bounds) {
@@ -68,13 +68,13 @@ export default withStyle(class extends RichTextarea {
   overflow-wrap: normal;
   background-color: transparent;
   
-  caret-color: ${caretColour};
-  
   ::selection {
     color: ${selectionColour};
     background-color: ${selectionBackgroundColour};
   }
 
+  caret-color: inherit;
+  
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
