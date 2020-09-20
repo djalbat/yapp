@@ -2,6 +2,18 @@
 
 Yet Another Pretty Printer.
 
+### Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Fira Code support](#fira-code-support)
+- [Building](#building)
+- [Contact](#contact)
+
+## Introduction
+
 *If you just want to see Yapp in action without further ado*, then clone this repository, open the `index.html` file and choose a language.
 
 *If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
