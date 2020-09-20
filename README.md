@@ -9,6 +9,7 @@ Yet Another Pretty Printer.
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Fira Code support](#fira-code-support)
+- [Styling Yapp](#styling-yapp)
 - [Building](#building)
 - [Contact](#contact)
 
@@ -179,10 +180,11 @@ Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). To enable it, add
 <Yapp firaCode ... >{`
 
   ...
+
 `}</Yapp>
 ```
 
-If you choose to enable Fira Code then you need to provide the necessary web font files. These can be found in the `css/` directory of this repository and can be utilised as-is in order to make them available to the browser. Here is an example of the CSS that references them:
+If you choose to enable Fira Code then you need to provide the necessary web font files. These can be found in the `css/` directory of this repository and can be utilised as-is. Here is an example of the CSS that references them:
 
 ```
 @font-face {
@@ -193,7 +195,7 @@ If you choose to enable Fira Code then you need to provide the necessary web fon
   font-style: normal;
 }
 ```
-You should check the network tab in your browser's developer tools to ensure that these files are being picked up.
+You do not have to provide this, rendering Yapp's styles will do so, but it is recommended that you check the network tab in your browser's developer tools to ensure that these files are being picked up.
 
 ## Styling Yapp
 
