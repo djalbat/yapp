@@ -211,7 +211,7 @@ Rendering the styles in this manner should always be done before any instance of
 
 ### Overall styles
 
-A handful of overall styles, mainly colours, can be overridden directly. The most elegant way to do this is with programmatic styles. You can take the following approach, for example:
+A handful of overall CSS properties, mainly relating to fonts colours, can be overridden directly. The most elegant way to do this is with programmatic styles. You can take the following approach, for example:
 
 ```
 "use strict";
@@ -236,11 +236,9 @@ export default withStyle(Yapp)`
 
 `;
 ```
-Now you can import this class rather than the package's `Yapp` class and your overridden styles will always be used without the need for repetition.
+Now you can import this class rather than the package's `Yapp` class and your style will always be used without the need for repetition.
 
-Along with the `border` and the four colour related properties, the five font properties given above are the ones that are inherited by Yapp's child elements, if and when appropriate.
-
-Some of the relevant CSS properties of child elements are not inheritable and must therefore be targeted directly. The selection styles for the textarea, for example:
+Some of the relevant CSS properties of child elements are not inheritable and must therefore be targeted directly. For example:
 
 ```
 .yaap > textarea::selection {
@@ -248,7 +246,7 @@ Some of the relevant CSS properties of child elements are not inheritable and mu
   background-color: orange !important;
 }
 ```
-This CSS can be applied by way of your own CSS files or programmatically if you prefer:
+This style can be applied by way of your own CSS files or programmatically if you prefer:
 ```
 import withStyle from "easy-with-style";  ///
 
