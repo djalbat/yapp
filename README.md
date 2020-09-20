@@ -348,11 +348,7 @@ If you wish to make use of live reloading while working on the examples, use `np
 
 ## Acknowledgements
 
-The following MDN articles were invaluable when writing the JavaScript grammar:
-
-* [Statements and declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements)
-
-* [Expressions and operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators)
+* The [Statements and declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements) and [Expressions and operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators) MDN articles were invaluable when writing the JavaScript grammar.
 
 ## Contact
 
