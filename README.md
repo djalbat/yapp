@@ -246,7 +246,7 @@ Some of the relevant CSS properties of child elements are not inheritable and mu
   background-color: orange !important;
 }
 ```
-This style can be applied by way of your own CSS files or programmatically if you prefer:
+This style can be applied either by way of your own CSS file or programmatically if you prefer:
 ```
 import withStyle from "easy-with-style";  ///
 
@@ -265,7 +265,16 @@ All the HTML elements of which Yapp is comprised have placeholder classes, for e
 
 ### Syntax styles
 
-How to approach styling Yapp's syntax boils down to whether or not you want to set the style for a new language, supported by a plugin that you supply, or override the style for an existing language.
+How to approach styling Yapp's syntax broadly boils down to whether or not you want to set the style for the syntax of a new language, supported by a plugin that you supply, or override the style for an existing language.
+
+In the first instance, the approach can be the same as for overall styles, that is, you can supply a set of CSS properties that target the syntax elements either programmatically or in a CSS file. For example, suppose that you have have a plugin for the Java language, then you could add the following style to go with it:
+
+```
+.yapp .java.syntax > .keyword { color: #a93927; }
+
+.yapp .java.syntax > .string-literal { color: "#f5087a"; }
+```
+Bear in mind that there is a default syntax style that is applied, found in the [default.js](https://github.com/djalbat/yapp/blob/master/es6/style/syntax/default.js) file. You can override its individual CSS properties easily enough, however, because the specificity of your own CSS selectors will be greater.
 
 
 
