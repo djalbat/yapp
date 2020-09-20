@@ -298,9 +298,17 @@ In fact the above is just what the `renderYappStyles()` function does. In leavin
 
 ## Plugins
 
-If you have been supplied with a plugin, or have written your own, it is straightforward to appraise Yapp of it by way of the aforementioned `Plugin` parameter, passed as either an argument to the `fromContent(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, each of which corresponds to a built-in plugin. See the section on building later on for details.
+If you have been supplied with a plugin, or have written your own, it is straightforward to appraise Yapp of it by way of the aforementioned `Plugin` parameter, passed either as an argument to the `fromContent(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, each of which corresponds to a built-in plugin. See the section on building later on for details.
 
+To begin to author your own plugin, follow these steps:
 
+1. Add an item corresponding to the plugin language to the `index.html` file in the root of the repository.
+
+2. Edit the [`es6/example.js`](https://github.com/djalbat/yapp/blob/master/es6/example.js) file, importing the view for the plugin and adding to the `switch` statement as required. Note that since you have yet to create the view, the `import` statement will break the build.
+
+3. Create an example view for the plugin. These views are entirely generic aside from the obvious plugin specifics and the easiest thing to do is just to copy a file for an existing one, for example the [`es6/example/view/javascript.js`](https://github.com/djalbat/yapp/blob/master/es6/example/view/javascript.js) file, and alter it as required.
+
+4. Create the plugin itself. Again, plugin architecture is entirely generic and the best approach is simply to copy the file of an existing one, for example the [`es6/plugin/javascript.js`](https://github.com/djalbat/yapp/blob/master/es6/plugin/javascript.js).
 
 ## Contributions
 
