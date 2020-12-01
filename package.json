@@ -1,7 +1,7 @@
 {
   "name": "yapp",
   "author": "James Smith",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/yapp",
   "description": "Yet Another Pretty Printer.",
@@ -29,7 +29,7 @@
     "easy-layout": "^5.0.15",
     "express": "^4.17.1",
     "juxtapose": "^3.0.3",
-    "lively-cli": "^1.1.17",
+    "lively-cli": "^1.2.3",
     "watchful-cli": "^1.4.6"
   },
   "scripts": {
