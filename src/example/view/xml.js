@@ -8,7 +8,7 @@ export default class XMLView extends View {
   Plugin = XMLPlugin;
 
   initialContent = `<?xml version="1.0" encoding="UTF-8"?>
-<!-- Look to Windard by Iain M. Banks -->
+<!-- Look to Windward by Iain M. Banks -->
 <book>
   <name>
     Look to Windward

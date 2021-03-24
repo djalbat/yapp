@@ -289,11 +289,13 @@ import { syntaxStyle, firaCodeStyle } from "yapp";
 
 const { renderStyle, renderStyles } = withStyle;
 
+const host = "";
+
 renderStyles(); // Always needed
 
 renderStyle(syntaxStyle); // Leave this out if you wish.
 
-renderStyle(firaCodeStyle); // Only needed for Fira Code support.
+renderStyle(firaCodeStyle(host)); // Only needed for Fira Code support.
 ```
 In fact the above is just what the `renderYappStyles()` function does. In leaving out the syntax style, which includes the defaults, you have clean slate to work with.
 

@@ -5,6 +5,7 @@ export const JSON_LANGUAGE = "json";
 export const JAVASCRIPT_LANGUAGE = "javascript";
 export const PLAIN_TEXT_LANGUAGE = "plain-text";
 export const VARIABLE_TYPE = "variable";
+export const DEFAULT_HOST = "";
 export const TOP_SIDE = "top";
 export const LEFT_SIDE = "left";
 export const RIGHT_SIDE = "right";

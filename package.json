@@ -1,7 +1,7 @@
 {
   "name": "yapp",
   "author": "James Smith",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/yapp",
   "description": "Yet Another Pretty Printer.",
@@ -10,41 +10,39 @@
     "url": "https://github.com/djalbat/yapp"
   },
   "dependencies": {
-    "easy": "^11.1.10",
-    "easy-richtextarea": "^3.0.17",
-    "easy-with-style": "^3.0.27",
-    "necessary": "^4.1.10",
-    "occam-dom": "^3.0.6",
-    "occam-grammar-utilities": "^5.0.35",
-    "occam-lexers": "^14.0.3",
-    "occam-parsers": "^14.0.3"
+    "easy": "^11.1.22",
+    "easy-richtextarea": "^3.0.21",
+    "easy-with-style": "^3.0.30",
+    "necessary": "^7.1.10",
+    "occam-dom": "^3.0.20",
+    "occam-grammar-utilities": "^5.0.44",
+    "occam-lexers": "^14.0.23",
+    "occam-parsers": "^14.0.22"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.8.3",
-    "@babel/preset-env": "^7.11.5",
-    "browserify": "^16.5.0",
-    "concurrently": "^5.2.0",
-    "easy-layout": "^5.0.18",
+    "@babel/preset-env": "^7.11.0",
+    "browserify": "^17.0.0",
+    "easy-layout": "^5.0.23",
     "express": "^4.17.1",
-    "juxtapose": "^3.0.3",
-    "lively-cli": "^1.2.3",
-    "watchful-cli": "^1.4.6"
+    "juxtapose": "^3.0.22",
+    "lively-cli": "^2.0.7",
+    "watchful-cli": "^1.6.15"
   },
   "scripts": {
     "start": "node ./bin/main.js",
     "clean": "rm -rf ./lib",
-    "lively": "lively --port=3333 --watch-pattern=./example.js --allowed-origin=http://localhost:8888",
-    "watchful": "watchful --source-directory=./es6 --temp-directory=./lib --entry-file=example.js --bundle-file=./example.js --pause=100",
+    "watchful": "watchful -mp=4 --transpiler=babel --bundler=browserify --source-directory=./src --lib-directory=./lib --entry-file=example.js --bundle-file=./example.js --pause=100",
     "batch": "npm run watchful batch --",
     "batch-debug": "npm run watchful batch -- --debug",
     "incremental": "npm run watchful incremental --",
     "incremental-debug": "npm run watchful incremental -- --debug",
     "build": "npm run clean && npm run batch",
     "build-debug": "npm run clean && npm run batch-debug",
-    "watch": "npm run clean && npm run batch && concurrently -k 'npm run incremental' 'npm run lively'",
-    "watch-debug": "npm run clean && npm run batch-debug && concurrently -k 'npm run incremental-debug' 'npm run lively'"
+    "watch": "npm run clean && npm run batch && npm run incremental",
+    "watch-debug": "npm run clean && npm run batch-debug && npm run incremental-debug"
   },
   "main": "./lib/index.js"
 }
