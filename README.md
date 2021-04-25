@@ -17,7 +17,7 @@ Yet Another Pretty Printer.
 
 ## Introduction
 
-*If you just want to see Yapp in action without further ado*, then clone this repository, run `npm install` and `npm start`, and then open your browser at `http://localhost:8888`. 
+*If you just want to see Yapp in action without further ado*, then clone this repository, run `npm install` and `npm start`, and then open your browser at http://localhost:8888. 
 
 *If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
 
