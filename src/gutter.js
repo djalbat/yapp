@@ -108,14 +108,6 @@ class Gutter extends Element {
   static defaultProperties = {
     className: "gutter"
   };
-
-  static fromClass(Class, properties) {
-    const gutter = Element.fromClass(Class, properties);
-
-    gutter.initialise();
-    
-    return gutter;
-  }
 }
 
 export default withStyle(Gutter)`

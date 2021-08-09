@@ -169,12 +169,4 @@ export default class BoundedScrollableElement extends Element {
 
     this.setInitialState();
   }
-
-  static fromClass(Class, properties, ...remainingArguments) {
-    const boundedScrollableElement = Element.fromClass(Class, properties, ...remainingArguments);
-
-    boundedScrollableElement.initialise();
-
-    return boundedScrollableElement;
-  }
 }

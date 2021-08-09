@@ -170,14 +170,6 @@ class PrettyPrinter extends Element {
   static defaultProperties = {
     className: "pretty-printer"
   };
-
-  static fromClass(Class, properties) {
-    const view = Element.fromClass(Class, properties);
-
-    view.initialise();
-    
-    return view;
-  }
 }
 
 export default withStyle(PrettyPrinter)`

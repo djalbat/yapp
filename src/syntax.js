@@ -83,14 +83,6 @@ class Syntax extends BoundedScrollableElement {
   static defaultProperties = {
     className: "syntax"
   };
-
-  static fromClass(Class, properties) {
-    const syntax = BoundedScrollableElement.fromClass(Class, properties);
-
-    syntax.initialise();
-
-    return syntax;
-  }
 }
 
 export default withStyle(Syntax)`

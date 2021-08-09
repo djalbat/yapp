@@ -239,8 +239,6 @@ class Yapp extends Element {
           plugin = pluginFromLanguageAndPlugin(language, Plugin),
           yapp = Element.fromClass(Class, properties, plugin);
 
-    yapp.initialise();
-
     return yapp;
   }
 
@@ -248,8 +246,6 @@ class Yapp extends Element {
     const { language, Plugin } = properties,
           plugin = pluginFromLanguageAndPlugin(language, Plugin),
           yapp = Element.fromClass(Class, properties, plugin);
-
-    yapp.initialise();
 
     return yapp;
   }

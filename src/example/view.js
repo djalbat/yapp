@@ -193,14 +193,6 @@ class View extends Element {
   static defaultProperties = {
     className: "view"
   };
-
-  static fromClass(Class, properties) {
-    const exampleView = Element.fromClass(Class, properties);
-
-    exampleView.initialise();
-
-    return exampleView
-  }
 }
 
 export default withStyle(View)`
