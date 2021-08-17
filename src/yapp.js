@@ -10,7 +10,7 @@ import scrollBarThickness from "./scrollbarThickness";
 
 import { stripPixels } from "./utilities/css";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
-import { TOP_SIDE, LEFT_SIDE, RIGHT_SIDE, BOTTOM_SIDE } from "./constants";
+import { TOP, LEFT, RIGHT, LINE_HEIGHT, BOTTOM } from "./constants";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 import { colour, caretColour, borderColour, backgroundColour } from "./scheme/colour";
@@ -34,8 +34,8 @@ class Yapp extends Element {
   }
 
   getLineHeight() {
-    const lineHeightInPixels = this.css("line-height"),
-        lineHeight = stripPixels(lineHeightInPixels);
+    const lineHeightInPixels = this.css(LINE_HEIGHT),
+          lineHeight = stripPixels(lineHeightInPixels);
 
     return lineHeight;
   }
@@ -48,28 +48,28 @@ class Yapp extends Element {
   }
 
   getBorderTopWidth() {
-    const side = TOP_SIDE,
+    const side = TOP,
           borderTopWidth = this.getBorderWidth(side);
 
     return borderTopWidth;
   }
 
   getBorderLeftWidth() {
-    const side = LEFT_SIDE,
+    const side = LEFT,
           borderLeftWidth = this.getBorderWidth(side);
 
     return borderLeftWidth;
   }
 
   getBorderRightWidth() {
-    const side = RIGHT_SIDE,
+    const side = RIGHT,
           borderRightWidth = this.getBorderWidth(side);
 
     return borderRightWidth;
   }
 
   getBorderBottomWidth() {
-    const side = BOTTOM_SIDE,
+    const side = BOTTOM,
           borderBottomWidth = this.getBorderWidth(side);
 
     return borderBottomWidth;

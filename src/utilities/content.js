@@ -2,10 +2,12 @@
 
 import { arrayUtilities } from "necessary";
 
+import { EMPTY_STRING } from "../constants";
+
 const { first } = arrayUtilities;
 
 export function contentFromChildElements(childElements) {
-  let content = "";
+  let content = EMPTY_STRING;
 
   const childElementsLength = childElements.length;
 

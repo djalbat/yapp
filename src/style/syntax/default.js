@@ -1,5 +1,6 @@
 "use strict";
 
+import { pomegranate } from "../../colours";
 import { colour, keywordColour, commentColour, stringLiteralColour } from "../../scheme/syntax/default";
 
 const defaultSyntaxStyle = `
@@ -24,9 +25,10 @@ const defaultSyntaxStyle = `
   .syntax > .string-literal { color: ${stringLiteralColour}; } 
   
   .syntax > .error {
-    background-image: url("css/image/squiggle.png");
     background-repeat: repeat-x;
     background-position: bottom;
+    text-decoration-line: underline;
+    text-decoration-color: ${pomegranate};
   } 
 
 `;

@@ -4,9 +4,11 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
+import { EMPTY_STRING } from "./constants";
+
 class LineNumbers extends Element {
   update(lineCount) {
-    let html = "";
+    let html = EMPTY_STRING;
 
     for (let lineNumber = 1; lineNumber <= lineCount; lineNumber++) {
       html = `${html}${lineNumber}<br/>`;

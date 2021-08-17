@@ -21,6 +21,7 @@ export const hunterGreen = "#161d10";
 export const cadetBlue = "#5f9ea0";
 export const havelockBlue = "#5B8De1";
 
+export const pomegranate = "#f52929";
 export const razzmatazz = "#e3256b";
 export const flamingo = "#f34b44";
 export const tahiti = "#F58A0A";

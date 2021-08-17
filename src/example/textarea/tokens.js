@@ -2,6 +2,8 @@
 
 import Textarea from "../textarea";
 
+import { EMPTY_STRING } from "../constants";
+
 export default class TokensTextarea extends Textarea {
   setTokens(tokens) {
     if (tokens !== null) {
@@ -26,7 +28,7 @@ export default class TokensTextarea extends Textarea {
         previousToken = token;
 
         return html;
-      }, "");
+      }, EMPTY_STRING);
 
       this.html(html);
     } else {
@@ -35,7 +37,7 @@ export default class TokensTextarea extends Textarea {
   }
 
   clearTokens() {
-    const html = "";
+    const html = EMPTY_STRING;
 
     this.html(html);
   }
