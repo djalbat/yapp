@@ -71,6 +71,8 @@ class View extends Element {
 
     this.setYappWidth(yappWidth);
     this.setYappHeight(yappHeight);
+
+    this.resizeYapp();
   }
 
   update() {
@@ -122,7 +124,7 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Plugin={this.Plugin} onContentChange={contentChangeHandler} resizeable editable firaCode >
+              <Yapp Plugin={this.Plugin} onContentChange={contentChangeHandler} editable firaCode >
                 {this.initialContent}
               </Yapp>
             </TopSizeableDiv>

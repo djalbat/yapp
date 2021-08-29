@@ -144,7 +144,7 @@ class Yapp extends Element {
     this.setRichTextareaBounds(richTextareaBounds);
   }
 
-  didMount() {
+  render() {
     const content = this.getContent(),
           lineCount = lineCountFromContent(content),
           lineHeight = this.getLineHeight(),
@@ -157,6 +157,10 @@ class Yapp extends Element {
     this.resize();
 
     this.update();
+  }
+
+  didMount() {
+    this.render();
   }
 
   willUnmount() {
