@@ -160,6 +160,12 @@ class Yapp extends Element {
   }
 
   didMount() {
+    const { deferRender = false } = this.properties;
+
+    if (deferRender) {
+      return;
+    }
+
     this.render();
   }
 
@@ -234,7 +240,8 @@ class Yapp extends Element {
     "Plugin",
     "language",
     "firaCode",
-    "editable"
+    "editable",
+    "deferRender"
   ];
 
   static fromContent(content, language, Plugin, options) {

@@ -124,7 +124,7 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Plugin={this.Plugin} onContentChange={contentChangeHandler} editable firaCode >
+              <Yapp Plugin={this.Plugin} onContentChange={contentChangeHandler} editable firaCode deferRender >
                 {this.initialContent}
               </Yapp>
             </TopSizeableDiv>
