@@ -159,7 +159,7 @@ class Yapp extends Element {
     this.update();
   }
 
-  willUnmout() {
+  willUnmount() {
     ///
   }
 
