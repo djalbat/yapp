@@ -4,7 +4,7 @@ import { Element } from "easy";
 
 import scrollbarThickness from "../../scrollbarThickness";
 
-export default class BoundedScrollableElement extends Element {
+export default class ScrollableBoundedElement extends Element {
   scroll(scrollTop, scrollLeft) {
     this.setScrollTop(scrollTop);
     this.setScrollLeft(scrollLeft);

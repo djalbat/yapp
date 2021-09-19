@@ -2,9 +2,9 @@
 
 import withStyle from "easy-with-style";  ///
 
-import BoundedScrollableElement from "./element/bounded/scrollable";
+import ScrollableBoundedElement from "./element/bounded/scrollable";
 
-class Syntax extends BoundedScrollableElement {
+class Syntax extends ScrollableBoundedElement {
   setLanguage(language) {
     const state = {
       language
