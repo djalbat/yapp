@@ -251,13 +251,15 @@ const bnf = `
 
     expressions                ::=  expression ( "," expression )* ;
 
-    arguments                  ::=  argument ( "," argument )* ;
+    arguments                  ::=  spreadArgument | ( argument ( "," argument )* ( "," spreadArgument )? ) ;
 
     fields                     ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
 
     names                      ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
 
 
+
+    spreadArgument             ::=  "..."<NO_WHITESPACE>argument ;
 
     argument                   ::=  [identifier] ;
 
