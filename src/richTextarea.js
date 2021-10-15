@@ -68,9 +68,17 @@ export default withStyle(class extends RichTextarea {
   overflow-wrap: normal;
   background-color: transparent;
   
+  ::-webkit-scrollbar {
+    width: 3rem;
+  }
+  
   ::selection {
     color: ${selectionColour};
     background-color: ${selectionBackgroundColour};
+  }
+  
+  ::-webkit-scrollbar {
+    width: 3rem;
   }
 
   caret-color: inherit;
