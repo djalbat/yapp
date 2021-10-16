@@ -14,6 +14,7 @@ import { TOP, LEFT, RIGHT, LINE_HEIGHT, BOTTOM } from "./constants";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 import { colour, caretColour, borderColour, backgroundColour } from "./scheme/colour";
+import { DEFAULT_EDITABLE, DEFAULT_FIRA_CODE, DEFAULT_DEFER_RENDER, DEFAULT_HIDDEN_GUTTER, DEFAULT_FANCY_SCROLLBARS } from "./defaults";
 
 class Yapp extends Element {
   constructor(selector, plugin) {
@@ -78,14 +79,6 @@ class Yapp extends Element {
   setLexer(lexer) { this.plugin.setLexer(lexer); }
 
   setParser(parser) { this.plugin.setParser(parser); }
-
-  enableFiraCode() {
-    this.addClass("fira-code");
-  }
-
-  disableFiraCode() {
-    this.removeClass("fira-code");
-  }
 
   changeHandler(event, element) {
     const richTextarea = element, ///
@@ -160,7 +153,11 @@ class Yapp extends Element {
   }
 
   didMount() {
-    const { deferRender = false } = this.properties;
+    const { firaCode = DEFAULT_FIRA_CODE, deferRender = DEFAULT_DEFER_RENDER } = this.properties;
+
+    if (firaCode) {
+      this.addClass("fira-code");
+    }
 
     if (deferRender) {
       return;
@@ -170,17 +167,22 @@ class Yapp extends Element {
   }
 
   willUnmount() {
-    ///
+    const { firaCode = DEFAULT_FIRA_CODE } = this.properties;
+
+    if (firaCode) {
+      this.removeClass("fira-code");
+    }
   }
 
   childElements() {
-    const changeHandler = this.changeHandler.bind(this),
+    const { hiddenGutter = DEFAULT_HIDDEN_GUTTER, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties,
+          changeHandler = this.changeHandler.bind(this),
           scrollHandler = this.scrollHandler.bind(this);
 
     return ([
 
-      <PrettyPrinter />,
-      <RichTextarea onChange={changeHandler} onScroll={scrollHandler} active />
+      <PrettyPrinter hiddenGutter={hiddenGutter} />,
+      <RichTextarea onChange={changeHandler} onScroll={scrollHandler} fancyScrollbars={fancyScrollbars} active />
 
     ]);
   }
@@ -208,7 +210,7 @@ class Yapp extends Element {
   initialise() {
     this.assignContext();
 
-    const { childElements, firaCode = false, editable = false } = this.properties,
+    const { childElements, editable = DEFAULT_EDITABLE } = this.properties,
           language = this.plugin.getLanguage(),
           content = contentFromChildElements(childElements),
           readOnly = !editable,
@@ -222,10 +224,6 @@ class Yapp extends Element {
     this.setRichTextareaContent(content);
 
     this.setRichTextareaReadOnly(readOnly);
-
-    if (firaCode) {
-      this.enableFiraCode();
-    }
 
     this.onResize((event, element) => this.resize());
   }
@@ -241,7 +239,9 @@ class Yapp extends Element {
     "language",
     "firaCode",
     "editable",
-    "deferRender"
+    "deferRender",
+    "hiddenGutter",
+    "fancyScrollbars"
   ];
 
   static fromContent(content, language, Plugin, options) {

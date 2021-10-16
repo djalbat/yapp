@@ -9,7 +9,7 @@ import StringToken from "../token/significant/string";
 import VariableToken from "../token/significant/variable";
 import ArgumentToken from "../token/significant/argument";
 
-import { TEMPLATE_LITERAL_DELIMITER_CONTENT } from "../constants";
+import { TEMPLATE_LITERAL_DELIMITER } from "../constants";
 
 const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpression("//jsx"),
@@ -35,7 +35,7 @@ export default class JavaScriptProcessor extends Processor {
 
       this.replaceTerminalNodesSignificantToken(tokens, node, (content) => StringToken, templateLiteralStringTerminalNodeQuery);
 
-      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => (content === TEMPLATE_LITERAL_DELIMITER_CONTENT) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => (content === TEMPLATE_LITERAL_DELIMITER) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
 
       jsxNonTerminalNodes.forEach((jsxNonTerminalNode) => this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content) => JSXToken, jsxTagTerminalNodeQuery,
                                                                                                                                                        jsxTagNameTerminalNodeQuery,

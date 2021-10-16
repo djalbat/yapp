@@ -5,7 +5,7 @@ import XMLLexer from "../lexer/xml";
 import XMLParser from "../parser/xml";
 import XMLProcessor from "../processor/xml";
 
-import { XML_LANGUAGE } from "../constants"
+import { XML_LANGUAGE } from "../languages"
 
 export default class XMLPlugin extends Plugin {
   language = XML_LANGUAGE;

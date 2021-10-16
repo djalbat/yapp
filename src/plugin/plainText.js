@@ -5,10 +5,10 @@ import PlainTextLexer from "../lexer/plainText";
 import PlainTextParser from "../parser/plainText";
 import PlainTextProcessor from "../processor/plainText";
 
-import { PlainText_LANGUAGE } from "../constants"
+import { PLAIN_TEXT_LANGUAGE } from "../languages"
 
 export default class PlainTextPlugin extends Plugin {
-  language = PlainText_LANGUAGE;
+  language = PLAIN_TEXT_LANGUAGE;
 
   static Lexer = PlainTextLexer;
 

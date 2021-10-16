@@ -3,7 +3,8 @@
 import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
-import { selectionColour, selectionBackgroundColour  } from "./scheme/colour";
+import { scrollbarWidth, scrollbarHeight, scrollbarThumbBorderRadius } from "./styles";
+import { selectionColour, backgroundColour, selectionBackgroundColour, scrollbarThumbBoxShadowColour, scrollbarThumbBackgroundColour  } from "./scheme/colour";
 
 export default withStyle(class extends RichTextarea {
   setBounds(bounds) {
@@ -33,6 +34,26 @@ export default withStyle(class extends RichTextarea {
     this.css(css);
   }
 
+  didMount() {
+    const { fancyScrollbars } = this.properties;
+
+    if (fancyScrollbars) {
+      this.addClass("fancy-scrollbars");
+    }
+
+    super.didMount();
+  }
+
+  willUnmount() {
+    const { fancyScrollbars } = this.properties;
+
+    if (fancyScrollbars) {
+      this.removeClass("fancy-scrollbars");
+    }
+
+    super.willUnmount();
+  }
+
   parentContext() {
     const getRichTextareaContent = this.getContent.bind(this),
           setRichTextareaBounds = this.setBounds.bind(this),  ///
@@ -50,6 +71,10 @@ export default withStyle(class extends RichTextarea {
   static defaultProperties = {
     spellCheck: "false"
   };
+
+  static ignoredProperties = [
+    "fancyScrollbars"
+  ];
 })`
 
   color: transparent;
@@ -61,24 +86,35 @@ export default withStyle(class extends RichTextarea {
   z-index: 1;
   tab-size: 2;
   position: absolute;
+  overflow: scroll;
   border-top: none;
-  overflow-x: scroll;
-  overflow-y: scroll;
   white-space: pre;
   overflow-wrap: normal;
   background-color: transparent;
-  
-  ::-webkit-scrollbar {
-    width: 3rem;
-  }
   
   ::selection {
     color: ${selectionColour};
     background-color: ${selectionBackgroundColour};
   }
   
-  ::-webkit-scrollbar {
-    width: 3rem;
+  .fancy-scrollbars::-webkit-scrollbar {
+    width: ${scrollbarWidth};
+    height: ${scrollbarHeight};
+  }
+
+  .fancy-scrollbars::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  .fancy-scrollbars::-webkit-scrollbar-thumb {
+    border: 2px solid ${backgroundColour};
+    box-shadow: inset 0 0 1px ${scrollbarThumbBoxShadowColour};
+    border-radius: ${scrollbarThumbBorderRadius};
+    background-color: ${scrollbarThumbBackgroundColour};
+  }
+
+  .fancy-scrollbars::-webkit-scrollbar-corner {
+    display: none;
   }
 
   caret-color: inherit;

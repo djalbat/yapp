@@ -6,7 +6,7 @@ import { React, Element } from "easy";
 
 import LineNumbers from "./lineNumbers";
 
-import { GUTTER_HEIGHT } from "./constants";
+import { gutterHeight } from "./styles";
 import { lineCountFromTokens } from "./utilities/tokens";
 
 class Gutter extends Element {
@@ -112,7 +112,7 @@ class Gutter extends Element {
 
 export default withStyle(Gutter)`
 
-  height: ${GUTTER_HEIGHT};
+  height: ${gutterHeight};
   z-index: 2;
   position: absolute;
   text-align: right;

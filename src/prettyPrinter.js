@@ -117,9 +117,12 @@ class PrettyPrinter extends Element {
   }
 
   childElements() {
+    const { hiddenGutter } = this.properties,
+          hidden = hiddenGutter;  ///
+
     return ([
 
-      <Gutter />,
+      <Gutter hidden={hidden} />,
       <Syntax />,
 
     ]);
@@ -170,6 +173,10 @@ class PrettyPrinter extends Element {
   static defaultProperties = {
     className: "pretty-printer"
   };
+
+  static ignoredProperties = [
+    "hiddenGutter"
+  ];
 }
 
 export default withStyle(PrettyPrinter)`

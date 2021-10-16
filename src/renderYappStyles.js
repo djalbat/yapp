@@ -5,7 +5,7 @@ import withStyle from "easy-with-style";  ///
 import syntaxStyle from "./style/syntax"
 import firaCodeStyle from "./style/firaCode"
 
-import {DEFAULT_HOST} from "./constants";
+import { DEFAULT_HOST } from "./defaults";
 
 const { renderStyle, renderStyles } = withStyle;
 
