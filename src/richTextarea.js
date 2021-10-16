@@ -3,7 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
-import { scrollbarWidth, scrollbarHeight, scrollbarThumbBorderRadius } from "./styles";
+import { scrollbarThickness, scrollbarThumbBorderRadius } from "./styles";
 import { selectionColour, backgroundColour, selectionBackgroundColour, scrollbarThumbBoxShadowColour, scrollbarThumbBackgroundColour  } from "./scheme/colour";
 
 export default withStyle(class extends RichTextarea {
@@ -98,8 +98,8 @@ export default withStyle(class extends RichTextarea {
   }
   
   .fancy-scrollbars::-webkit-scrollbar {
-    width: ${scrollbarWidth};
-    height: ${scrollbarHeight};
+    width: ${scrollbarThickness};
+    height: ${scrollbarThickness};
   }
 
   .fancy-scrollbars::-webkit-scrollbar-track {

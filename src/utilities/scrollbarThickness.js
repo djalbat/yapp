@@ -2,6 +2,8 @@
 
 import { React, Body } from "easy";
 
+import { scrollbarThickness as stylesScrollbarThickness } from "../styles";
+
 const body = new Body(),
       style = {
         width: "50px",
@@ -24,9 +26,14 @@ outerDiv.append(innerDiv);
 body.append(outerDiv);
 
 const outerDivWidth = outerDiv.getWidth(),
-      innerDivWidth = innerDiv.getWidth(),
-      scrollbarThickness = outerDivWidth - innerDivWidth; ///
+      innerDivWidth = innerDiv.getWidth();
 
 outerDiv.remove();
 
-export default scrollbarThickness;
+export function getScrollbarThickness(fancyScrollbars) {
+  const scrollbarThickness = fancyScrollbars ?
+                               stylesScrollbarThickness :
+                                 outerDivWidth - innerDivWidth; ///
+
+  return scrollbarThickness;
+}

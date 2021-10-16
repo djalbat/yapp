@@ -117,13 +117,13 @@ class PrettyPrinter extends Element {
   }
 
   childElements() {
-    const { hiddenGutter } = this.properties,
+    const { hiddenGutter, scrollbarThickness } = this.properties,
           hidden = hiddenGutter;  ///
 
     return ([
 
       <Gutter hidden={hidden} />,
-      <Syntax />,
+      <Syntax scrollbarThickenss={scrollbarThickness} />,
 
     ]);
   }
@@ -175,7 +175,8 @@ class PrettyPrinter extends Element {
   };
 
   static ignoredProperties = [
-    "hiddenGutter"
+    "hiddenGutter",
+    "scrollbarThickness"
   ];
 }
 

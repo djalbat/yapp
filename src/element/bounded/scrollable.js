@@ -2,8 +2,6 @@
 
 import { Element } from "easy";
 
-import scrollbarThickness from "../../scrollbarThickness";
-
 export default class ScrollableBoundedElement extends Element {
   scroll(scrollTop, scrollLeft) {
     this.setScrollTop(scrollTop);
@@ -26,6 +24,8 @@ export default class ScrollableBoundedElement extends Element {
   }
 
   resize(width, height) {
+    const { scrollbarThickness } = this.properties;
+
     width = width - scrollbarThickness;
     height = height - scrollbarThickness;
 
@@ -169,4 +169,8 @@ export default class ScrollableBoundedElement extends Element {
 
     this.setInitialState();
   }
+
+  static ignoreProperties = [
+    "scrollbarThickness"
+  ];
 }

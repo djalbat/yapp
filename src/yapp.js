@@ -6,9 +6,9 @@ import { React, Element } from "easy";
 
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
-import scrollBarThickness from "./scrollbarThickness";
 
 import { stripPixels } from "./utilities/css";
+import { getScrollbarThickness } from "./utilities/scrollbarThickness";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
 import { TOP, LEFT, RIGHT, LINE_HEIGHT, BOTTOM } from "./constants";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
@@ -32,6 +32,13 @@ class Yapp extends Element {
           content = richTextareaContent;  ///
 
     return content;
+  }
+
+  getLineCount() {
+    const content = this.getContent(),
+          lineCount = lineCountFromContent(content);
+
+    return lineCount;
   }
 
   getLineHeight() {
@@ -74,6 +81,13 @@ class Yapp extends Element {
           borderBottomWidth = this.getBorderWidth(side);
 
     return borderBottomWidth;
+  }
+
+  getScrollbarThickness() {
+    const { fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties,
+          scrollbarThickness = getScrollbarThickness(fancyScrollbars);
+
+    return scrollbarThickness;
   }
 
   setLexer(lexer) { this.plugin.setLexer(lexer); }
@@ -138,12 +152,12 @@ class Yapp extends Element {
   }
 
   render() {
-    const content = this.getContent(),
-          lineCount = lineCountFromContent(content),
+    const lineCount = this.getLineCount(),
           lineHeight = this.getLineHeight(),
           borderTopWidth = this.getBorderTopWidth(),
           borderBottomWidth = this.getBorderBottomWidth(),
-          height = lineCount * lineHeight + scrollBarThickness + borderTopWidth + borderBottomWidth;
+          scrollbarThickness = this.getScrollbarThickness(),
+          height = lineCount * lineHeight + borderTopWidth + borderBottomWidth + scrollbarThickness;
 
     this.setHeight(height);
 
@@ -177,11 +191,12 @@ class Yapp extends Element {
   childElements() {
     const { hiddenGutter = DEFAULT_HIDDEN_GUTTER, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties,
           changeHandler = this.changeHandler.bind(this),
-          scrollHandler = this.scrollHandler.bind(this);
+          scrollHandler = this.scrollHandler.bind(this),
+          scrollbarThickness = this.getScrollbarThickness();
 
     return ([
 
-      <PrettyPrinter hiddenGutter={hiddenGutter} />,
+      <PrettyPrinter hiddenGutter={hiddenGutter} scrollbarThickness={scrollbarThickness} />,
       <RichTextarea onChange={changeHandler} onScroll={scrollHandler} fancyScrollbars={fancyScrollbars} active />
 
     ]);
