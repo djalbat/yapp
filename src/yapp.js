@@ -34,13 +34,6 @@ class Yapp extends Element {
     return content;
   }
 
-  getLineCount() {
-    const content = this.getContent(),
-          lineCount = lineCountFromContent(content);
-
-    return lineCount;
-  }
-
   getLineHeight() {
     const lineHeightInPixels = this.css(LINE_HEIGHT),
           lineHeight = stripPixels(lineHeightInPixels);
@@ -67,6 +60,14 @@ class Yapp extends Element {
           borderLeftWidth = this.getBorderWidth(side);
 
     return borderLeftWidth;
+  }
+
+  getInitialLineCount() {
+    const content = this.getContent(),
+          lineCount = lineCountFromContent(content),
+          initialLineCount = lineCount; ///
+
+    return initialLineCount;
   }
 
   getBorderRightWidth() {
@@ -152,12 +153,12 @@ class Yapp extends Element {
   }
 
   render() {
-    const lineCount = this.getLineCount(),
-          lineHeight = this.getLineHeight(),
+    const lineHeight = this.getLineHeight(),
           borderTopWidth = this.getBorderTopWidth(),
+          initialLineCount = this.getInitialLineCount(),
           borderBottomWidth = this.getBorderBottomWidth(),
           scrollbarThickness = this.getScrollbarThickness(),
-          height = lineCount * lineHeight + borderTopWidth + borderBottomWidth + scrollbarThickness;
+          height = initialLineCount * lineHeight + borderTopWidth + borderBottomWidth + scrollbarThickness;
 
     this.setHeight(height);
 
