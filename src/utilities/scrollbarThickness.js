@@ -2,6 +2,7 @@
 
 import { React, Body } from "easy";
 
+import { stripPixels } from "../utilities/css";
 import { scrollbarThickness as stylesScrollbarThickness } from "../styles";
 
 const body = new Body(),
@@ -32,7 +33,7 @@ outerDiv.remove();
 
 export function getScrollbarThickness(fancyScrollbars) {
   const scrollbarThickness = fancyScrollbars ?
-                               stylesScrollbarThickness :
+                               stripPixels(stylesScrollbarThickness) :
                                  outerDivWidth - innerDivWidth; ///
 
   return scrollbarThickness;
