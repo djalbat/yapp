@@ -301,7 +301,7 @@ In fact the above is just what the `renderYappStyles()` function does. In leavin
 
 ### Fancy scrollbars and hidden gutters
 
-You can hide the gutter and enable fancy scrollbars with the `hiddenGutter` and `fancyScrollbars` JSX attributes, respectively. These can also be included as options. Fancy scrollbars have hidden tracks and thinner, rounded thumbs. They look something like old Mac scrollbars.
+You can hide the gutter and enable fancy scrollbars with the `hiddenGutter` and `fancyScrollbars` JSX attributes, respectively. These can also be included as options. Fancy scrollbars have hidden tracks and thinner, rounded thumbs. They look something like old Mac scrollbars. Appearances will only differ on WebKit browsers such as Chrome and Safari because the styles make use of the `-webkit` prefix.  
 
 ## Plugins
 
