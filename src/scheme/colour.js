@@ -17,3 +17,14 @@ export const selectionBackgroundColour = havelockBlue;
 export const scrollbarThumbBoxShadowColour = stormDust;
 
 export const scrollbarThumbBackgroundColour = hurricane;
+
+export default {
+  colour,
+  caretColour,
+  borderColour,
+  selectionColour,
+  backgroundColour,
+  selectionBackgroundColour,
+  scrollbarThumbBoxShadowColour,
+  scrollbarThumbBackgroundColour
+};
