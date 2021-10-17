@@ -10,7 +10,7 @@ export function stripPixels(valueInPixels) {
   if (!valueInPixels) {
     value = 0;
   } else {
-    const matches = valueInPixels.match(/^(\d+(?:\.\d+)?)px$/),
+    const matches = valueInPixels.match(/^(.+)px$/),
           secondMatch = second(matches);
 
     value = Number(secondMatch); ///
