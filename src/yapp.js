@@ -125,9 +125,11 @@ class Yapp extends Element {
     this.plugin.update(content);
 
     const tokens = this.plugin.getTokens(),
-          richTextareaBounds = this.updatePrettyPrinter(tokens);
+          innerBounds = this.updatePrettyPrinter(tokens);
 
-    if (richTextareaBounds !== null) {
+    if (innerBounds !== null) {
+      const richTextareaBounds = innerBounds; ///
+
       this.setRichTextareaBounds(richTextareaBounds);
     }
   }
@@ -147,7 +149,8 @@ class Yapp extends Element {
     this.setPrettyPrinterWidth(width);
     this.setPrettyPrinterHeight(height);
 
-    const richTextareaBounds = this.resizePrettyPrinter();
+    const innerBounds = this.resizePrettyPrinter(),
+          richTextareaBounds = innerBounds; ///
 
     this.setRichTextareaBounds(richTextareaBounds);
   }

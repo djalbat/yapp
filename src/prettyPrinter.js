@@ -40,28 +40,20 @@ class PrettyPrinter extends Element {
     return height;
   }
 
-  getInnerBounds(previousGutterWidth) {
+  getInnerBounds() {
+    const gutterWidth = this.getGutterWidth();
+
     let top = 0, ///
         left = 0,  ///
         width = this.getWidth(),
         height = this.getHeight();
 
-    left += previousGutterWidth;
-    width -= previousGutterWidth;
+    left += gutterWidth;
+    width -= gutterWidth;
 
     const innerBounds = Bounds.fromTopLeftWidthAndHeight(top, left, width, height);
 
     return innerBounds;
-  }
-
-  getRichTextareaBounds(innerBounds) {
-    const top = innerBounds.getTop(),
-          left = innerBounds.getLeft(),///
-          width = innerBounds.getWidth(),
-          height = innerBounds.getHeight(),
-          richTextareaBounds = Bounds.fromTopLeftWidthAndHeight(top, left, width, height);
-
-    return richTextareaBounds;
   }
 
   scroll(scrollTop, scrollLeft) {
@@ -70,7 +62,7 @@ class PrettyPrinter extends Element {
   }
 
   update(tokens) {
-    let richTextareaBounds = null,
+    let innerBounds = null,
         previousGutterWidth = this.getPreviousGutterWidth();
 
     this.updateSyntax(tokens);
@@ -84,23 +76,21 @@ class PrettyPrinter extends Element {
 
       this.setPreviousGutterWidth(previousGutterWidth);
 
-      richTextareaBounds = this.resize();
+      innerBounds = this.resize();
     }
 
-    return richTextareaBounds;
+    return innerBounds;
   }
 
   resize() {
-    const previousGutterWidth = this.getPreviousGutterWidth(),
-          innerBounds = this.getInnerBounds(previousGutterWidth),
-          richTextareaBounds = this.getRichTextareaBounds(innerBounds),
+    const innerBounds = this.getInnerBounds(),
           bounds = innerBounds; ///
 
     this.positionGutter();
 
     this.setSyntaxBounds(bounds);
 
-    return richTextareaBounds;
+    return innerBounds;
   }
 
   getPreviousGutterWidth() {
