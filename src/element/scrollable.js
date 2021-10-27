@@ -2,7 +2,7 @@
 
 import { Element } from "easy";
 
-export default class ScrollableBoundedElement extends Element {
+export default class ScrollableElement extends Element {
   scroll(scrollTop, scrollLeft) {
     this.setScrollTop(scrollTop);
     this.setScrollLeft(scrollLeft);
@@ -10,16 +10,6 @@ export default class ScrollableBoundedElement extends Element {
     const top = this.getTop(),
           left = this.getLeft();
 
-    this.position(top, left);
-  }
-
-  setBounds(bounds) {
-    const top = bounds.getTop(),
-          left = bounds.getLeft(),
-          width = bounds.getWidth(),
-          height = bounds.getHeight();
-
-    this.resize(width, height);
     this.position(top, left);
   }
 

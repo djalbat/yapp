@@ -7,21 +7,6 @@ import { scrollbarThickness, scrollbarThumbBorderRadius } from "./styles";
 import { selectionColour, backgroundColour, selectionBackgroundColour, scrollbarThumbBoxShadowColour, scrollbarThumbBackgroundColour  } from "./scheme/colour";
 
 export default withStyle(class extends RichTextarea {
-  setBounds(bounds) {
-    const top = bounds.getTop(),
-          left = bounds.getLeft(),
-          width = bounds.getWidth(),
-          height = bounds.getHeight();
-
-    this.resize(width, height);
-    this.position(top, left);
-  }
-
-  resize(width, height) {
-    this.setWidth(width);
-    this.setHeight(height);
-  }
-
   position(top, left) {
     top = `${top}px`;
     left = `${left}px`;
@@ -32,6 +17,17 @@ export default withStyle(class extends RichTextarea {
     };
 
     this.css(css);
+  }
+
+  setBounds(bounds) {
+    const top = bounds.getTop(),
+          left = bounds.getLeft(),
+          width = bounds.getWidth(),
+          height = bounds.getHeight();
+
+    this.position(top, left);
+    this.setWidth(width);
+    this.setHeight(height);
   }
 
   didMount() {
@@ -55,14 +51,14 @@ export default withStyle(class extends RichTextarea {
   }
 
   parentContext() {
-    const getRichTextareaContent = this.getContent.bind(this),
-          setRichTextareaBounds = this.setBounds.bind(this),  ///
+    const setRichTextareaBounds = this.setBounds.bind(this),  ///
+          getRichTextareaContent = this.getContent.bind(this),  ///
           setRichTextareaContent = this.setContent.bind(this),  ///
           setRichTextareaReadOnly = this.setReadOnly.bind(this);  ///
 
     return ({
-      getRichTextareaContent,
       setRichTextareaBounds,
+      getRichTextareaContent,
       setRichTextareaContent,
       setRichTextareaReadOnly
     });

@@ -2,9 +2,20 @@
 
 import withStyle from "easy-with-style";  ///
 
-import ScrollableBoundedElement from "./element/bounded/scrollable";
+import ScrollableElement from "./element/scrollable";
 
-class Syntax extends ScrollableBoundedElement {
+class Syntax extends ScrollableElement {
+  setBounds(bounds) {
+    const top = bounds.getTop(),
+          left = bounds.getLeft(),
+          width = bounds.getWidth(),
+          height = bounds.getHeight();
+
+    this.position(top, left);
+    this.setWidth(width);
+    this.setHeight(height);
+  }
+
   setLanguage(language) {
     const state = {
       language
@@ -55,7 +66,7 @@ class Syntax extends ScrollableBoundedElement {
 	  const setLanguage = this.setLanguage.bind(this),
           updateSyntax = this.update.bind(this), ///
 				  scrollSyntax = this.scroll.bind(this), ///
-          setSyntaxBounds = this.setBounds.bind(this);  ///
+          setSyntaxBounds = this.setBounds.bind(this);  //
 
     return ({
       setLanguage,

@@ -40,57 +40,80 @@ class PrettyPrinter extends Element {
     return height;
   }
 
-  getInnerBounds() {
-    const gutterWidth = this.getGutterWidth();
-
-    let top = 0, ///
-        left = 0,  ///
-        width = this.getWidth(),
-        height = this.getHeight();
-
-    left += gutterWidth;
-    width -= gutterWidth;
-
-    const innerBounds = Bounds.fromTopLeftWidthAndHeight(top, left, width, height);
-
-    return innerBounds;
-  }
-
   scroll(scrollTop, scrollLeft) {
     this.scrollGutter(scrollTop ,scrollLeft);
     this.scrollSyntax(scrollTop, scrollLeft);
   }
 
   update(tokens) {
-    let innerBounds = null,
+    let gutterWidth = this.getGutterWidth(),
         previousGutterWidth = this.getPreviousGutterWidth();
 
     this.updateSyntax(tokens);
 
     this.updateGutter(tokens);
 
-    const gutterWidth = this.getGutterWidth();
-
     if (previousGutterWidth !== gutterWidth) {
       previousGutterWidth = gutterWidth;  ///
 
       this.setPreviousGutterWidth(previousGutterWidth);
 
-      innerBounds = this.resize();
+      this.resize();
+    } else {
+      gutterWidth = null;
     }
+
+    return gutterWidth;
+  }
+
+  getInnerBounds(gutterWidth) {
+    let top = 0,
+        left = 0,
+        width = this.getWidth(),
+        height = this.getHeight();
+
+    left += gutterWidth;
+    width -= gutterWidth;
+
+    const bounds = Bounds.fromTopLeftWidthAndHeight(top, left, width, height),
+          innerBounds = bounds; ///
 
     return innerBounds;
   }
 
   resize() {
-    const innerBounds = this.getInnerBounds(),
-          bounds = innerBounds; ///
+    const gutterWidth = this.getGutterWidth(),
+          innerBounds = this.getInnerBounds(gutterWidth),
+          syntaxBounds = innerBounds; ///
 
     this.positionGutter();
 
-    this.setSyntaxBounds(bounds);
+    this.setSyntaxBounds(syntaxBounds);
 
-    return innerBounds;
+    return gutterWidth;
+  }
+
+  setBounds(bounds) {
+    const top = bounds.getTop(),
+          left = bounds.getLeft(),
+          width = bounds.getWidth(),
+          height = bounds.getHeight();
+
+    this.position(top, left);
+    this.setWidth(width);
+    this.setHeight(height);
+  }
+
+  position(top, left) {
+    top = `${top}px`;
+    left = `${left}px`;
+
+    const css = {
+      top,
+      left
+    };
+
+    this.css(css);
   }
 
   getPreviousGutterWidth() {
@@ -123,14 +146,12 @@ class PrettyPrinter extends Element {
           resizePrettyPrinter = this.resize.bind(this), ///
           updatePrettyPrinter = this.update.bind(this), ///
           scrollPrettyPrinter = this.scroll.bind(this), ///
-          setPrettyPrinterWidth = this.setWidth.bind(this), ///
-          setPrettyPrinterHeight = this.setHeight.bind(this), ///
+          setPrettyPrinterBounds = this.setBounds.bind(this), ///
           parentContext = Object.assign({}, context, {
             resizePrettyPrinter,
             updatePrettyPrinter,
             scrollPrettyPrinter,
-            setPrettyPrinterWidth,
-            setPrettyPrinterHeight
+            setPrettyPrinterBounds
           });
     
     return parentContext;
@@ -146,13 +167,13 @@ class PrettyPrinter extends Element {
 
   initialise() {
     this.assignContext([
-      "getGutterWidth",
-      "setSyntaxBounds",
-      "positionGutter",
       "updateGutter",
       "updateSyntax",
       "scrollGutter",
-      "scrollSyntax"
+      "scrollSyntax",
+      "positionGutter",
+      "getGutterWidth",
+      "setSyntaxBounds"
     ]);
 
     this.setInitialState();
@@ -172,8 +193,8 @@ class PrettyPrinter extends Element {
 
 export default withStyle(PrettyPrinter)`
 
-  position: relative;
   overflow: hidden;
+  position: absolute;
   
   color: inherit;
   border-color: inherit;

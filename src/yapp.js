@@ -2,15 +2,14 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { React, Element } from "easy";
+import { React, Bounds, Element } from "easy";
 
+import styleMixins from "./mixins/style";
 import RichTextarea from "./richTextarea";
 import PrettyPrinter from "./prettyPrinter";
 
-import { stripPixels } from "./utilities/css";
 import { getScrollbarThickness } from "./utilities/scrollbarThickness";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
-import { TOP, LEFT, RIGHT, LINE_HEIGHT, BOTTOM } from "./constants";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 import { colour, caretColour, borderColour, backgroundColour } from "./scheme/colour";
@@ -34,32 +33,36 @@ class Yapp extends Element {
     return content;
   }
 
-  getLineHeight() {
-    const lineHeightInPixels = this.css(LINE_HEIGHT),
-          lineHeight = stripPixels(lineHeightInPixels);
+  getInnerBounds(gutterWidth) {
+    let top,
+        left,
+        width = this.getWidth(),
+        height = this.getHeight();
 
-    return lineHeight;
-  }
+    const paddingTop = this.getPaddingTop(),
+          paddingLeft = this.getPaddingLeft(),
+          paddingRight = this.getPaddingRight(),
+          paddingBottom = this.getPaddingBottom(),
+          borderTopWidth = this.getBorderTopWidth(),
+          borderLeftWidth = this.getBorderLeftWidth(),
+          borderRightWidth = this.getBorderRightWidth(),
+          borderBottomWidth = this.getBorderBottomWidth();
 
-  getBorderWidth(side) {
-    const borderWidthInPixels = this.css(`border-${side}-width`),
-          borderWidth = stripPixels(borderWidthInPixels);
+    top = borderTopWidth + paddingTop;
+    left = borderLeftWidth + paddingLeft;
 
-    return borderWidth;
-  }
+    width -= ( borderLeftWidth + paddingLeft + paddingRight + borderRightWidth );
+    height -= ( borderTopWidth + paddingTop + paddingBottom + borderBottomWidth );
 
-  getBorderTopWidth() {
-    const side = TOP,
-          borderTopWidth = this.getBorderWidth(side);
+    if (gutterWidth !== null) {
+      left += gutterWidth;
+      width -= gutterWidth;
+    }
 
-    return borderTopWidth;
-  }
+    const bounds = Bounds.fromTopLeftWidthAndHeight(top, left, width, height),
+          innerBounds = bounds; ///
 
-  getBorderLeftWidth() {
-    const side = LEFT,
-          borderLeftWidth = this.getBorderWidth(side);
-
-    return borderLeftWidth;
+    return innerBounds;
   }
 
   getInitialLineCount() {
@@ -68,20 +71,6 @@ class Yapp extends Element {
           initialLineCount = lineCount; ///
 
     return initialLineCount;
-  }
-
-  getBorderRightWidth() {
-    const side = RIGHT,
-          borderRightWidth = this.getBorderWidth(side);
-
-    return borderRightWidth;
-  }
-
-  getBorderBottomWidth() {
-    const side = BOTTOM,
-          borderBottomWidth = this.getBorderWidth(side);
-
-    return borderBottomWidth;
   }
 
   getScrollbarThickness() {
@@ -125,43 +114,46 @@ class Yapp extends Element {
     this.plugin.update(content);
 
     const tokens = this.plugin.getTokens(),
-          innerBounds = this.updatePrettyPrinter(tokens);
+          gutterWidth = this.updatePrettyPrinter(tokens);
 
-    if (innerBounds !== null) {
-      const richTextareaBounds = innerBounds; ///
+    if (gutterWidth !== null) {
+      const innerBounds = this.getInnerBounds(gutterWidth),
+            richTextareaBounds = innerBounds; ///
 
       this.setRichTextareaBounds(richTextareaBounds);
     }
   }
 
   resize() {
-    let width = this.getWidth(),
-        height = this.getHeight();
+    let innerBounds,
+        gutterWidth;
 
-    const borderTopWidth = this.getBorderTopWidth(),
-          borderLeftWidth = this.getBorderLeftWidth(),
-          borderRightWidth = this.getBorderRightWidth(),
-          borderBottomWidth = this.getBorderBottomWidth();
+    gutterWidth = null;
 
-    height -= ( borderTopWidth + borderBottomWidth );
-    width -= ( borderLeftWidth + borderRightWidth );
+    innerBounds = this.getInnerBounds(gutterWidth);
 
-    this.setPrettyPrinterWidth(width);
-    this.setPrettyPrinterHeight(height);
+    const prettyPrinterBounds = innerBounds;  ///
 
-    const innerBounds = this.resizePrettyPrinter(),
-          richTextareaBounds = innerBounds; ///
+    this.setPrettyPrinterBounds(prettyPrinterBounds);
+
+    gutterWidth = this.resizePrettyPrinter();
+
+    innerBounds = this.getInnerBounds(gutterWidth);
+
+    const richTextareaBounds = innerBounds; ///
 
     this.setRichTextareaBounds(richTextareaBounds);
   }
 
   render() {
     const lineHeight = this.getLineHeight(),
+          paddingTop = this.getPaddingTop(),
+          paddingBottom = this.getPaddingBottom(),
           borderTopWidth = this.getBorderTopWidth(),
           initialLineCount = this.getInitialLineCount(),
           borderBottomWidth = this.getBorderBottomWidth(),
           scrollbarThickness = this.getScrollbarThickness(),
-          height = initialLineCount * lineHeight + borderTopWidth + borderBottomWidth + scrollbarThickness;
+          height = borderTopWidth + paddingTop + initialLineCount * lineHeight + paddingBottom + borderBottomWidth + scrollbarThickness;
 
     this.setHeight(height);
 
@@ -280,6 +272,8 @@ class Yapp extends Element {
     return yapp;
   }
 }
+
+Object.assign(Yapp.prototype, styleMixins);
 
 export default withStyle(Yapp)`
 
