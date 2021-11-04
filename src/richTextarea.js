@@ -31,20 +31,28 @@ export default withStyle(class extends RichTextarea {
   }
 
   didMount() {
-    const { fancyScrollbars } = this.properties;
+    const { fancyScrollbars, hiddenScrollbars } = this.properties;
 
     if (fancyScrollbars) {
       this.addClass("fancy-scrollbars");
+    }
+
+    if (hiddenScrollbars) {
+      this.addClass("hidden-scrollbars");
     }
 
     super.didMount();
   }
 
   willUnmount() {
-    const { fancyScrollbars } = this.properties;
+    const { fancyScrollbars, hiddenScrollbars } = this.properties;
 
     if (fancyScrollbars) {
       this.removeClass("fancy-scrollbars");
+    }
+
+    if (hiddenScrollbars) {
+      this.removeClass("hidden-scrollbars");
     }
 
     super.willUnmount();
@@ -91,6 +99,10 @@ export default withStyle(class extends RichTextarea {
   ::selection {
     color: ${selectionColour};
     background-color: ${selectionBackgroundColour};
+  }
+  
+  .hidden-scrollbars {
+    overflow: hidden;
   }
   
   .fancy-scrollbars::-webkit-scrollbar {

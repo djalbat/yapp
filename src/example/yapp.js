@@ -8,8 +8,7 @@ export default withStyle(class extends Yapp {
   static defaultProperties = {
     editable: true,
     firaCode: true,
-    hiddenGutter: false,
-    fancyScrollbars: true
+    hiddenScrollbars: true
   };
 })`
 

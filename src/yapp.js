@@ -13,7 +13,7 @@ import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 import { colour, caretColour, borderColour, backgroundColour } from "./scheme/colour";
-import { DEFAULT_EDITABLE, DEFAULT_FIRA_CODE, DEFAULT_DEFER_RENDER, DEFAULT_HIDDEN_GUTTER, DEFAULT_FANCY_SCROLLBARS } from "./defaults";
+import { DEFAULT_EDITABLE, DEFAULT_FIRA_CODE, DEFAULT_DEFER_RENDER, DEFAULT_HIDDEN_GUTTER, DEFAULT_HIDDEN_SCROLLBARS, DEFAULT_FANCY_SCROLLBARS } from "./defaults";
 
 class Yapp extends Element {
   constructor(selector, plugin) {
@@ -74,8 +74,15 @@ class Yapp extends Element {
   }
 
   getScrollbarThickness() {
-    const { fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties,
-          scrollbarThickness = getScrollbarThickness(fancyScrollbars);
+    let scrollbarThickness = 0;
+
+    const { hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS } = this.properties;
+
+    if (!hiddenScrollbars) {
+      const { fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties;
+
+      scrollbarThickness = getScrollbarThickness(fancyScrollbars);
+    }
 
     return scrollbarThickness;
   }
@@ -185,7 +192,7 @@ class Yapp extends Element {
   }
 
   childElements() {
-    const { hiddenGutter = DEFAULT_HIDDEN_GUTTER, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties,
+    const { hiddenGutter = DEFAULT_HIDDEN_GUTTER, hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties,
           changeHandler = this.changeHandler.bind(this),
           scrollHandler = this.scrollHandler.bind(this),
           scrollbarThickness = this.getScrollbarThickness();
@@ -193,7 +200,7 @@ class Yapp extends Element {
     return ([
 
       <PrettyPrinter hiddenGutter={hiddenGutter} scrollbarThickness={scrollbarThickness} />,
-      <RichTextarea onChange={changeHandler} onScroll={scrollHandler} fancyScrollbars={fancyScrollbars} active />
+      <RichTextarea onChange={changeHandler} onScroll={scrollHandler} hiddenScrollbars={hiddenScrollbars} fancyScrollbars={fancyScrollbars} active />
 
     ]);
   }
@@ -252,6 +259,7 @@ class Yapp extends Element {
     "editable",
     "deferRender",
     "hiddenGutter",
+    "noScrollbars",
     "fancyScrollbars"
   ];
 

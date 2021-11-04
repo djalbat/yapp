@@ -299,9 +299,9 @@ renderStyle(firaCodeStyle(host)); // Only needed for Fira Code support.
 ```
 In fact the above is just what the `renderYappStyles()` function does. In leaving out the syntax style, which includes the defaults, you have clean slate to work with.
 
-### Fancy scrollbars and hidden gutters
+### Hidden scrollbars and gutters, and fancy scrollbars
 
-You can hide the gutter and enable fancy scrollbars with the `hiddenGutter` and `fancyScrollbars` JSX attributes, respectively. These can also be included as options. Fancy scrollbars have hidden tracks and thinner, rounded thumbs. They look something like old Mac scrollbars. Appearances will only differ on WebKit browsers such as Chrome and Safari because the styles make use of the `-webkit` prefix.  
+You can hide the scrollbars and gutter with the `hiddenScrollbars` and `hiddenGutter` JSX attributes, respectively, and enable fancy scrollbars with the `fancyScrollbars` JSX attribute. These attributes can also be included as options. Fancy scrollbars have hidden tracks and thinner, rounded thumbs. They look something like old Mac scrollbars. Appearances will only differ on WebKit browsers such as Chrome and Safari because the styles make use of the `-webkit` prefix.
 
 ## Plugins
 
