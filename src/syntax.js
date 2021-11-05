@@ -103,8 +103,6 @@ export default withStyle(Syntax)`
   position: absolute;
   white-space: pre;
   pointer-events: none;
-  background-color: transparent;
-  
   background-color: inherit;
 
   font-size: inherit;
