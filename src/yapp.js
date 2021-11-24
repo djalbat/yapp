@@ -207,21 +207,23 @@ class Yapp extends Element {
 
   parentContext() {
     const getPlugin = this.getPlugin.bind(this),
+          getContent = this.getContent.bind(this),
           updateYapp = this.update.bind(this),  ///
+          resizeYapp = this.resize.bind(this),  ///
           setYappWidth = this.setWidth.bind(this),  ///
           setYappHeight = this.setHeight.bind(this),  ///
           setYappLexer = this.setLexer.bind(this),  ///
-          setYappParser = this.setParser.bind(this),  ///
-          resizeYapp = this.resize.bind(this);  ///
+          setYappParser = this.setParser.bind(this);  ///
 
     return ({
       getPlugin,
+      getContent,
       updateYapp,
+      resizeYapp,
       setYappWidth,
       setYappHeight,
       setYappLexer,
-      setYappParser,
-      resizeYapp
+      setYappParser
     });
   }
 

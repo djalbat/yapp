@@ -77,12 +77,11 @@ class Syntax extends ScrollableElement {
   }
 
   setInitialState() {
-    const language = null,
-          initialState = {
-            language
-          };
+    const language = null;
 
-    this.setState(initialState);
+    this.setState({
+      language
+    });
   }
 
   initialise() {
