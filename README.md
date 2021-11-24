@@ -12,6 +12,7 @@ Yet Another Pretty Printer.
 - [Styling Yapp](#styling-yapp)
 - [Plugins](#plugins)
 - [Building](#building)
+- [Contributions](#contributions)
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 
@@ -326,6 +327,17 @@ Once these files are in place, the examples should build again.
 
 The fun now starts with devising the necessary lexical entries and BNF for your plugin. This can be done dynamically within the example. Whenever you make progress, you can copy lexical entries and BNF back into the requisite variables in your lexer and parser. For the processor, if that functionality is needed, it is recommended that you have a look at the JavaScript processor.
 
+## Building
+
+Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
+
+    npm run build-debug
+    npm run watch-debug
+
+As well as building Yapp itself, this will build the examples. The source code for the examples can be found in the `es6/example.js` file and in the files and sub-directories of the `es6/example` directory.
+
+If you wish to make use of live reloading while working on the examples, use `npm start` and the examples index page wll be available at http://localhost:8888.
+
 ## Contributions
 
 All development is best done in the context of the examples. There are three main areas that would benefit from contributions.
@@ -340,17 +352,6 @@ All development is best done in the context of the examples. There are three mai
     - [`es6/parser/xml.js`](https://github.com/djalbat/yapp/blob/master/es6/parser/xml.js)
 
 Contributions are best made in the form of pull requests.
-
-## Building
-
-Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:
-
-    npm run build-debug
-    npm run watch-debug
-
-As well as building Yapp itself, this will build the examples. The source code for the examples can be found in the `es6/example.js` file and in the files and sub-directories of the `es6/example` directory.
-
-If you wish to make use of live reloading while working on the examples, use `npm start` and the examples index page wll be available at http://localhost:8888.
 
 ## Acknowledgements
 
