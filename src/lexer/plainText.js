@@ -23,6 +23,8 @@ export default class PlainTextLexer extends CommonLexer {
 
   matchSinglyQuotedStringLiteral(content) { return null; }
 
+  matchDoublyQuotedStringLiteral(content) { return null; }
+
   static entries = entries;
 
   static fromEntries(entries) { return CommonLexer.fromEntries(PlainTextLexer, entries); }
