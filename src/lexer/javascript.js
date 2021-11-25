@@ -1,11 +1,11 @@
 "use strict";
 
-import { CommonLexer, EndOfLineNonSignificantToken } from "occam-lexers";
-
-import SingleLineCommentToken from "../token/nonSignificant/comment/singleLine";
-import EndOfMultiLineCommentToken from "../token/nonSignificant/comment/multiLine/endOf";
-import StartOfMultiLineCommentToken from "../token/nonSignificant/comment/multiLine/startOf";
-import MiddleOfMultiLineCommentToken from "../token/nonSignificant/comment/multiLine/middleOf";
+import { CommonLexer,
+         SingleLineCommentToken,
+         EndOfMultiLineCommentToken,
+         EndOfLineNonSignificantToken,
+         StartOfMultiLineCommentToken,
+         MiddleOfMultiLineCommentToken } from "occam-lexers";
 
 const entries = [
   {
