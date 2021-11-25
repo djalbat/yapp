@@ -61,7 +61,7 @@ const bnf = `
 
                                  |  label ":" statement
 
-                                 |  "{" statement "}"
+                                 |  "{" statement* "}"
 
                                  |  "break" ";"  
 
@@ -123,9 +123,9 @@ const bnf = `
 
 
 
-    case                       ::=  "case" expression ":" statement* ( "break" ";" )? ;
+    case                       ::=  "case" expression ":" statement ( "break" ";" )? ;
 
-    defaultCase                ::=  "default" ":" statement* ( "break" ";" )? ;
+    defaultCase                ::=  "default" ":" statement ( "break" ";" )? ;
 
     try                        ::=  "try" "{" statement+ "}" ;
 
