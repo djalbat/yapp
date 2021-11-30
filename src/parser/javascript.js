@@ -129,7 +129,7 @@ const bnf = `
 
     try                        ::=  "try" "{" statement+ "}" ;
 
-    catch                      ::=  "catch" "(" argument ")" "{" statement+ "}" ;
+    catch                      ::=  "catch" "(" [identifier] ")" "{" statement+ "}" ;
 
     finally                    ::=  "finally" "{" statement+ "}" ;
 
@@ -171,7 +171,7 @@ const bnf = `
 
                                  |  "void" ( expression | ( "(" expression ")") ) 
 
-                                 |  "new" name<NO_WHITESPACE>"(" expressions? ")"
+                                 |  "new" name<NO_WHITESPACE>"(" arguments? ")"
 
                                  |  [operator]<NO_WHITESPACE>expression 
 
@@ -259,9 +259,9 @@ const bnf = `
 
 
 
-    spreadArgument             ::=  "..."<NO_WHITESPACE>argument ;
+    spreadArgument             ::=  "..."<NO_WHITESPACE>[identifier] ;
 
-    argument                   ::=  [identifier] ;
+    argument                   ::=  [identifier] ( "=" expression )?;
 
     variable                   ::=  [identifier] ;
 
