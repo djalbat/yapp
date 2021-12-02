@@ -14,11 +14,11 @@ import { TEMPLATE_LITERAL_DELIMITER } from "../constants";
 const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpression("//jsx"),
       jsxTagTerminalNodeQuery = Query.fromExpression("//jsxCompleteTag|jsxStartTag|jsxEndTag/@*"),
-      argumentTerminalNodeQuery = Query.fromExpression("//argument/@*"),
       variableTerminalNodeQuery = Query.fromExpression("//variable/@*"),
       jsxTagNameTerminalNodeQuery = Query.fromExpression("//jsxCompleteTag|jsxStartTag|jsxEndTag/name/@*"),
       functionNonTerminalNodeQuery = Query.fromExpression("//functionBody|arrowFunction"),
       jsxTagAttributeTerminalNodeQuery = Query.fromExpression("//jsxAttribute/@*"),
+      argumentVariableTerminalNodeQuery = Query.fromExpression("//argument//variable/@*"),
       jsxTagAttributeNameTerminalNodeQuery = Query.fromExpression("//jsxAttribute/name/@*"),
       variableDeclarationTerminalNodeQuery = Query.fromExpression("//var|let|const/variable/@*"),
       templateLiteralStringTerminalNodeQuery = Query.fromExpression("//templateLiteral/string/@*"),
@@ -43,7 +43,7 @@ export default class JavaScriptProcessor extends Processor {
                                                                                                                                                        jsxTagAttributeNameTerminalNodeQuery));
 
       functionNonTerminalNodes.forEach((functionNonTerminalNode) => {
-        const argumentNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content) => ArgumentToken, argumentTerminalNodeQuery),
+        const argumentNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content) => ArgumentToken, argumentVariableTerminalNodeQuery),
               variableNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content) => VariableToken, variableDeclarationTerminalNodeQuery,
                                                                                                                                      destructuredConstDeclarationTerminalNodeQuery);
 
