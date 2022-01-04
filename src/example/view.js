@@ -5,12 +5,11 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 import { BNFLexer } from "occam-lexers";
 import { BNFParser } from "occam-parsers";
-import { RowDiv, RowsDiv, ColumnDiv } from "easy-layout";
 import { eliminateLeftRecursion, removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
+import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
 import Yapp from "./yapp";
 import SubHeading from "./subHeading";
-import ColumnsDiv from "./div/columns";
 import BNFTextarea from "./textarea/bnf";
 import TokensTextarea from "./textarea/tokens";
 import TopSizeableDiv from "./div/sizeable/top";
@@ -18,8 +17,6 @@ import LeftSizeableDiv from "./div/sizeable/left";
 import RightSizeableDiv from "./div/sizeable/right";
 import MiddleSizeableDiv from "./div/sizeable/middle";
 import ParseTreeTextarea from "./textarea/parseTree";
-import VerticalSplitterDiv from "./div/splitter/vertical";
-import HorizontalSplitterDiv from "./div/splitter/horizontal";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
 import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
@@ -202,5 +199,6 @@ export default withStyle(View)`
   width: 100%;
   height: 100vh;
   display: flex;
+  padding: 1rem;
   
 `;
