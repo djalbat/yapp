@@ -32,7 +32,9 @@ export default class JSONLexer extends CommonLexer {
 
   static SinglyQuotedStringLiteralToken = null;
 
-  static fromEntries(entries) { return CommonLexer.fromEntries(JSONLexer, entries); }
+  static fromNothing() { return CommonLexer.fromEntries(JSONLexer, entries); }
 
-  static fromNothing() { return CommonLexer.fromNothing(JSONLexer); }
+  static fromRules(rules) { return CommonLexer.fromRules(JSONLexer, rules); }
+
+  static fromEntries(entries) { return CommonLexer.fromEntries(JSONLexer, entries); }
 }

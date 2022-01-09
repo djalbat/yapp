@@ -29,7 +29,9 @@ export default class XMLLexer extends CommonLexer {
 
   static SinglyQuotedStringLiteralToken = null;
 
-  static fromEntries(entries) { return CommonLexer.fromEntries(XMLLexer, entries); }
+  static fromNothing() { return CommonLexer.fromEntries(XMLLexer, entries); }
 
-  static fromNothing() { return CommonLexer.fromNothing(XMLLexer); }
+  static fromRules(rules) { return CommonLexer.fromRules(XMLLexer, rules); }
+
+  static fromEntries(entries) { return CommonLexer.fromEntries(XMLLexer, entries); }
 }
