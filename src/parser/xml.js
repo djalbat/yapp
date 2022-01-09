@@ -1,13 +1,6 @@
 "use strict";
 
-import { BNFLexer } from "occam-lexers";
-import { eliminateLeftRecursion } from "occam-grammar-utilities";
-import { BNFParser, CommonParser } from "occam-parsers";
-
-import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
-
-const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
+import YappParser from "./yapp";
 
 const bnf = `
 
@@ -48,26 +41,12 @@ const bnf = `
 
 `;
 
-export default class XMLParser extends CommonParser {
+export default class XMLParser extends YappParser {
   static bnf = bnf;
 
-  static fromNothing() {
-    const tokens = bnfLexer.tokensFromBNF(bnf),
-          rules = bnfParser.rulesFromTokens(tokens),
-          xmlParser = XMLParser.fromRules(rules);
+  static fromNothing() { return YappParser.fromNothing(XMLParser); }
 
-    return xmlParser;
-  }
+  static fromBNF(bnf) { return YappParser.fromBNF(XMLParser, bnf); }
 
-  static fromRules(rules) {
-    const ruleMap = ruleMapFromRules(rules);
-
-    let startRule = startRuleFromRules(rules);
-
-    startRule = eliminateLeftRecursion(startRule, ruleMap);
-
-    const xmlParser = new XMLParser(startRule, ruleMap);
-
-    return xmlParser;
-  }
+  static fromRules(rules) { return YappParser.fromRules(XMLParser, rules); }
 }

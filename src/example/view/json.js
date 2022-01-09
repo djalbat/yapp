@@ -5,9 +5,11 @@ import View from "../view";
 import JSONPlugin from "../../plugin/json";
 
 export default class JSONView extends View {
-  Plugin = JSONPlugin;
+  static Plugin = JSONPlugin;
 
-  initialContent = `{  
+  static firaCode = true;
+
+  static initialContent = `{  
   "type": "book",
   "title": "Look to Windward",
   "author": "Look to Windward",

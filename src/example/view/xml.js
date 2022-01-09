@@ -5,9 +5,11 @@ import View from "../view";
 import XMLPlugin from "../../plugin/xml";
 
 export default class XMLView extends View {
-  Plugin = XMLPlugin;
+  static Plugin = XMLPlugin;
 
-  initialContent = `<?xml version="1.0" encoding="UTF-8"?>
+  static firaCode = false;
+
+  static initialContent = `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Look to Windward by Iain M. Banks -->
 <book>
   <name>

@@ -5,9 +5,11 @@ import View from "../view";
 import JavaScriptPlugin from "../../plugin/javascript";
 
 export default class JavaScriptView extends View {
-  Plugin = JavaScriptPlugin;
+  static Plugin = JavaScriptPlugin;
 
-  initialContent = `"use strict";
+  static firaCode = true;
+
+  static initialContent = `"use strict";
 
 import "juxtapose";
 

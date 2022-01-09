@@ -111,7 +111,8 @@ class View extends Element {
   }
 
   childElements() {
-    const dragHandler = this.dragHandler.bind(this),
+    const { Plugin, firaCode, initialContent } = this.constructor,
+          dragHandler = this.dragHandler.bind(this),
           keyUpHandler = this.keyUpHandler.bind(this),
           contentChangeHandler = this.contentChangeHandler.bind(this);
 
@@ -121,8 +122,8 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Plugin={this.Plugin} onContentChange={contentChangeHandler} >
-                {this.initialContent}
+              <Yapp Plugin={Plugin} firaCode={firaCode} onContentChange={contentChangeHandler} >
+                {initialContent}
               </Yapp>
             </TopSizeableDiv>
             <HorizontalSplitterDiv onDrag={dragHandler}/>
@@ -177,7 +178,8 @@ class View extends Element {
   initialise() {
     this.assignContext();
 
-    const { Lexer, Parser } = this.Plugin,
+    const { Plugin } = this.constructor,
+          { Lexer, Parser } = Plugin,
           { bnf } = Parser,
           { entries } = Lexer,
           lexicalEntries = entries; ///

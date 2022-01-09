@@ -1,6 +1,6 @@
 "use strict";
 
-import { CommonLexer } from "occam-lexers";
+import YappLexer from "../lexer/yapp";
 
 const entries = [
   {
@@ -8,7 +8,7 @@ const entries = [
   }
 ];
 
-export default class PlainTextLexer extends CommonLexer {
+export default class PlainTextLexer extends YappLexer {
   matchMultiLineCommentInComment(content, inComment) { return null; }
 
   matchMultiLineCommentNotInComment(content, inComment) { return null; }
@@ -33,9 +33,9 @@ export default class PlainTextLexer extends CommonLexer {
 
   static DoublyQuotedStringLiteralToken = null;
 
-  static fromNothing() { return CommonLexer.fromEntries(PlainTextLexer, entries); }
+  static fromNothing() { return YappLexer.fromEntries(PlainTextLexer, entries); }
 
-  static fromRules(rules) { return CommonLexer.fromRules(PlainTextLexer, rules); }
+  static fromRules(rules) { return YappLexer.fromRules(PlainTextLexer, rules); }
 
-  static fromEntries(entries) { return CommonLexer.fromEntries(PlainTextLexer, entries); }
+  static fromEntries(entries) { return YappLexer.fromEntries(PlainTextLexer, entries); }
 }

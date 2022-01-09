@@ -1,6 +1,6 @@
 "use strict";
 
-import { CommonLexer } from "occam-lexers";
+import YappLexer from "../lexer/yapp";
 
 const entries = [
   {
@@ -17,7 +17,7 @@ const entries = [
   }
 ];
 
-export default class JSONLexer extends CommonLexer {
+export default class JSONLexer extends YappLexer {
   static entries = entries;
 
   static SingleLineCommentToken = null;
@@ -32,9 +32,9 @@ export default class JSONLexer extends CommonLexer {
 
   static SinglyQuotedStringLiteralToken = null;
 
-  static fromNothing() { return CommonLexer.fromEntries(JSONLexer, entries); }
+  static fromNothing() { return YappLexer.fromEntries(JSONLexer, entries); }
 
-  static fromRules(rules) { return CommonLexer.fromRules(JSONLexer, rules); }
+  static fromRules(rules) { return YappLexer.fromRules(JSONLexer, rules); }
 
-  static fromEntries(entries) { return CommonLexer.fromEntries(JSONLexer, entries); }
+  static fromEntries(entries) { return YappLexer.fromEntries(JSONLexer, entries); }
 }

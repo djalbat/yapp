@@ -46,7 +46,7 @@ There are three ways to use Yapp:
 
 1. Vanilla JavaScript, with no need to install additional packages.
 2. Make use of an [Easy](https://github.com/djalbat/easy) element, which is slightly less cumbersome.
-3. Use JSX by way of [Juxtapose](http://juxtapose.info), arguably the most elegant approach.
+3. Use JSX by way of [Juxtapose](https://juxtapose.info), arguably the most elegant approach.
 
 The second approach is recommended, at least to begin with.
 
@@ -94,7 +94,7 @@ Note that there is now no need to call the `didMount()` method.
 
 ### Use JSX by way of Juxtapose
 
-Arguably the most elegant approach is to use JSX by way of [Juxtapose](http://juxtapose.info):
+Arguably the most elegant approach is to use JSX by way of [Juxtapose](https://juxtapose.info):
 
 ```
 "use strict";
