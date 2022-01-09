@@ -12,16 +12,14 @@ const bnfLexer = BNFLexer.fromNothing(),
 export default class YappParser extends CommonParser {
   static fromNothing(Class) {
     const { bnf } = Class,
-          tokens = bnfLexer.tokensFromBNF(bnf),
-          rules = bnfParser.rulesFromTokens(tokens),
+          rules = rulesFromBNF(bnf),
           parser = parserFromRules(Class, rules);
 
     return parser;
   }
 
   static fromBNF(Class, bnf) {
-    const tokens = bnfLexer.tokensFromBNF(bnf),
-          rules = bnfParser.rulesFromTokens(tokens),
+    const rules = rulesFromBNF(bnf),
           parser = parserFromRules(Class, rules);
 
     return parser;
@@ -32,6 +30,13 @@ export default class YappParser extends CommonParser {
 
     return parser;
   }
+}
+
+function rulesFromBNF(bnf) {
+  const tokens = bnfLexer.tokensFromBNF(bnf),
+        rules = bnfParser.rulesFromTokens(tokens);
+
+  return rules;
 }
 
 function parserFromRules(Class, rules) {
