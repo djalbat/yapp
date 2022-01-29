@@ -1,6 +1,7 @@
 "use strict";
 
 import { Query } from "occam-dom";
+import { characters } from "necessary";
 
 import Processor from "../processor";
 import JSXToken from "../token/significant/jsx";
@@ -8,8 +9,6 @@ import ErrorToken from "../token/significant/error";
 import StringToken from "../token/significant/string";
 import VariableToken from "../token/significant/variable";
 import ArgumentToken from "../token/significant/argument";
-
-import { TEMPLATE_LITERAL_DELIMITER } from "../constants";
 
 const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpression("//jsx"),
@@ -25,6 +24,8 @@ const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
       templateLiteralDelimiterTerminalNodeQuery = Query.fromExpression("//templateLiteral/@delimiter"),
       destructuredConstDeclarationTerminalNodeQuery = Query.fromExpression("//const/destructure/variable/@*");
 
+const { BACKTICK_CHARACTER } = characters;
+
 export default class JavaScriptProcessor extends Processor {
   process(tokens, node) {
     if (node !== null) {
@@ -35,7 +36,7 @@ export default class JavaScriptProcessor extends Processor {
 
       this.replaceTerminalNodesSignificantToken(tokens, node, (content) => StringToken, templateLiteralStringTerminalNodeQuery);
 
-      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => (content === TEMPLATE_LITERAL_DELIMITER) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
+      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => (content === BACKTICK_CHARACTER) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
 
       jsxNonTerminalNodes.forEach((jsxNonTerminalNode) => this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content) => JSXToken, jsxTagTerminalNodeQuery,
                                                                                                                                                        jsxTagNameTerminalNodeQuery,
