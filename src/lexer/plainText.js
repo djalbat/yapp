@@ -1,5 +1,7 @@
 "use strict";
 
+import { WhitespaceToken, EndOfLineNonSignificantToken } from "occam-lexers";
+
 import YappLexer from "../lexer/yapp";
 
 const entries = [
@@ -9,15 +11,11 @@ const entries = [
 ];
 
 export default class PlainTextLexer extends YappLexer {
-  matchMultiLineCommentInComment(content, inComment) { return null; }
-
-  matchMultiLineCommentNotInComment(content, inComment) { return null; }
-
-  matchSinglyQuotedStringLiteral(content) { return null; }
-
-  matchDoublyQuotedStringLiteral(content) { return null; }
-
   static entries = entries;
+
+  static EndOfLineToken = EndOfLineNonSignificantToken; ///
+
+  static WhitespaceToken = WhitespaceToken;
 
   static SingleLineCommentToken = null;
 
