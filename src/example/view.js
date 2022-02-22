@@ -30,7 +30,7 @@ class View extends Element {
   }
 
   keyUpHandler(event, element) {
-    try {
+    // try {
       const lexicalEntries = this.getLexicalEntries(),
             entries = lexicalEntries, ///
             bnf = this.getBNF(),
@@ -42,7 +42,8 @@ class View extends Element {
 
       startRule = eliminateLeftRecursion(startRule, ruleMap);
 
-      const { Lexer, Parser } = this.Plugin,
+      const { Plugin } = this.constructor,
+            { Lexer, Parser } = Plugin,
             lexer = Lexer.fromEntries(entries),
             parser = new Parser(startRule, ruleMap),  ///
             yappLexer = lexer,  ///
@@ -55,9 +56,9 @@ class View extends Element {
       this.updateYapp();
 
       this.update();
-    } catch (error) {
-      console.log(error);
-    }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   dragHandler() {
@@ -73,7 +74,7 @@ class View extends Element {
   }
 
   update() {
-    try {
+    // try {
       let parseTree = null;
 
       const plugin = this.getPlugin(),
@@ -89,13 +90,13 @@ class View extends Element {
       this.setTokens(tokens);
 
       this.setParseTree(parseTree);
-    } catch (error) {
-      console.log(error);
-
-      this.clearTokens();
-
-      this.clearParseTree();
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //
+    //   this.clearTokens();
+    //
+    //   this.clearParseTree();
+    // }
   }
 
   didMount() {

@@ -1,6 +1,6 @@
 "use strict";
 
-import { WhitespaceToken, EndOfLineNonSignificantToken } from "occam-lexers";
+import { WhitespaceToken, EndOfLineNonSignificantToken, EndOfLineCommentNonSignificantToken } from "occam-lexers";
 
 import YappLexer from "../lexer/yapp";
 
@@ -16,6 +16,8 @@ export default class PlainTextLexer extends YappLexer {
   static EndOfLineToken = EndOfLineNonSignificantToken; ///
 
   static WhitespaceToken = WhitespaceToken;
+
+  static EndOfLineCommentToken = EndOfLineCommentNonSignificantToken; ///
 
   static SingleLineCommentToken = null;
 

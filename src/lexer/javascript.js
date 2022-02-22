@@ -7,7 +7,8 @@ import { WhitespaceToken,
          DoublyQuotedStringLiteralToken,
          CStyleEndOfMultiLineCommentToken,
          CStyleStartOfMultiLineCommentToken,
-         CStyleMiddleOfMultiLineCommentToken } from "occam-lexers";
+         CStyleMiddleOfMultiLineCommentToken,
+         EndOfLineCommentNonSignificantToken } from "occam-lexers";
 
 import YappLexer from "../lexer/yapp";
 
@@ -43,6 +44,8 @@ export default class JavaScriptLexer extends YappLexer {
   static WhitespaceToken = WhitespaceToken;
 
   static RegularExpressionToken = null;
+
+  static EndOfLineCommentToken = EndOfLineCommentNonSignificantToken; ///
 
   static SingleLineCommentToken = CStyleSingleLineCommentToken; ///
 
