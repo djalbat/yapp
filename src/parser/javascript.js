@@ -14,75 +14,75 @@ const bnf = `
 
     statement                  ::=  class
 
-                                 |  function 
+                                 |  function
 
-                                 |  generator 
+                                 |  generator
 
-                                 |  "export"? ( ( "var" var ( "," var )* ) 
-    
-                                              | ( "let" let ( "," let )* ) 
-                                              
-                                              | ( "const" const ( "," const )* ) 
-                                              
-                                              ) ";" 
+                                 |  "export"? ( ( "var" var ( "," var )* )
+
+                                              | ( "let" let ( "," let )* )
+
+                                              | ( "const" const ( "," const )* )
+
+                                              ) ";"
 
                                  |  "export" "default" expression ";"
-                                 
+
                                  |  "export" "default"? ( class | function | generator )
 
                                  |  "export" "default" ( anonymousClass | anonymousFunction | anonymousGenerator )
-                                 
-                                 |  "export" ( ( "export" "{" names "}" ( "from" [string-literal] )? ) 
-                                 
+
+                                 |  "export" ( ( "export" "{" names "}" ( "from" [string-literal] )? )
+
                                              | ( "export" "const" "{" fields "}" "=" expression )
-                                             
+
                                              | ( "export" "{" "default" "}" "from" [string-literal] )
-                                             
+
                                              | ( "export" "*" ( "as" name )? "from" [string-literal] )
-                                             
+
                                              ) ";"
 
                                  |  "import" ( [string-literal]
-                                             
-                                             | ( name "from" [string-literal] ) 
-                                             
-                                             | ( "{" names "}" "from" [string-literal] ) 
-                                 
-                                             | ( "*" "as" name "from" [string-literal] ) 
-                                             
+
+                                             | ( name "from" [string-literal] )
+
+                                             | ( "{" names "}" "from" [string-literal] )
+
+                                             | ( "*" "as" name "from" [string-literal] )
+
                                              ) ";"
 
                                  |  label ":" statement
 
                                  |  "{" statement* "}"
 
-                                 |  "break" ";"  
+                                 |  "break" ";"
 
-                                 |  "continue" ";" 
+                                 |  "continue" ";"
 
-                                 |  "if" "(" expression ")" statement ( "else" statement )? 
+                                 |  "if" "(" expression ")" statement ( "else" statement )?
 
-                                 |  "switch" "(" expression ")" "{" case* defaultCase? "}" 
+                                 |  "switch" "(" expression ")" "{" case* defaultCase? "}"
 
-                                 |  "return" expression? ";" 
+                                 |  "return" expression? ";"
 
-                                 |  "throw" expression ";" 
+                                 |  "throw" expression ";"
 
-                                 |  "delete" expression ";" 
+                                 |  "delete" expression ";"
 
                                  |  expression! ";"
 
-                                 |  try ( ( catch* finally ) | catch+ ) 
+                                 |  try ( ( catch* finally ) | catch+ )
 
-                                 |  "do" statement "while" "(" expression ")" ";" 
+                                 |  "do" statement "while" "(" expression ")" ";"
 
-                                 |  "for" "(" initialiser ( ";" expression )? ( ";" expression )? ")" statement 
+                                 |  "for" "(" initialiser ( ";" expression )? ( ";" expression )? ")" statement
 
-                                 |  "for" "(" variable "in" expression ")" statement 
+                                 |  "for" "(" variable "in" expression ")" statement
 
-                                 |  "for" "await"? "(" variable "of" expression ")" statement 
+                                 |  "for" "await"? "(" variable "of" expression ")" statement
 
-                                 |  "while" "(" expression ")" statement 
+                                 |  "while" "(" expression ")" statement
 
                                  |  "debugger" ";"?
 
@@ -136,18 +136,18 @@ const bnf = `
 
     const                      ::=  ( variable | destructure ) "=" expression ;
 
-    destructure                ::=  "[" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "]" 
+    destructure                ::=  "[" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "]"
 
                                  |  "{" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "}"
 
-                                 ; 
+                                 ;
 
 
 
     expression                 ::=  jsx
-    
+
                                  |  json
-    
+
                                  |  arrowFunction
 
                                  |  templateLiteral
@@ -160,43 +160,43 @@ const bnf = `
 
                                  |  "[" ( expression ( "," expression )* ","? )? "]"
 
-                                 |  "typeof" ( expression | ( "(" expression ")") ) 
+                                 |  "typeof" ( expression | ( "(" expression ")") )
 
-                                 |  "void" ( expression | ( "(" expression ")") ) 
+                                 |  "void" ( expression | ( "(" expression ")") )
 
                                  |  "new" name<NO_WHITESPACE>"(" arguments? ")"
 
-                                 |  [operator]<NO_WHITESPACE>expression 
+                                 |  [operator]<NO_WHITESPACE>expression
 
-                                 |  expression<NO_WHITESPACE>( ( "."<NO_WHITESPACE>name ) 
-                                                             
-                                                             | ( "[" expressions "]" ) 
-                                                             
-                                                             | ( "(" expressions? ")" ) 
-                                                             
-                                                             | templateLiteral 
-                                                             
-                                                             | [operator] 
-                                 
-                                                             )   
+                                 |  expression<NO_WHITESPACE>( ( "."<NO_WHITESPACE>name )
 
-                                 |  expression ( ( [operator] expression ) 
-                                 
-                                               | ( "?" expression ":" expression ) 
-                                               
-                                               | ( "instanceof" expression ) 
-                                               
-                                               | ( "in" expression ) 
-                                               
-                                               ) 
+                                                             | ( "[" expressions "]" )
+
+                                                             | ( "(" expressions? ")" )
+
+                                                             | templateLiteral
+
+                                                             | [operator]
+
+                                                             )
+
+                                 |  expression ( ( [operator] expression )
+
+                                               | ( "?" expression ":" expression )
+
+                                               | ( "instanceof" expression )
+
+                                               | ( "in" expression )
+
+                                               )
 
                                  |  [number]
 
-                                 |  variable 
- 
-                                 |  primitive 
- 
-                                 |  importMeta 
+                                 |  variable
+
+                                 |  primitive
+
+                                 |  importMeta
 
                                  |  [string-literal]
 
@@ -223,22 +223,22 @@ const bnf = `
     jsonArray                  ::=  "[" ( jsonElement ( "," jsonElement )* )? "]" ;
 
     jsonObject                 ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
-    
+
     jsonElement                ::=  json | [string-literal] | [number] | "true" | "false" | "null" ;
-    
+
 
 
     arrowFunction              ::=  simpleArrowFunction | complexArrowFunction ;
 
     arrowFunctionBody          ::=  expression | ( "{" statement* "}" ) ;
 
-    simpleArrowFunction        ::=  argument "=>" arrowFunctionBody ; 
+    simpleArrowFunction        ::=  argument "=>" arrowFunctionBody ;
 
-    complexArrowFunction       ::=  "(" arguments? ")" "=>" arrowFunctionBody ; 
+    complexArrowFunction       ::=  "(" arguments? ")" "=>" arrowFunctionBody ;
 
 
 
-    templateLiteral            ::=  "\`" ( ( "\${" expression? "}" ) | string )* "\`" ; 
+    templateLiteral            ::=  "\`" ( ( "\${" expression? "}" ) | string )* "\`" ;
 
 
 
@@ -266,9 +266,9 @@ const bnf = `
 
     variable                   ::=  [identifier] ;
 
-    label                      ::=  [identifier] ; 
+    label                      ::=  [identifier] ;
 
-    name                       ::=  [identifier] ; 
+    name                       ::=  [identifier] ;
 
 
 
