@@ -70,7 +70,7 @@ const bnf = `
 
                                  |  "delete" expression ";"
 
-                                 |  expression! ";"
+                                 |  expression... ";"
 
                                  |  try ( ( catch* finally ) | catch+ )
 
