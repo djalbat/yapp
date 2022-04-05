@@ -6,6 +6,7 @@ import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
 import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
 
+
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
