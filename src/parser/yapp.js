@@ -1,8 +1,9 @@
 "use strict";
 
 import { CommonParser } from "occam-parsers";
+import { parserUtilities } from "occam-grammar-utilities";
 
-import { rulesFromBNF, parserFromRules } from "../utilities/parser";
+const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 export default class YappParser extends CommonParser {
   static fromNothing(Class) {
