@@ -11,6 +11,7 @@ export default withStyle(Textarea)`
   padding: 0.25rem;
   flex-grow: 1;
   font-size: 1.2rem;
+  line-height: 1.5rem;
   white-space: pre;
   font-family: monospace;
 
