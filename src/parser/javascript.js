@@ -4,6 +4,7 @@ import YappParser  from "../parser/yapp";
 
 const bnf = `
 
+
     document                   ::=  ( preamble ( statement | error )* ) | ( statement | error )+ ;
 
 
@@ -273,6 +274,7 @@ const bnf = `
 
 
     error                      ::=  . ;
+
 
 `;
 
