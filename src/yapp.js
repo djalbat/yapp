@@ -48,8 +48,8 @@ class Yapp extends Element {
           borderRightWidth = this.getBorderRightWidth(),
           borderBottomWidth = this.getBorderBottomWidth();
 
-    top = borderTopWidth + paddingTop;
-    left = borderLeftWidth + paddingLeft;
+    top = paddingTop;
+    left = paddingLeft;
 
     width -= ( borderLeftWidth + paddingLeft + paddingRight + borderRightWidth );
     height -= ( borderTopWidth + paddingTop + paddingBottom + borderBottomWidth );
