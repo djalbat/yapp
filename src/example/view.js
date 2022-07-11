@@ -36,11 +36,10 @@ class View extends Element {
             bnf = this.getBNF(),
             tokens = bnfLexer.tokensFromBNF(bnf),
             rules = bnfParser.rulesFromTokens(tokens),
-            ruleMap = ruleMapFromRules(rules);
+            ruleMap = ruleMapFromRules(rules),
+            startRule = startRuleFromRules(rules);
 
-      let startRule = startRuleFromRules(rules);
-
-      startRule = eliminateLeftRecursion(startRule, ruleMap);
+      eliminateLeftRecursion(startRule, ruleMap);
 
       const { Plugin } = this.constructor,
             { Lexer, Parser } = Plugin,
