@@ -61,6 +61,16 @@ class Gutter extends Element {
     });
   }
 
+  setInitialState() {
+    const scrollTop = 0,
+          lineCount = null;
+
+    this.setState({
+      scrollTop,
+      lineCount
+    });
+  }
+
   childElements() {
     return ([
 
@@ -87,16 +97,6 @@ class Gutter extends Element {
     return parentContext;
   }
   
-  setInitialState() {
-    const scrollTop = 0,
-          lineCount = null;
-
-    this.setState({
-      scrollTop,
-      lineCount
-    });
-  }
-
   initialise() {
     this.assignContext();
 

@@ -129,6 +129,14 @@ class PrettyPrinter extends Element {
     });
   }
 
+  setInitialState() {
+    const previousGutterWidth = 0;
+
+    this.setState({
+      previousGutterWidth
+    })
+  }
+
   childElements() {
     const { hiddenGutter, scrollbarThickness } = this.properties,
           hidden = hiddenGutter;  ///
@@ -155,14 +163,6 @@ class PrettyPrinter extends Element {
           });
     
     return parentContext;
-  }
-
-  setInitialState() {
-    const previousGutterWidth = 0;
-
-    this.setState({
-      previousGutterWidth
-    })
   }
 
   initialise() {

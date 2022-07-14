@@ -62,6 +62,14 @@ class Syntax extends ScrollableElement {
     this.html(html);
   }
 
+  setInitialState() {
+    const language = null;
+
+    this.setState({
+      language
+    });
+  }
+
   parentContext() {
 	  const setLanguage = this.setLanguage.bind(this),
           updateSyntax = this.update.bind(this), ///
@@ -73,14 +81,6 @@ class Syntax extends ScrollableElement {
       updateSyntax,
       scrollSyntax,
       setSyntaxBounds
-    });
-  }
-
-  setInitialState() {
-    const language = null;
-
-    this.setState({
-      language
     });
   }
 
