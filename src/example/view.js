@@ -5,7 +5,7 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 import { BNFLexer } from "occam-lexers";
 import { BNFParser } from "occam-parsers";
-import { eliminateLeftRecursion, removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
+import { eliminateLeftRecursion, rewriteNodes } from "occam-grammar-utilities";
 import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
 import Yapp from "./yapp";
@@ -81,7 +81,7 @@ class View extends Element {
             node = plugin.getNode();
 
       if (node !== null) {
-        removeOrRenameIntermediateNodes(node);
+        rewriteNodes(node);
 
         parseTree = node.asParseTree(tokens);
       }
