@@ -34,17 +34,16 @@ class View extends Element {
       const lexicalEntries = this.getLexicalEntries(),
             entries = lexicalEntries, ///
             bnf = this.getBNF(),
-            tokens = bnfLexer.tokensFromBNF(bnf),
-            rules = bnfParser.rulesFromTokens(tokens),
-            ruleMap = ruleMapFromRules(rules),
-            startRule = startRuleFromRules(rules);
+            tokens = bnfLexer.tokensFromBNF(bnf);
 
-      eliminateLeftRecursion(startRule, ruleMap);
+      let rules = bnfParser.rulesFromTokens(tokens);
+
+      rules = eliminateLeftRecursion(rules);
 
       const { Plugin } = this.constructor,
             { Lexer, Parser } = Plugin,
             lexer = Lexer.fromEntries(entries),
-            parser = new Parser(startRule, ruleMap),  ///
+            parser = Parser.fromRules(rules),
             yappLexer = lexer,  ///
             yappParser = parser;  ///
 
