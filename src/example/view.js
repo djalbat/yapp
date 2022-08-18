@@ -19,8 +19,6 @@ import MiddleSizeableDiv from "./div/sizeable/middle";
 import ParseTreeTextarea from "./textarea/parseTree";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
-import { ruleMapFromRules, startRuleFromRules } from "../utilities/rules";
-
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
