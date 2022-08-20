@@ -3,9 +3,7 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { BNFLexer } from "occam-lexers";
-import { BNFParser } from "occam-parsers";
-import { eliminateLeftRecursion, rewriteNodes } from "occam-grammar-utilities";
+import { rewriteNodes, parserUtilities } from "occam-grammar-utilities";
 import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
 import Yapp from "./yapp";
@@ -19,8 +17,7 @@ import MiddleSizeableDiv from "./div/sizeable/middle";
 import ParseTreeTextarea from "./textarea/parseTree";
 import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 
-const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
+const { rulesFromBNF } = parserUtilities;
 
 class View extends Element {
   contentChangeHandler(event, element) {
@@ -29,17 +26,12 @@ class View extends Element {
 
   keyUpHandler(event, element) {
     try {
-      const lexicalEntries = this.getLexicalEntries(),
-            entries = lexicalEntries, ///
-            bnf = this.getBNF(),
-            tokens = bnfLexer.tokensFromBNF(bnf);
-
-      let rules = bnfParser.rulesFromTokens(tokens);
-
-      rules = eliminateLeftRecursion(rules);
-
       const { Plugin } = this.constructor,
             { Lexer, Parser } = Plugin,
+            lexicalEntries = this.getLexicalEntries(),
+            bnf = this.getBNF(),
+            entries = lexicalEntries, ///
+            rules = rulesFromBNF(bnf),
             lexer = Lexer.fromEntries(entries),
             parser = Parser.fromRules(rules),
             yappLexer = lexer,  ///
@@ -64,6 +56,7 @@ class View extends Element {
           yappHeight = topSizeableDivHeight;  ///
 
     this.setYappWidth(yappWidth);
+
     this.setYappHeight(yappHeight);
 
     this.resizeYapp();
