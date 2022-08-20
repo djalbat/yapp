@@ -8,7 +8,7 @@ import JavaScriptProcessor from "../processor/javascript";
 import { JAVASCRIPT_LANGUAGE } from "../languages"
 
 export default class JavaScriptPlugin extends Plugin {
-  language = JAVASCRIPT_LANGUAGE;
+  static language = JAVASCRIPT_LANGUAGE;
 
   static Lexer = JavaScriptLexer;
 

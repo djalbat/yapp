@@ -8,7 +8,7 @@ import JSONProcessor from "../processor/json";
 import { JSON_LANGUAGE } from "../languages"
 
 export default class JSONPlugin extends Plugin {
-  language = JSON_LANGUAGE;
+  static language = JSON_LANGUAGE;
 
   static Lexer = JSONLexer;
 

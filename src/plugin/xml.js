@@ -8,7 +8,7 @@ import XMLProcessor from "../processor/xml";
 import { XML_LANGUAGE } from "../languages"
 
 export default class XMLPlugin extends Plugin {
-  language = XML_LANGUAGE;
+  static language = XML_LANGUAGE;
 
   static Lexer = XMLLexer;
 

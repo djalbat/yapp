@@ -1,34 +1,36 @@
 "use strict";
 
-import YappParser from "../parser/yapp";
+import { CommonParser } from "occam-parsers";
+import { parserUtilities } from "occam-grammar-utilities";
+
+const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 const bnf = `
 
-    document                   ::=  json error* | error+ ;
+  document                   ::=  json error* | error+ ;
 
 
-    json                       ::=  array | object ;
+  json                       ::=  array | object ;
 
 
-    array                      ::=  "[" ( element ( "," element )* )? "]" ;
+  array                      ::=  "[" ( element ( "," element )* )? "]" ;
 
 
-    object                     ::=  "{" ( [string-literal] ":" element ( "," [string-literal] ":" element )* )? "}" ;
+  object                     ::=  "{" ( [string-literal] ":" element ( "," [string-literal] ":" element )* )? "}" ;
 
-    
-    element                    ::=  json |  [string-literal] | [number] | "true" | "false" | "null" ;
+  
+  element                    ::=  json |  [string-literal] | [number] | "true" | "false" | "null" ;
 
 
-    error                      ::=  . ;
+  error                      ::=  . ;
 
-`;
+      `,
+      rules = rulesFromBNF(bnf);
 
-export default class JSONParser extends YappParser {
+export default class JSONParser extends CommonParser {
   static bnf = bnf;
 
-  static fromNothing() { return YappParser.fromNothing(JSONParser); }
+  static fromNothing() { return parserFromRules(JSONParser, rules); }
 
-  static fromBNF(bnf) { return YappParser.fromBNF(JSONParser, bnf); }
-
-  static fromRules(rules) { return YappParser.fromRules(JSONParser, rules); }
+  static fromRules(rules) { return CommonParser.fromRules(JSONParser, rules); }
 }

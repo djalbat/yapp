@@ -1,19 +1,21 @@
 "use strict";
 
-import YappParser from "./yapp";
+import { CommonParser } from "occam-parsers";
+import { parserUtilities } from "occam-grammar-utilities";
+
+const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 const bnf = `
 
-    document                   ::=  .+ ;
+  document                   ::=  .+ ;
 
-`;
+      `,
+      rules = rulesFromBNF(bnf);
 
-export default class PlainTextParser extends YappParser {
+export default class PlainTextParser extends CommonParser {
   static bnf = bnf;
 
-  static fromNothing() { return YappParser.fromNothing(PlainTextParser); }
+  static fromNothing() { return parserFromRules(PlainTextParser, rules); }
 
-  static fromBNF(bnf) { return YappParser.fromBNF(PlainTextParser, bnf); }
-
-  static fromRules(rules) { return YappParser.fromRules(PlainTextParser, rules); }
+  static fromRules(rules) { return CommonParser.fromRules(PlainTextParser, rules); }
 }

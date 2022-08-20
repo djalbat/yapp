@@ -29,7 +29,11 @@ class Plugin {
     return this.node;
   }
 
-  getLanguage() { return this.language; }
+  getLanguage() {
+    const { language } = this.constructor;
+
+    return language;
+  }
 
   setLexer(lexer) {
     this.lexer = lexer;

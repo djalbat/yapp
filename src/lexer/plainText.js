@@ -1,8 +1,6 @@
 "use strict";
 
-import { WhitespaceToken, EndOfLineNonSignificantToken, EndOfLineCommentNonSignificantToken } from "occam-lexers";
-
-import YappLexer from "../lexer/yapp";
+import { CommonLexer, WhitespaceToken, EndOfLineNonSignificantToken } from "occam-lexers";
 
 const entries = [
   {
@@ -10,14 +8,14 @@ const entries = [
   }
 ];
 
-export default class PlainTextLexer extends YappLexer {
+export default class PlainTextLexer extends CommonLexer {
   static entries = entries;
 
   static EndOfLineToken = EndOfLineNonSignificantToken; ///
 
   static WhitespaceToken = WhitespaceToken;
 
-  static EndOfLineCommentToken = EndOfLineCommentNonSignificantToken; ///
+  static EndOfLineCommentToken = null;
 
   static SingleLineCommentToken = null;
 
@@ -33,9 +31,7 @@ export default class PlainTextLexer extends YappLexer {
 
   static DoublyQuotedStringLiteralToken = null;
 
-  static fromNothing() { return YappLexer.fromEntries(PlainTextLexer, entries); }
+  static fromNothing() { return CommonLexer.fromNothing(PlainTextLexer); }
 
-  static fromRules(rules) { return YappLexer.fromRules(PlainTextLexer, rules); }
-
-  static fromEntries(entries) { return YappLexer.fromEntries(PlainTextLexer, entries); }
+  static fromEntries(entries) { return CommonLexer.fromEntries(PlainTextLexer, entries); }
 }
