@@ -12,7 +12,7 @@ export const woodsmoke = "#0c0d0f";
 
 export const citron = "#86b923";
 export const sushi = "#7fa82f";
-export const oliveDrab = "#638829";
+export const oliveDrab = "#6B9825";
 export const rifleGreen = "#414833";
 export const logCabin = "#24301d";
 export const blackOlive = "#1c2412";

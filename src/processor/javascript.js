@@ -4,20 +4,19 @@ import { Query } from "occam-dom";
 import { characters } from "necessary";
 
 import Processor from "../processor";
-import JSXToken from "../token/significant/jsx";
 import ErrorToken from "../token/significant/error";
 import StringToken from "../token/significant/string";
 import VariableToken from "../token/significant/variable";
 import ArgumentToken from "../token/significant/argument";
+import TagNameJSXToken from "../token/significant/jsx/tagName";
+import AttributeNameJSXToken from "../token/significant/jsx/attributeName";
 
 const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpression("//jsx"),
-      jsxTagTerminalNodeQuery = Query.fromExpression("//jsxCompleteTag|jsxStartTag|jsxEndTag/@*"),
       variableTerminalNodeQuery = Query.fromExpression("//variable/@*"),
       jsxTagNameTerminalNodeQuery = Query.fromExpression("//jsxCompleteTag|jsxStartTag|jsxEndTag/name/@*"),
       functionNonTerminalNodeQuery = Query.fromExpression("//functionBody|arrowFunction"),
-      jsxTagAttributeTerminalNodeQuery = Query.fromExpression("//jsxAttribute/@*"),
-      argumentVariableTerminalNodeQuery = Query.fromExpression("//argument//variable/@*"),
+      argumentVariableTerminalNodeQuery = Query.fromExpression("//argument/variable/@*"),
       jsxTagAttributeNameTerminalNodeQuery = Query.fromExpression("//jsxAttribute/name/@*"),
       variableDeclarationTerminalNodeQuery = Query.fromExpression("//var|let|const/variable/@*"),
       templateLiteralStringTerminalNodeQuery = Query.fromExpression("//templateLiteral/string/@*"),
@@ -38,10 +37,10 @@ export default class JavaScriptProcessor extends Processor {
 
       this.replaceTerminalNodesSignificantToken(tokens, node, (content) => (content === BACKTICK_CHARACTER) ? StringToken : null, templateLiteralDelimiterTerminalNodeQuery);
 
-      jsxNonTerminalNodes.forEach((jsxNonTerminalNode) => this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content) => JSXToken, jsxTagTerminalNodeQuery,
-                                                                                                                                                       jsxTagNameTerminalNodeQuery,
-                                                                                                                                                       jsxTagAttributeTerminalNodeQuery,
-                                                                                                                                                       jsxTagAttributeNameTerminalNodeQuery));
+      jsxNonTerminalNodes.forEach((jsxNonTerminalNode) => {
+        this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content) => TagNameJSXToken, jsxTagNameTerminalNodeQuery);
+        this.replaceTerminalNodesSignificantToken(tokens, jsxNonTerminalNode, (content) => AttributeNameJSXToken, jsxTagAttributeNameTerminalNodeQuery);
+      });
 
       functionNonTerminalNodes.forEach((functionNonTerminalNode) => {
         const argumentNames = this.replaceTerminalNodesSignificantToken(tokens, functionNonTerminalNode, (content) => ArgumentToken, argumentVariableTerminalNodeQuery),
