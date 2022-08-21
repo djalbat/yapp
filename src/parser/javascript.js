@@ -92,7 +92,7 @@ const bnf = `
                                             
                                |  ( "export" "default" )? expression
 
-                               |  "return" expression?
+                               |  "return" ( ( "(" expression ")" ) | expression? )
 
                                |  "throw" expression
 
