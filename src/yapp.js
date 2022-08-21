@@ -288,6 +288,7 @@ Object.assign(Yapp.prototype, styleMixins);
 export default withStyle(Yapp)`
 
   width: 100%;
+  overflow: hidden;
   position: relative;
 
   border: 1px solid;
