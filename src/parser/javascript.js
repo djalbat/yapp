@@ -242,13 +242,8 @@ const bnf = `
 
 
 
-  arrowFunction              ::=  complexArrowFunction | simpleArrowFunction ;
+  arrowFunction              ::=  "(" arguments? ")" "=>" ( expression | ( "{" statement* "}" ) ) ;
                                
-  complexArrowFunction       ::=  "(" arguments? ")" "=>" arrowFunctionBody ;
-   
-  simpleArrowFunction        ::=  argument "=>" arrowFunctionBody ; 
-  
-  arrowFunctionBody          ::=  expression | ( "{" statement* "}" ) ;
 
 
   templateLiteral            ::=  "\`" ( ( "\${" expression? "}" ) | string )* "\`" ;
@@ -275,7 +270,7 @@ const bnf = `
 
   spreadArgument             ::=  "..."<NO_WHITESPACE>variable ;
 
-  argument                   ::=  variable ( "=" expression )? ;
+  argument                   ::=  variable ( "=" expression )? | expression ;
 
   variable                   ::=  [identifier] ;
 
