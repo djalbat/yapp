@@ -37,9 +37,8 @@ class Highlights extends Element {
 
   initialise() {
     this.assignContext([
-      "updateHighlights",
-      "scrollHighlights",
-      "scrollbarThickness"
+      "updateSyntax",
+      "scrollSyntax"
     ]);
   }
 

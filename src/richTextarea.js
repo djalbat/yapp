@@ -69,7 +69,6 @@ export default withStyle(class extends RichTextarea {
   tab-size: 2;
   overflow: scroll;
   grid-area: highlights-rich-textarea;
-  border-top: none;
   white-space: pre;
   overflow-wrap: normal;
   background-color: transparent;

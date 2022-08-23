@@ -15,12 +15,14 @@ class PrettyPrinter extends Element {
           scrollLeft = richTextarea.getScrollLeft();
 
     this.scrollGutter(scrollTop ,scrollLeft);
-    this.scrollSyntax(scrollTop, scrollLeft);
+
+    this.scrollHighlights(scrollTop, scrollLeft);
   }
 
   update(tokens) {
-    this.updateSyntax(tokens);
     this.updateGutter(tokens);
+
+    this.updateHighlights(tokens);
   }
 
   childElements() {
@@ -50,12 +52,9 @@ class PrettyPrinter extends Element {
   initialise() {
     this.assignContext([
       "updateGutter",
-      "updateSyntax",
       "scrollGutter",
-      "scrollSyntax",
-      "positionGutter",
-      "getGutterWidth",
-      "setSyntaxBounds"
+      "updateHighlights",
+      "scrollHighlights"
     ]);
   }
 
