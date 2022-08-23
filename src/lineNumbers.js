@@ -5,9 +5,12 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 
 import { EMPTY_STRING } from "./constants";
+import { lineCountFromTokens } from "./utilities/tokens";
 
 class LineNumbers extends Element {
-  update(lineCount) {
+  update(tokens) {
+    const lineCount = lineCountFromTokens(tokens);
+
     let html = EMPTY_STRING;
 
     for (let lineNumber = 1; lineNumber <= lineCount; lineNumber++) {

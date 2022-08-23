@@ -6,26 +6,13 @@ import { React, Element } from "easy";
 
 import LineNumbers from "./lineNumbers";
 
-import { lineCountFromTokens } from "./utilities/tokens";
-
 class Gutter extends Element {
   update(tokens) {
-    const lineCount = lineCountFromTokens(tokens);
-
-    this.setLineCount(lineCount);
-
-    this.updateLineNumbers(lineCount);
+    this.updateLineNumbers(tokens);
   }
 
   scroll(scrollTop, scrollLeft) {
     this.scrollLineNumbers(scrollTop, scrollLeft);
-  }
-
-  getLineCount() {
-    const state = this.getState(),
-          { lineCount } = state;
-
-    return lineCount;
   }
 
   setLineCount(lineCount) {
@@ -52,11 +39,9 @@ class Gutter extends Element {
 
   parentContext() {
 	  const context = this.getContext(),
-          getLineCount = this.getLineCount.bind(this),
 				  updateGutter = this.update.bind(this),  ///
 				  scrollGutter = this.scroll.bind(this),  ///
           parentContext = Object.assign({}, context, {
-            getLineCount,
             updateGutter,
             scrollGutter
           });
