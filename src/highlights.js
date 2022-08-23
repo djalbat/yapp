@@ -57,7 +57,7 @@ export default withStyle(Highlights)`
   height: 100%;
   overflow: hidden;
   position: relative;
-  grid-area: syntax;
+  grid-area: highlights-rich-textarea;
 
   background-color: inherit;
 

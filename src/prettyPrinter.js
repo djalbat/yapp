@@ -82,7 +82,7 @@ export default withStyle(PrettyPrinter)`
   display: grid;
   overflow: hidden;
   grid-template-rows: auto;
-  grid-template-areas: "gutter syntax";
+  grid-template-areas: "gutter highlights-rich-textarea";
   grid-template-columns: min-content auto;  
 
   color: inherit;
