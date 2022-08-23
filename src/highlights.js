@@ -46,7 +46,7 @@ class Highlights extends Element {
   static tagName = "div";
 
   static defaultProperties = {
-    className: "syntax"
+    className: "highlights"
   };
 }
 
