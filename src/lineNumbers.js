@@ -9,9 +9,9 @@ import { lineCountFromTokens } from "./utilities/tokens";
 
 class LineNumbers extends Element {
   update(tokens) {
-    const lineCount = lineCountFromTokens(tokens);
-
     let html = EMPTY_STRING;
+
+    const lineCount = lineCountFromTokens(tokens);
 
     for (let lineNumber = 1; lineNumber <= lineCount; lineNumber++) {
       html = `${html}${lineNumber}<br/>`;
