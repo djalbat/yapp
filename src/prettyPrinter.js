@@ -2,164 +2,46 @@
 
 import withStyle from "easy-with-style";  ///
 
-import { React, Bounds, Element } from "easy";
+import { React, Element } from "easy";
 
 import Gutter from "./gutter";
-import Syntax from "./syntax";
+import Highlights from "./highlights";
+import RichTextarea from "./richTextarea";
 
 class PrettyPrinter extends Element {
-  getWidth() {
-    const hidden = this.isHidden();
+  scrollHandler = (event, element) => {
+    const richTextarea = element, ///
+          scrollTop = richTextarea.getScrollTop(),
+          scrollLeft = richTextarea.getScrollLeft();
 
-    if (hidden) {
-      this.show();
-    }
-
-    const width = super.getWidth();
-
-    if (hidden) {
-      this.hide();
-    }
-
-    return width;
-  }
-
-  getHeight() {
-    const hidden = this.isHidden();
-
-    if (hidden) {
-      this.show();
-    }
-
-    const height = super.getHeight();
-
-    if (hidden) {
-      this.hide();
-    }
-
-    return height;
-  }
-
-  scroll(scrollTop, scrollLeft) {
     this.scrollGutter(scrollTop ,scrollLeft);
     this.scrollSyntax(scrollTop, scrollLeft);
   }
 
   update(tokens) {
-    let gutterWidth = this.getGutterWidth(),
-        previousGutterWidth = this.getPreviousGutterWidth();
-
     this.updateSyntax(tokens);
-
     this.updateGutter(tokens);
-
-    if (previousGutterWidth !== gutterWidth) {
-      previousGutterWidth = gutterWidth;  ///
-
-      this.setPreviousGutterWidth(previousGutterWidth);
-
-      this.resize();
-    } else {
-      gutterWidth = null;
-    }
-
-    return gutterWidth;
-  }
-
-  getInnerBounds(gutterWidth) {
-    let top = 0,
-        left = 0,
-        width = this.getWidth(),
-        height = this.getHeight();
-
-    left += gutterWidth;
-    width -= gutterWidth;
-
-    const bounds = Bounds.fromTopLeftWidthAndHeight(top, left, width, height),
-          innerBounds = bounds; ///
-
-    return innerBounds;
-  }
-
-  resize() {
-    const gutterWidth = this.getGutterWidth(),
-          innerBounds = this.getInnerBounds(gutterWidth),
-          syntaxBounds = innerBounds; ///
-
-    this.positionGutter();
-
-    this.setSyntaxBounds(syntaxBounds);
-
-    return gutterWidth;
-  }
-
-  setBounds(bounds) {
-    const top = bounds.getTop(),
-          left = bounds.getLeft(),
-          width = bounds.getWidth(),
-          height = bounds.getHeight();
-
-    this.position(top, left);
-    this.setWidth(width);
-    this.setHeight(height);
-  }
-
-  position(top, left) {
-    top = `${top}px`;
-    left = `${left}px`;
-
-    const css = {
-      top,
-      left
-    };
-
-    this.css(css);
-  }
-
-  getPreviousGutterWidth() {
-    const state = this.getState(),
-          { previousGutterWidth } = state;
-
-    return previousGutterWidth;
-  }
-
-  setPreviousGutterWidth(previousGutterWidth) {
-    this.updateState({
-      previousGutterWidth
-    });
-  }
-
-  setInitialState() {
-    const previousGutterWidth = 0;
-
-    this.setState({
-      previousGutterWidth
-    })
   }
 
   childElements() {
-    const { hiddenGutter, scrollbarThickness } = this.properties,
-          hidden = hiddenGutter;  ///
+    const { onChange, hiddenGutter, fancyScrollbars, hiddenScrollbars, scrollbarThickness } = this.properties,
+          hidden = hiddenGutter,  ///
+          changeHandler = onChange; ///
 
     return ([
 
       <Gutter hidden={hidden} />,
-      <Syntax scrollbarThickenss={scrollbarThickness} />,
+      <Highlights scrollbarThickness={scrollbarThickness} />,
+      <RichTextarea onScroll={this.scrollHandler} onChange={changeHandler} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} active />
 
     ]);
   }
   
   parentContext() {
     const context = this.getContext(),
-          resizePrettyPrinter = this.resize.bind(this), ///
           updatePrettyPrinter = this.update.bind(this), ///
-          scrollPrettyPrinter = this.scroll.bind(this), ///
-          setPrettyPrinterBounds = this.setBounds.bind(this), ///
           parentContext = Object.assign({}, context, {
-            resizePrettyPrinter,
-            updatePrettyPrinter,
-            scrollPrettyPrinter,
-            setPrettyPrinterBounds
+            updatePrettyPrinter
           });
     
     return parentContext;
@@ -175,8 +57,6 @@ class PrettyPrinter extends Element {
       "getGutterWidth",
       "setSyntaxBounds"
     ]);
-
-    this.setInitialState();
   }
 
   static tagName = "div";
@@ -186,16 +66,26 @@ class PrettyPrinter extends Element {
   };
 
   static ignoredProperties = [
+    "onChange",
     "hiddenGutter",
+    "hiddenGutter",
+    "noScrollbars",
+    "fancyScrollbars",
     "scrollbarThickness"
   ];
 }
 
 export default withStyle(PrettyPrinter)`
 
+  width: 100%;
+  height: 100%;
+  display: grid;
   overflow: hidden;
-  position: absolute;
   
+  grid-template-rows: auto;
+  grid-template-columns: min-content auto;  
+  grid-template-areas: "gutter syntax";
+
   color: inherit;
   border-color: inherit;
   background-color: inherit;

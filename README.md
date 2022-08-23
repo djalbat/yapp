@@ -22,7 +22,9 @@ Yet Another Pretty Printer.
 
 *If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
 
-Yapp is an advanced pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors. Yapp is also fully configurable. You can style it overall or target specific syntaxes. Its plugin architecture additionally makes it easy to support any language. Lastly, Yapp supports [Fira Code](https://github.com/tonsky/FiraCode).
+Yapp is an advanced pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors. Yapp is also fully configurable. You can style it overall or target specific syntaxes. Its plugin architecture additionally makes it easy to support any language.
+
+Yapp also supports [Fira Code](https://github.com/tonsky/FiraCode).
 
 ## Installation
 
@@ -161,9 +163,7 @@ When using JSX, the properties of the `options` parameter are in fact passed ind
 If Yapp is made editable, the `contentChangeHandler(...)` callback should take the following form:
 
 ```
-function contentChangeHandler(event, element) {
-  const yapp = element, ///
-        content = yapp.getContent();
+function contentChangeHandler(content) {
 
   ...
 
@@ -196,7 +196,7 @@ If you choose to enable Fira Code then you need to provide the necessary web fon
   font-style: normal;
 }
 ```
-You do not have to provide this, rendering Yapp's styles will do so, but it is recommended that you check the network tab in your browser's developer tools to ensure that these files are being picked up.
+You do not have to provide this, rendering Yapp's styles will do so, but it is recommended that you check the network tab in your browser's developer tools to ensure that these files are being served.
 
 ## Styling Yapp
 
@@ -214,7 +214,7 @@ Rendering the styles in this manner should always be done before any instance of
 
 ### Overall styles
 
-A handful of overall CSS properties, mainly relating to fonts colours, can be overridden directly. The most elegant way to do this is with programmatic styles. You can take the following approach, for example:
+A handful of overall CSS properties, mainly relating to font colours, can be overridden directly. The most elegant way to do this is with programmatic styles. You can take the following approach, for example:
 
 ```
 "use strict";
@@ -264,7 +264,7 @@ renderStyle(`
 
 `);
 ```
-All the HTML elements of which Yapp is comprised have placeholder classes, for example the textarea element has a `rich` placeholder class, and can therefore be targeted in this way.
+All the HTML elements of which Yapp is comprised have placeholder classes and can therefore be targeted in this way. To see these placeholder classes, simply have a look at an instance of Yapp in your browser's developer tools.
 
 ### Syntax styles
 

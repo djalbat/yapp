@@ -7,29 +7,6 @@ import { scrollbarThickness, scrollbarThumbBorderRadius } from "./styles";
 import { selectionColour, backgroundColour, selectionBackgroundColour, scrollbarThumbBoxShadowColour, scrollbarThumbBackgroundColour  } from "./scheme/colour";
 
 export default withStyle(class extends RichTextarea {
-  position(top, left) {
-    top = `${top}px`;
-    left = `${left}px`;
-
-    const css = {
-      top,
-      left
-    };
-
-    this.css(css);
-  }
-
-  setBounds(bounds) {
-    const top = bounds.getTop(),
-          left = bounds.getLeft(),
-          width = bounds.getWidth(),
-          height = bounds.getHeight();
-
-    this.position(top, left);
-    this.setWidth(width);
-    this.setHeight(height);
-  }
-
   didMount() {
     const { fancyScrollbars, hiddenScrollbars } = this.properties;
 
@@ -60,14 +37,12 @@ export default withStyle(class extends RichTextarea {
 
   parentContext() {
     const getContent = this.getContent.bind(this),  ///
-          setRichTextareaBounds = this.setBounds.bind(this),  ///
           getRichTextareaContent = this.getContent.bind(this),  ///
           setRichTextareaContent = this.setContent.bind(this),  ///
           setRichTextareaReadOnly = this.setReadOnly.bind(this);  ///
 
     return ({
       getContent,
-      setRichTextareaBounds,
       getRichTextareaContent,
       setRichTextareaContent,
       setRichTextareaReadOnly
@@ -79,7 +54,8 @@ export default withStyle(class extends RichTextarea {
   };
 
   static ignoredProperties = [
-    "fancyScrollbars"
+    "fancyScrollbars",
+    "hiddenScrollbars"
   ];
 })`
 
@@ -91,13 +67,13 @@ export default withStyle(class extends RichTextarea {
   outline: none;
   z-index: 1;
   tab-size: 2;
-  position: absolute;
   overflow: scroll;
+  grid-area: syntax;
   border-top: none;
   white-space: pre;
   overflow-wrap: normal;
   background-color: transparent;
-  
+
   ::selection {
     color: ${selectionColour};
     background-color: ${selectionBackgroundColour};

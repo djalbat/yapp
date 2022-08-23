@@ -17,10 +17,21 @@ class LineNumbers extends Element {
     this.html(html);
   }
 
+  scroll(scrollTop, scrollLeft) {
+    const top = `${-scrollTop}px`,
+          css = {
+            top
+          };
+
+    this.css(css);
+  }
+
   parentContext() {
-	  const updateLineNumbers = this.update.bind(this);  ///
+	  const scrollLineNumbers = this.scroll.bind(this), ///
+          updateLineNumbers = this.update.bind(this);  ///
 
     return ({
+      scrollLineNumbers,
       updateLineNumbers
     });
   }
@@ -34,8 +45,8 @@ class LineNumbers extends Element {
 
 export default withStyle(LineNumbers)`
 
-  float: left;
   margin: 0 6px 0 6px;
+  position: relative;
   
   color: inherit;
 

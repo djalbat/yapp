@@ -20,11 +20,11 @@ import LexicalEntriesTextarea from "./textarea/lexicalEntries";
 const { rulesFromBNF } = parserUtilities;
 
 class View extends Element {
-  contentChangeHandler(event, element) {
+  contentChangeHandler = (event, element) => {
     this.update();
   }
 
-  keyUpHandler(event, element) {
+  keyUpHandler = (event, element) => {
     try {
       const { Plugin } = this.constructor,
             { Lexer, Parser } = Plugin,
@@ -47,19 +47,6 @@ class View extends Element {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  dragHandler() {
-    const leftSizeableDivWidth = this.getLeftSizeableDivWidth(),
-          topSizeableDivHeight = this.getTopSizeableDivHeight(),
-          yappWidth = leftSizeableDivWidth, ///
-          yappHeight = topSizeableDivHeight;  ///
-
-    this.setYappWidth(yappWidth);
-
-    this.setYappHeight(yappHeight);
-
-    this.resizeYapp();
   }
 
   update() {
@@ -90,10 +77,6 @@ class View extends Element {
 
   didMount() {
     this.update();
-
-    this.dragHandler(); ///
-
-    this.resizeYapp();  ///
   }
 
   willUnmount() {
@@ -101,10 +84,7 @@ class View extends Element {
   }
 
   childElements() {
-    const { Plugin, firaCode, initialContent } = this.constructor,
-          dragHandler = this.dragHandler.bind(this),
-          keyUpHandler = this.keyUpHandler.bind(this),
-          contentChangeHandler = this.contentChangeHandler.bind(this);
+    const { Plugin, firaCode, initialContent } = this.constructor;
 
     return ([
 
@@ -112,11 +92,11 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Plugin={Plugin} firaCode={firaCode} onContentChange={contentChangeHandler} >
+              <Yapp Plugin={Plugin} firaCode={firaCode} onContentChange={this.contentChangeHandler} >
                 {initialContent}
               </Yapp>
             </TopSizeableDiv>
-            <HorizontalSplitterDiv onDrag={dragHandler}/>
+            <HorizontalSplitterDiv/>
             <RowDiv>
               <RowsDiv>
                 <MiddleSizeableDiv>
@@ -138,7 +118,7 @@ class View extends Element {
             </RowDiv>
           </RowsDiv>
         </LeftSizeableDiv>
-        <VerticalSplitterDiv onDrag={dragHandler}/>
+        <VerticalSplitterDiv/>
         <ColumnDiv>
           <RowsDiv>
             <RightSizeableDiv>
@@ -146,7 +126,7 @@ class View extends Element {
                 <SubHeading>
                   Lexical entries
                 </SubHeading>
-                <LexicalEntriesTextarea onKeyUp={keyUpHandler} />
+                <LexicalEntriesTextarea onKeyUp={this.keyUpHandler} />
               </RowsDiv>
             </RightSizeableDiv>
             <HorizontalSplitterDiv />
@@ -155,7 +135,7 @@ class View extends Element {
                 <SubHeading>
                   BNF
                 </SubHeading>
-                <BNFTextarea onKeyUp={keyUpHandler} />
+                <BNFTextarea onKeyUp={this.keyUpHandler} />
               </RowsDiv>
             </RowDiv>
           </RowsDiv>

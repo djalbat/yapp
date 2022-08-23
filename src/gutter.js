@@ -6,7 +6,6 @@ import { React, Element } from "easy";
 
 import LineNumbers from "./lineNumbers";
 
-import { gutterHeight } from "./styles";
 import { lineCountFromTokens } from "./utilities/tokens";
 
 class Gutter extends Element {
@@ -19,20 +18,7 @@ class Gutter extends Element {
   }
 
   scroll(scrollTop, scrollLeft) {
-    this.setScrollTop(scrollTop);
-
-    this.position();
-  }
-
-  position() {
-    const scrollTop = this.getScrollTop();
-
-    const top = `${-scrollTop}px`,
-          css = {
-            top
-          };
-
-    this.css(css);
+    this.scrollLineNumbers(scrollTop, scrollLeft);
   }
 
   getLineCount() {
@@ -42,54 +28,35 @@ class Gutter extends Element {
     return lineCount;
   }
 
-  getScrollTop() {
-    const state = this.getState(),
-          { scrollTop } = state;
-
-    return scrollTop;
-  }
-
   setLineCount(lineCount) {
     this.updateState({
       lineCount
     });
   }
 
-  setScrollTop(scrollTop) {
-    this.updateState({
-      scrollTop
-    });
-  }
-
   setInitialState() {
-    const scrollTop = 0,
-          lineCount = null;
+    const lineCount = null;
 
     this.setState({
-      scrollTop,
       lineCount
     });
   }
 
   childElements() {
-    return ([
+    return (
 
-      <LineNumbers />,
+      <LineNumbers />
 
-    ]);
+    );
   }
 
   parentContext() {
 	  const context = this.getContext(),
           getLineCount = this.getLineCount.bind(this),
-          getGutterWidth = this.getWidth.bind(this),  ///
-				  positionGutter = this.position.bind(this),  ///
 				  updateGutter = this.update.bind(this),  ///
 				  scrollGutter = this.scroll.bind(this),  ///
           parentContext = Object.assign({}, context, {
             getLineCount,
-            getGutterWidth,
-            positionGutter,
             updateGutter,
             scrollGutter
           });
@@ -112,9 +79,10 @@ class Gutter extends Element {
 
 export default withStyle(Gutter)`
 
-  height: ${gutterHeight};
-  z-index: 2;
-  position: absolute;
+  width: fit-content;
+  overflow: hidden;
+  position: relative;
+  grid-area: gutter;
   text-align: right;
   user-select: none;
   pointer-events: none;

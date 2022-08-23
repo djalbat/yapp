@@ -2,20 +2,11 @@
 
 import withStyle from "easy-with-style";  ///
 
-import ScrollableElement from "./element/scrollable";
+import { Element } from "easy";
 
-class Syntax extends ScrollableElement {
-  setBounds(bounds) {
-    const top = bounds.getTop(),
-          left = bounds.getLeft(),
-          width = bounds.getWidth(),
-          height = bounds.getHeight();
+import { EMPTY_STRING } from "./constants";
 
-    this.position(top, left);
-    this.setWidth(width);
-    this.setHeight(height);
-  }
-
+class Syntax extends Element {
   setLanguage(language) {
     const state = {
       language
@@ -57,9 +48,20 @@ class Syntax extends ScrollableElement {
             html += tokenWithSelectionHTML;
 
             return html;
-          }, "");
+          }, EMPTY_STRING);
 
     this.html(html);
+  }
+
+  scroll(scrollTop, scrollLeft) {
+    const top = `${-scrollTop}px`,
+          left = `${-scrollLeft}px`,
+          css = {
+            top,
+            left
+          };
+
+    this.css(css);
   }
 
   setInitialState() {
@@ -73,14 +75,12 @@ class Syntax extends ScrollableElement {
   parentContext() {
 	  const setLanguage = this.setLanguage.bind(this),
           updateSyntax = this.update.bind(this), ///
-				  scrollSyntax = this.scroll.bind(this), ///
-          setSyntaxBounds = this.setBounds.bind(this);  //
+				  scrollSyntax = this.scroll.bind(this);  ///
 
     return ({
       setLanguage,
       updateSyntax,
-      scrollSyntax,
-      setSyntaxBounds
+      scrollSyntax
     });
   }
 
@@ -97,12 +97,10 @@ class Syntax extends ScrollableElement {
 
 export default withStyle(Syntax)`
 
-  z-index: 0;
-  overflow: hidden;
-  position: absolute;
+  position: relative;
   white-space: pre;
+  user-select: none;
   pointer-events: none;
-  background-color: inherit;
 
   font-size: inherit;
   line-height: inherit;
