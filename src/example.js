@@ -25,6 +25,6 @@ renderYappStyles();
 
 body.mount(
 
-  <View />
+  <View/>
 
 );

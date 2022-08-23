@@ -18,7 +18,7 @@ const body = new Body(),
       ,
       innerDiv =
 
-        <div />
+        <div/>
 
       ;
 

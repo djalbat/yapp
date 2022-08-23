@@ -209,7 +209,6 @@ export default withStyle(Yapp)`
 
   width: 100%;
   height: 100%;
-
   border: 1px solid;
   
   color: ${colour};
@@ -220,8 +219,6 @@ export default withStyle(Yapp)`
   font-size: 13px;
   line-height: 20px;
   font-family: "Menlo", "Lucida Sans Typewriter", monospace;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: normal;
 
   .fira-code {
 

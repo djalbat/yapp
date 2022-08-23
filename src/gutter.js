@@ -45,7 +45,7 @@ class Gutter extends Element {
   childElements() {
     return (
 
-      <LineNumbers />
+      <LineNumbers/>
 
     );
   }
@@ -83,20 +83,13 @@ export default withStyle(Gutter)`
   overflow: hidden;
   position: relative;
   grid-area: gutter;
-  text-align: right;
-  user-select: none;
-  pointer-events: none;
-  border-right-style: dotted;
   border-right-width: 1px;
+  border-right-style: dotted;
 
   color: inherit;
-  border-color: inherit;
-  background-color: inherit;
-
   font-size: inherit;
   line-height: inherit;
-  font-family: inherit;
-  text-rendering: inherit;
-  font-feature-settings: inherit;
+  border-color: inherit;
+  background-color: inherit;
 
 `;

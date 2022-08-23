@@ -81,19 +81,18 @@ export default withStyle(PrettyPrinter)`
   height: 100%;
   display: grid;
   overflow: hidden;
-  
   grid-template-rows: auto;
-  grid-template-columns: min-content auto;  
   grid-template-areas: "gutter syntax";
+  grid-template-columns: min-content auto;  
 
   color: inherit;
-  border-color: inherit;
-  background-color: inherit;
-
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
+  caret-color: inherit;
+  border-color: inherit;
   text-rendering: inherit;
+  background-color: inherit;
   font-feature-settings: inherit;
 
 `;

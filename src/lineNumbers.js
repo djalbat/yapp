@@ -47,13 +47,13 @@ export default withStyle(LineNumbers)`
 
   margin: 0 6px 0 6px;
   position: relative;
-  
-  color: inherit;
+  text-align: right;
+  user-select: none;
+  pointer-events: none;
+  font-family: 'DejaVu Sans Mono', Menlo, 'Lucida Console', Monaco, monospace;
 
+  color: inherit;
   font-size: inherit;
   line-height: inherit;
-  font-family: 'DejaVu Sans Mono', Menlo, 'Lucida Console', Monaco, monospace;
-  text-rendering: inherit;
-  font-feature-settings: inherit;
 
 `;

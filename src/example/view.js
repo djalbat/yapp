@@ -104,10 +104,10 @@ class View extends Element {
                     <SubHeading>
                       Tokens
                     </SubHeading>
-                    <TokensTextarea />
+                    <TokensTextarea/>
                   </RowsDiv>
                 </MiddleSizeableDiv>
-                <HorizontalSplitterDiv />
+                <HorizontalSplitterDiv/>
                 <RowsDiv>
                   <SubHeading>
                     Parse tree
@@ -129,7 +129,7 @@ class View extends Element {
                 <LexicalEntriesTextarea onKeyUp={this.keyUpHandler} />
               </RowsDiv>
             </RightSizeableDiv>
-            <HorizontalSplitterDiv />
+            <HorizontalSplitterDiv/>
             <RowDiv>
               <RowsDiv>
                 <SubHeading>

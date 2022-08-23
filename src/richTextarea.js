@@ -103,11 +103,10 @@ export default withStyle(class extends RichTextarea {
     display: none;
   }
 
-  caret-color: inherit;
-  
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
+  caret-color: inherit;
   text-rendering: inherit;
   font-feature-settings: inherit;
 
