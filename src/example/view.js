@@ -86,7 +86,7 @@ class View extends Element {
   childElements() {
     const { Plugin, firaCode, initialContent } = this.constructor;
 
-    return ([
+    return (
 
       <ColumnsDiv>
         <LeftSizeableDiv>
@@ -142,7 +142,7 @@ class View extends Element {
         </ColumnDiv>
       </ColumnsDiv>
 
-    ]);
+    );
   }
 
   initialise() {
