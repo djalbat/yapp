@@ -8,7 +8,7 @@ import Gutter from "./gutter";
 import Highlights from "./highlights";
 import RichTextarea from "./richTextarea";
 
-import { getScrollbarThickness } from "./utilities/scrollbarThickness";
+import { getScrollbarThickness } from "./utilities/scrollbar";
 
 class PrettyPrinter extends Element {
   scrollHandler = (event, element) => {
