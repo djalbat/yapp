@@ -31,10 +31,16 @@ const outerDivWidth = outerDiv.getWidth(),
 
 outerDiv.remove();
 
-export function getScrollbarThickness(fancyScrollbars) {
-  const scrollbarThickness = fancyScrollbars ?
-                               stripPixels(stylesScrollbarThickness) :
-                                 outerDivWidth - innerDivWidth; ///
+export function getScrollbarThickness(hiddenScrollbars, fancyScrollbars) {
+  let scrollbarThickness;
+
+  if (hiddenScrollbars) {
+    scrollbarThickness = 0;
+  } else {
+    scrollbarThickness = fancyScrollbars ?
+                           stripPixels(stylesScrollbarThickness) :  ///
+                             outerDivWidth - innerDivWidth; ///
+  }
 
   return scrollbarThickness;
 }

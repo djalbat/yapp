@@ -8,6 +8,8 @@ import Gutter from "./gutter";
 import Highlights from "./highlights";
 import RichTextarea from "./richTextarea";
 
+import { getScrollbarThickness } from "./utilities/scrollbarThickness";
+
 class PrettyPrinter extends Element {
   scrollHandler = (event, element) => {
     const richTextarea = element, ///
@@ -26,9 +28,10 @@ class PrettyPrinter extends Element {
   }
 
   childElements() {
-    const { onChange, hiddenGutter, fancyScrollbars, hiddenScrollbars, scrollbarThickness } = this.properties,
+    const { onChange, hiddenGutter, fancyScrollbars, hiddenScrollbars } = this.properties,
           hidden = hiddenGutter,  ///
-          changeHandler = onChange; ///
+          changeHandler = onChange, ///
+          scrollbarThickness = getScrollbarThickness(hiddenScrollbars, fancyScrollbars);
 
     return ([
 
@@ -69,8 +72,7 @@ class PrettyPrinter extends Element {
     "hiddenGutter",
     "hiddenGutter",
     "noScrollbars",
-    "fancyScrollbars",
-    "scrollbarThickness"
+    "fancyScrollbars"
   ];
 }
 

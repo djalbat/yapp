@@ -6,6 +6,8 @@ import { Element } from "easy";
 
 import Syntax from "./syntax";
 
+import { MARGIN_RIGHT, MARGIN_BOTTOM } from "./constants";
+
 class Highlights extends Element {
   update(tokens) {
     this.updateSyntax(tokens);
@@ -13,6 +15,19 @@ class Highlights extends Element {
 
   scroll(scrollTop, scrollLeft) {
     this.scrollSyntax(scrollTop, scrollLeft);
+  }
+
+  didMount() {
+    const { scrollbarThickness } = this.properties,
+          marginRight = `${scrollbarThickness}px`,
+          marginBottom = `${scrollbarThickness}px`;
+
+    this.style(MARGIN_RIGHT, marginRight);
+    this.style(MARGIN_BOTTOM, marginBottom);
+  }
+
+  willUnmount() {
+    ///
   }
 
   childElements() {
@@ -44,6 +59,10 @@ class Highlights extends Element {
 
   static tagName = "div";
 
+  static ignoredProperties = [
+    "scrollbarThickness"
+  ];
+
   static defaultProperties = {
     className: "highlights"
   };
@@ -52,8 +71,8 @@ class Highlights extends Element {
 export default withStyle(Highlights)`
 
   z-index: 0;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   overflow: hidden;
   position: relative;
   grid-area: highlights-rich-textarea;

@@ -7,7 +7,6 @@ import { React, Element } from "easy";
 import styleMixins from "./mixins/style";
 import PrettyPrinter from "./prettyPrinter";
 
-import { getScrollbarThickness } from "./utilities/scrollbarThickness";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
@@ -19,24 +18,6 @@ class Yapp extends Element {
     super(selector);
 
     this.plugin = plugin;
-  }
-
-  changeHandler = (event, element) => {
-    const richTextarea = element, ///
-          contentChanged = richTextarea.hasContentChanged();
-
-    if (contentChanged) {
-      const { onContentChange = null } = this.properties,
-            contentChangeHandler = onContentChange;  ///
-
-      this.update();
-
-      if (contentChangeHandler) {
-        element = this; ///
-
-        contentChangeHandler(event, element);
-      }
-    }
   }
 
   getPlugin() {
@@ -58,23 +39,27 @@ class Yapp extends Element {
     return initialLineCount;
   }
 
-  getScrollbarThickness() {
-    let scrollbarThickness = 0;
-
-    const { hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS } = this.properties;
-
-    if (!hiddenScrollbars) {
-      const { fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties;
-
-      scrollbarThickness = getScrollbarThickness(fancyScrollbars);
-    }
-
-    return scrollbarThickness;
-  }
-
   setLexer(lexer) { this.plugin.setLexer(lexer); }
 
   setParser(parser) { this.plugin.setParser(parser); }
+
+  changeHandler = (event, element) => {
+    const richTextarea = element, ///
+          contentChanged = richTextarea.hasContentChanged();
+
+    if (contentChanged) {
+      const { onContentChange = null } = this.properties,
+            contentChangeHandler = onContentChange;  ///
+
+      this.update();
+
+      if (contentChangeHandler) {
+        element = this; ///
+
+        contentChangeHandler(event, element);
+      }
+    }
+  }
 
   update() {
     const content = this.getContent();
@@ -116,16 +101,11 @@ class Yapp extends Element {
   }
 
   childElements() {
-    const { hiddenGutter = DEFAULT_HIDDEN_GUTTER, hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties,
-          scrollbarThickness = this.getScrollbarThickness();
+    const { hiddenGutter = DEFAULT_HIDDEN_GUTTER, hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties;
 
     return (
 
-      <PrettyPrinter onChange={this.changeHandler}
-                     hiddenGutter={hiddenGutter}
-                     fancyScrollbars={fancyScrollbars}
-                     hiddenScrollbars={hiddenScrollbars}
-                     scrollbarThickness={scrollbarThickness} />
+      <PrettyPrinter onChange={this.changeHandler} hiddenGutter={hiddenGutter} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
 
     );
   }
@@ -135,8 +115,6 @@ class Yapp extends Element {
           getContent = this.getContent.bind(this),
           updateYapp = this.update.bind(this),  ///
           setYappLexer = this.setLexer.bind(this),  ///
-          setYappWidth = this.setWidth.bind(this),  ///
-          setYappHeight = this.setHeight.bind(this),  ///
           setYappParser = this.setParser.bind(this);  ///
 
     return ({
@@ -144,8 +122,6 @@ class Yapp extends Element {
       getContent,
       updateYapp,
       setYappLexer,
-      setYappWidth,
-      setYappHeight,
       setYappParser
     });
   }
