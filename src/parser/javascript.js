@@ -286,7 +286,7 @@ const bnf = `
 
 let rules = rulesFromBNF(bnf);
 
-rules = eliminateLeftRecurison(rules);
+rules = eliminateLeftRecurison(rules);  ///
 
 export default class JavaScriptParser extends CommonParser {
   static bnf = bnf;
