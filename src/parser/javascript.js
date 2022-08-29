@@ -1,7 +1,7 @@
 "use strict";
 
 import { CommonParser } from "occam-parsers";
-import { parserUtilities, eliminateLeftRecurison } from "occam-grammar-utilities";
+import { parserUtilities, eliminateLeftRecursion } from "occam-grammar-utilities";
 
 const { rulesFromBNF, parserFromRules } = parserUtilities;
 
@@ -286,7 +286,7 @@ const bnf = `
 
 let rules = rulesFromBNF(bnf);
 
-rules = eliminateLeftRecurison(rules);  ///
+rules = eliminateLeftRecursion(rules);  ///
 
 export default class JavaScriptParser extends CommonParser {
   static bnf = bnf;
