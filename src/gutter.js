@@ -40,13 +40,13 @@ class Gutter extends Element {
   parentContext() {
 	  const context = this.getContext(),
 				  updateGutter = this.update.bind(this),  ///
-				  scrollGutter = this.scroll.bind(this),  ///
-          parentContext = Object.assign({}, context, {
-            updateGutter,
-            scrollGutter
-          });
+				  scrollGutter = this.scroll.bind(this);  ///
 
-    return parentContext;
+    return ({
+      ...context,
+      updateGutter,
+      scrollGutter
+    });
   }
   
   initialise() {

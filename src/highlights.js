@@ -40,14 +40,14 @@ class Highlights extends Element {
 
   parentContext() {
 	  const context = this.getContext(),
-          updateHighlights = this.update.bind(this), ///
-				  scrollHighlights = this.scroll.bind(this),  ///
-          parentContext = Object.assign({}, context, {
-            updateHighlights,
-            scrollHighlights
-          });
+          updateHighlights = this.update.bind(this),  ///
+				  scrollHighlights = this.scroll.bind(this);  ///
 
-    return parentContext;
+    return ({
+      ...context,
+      updateHighlights,
+      scrollHighlights
+    });
   }
 
   initialise() {

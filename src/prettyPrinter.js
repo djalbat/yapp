@@ -44,12 +44,12 @@ class PrettyPrinter extends Element {
   
   parentContext() {
     const context = this.getContext(),
-          updatePrettyPrinter = this.update.bind(this), ///
-          parentContext = Object.assign({}, context, {
-            updatePrettyPrinter
-          });
-    
-    return parentContext;
+          updatePrettyPrinter = this.update.bind(this); ///
+
+    return ({
+      ...context,
+      updatePrettyPrinter
+    });
   }
 
   initialise() {
