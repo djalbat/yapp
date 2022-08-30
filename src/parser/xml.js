@@ -1,7 +1,7 @@
 "use strict";
 
 import { CommonParser } from "occam-parsers";
-import { parserUtilities } from "occam-grammar-utilities";
+import { parserUtilities } from "occam-parsers";
 
 const { rulesFromBNF, parserFromRules } = parserUtilities;
 
