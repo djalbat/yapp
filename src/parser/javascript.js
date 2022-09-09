@@ -271,7 +271,7 @@ const bnf = `
 
   spreadArgument             ::=  "..."<NO_WHITESPACE>variable ;
 
-  argument                   ::=  variable ( "=" expression )? | expression ;
+  argument                   ::=  variable ( "=" expression )? ;
 
   variable                   ::=  [identifier] ;
 
