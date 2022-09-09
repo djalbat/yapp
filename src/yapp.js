@@ -85,7 +85,7 @@ class Yapp extends Element {
             borderTopWidth = this.getBorderTopWidth(),
             initialLineCount = this.getInitialLineCount(),
             borderBottomWidth = this.getBorderBottomWidth(),
-            scrollbarThickness = this.getScrollbarThickness(),
+            scrollbarThickness = getScrollbarThickness(),
             height = borderTopWidth + paddingTop + initialLineCount * lineHeight + paddingBottom + borderBottomWidth + scrollbarThickness;
 
       this.setHeight(height);
