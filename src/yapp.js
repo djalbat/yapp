@@ -7,6 +7,7 @@ import { React, Element } from "easy";
 import styleMixins from "./mixins/style";
 import PrettyPrinter from "./prettyPrinter";
 
+import { getScrollbarThickness } from "./utilities/scrollbar";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
