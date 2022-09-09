@@ -179,7 +179,7 @@ const bnf = `
 
                                |  "void" ( expression | ( "(" expression ")") )
 
-                               |  "new" name<NO_WHITESPACE>"(" arguments? ")"
+                               |  "new" name<NO_WHITESPACE>"(" expressions? ")"
 
                                |  [operator]<NO_WHITESPACE>expression
 
@@ -270,7 +270,7 @@ const bnf = `
 
 
   spreadArgument             ::=  "..."<NO_WHITESPACE>variable ;
-
+  
   argument                   ::=  variable ( "=" expression )? ;
 
   variable                   ::=  [identifier] ;
