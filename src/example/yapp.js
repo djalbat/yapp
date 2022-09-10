@@ -7,7 +7,8 @@ import Yapp from "../index";  ///
 export default withStyle(class extends Yapp {
   static defaultProperties = {
     editable: true,
-    autoHeight: false
+    autoHeight: false,
+    fancyScrollbars: true
   };
 })`
 

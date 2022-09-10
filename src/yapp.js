@@ -94,11 +94,7 @@ class Yapp extends Element {
   }
 
   willUnmount() {
-    const { firaCode = DEFAULT_FIRA_CODE } = this.properties;
-
-    if (firaCode) {
-      this.removeClass("fira-code");
-    }
+    ///
   }
 
   childElements() {
