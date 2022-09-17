@@ -2,6 +2,10 @@
 
 Yet Another Pretty Printer.
 
+*If you just want to see Yapp in action without further ado*, then clone this repository, run `npm install` and `npm start`, and then open your browser at http://localhost:8888.
+
+*If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
+
 ### Contents
 
 - [Introduction](#introduction)
@@ -17,10 +21,6 @@ Yet Another Pretty Printer.
 - [Contact](#contact)
 
 ## Introduction
-
-*If you just want to see Yapp in action without further ado*, then clone this repository, run `npm install` and `npm start`, and then open your browser at http://localhost:8888. 
-
-*If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
 
 Yapp is an advanced pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors. Yapp is also fully configurable. You can style it overall or target specific syntaxes. Its plugin architecture additionally makes it easy to support any language.
 
