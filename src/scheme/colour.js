@@ -8,23 +8,20 @@ export const caretColour = bonjour;
 
 export const borderColour = stormDust;
 
+export const scrollbarColour = hurricane;
+
 export const selectionColour = bonjour;
 
 export const backgroundColour = hunterGreen;
 
 export const selectionBackgroundColour = havelockBlue;
 
-export const scrollbarThumbBoxShadowColour = stormDust;
-
-export const scrollbarThumbBackgroundColour = hurricane;
-
 export default {
   colour,
   caretColour,
   borderColour,
+  scrollbarColour,
   selectionColour,
   backgroundColour,
-  selectionBackgroundColour,
-  scrollbarThumbBoxShadowColour,
-  scrollbarThumbBackgroundColour
+  selectionBackgroundColour
 };

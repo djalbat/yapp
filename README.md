@@ -198,6 +198,22 @@ If you choose to enable Fira Code then you need to provide the necessary web fon
 ```
 You do not have to provide this, rendering Yapp's styles will do so, but it is recommended that you check the network tab in your browser's developer tools to ensure that these files are being served.
 
+You can also preload the font files by putting the following in the header of the containing HTML page:
+
+```
+<link rel="preload" href="${host}/css/woff2/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${host}/css/woff2/FiraCode-Light.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${host}/css/woff2/FiraCode-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${host}/css/woff2/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="preload" href="${host}/css/woff/FiraCode-Bold.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="${host}/css/woff/FiraCode-Light.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="${host}/css/woff/FiraCode-Medium.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="${host}/css/woff/FiraCode-Regular.woff" as="font" type="font/woff" crossorigin>
+```
+
+A `host` variable has been included here, the value of which should be the same as the `host` argument passed to the `firaCodeStyle()` function mentioned in the section on syntax styles further down. You may need to change the markup in the above snippet, depending on your templating library.
+
 ## Styling Yapp
 
 Each of the usage examples in the usage section includes the following code:
@@ -302,7 +318,7 @@ In fact the above is just what the `renderYappStyles()` function does. In leavin
 
 ### Hidden scrollbars and gutters, and fancy scrollbars
 
-You can hide the scrollbars and gutter with the `hiddenScrollbars` and `hiddenGutter` JSX attributes, respectively, and enable fancy scrollbars with the `fancyScrollbars` JSX attribute. These attributes can also be included as options. Fancy scrollbars have hidden tracks and thinner, rounded thumbs. They look something like old Mac scrollbars. Appearances will only differ on WebKit browsers such as Chrome and Safari because the styles make use of the `-webkit` prefix.
+You can hide the scrollbars and gutter with the `hiddenScrollbars` and `hiddenGutter` JSX attributes, respectively, and enable fancy scrollbars with the `fancyScrollbars` JSX attribute. These attributes can also be included as options. Fancy scrollbars have hidden tracks and thinner, rounded thumbs. They look something like old Mac scrollbars. Appearances will differ across browsers.
 
 ## Plugins
 

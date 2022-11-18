@@ -4,7 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
 import { scrollbarThickness, scrollbarThumbBorderRadius } from "./styles";
-import { selectionColour, backgroundColour, selectionBackgroundColour, scrollbarThumbBoxShadowColour, scrollbarThumbBackgroundColour  } from "./scheme/colour";
+import { scrollbarColour, selectionColour, backgroundColour, selectionBackgroundColour  } from "./scheme/colour";
 
 export default withStyle(class extends RichTextarea {
   didMount() {
@@ -82,6 +82,11 @@ export default withStyle(class extends RichTextarea {
     overflow: hidden;
   }
   
+  .fancy-scrollbars {
+    scrollbar-color: ${scrollbarColour} transparent;
+    scrollbar-gutter: auto;
+  }
+  
   .fancy-scrollbars::-webkit-scrollbar {
     width: ${scrollbarThickness};
     height: ${scrollbarThickness};
@@ -93,9 +98,8 @@ export default withStyle(class extends RichTextarea {
 
   .fancy-scrollbars::-webkit-scrollbar-thumb {
     border: 2px solid ${backgroundColour};
-    box-shadow: inset 0 0 1px ${scrollbarThumbBoxShadowColour};
     border-radius: ${scrollbarThumbBorderRadius};
-    background-color: ${scrollbarThumbBackgroundColour};
+    background-color: ${scrollbarColour};
   }
 
   .fancy-scrollbars::-webkit-scrollbar-corner {
