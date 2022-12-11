@@ -37,7 +37,7 @@ class PrettyPrinter extends Element {
 
       <Gutter hidden={hidden} />,
       <Highlights scrollbarThickness={scrollbarThickness} />,
-      <RichTextarea onScroll={this.scrollHandler} onChange={changeHandler} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} active />
+      <RichTextarea onScroll={this.scrollHandler} onChange={changeHandler} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
 
     ]);
   }

@@ -20,8 +20,7 @@ class Syntax extends Element {
   }
 
   addLanguageClass() {
-    const state = this.getState(),
-          { language } = state;
+    const { language } = this.getState();
 
     if (language !== null) {
       const languageClass = language; ///
@@ -31,8 +30,7 @@ class Syntax extends Element {
   }
 
   removeLanguageClass() {
-    const state = this.getState(),
-          { language } = state;
+    const { language } = this.getState();
 
     if (language !== null) {
       const languageClass = language; ///

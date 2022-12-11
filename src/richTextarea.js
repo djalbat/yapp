@@ -49,6 +49,12 @@ export default withStyle(class extends RichTextarea {
     });
   }
 
+  initialise() {
+    super.initialise();
+
+    this.activate();
+  }
+
   static defaultProperties = {
     spellCheck: "false"
   };
