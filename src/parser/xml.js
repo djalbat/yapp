@@ -17,16 +17,16 @@ const bnf = `
   declaration                ::=  "<?"<NO_WHITESPACE>"xml" attribute* "?>" ;
 
 
-  element                    ::=  comment | complexElement | simpleElement ;
+  element                    ::=  comment | simpleElement | complexElement ;
                                
                                
   comment                    ::=  "<!--" text* "-->" ;
 
 
-  complexElement             ::=  startTag ( element | text )* endTag ;
-
-
   simpleElement              ::=  completeTag ;
+
+
+  complexElement             ::=  startTag ( element | text )* endTag ;
 
 
   completeTag                ::=  "<"<NO_WHITESPACE>name attribute* "/>" ;
