@@ -7,19 +7,20 @@ const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 const bnf = `
 
-  document                   ::=  json error* | error+ ;
+  document                   ::=  element error* 
+  
+                               |  error+ 
+                               
+                               ;
 
 
-  json                       ::=  array | object ;
-
-
-  array                      ::=  "[" ( element ( "," element )* )? "]" ;
+  element                    ::=  array | object | [string-literal] | [number] | "true" | "false" | "null" ;
 
 
   object                     ::=  "{" ( [string-literal] ":" element ( "," [string-literal] ":" element )* )? "}" ;
 
   
-  element                    ::=  json |  [string-literal] | [number] | "true" | "false" | "null" ;
+  array                      ::=  "[" ( element ( "," element )* )? "]" ;
 
 
   error                      ::=  . ;

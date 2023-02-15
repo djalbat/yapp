@@ -8,11 +8,7 @@ const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 const bnf = `
 
-  document                   ::=  preamble ( statement | function | class | error )* 
-  
-                               |  ( statement | function | class | error )+ 
-                                
-                               ;
+  document                   ::=  preamble? ( statement | function | class | error )* ;
 
 
 

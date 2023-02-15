@@ -8,6 +8,7 @@ import { renderYappStyles } from "./index"; ///
 
 import XMLView from "./example/view/xml";
 import JSONView from "./example/view/json";
+import PlainTextView from "./example/view/plainText";
 import JavaScriptView from "./example/view/javascript";
 
 let View;
@@ -18,6 +19,7 @@ const body = new Body(),
 switch (example) {
   case "xml": View = XMLView; break;
   case "json": View = JSONView; break;
+  case "plain-text": View = PlainTextView; break;
   case "javascript": View = JavaScriptView; break;
 }
 

@@ -7,19 +7,26 @@ const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 const bnf = `
 
-  document                   ::=  xml error* | error+ ;
+  document                   ::=  declaration? comment* ( simpleElement | complexElement ) comment* error*
+  
+                               |  error+
+                               
+                               ;
 
 
-  xml                        ::=  ( preamble element* ) | element+ ;
+  declaration                ::=  "<?"<NO_WHITESPACE>"xml" attribute* "?>" ;
 
 
-  preamble                   ::=  "<?"<NO_WHITESPACE>"xml" attribute* "?>" ;
-
-
-  element                    ::=  comment | completeTag | startTag ( element | text )* endTag ;
-
-
+  element                    ::=  comment | complexElement | simpleElement ;
+                               
+                               
   comment                    ::=  "<!--" text* "-->" ;
+
+
+  complexElement             ::=  startTag ( element | text )* endTag ;
+
+
+  simpleElement              ::=  completeTag ;
 
 
   completeTag                ::=  "<"<NO_WHITESPACE>name attribute* "/>" ;
