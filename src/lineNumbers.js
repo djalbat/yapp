@@ -53,10 +53,16 @@ export default withStyle(LineNumbers)`
   text-align: right;
   user-select: none;
   pointer-events: none;
-  font-family: 'DejaVu Sans Mono', Menlo, 'Lucida Console', Monaco, monospace;
 
   color: inherit;
   font-size: inherit;
   line-height: inherit;
+  font-family: 'DejaVu Sans Mono', Menlo, 'Lucida Console', Monaco, monospace;
+  font-weight: normal;
+  caret-color: initial;
+  border-color: initial;
+  text-rendering: initial;
+  background-color: initial;
+  font-feature-settings: initial;
 
 `;

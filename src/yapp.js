@@ -192,18 +192,18 @@ export default withStyle(Yapp)`
   border: 1px solid;
   
   color: ${colour};
-  caret-color: ${caretColour};
-  border-color: ${borderColour};
-  background-color: ${backgroundColour};
-
   font-size: 13px;
   line-height: 20px;
   font-family: "Menlo", "Lucida Sans Typewriter", monospace;
+  font-weight: normal;
+  caret-color: ${caretColour};
+  border-color: ${borderColour};
+  text-rendering: initial;
+  background-color: ${backgroundColour};
+  font-feature-settings: initial;
 
   .fira-code {
 
-    font-size: 13px;
-    line-height: 20px;
     font-family: "Fira Code";
     text-rendering: optimizeLegibility;
     font-feature-settings: "calt" 1;

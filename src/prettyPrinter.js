@@ -90,10 +90,11 @@ export default withStyle(PrettyPrinter)`
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
+  font-weight: inherit;
   caret-color: inherit;
   border-color: inherit;
   text-rendering: inherit;
-  background-color: inherit;
+  background-color: transparent;
   font-feature-settings: inherit;
 
 `;

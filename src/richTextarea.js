@@ -108,11 +108,15 @@ export default withStyle(class extends RichTextarea {
     display: none;
   }
 
+  color: transparent;
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
-  caret-color: inherit;
+  font-weight: inherit;
+  caret-color: initial;
+  border-color: initial;
   text-rendering: inherit;
+  background-color: transparent;
   font-feature-settings: inherit;
 
 `;

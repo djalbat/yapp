@@ -189,9 +189,9 @@ If you choose to enable Fira Code then you need to provide the necessary web fon
 
 ```
 @font-face {
-  font-family: "Fira Code";
   src: url("css/woff2/FiraCode-Light.woff2");
-  font-style: normal;
+  font-family: "Fira Code";
+  font-weight: normal;
 }
 ```
 You do not have to provide this, rendering Yapp's styles will do so, but it is recommended that you check the network tab in your browser's developer tools to ensure that these files are being served.
@@ -221,7 +221,7 @@ Rendering the styles in this manner should always be done before any instance of
 
 ### Overall styles
 
-A handful of overall CSS properties, mainly relating to font colours, can be overridden directly. The most elegant way to do this is with programmatic styles. You can take the following approach, for example:
+The following styles can be overridden. The most elegant way to do this is with programmatic styles. You can take the following approach, for example:
 
 ```
 "use strict";
@@ -234,21 +234,19 @@ export default withStyle(Yapp)`
   border: 2px dotted;
 
   color: green;
-  caret-color: white;
-  border-color: yellow;
-  background-color: red;
-
   font-size: 14px;
   line-height: 20px;
-  font-family:  monospace;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: normal;
+  font-family: monospace;
+  font-weight: bold;
+  caret-color: white;
+  border-color: yellow;
+  text-rendering: initial;
+  background-color: black;
+  font-feature-settings: initial;
 
-`;
 ```
-Now you can import this class rather than the package's `Yapp` class and your style will always be used without the need for repetition.
 
-Some of the relevant CSS properties of child elements are not inheritable and must therefore be targeted directly. For example:
+Now you can import this class rather than the package's `Yapp` class and your styles will always be used without the need for repetition. Note that all of the above styles will be inherited by all of the child elements with the exception of the `border` style, which is only used at the topmost level; a few other sty3es such as the `background` style, which some child elements need to override. A little experimentation is recommended.  
 
 ```
 .yaap > textarea::selection {
