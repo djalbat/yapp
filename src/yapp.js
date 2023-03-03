@@ -44,6 +44,14 @@ class Yapp extends Element {
 
   setParser(parser) { this.plugin.setParser(parser); }
 
+  enableFiraCode() {
+    this.addClass("fira-code");
+  }
+
+  disableFiraCode() {
+    this.removeClass("fira-code");
+  }
+
   changeHandler = (event, element) => {
     const richTextarea = element, ///
           contentChanged = richTextarea.hasContentChanged();
@@ -73,11 +81,17 @@ class Yapp extends Element {
   }
 
   didMount() {
-    const { firaCode = DEFAULT_FIRA_CODE, autoHeight = DEFAULT_AUTO_HEIGHT } = this.properties;
+    const { childElements, editable = DEFAULT_EDITABLE, firaCode = DEFAULT_FIRA_CODE, autoHeight = DEFAULT_AUTO_HEIGHT } = this.properties,
+          content = contentFromChildElements(childElements),
+          readOnly = !editable;
 
-    if (firaCode) {
-      this.addClass("fira-code");
-    }
+    firaCode && this.enableFiraCode();
+
+    this.activateRichTextarea();
+
+    this.setRichTextareaContent(content);
+
+    this.setRichTextareaReadOnly(readOnly);
 
     if (autoHeight) {
       const lineHeight = this.getLineHeight(),
@@ -91,6 +105,8 @@ class Yapp extends Element {
 
       this.setHeight(height);
     }
+
+    this.update();
   }
 
   willUnmount() {
@@ -126,18 +142,9 @@ class Yapp extends Element {
   initialise() {
     this.assignContext();
 
-    const { childElements, editable = DEFAULT_EDITABLE } = this.properties,
-          language = this.plugin.getLanguage(),
-          content = contentFromChildElements(childElements),
-          readOnly = !editable;
+    const language = this.plugin.getLanguage();
 
     this.setLanguage(language);
-
-    this.setRichTextareaContent(content);
-
-    this.setRichTextareaReadOnly(readOnly);
-
-    this.update();
   }
 
   static tagName = "div";
