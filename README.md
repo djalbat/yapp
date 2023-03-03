@@ -190,9 +190,7 @@ If you choose to enable Fira Code then you need to provide the necessary web fon
 ```
 @font-face {
   font-family: "Fira Code";
-  src: url("css/woff2/FiraCode-Light.woff2") format("woff2"),
-  url("css/woff2/FiraCode-Light.woff") format("woff");
-  font-weight: 300;
+  src: url("css/woff2/FiraCode-Light.woff2");
   font-style: normal;
 }
 ```
@@ -202,14 +200,7 @@ You can also preload the font files by putting the following in the header of th
 
 ```
 <link rel="preload" href="${host}/css/woff2/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="${host}/css/woff2/FiraCode-Light.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="${host}/css/woff2/FiraCode-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${host}/css/woff2/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin>
-
-<link rel="preload" href="${host}/css/woff/FiraCode-Bold.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="${host}/css/woff/FiraCode-Light.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="${host}/css/woff/FiraCode-Medium.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="${host}/css/woff/FiraCode-Regular.woff" as="font" type="font/woff" crossorigin>
 ```
 
 A `host` variable has been included here, the value of which should be the same as the `host` argument passed to the `firaCodeStyle()` function mentioned in the section on syntax styles further down. You may need to change the markup in the above snippet, depending on your templating library.
