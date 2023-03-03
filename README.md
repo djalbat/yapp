@@ -199,8 +199,8 @@ You do not have to provide this, rendering Yapp's styles will do so, but it is r
 You can also preload the font files by putting the following in the header of the containing HTML page:
 
 ```
-<link rel="preload" href="${host}/css/woff2/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="${host}/css/woff2/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${host}/css/woff2/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin >
+<link rel="preload" href="${host}/css/woff2/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin >
 ```
 
 A `host` variable has been included here, the value of which should be the same as the `host` argument passed to the `firaCodeStyle()` function mentioned in the section on syntax styles further down. You may need to change the markup in the above snippet, depending on your templating library.
