@@ -70,6 +70,7 @@ export default withStyle(class extends RichTextarea {
   z-index: 1;
   tab-size: 2;
   overflow: scroll;
+  position: relative;
   grid-area: highlights-rich-textarea;
   white-space: pre;
   overflow-wrap: normal;
@@ -113,7 +114,7 @@ export default withStyle(class extends RichTextarea {
   line-height: inherit;
   font-family: inherit;
   font-weight: inherit;
-  caret-color: initial;
+  caret-color: inherit;
   border-color: initial;
   text-rendering: inherit;
   background-color: transparent;
