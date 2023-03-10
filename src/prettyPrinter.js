@@ -28,8 +28,9 @@ class PrettyPrinter extends Element {
   }
 
   childElements() {
-    const { onChange, hiddenGutter, fancyScrollbars, hiddenScrollbars } = this.properties,
+    const { editable, onChange, hiddenGutter, fancyScrollbars, hiddenScrollbars } = this.properties,
           hidden = hiddenGutter,  ///
+          readOnly = !editable,
           changeHandler = onChange, ///
           scrollbarThickness = getScrollbarThickness(hiddenScrollbars, fancyScrollbars);
 
@@ -37,7 +38,7 @@ class PrettyPrinter extends Element {
 
       <Gutter hidden={hidden} />,
       <Highlights scrollbarThickness={scrollbarThickness} />,
-      <RichTextarea onScroll={this.scrollHandler} onChange={changeHandler} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
+      <RichTextarea onScroll={this.scrollHandler} onChange={changeHandler} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} readOnly={readOnly} />
 
     ]);
   }
@@ -69,6 +70,7 @@ class PrettyPrinter extends Element {
 
   static ignoredProperties = [
     "onChange",
+    "editable",
     "hiddenGutter",
     "hiddenGutter",
     "noScrollbars",

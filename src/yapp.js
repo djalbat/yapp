@@ -81,17 +81,14 @@ class Yapp extends Element {
   }
 
   didMount() {
-    const { childElements, editable = DEFAULT_EDITABLE, firaCode = DEFAULT_FIRA_CODE, autoHeight = DEFAULT_AUTO_HEIGHT } = this.properties,
-          content = contentFromChildElements(childElements),
-          readOnly = !editable;
+    const { childElements, firaCode = DEFAULT_FIRA_CODE, autoHeight = DEFAULT_AUTO_HEIGHT } = this.properties,
+          content = contentFromChildElements(childElements);
 
     firaCode && this.enableFiraCode();
 
     this.activateRichTextarea();
 
     this.setRichTextareaContent(content);
-
-    this.setRichTextareaReadOnly(readOnly);
 
     if (autoHeight) {
       const lineHeight = this.getLineHeight(),
@@ -114,11 +111,11 @@ class Yapp extends Element {
   }
 
   childElements() {
-    const { hiddenGutter = DEFAULT_HIDDEN_GUTTER, hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties;
+    const { editable = DEFAULT_EDITABLE, hiddenGutter = DEFAULT_HIDDEN_GUTTER, hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties;
 
     return (
 
-      <PrettyPrinter onChange={this.changeHandler} hiddenGutter={hiddenGutter} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
+      <PrettyPrinter onChange={this.changeHandler} editable={editable} hiddenGutter={hiddenGutter} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
 
     );
   }

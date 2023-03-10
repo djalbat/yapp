@@ -93,7 +93,7 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Plugin={Plugin} firaCode={firaCode} onContentChange={this.contentChangeHandler} readOnly >
+              <Yapp Plugin={Plugin} firaCode={firaCode} onContentChange={this.contentChangeHandler} >
                 {initialContent}
               </Yapp>
             </TopSizeableDiv>
