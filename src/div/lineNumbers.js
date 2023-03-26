@@ -4,10 +4,10 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import { EMPTY_STRING } from "./constants";
-import { lineCountFromTokens } from "./utilities/tokens";
+import { EMPTY_STRING } from "../constants";
+import { lineCountFromTokens } from "../utilities/tokens";
 
-class LineNumbers extends Element {
+class LineNumbersDiv extends Element {
   update(tokens) {
     let html = EMPTY_STRING;
 
@@ -30,12 +30,12 @@ class LineNumbers extends Element {
   }
 
   parentContext() {
-	  const scrollLineNumbers = this.scroll.bind(this), ///
-          updateLineNumbers = this.update.bind(this);  ///
+	  const scrollLineNumbersDiv = this.scroll.bind(this), ///
+          updateLineNumbersDiv = this.update.bind(this);  ///
 
     return ({
-      scrollLineNumbers,
-      updateLineNumbers
+      scrollLineNumbersDiv,
+      updateLineNumbersDiv
     });
   }
 
@@ -46,7 +46,7 @@ class LineNumbers extends Element {
   };
 }
 
-export default withStyle(LineNumbers)`
+export default withStyle(LineNumbersDiv)`
 
   margin: 0 6px 0 6px;
   position: relative;

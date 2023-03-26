@@ -4,9 +4,9 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import { EMPTY_STRING } from "./constants";
+import { EMPTY_STRING } from "../constants";
 
-class Syntax extends Element {
+class SyntaxDiv extends Element {
   setLanguage(language) {
     const state = {
       language
@@ -72,13 +72,13 @@ class Syntax extends Element {
 
   parentContext() {
 	  const setLanguage = this.setLanguage.bind(this),
-          updateSyntax = this.update.bind(this), ///
-				  scrollSyntax = this.scroll.bind(this);  ///
+          updateSyntaxDiv = this.update.bind(this), ///
+				  scrollSyntaxDiv = this.scroll.bind(this);  ///
 
     return ({
       setLanguage,
-      updateSyntax,
-      scrollSyntax
+      updateSyntaxDiv,
+      scrollSyntaxDiv
     });
   }
 
@@ -93,7 +93,7 @@ class Syntax extends Element {
   };
 }
 
-export default withStyle(Syntax)`
+export default withStyle(SyntaxDiv)`
 
   position: relative;
   white-space: pre;

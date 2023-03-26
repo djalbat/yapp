@@ -4,15 +4,15 @@ import withStyle from "easy-with-style";  ///
 
 import { React, Element } from "easy";
 
-import LineNumbers from "./lineNumbers";
+import LineNumbersDiv from "../div/lineNumbers";
 
-class Gutter extends Element {
+class GutterDiv extends Element {
   update(tokens) {
-    this.updateLineNumbers(tokens);
+    this.updateLineNumbersDiv(tokens);
   }
 
   scroll(scrollTop, scrollLeft) {
-    this.scrollLineNumbers(scrollTop, scrollLeft);
+    this.scrollLineNumbersDiv(scrollTop, scrollLeft);
   }
 
   setLineCount(lineCount) {
@@ -32,20 +32,20 @@ class Gutter extends Element {
   childElements() {
     return (
 
-      <LineNumbers/>
+      <LineNumbersDiv/>
 
     );
   }
 
   parentContext() {
 	  const context = this.getContext(),
-				  updateGutter = this.update.bind(this),  ///
-				  scrollGutter = this.scroll.bind(this);  ///
+				  updateGutterDiv = this.update.bind(this),  ///
+				  scrollGutterDiv = this.scroll.bind(this);  ///
 
     return ({
       ...context,
-      updateGutter,
-      scrollGutter
+      updateGutterDiv,
+      scrollGutterDiv
     });
   }
   
@@ -62,7 +62,7 @@ class Gutter extends Element {
   };
 }
 
-export default withStyle(Gutter)`
+export default withStyle(GutterDiv)`
 
   width: fit-content;
   overflow: hidden;

@@ -4,8 +4,8 @@ import withStyle from "easy-with-style";  ///
 
 import { React, Element } from "easy";
 
-import Gutter from "./gutter";
-import Highlights from "./highlights";
+import GutterDiv from "./div/gutter";
+import OverlayDiv from "./div/overlay";
 import RichTextarea from "./richTextarea";
 
 import { getScrollbarThickness } from "./utilities/scrollbar";
@@ -16,15 +16,15 @@ class PrettyPrinter extends Element {
           scrollTop = richTextarea.getScrollTop(),
           scrollLeft = richTextarea.getScrollLeft();
 
-    this.scrollGutter(scrollTop ,scrollLeft);
+    this.scrollGutterDiv(scrollTop ,scrollLeft);
 
-    this.scrollHighlights(scrollTop, scrollLeft);
+    this.scrollOverlayDiv(scrollTop, scrollLeft);
   }
 
   update(tokens) {
-    this.updateGutter(tokens);
+    this.updateGutterDiv(tokens);
 
-    this.updateHighlights(tokens);
+    this.updateOverlayDiv(tokens);
   }
 
   childElements() {
@@ -36,8 +36,8 @@ class PrettyPrinter extends Element {
 
     return ([
 
-      <Gutter hidden={hidden} />,
-      <Highlights scrollbarThickness={scrollbarThickness} />,
+      <GutterDiv hidden={hidden} />,
+      <OverlayDiv scrollbarThickness={scrollbarThickness} />,
       <RichTextarea onScroll={this.scrollHandler} onChange={changeHandler} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} readOnly={readOnly} />
 
     ]);
@@ -55,10 +55,10 @@ class PrettyPrinter extends Element {
 
   initialise() {
     this.assignContext([
-      "updateGutter",
-      "scrollGutter",
-      "updateHighlights",
-      "scrollHighlights"
+      "updateGutterDiv",
+      "scrollGutterDiv",
+      "updateOverlayDiv",
+      "scrollOverlayDiv"
     ]);
   }
 
@@ -72,7 +72,6 @@ class PrettyPrinter extends Element {
     "onChange",
     "editable",
     "hiddenGutter",
-    "hiddenGutter",
     "noScrollbars",
     "fancyScrollbars"
   ];
@@ -85,7 +84,7 @@ export default withStyle(PrettyPrinter)`
   display: grid;
   overflow: hidden;
   grid-template-rows: auto;
-  grid-template-areas: "gutter highlights-rich-textarea";
+  grid-template-areas: "gutter overlay-rich-textarea";
   grid-template-columns: min-content auto;  
 
   color: inherit;

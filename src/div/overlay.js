@@ -4,17 +4,17 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
-import Syntax from "./syntax";
+import SyntaxDiv from "../div/syntax";
 
-import { MARGIN_RIGHT, MARGIN_BOTTOM } from "./constants";
+import { MARGIN_RIGHT, MARGIN_BOTTOM } from "../constants";
 
-class Highlights extends Element {
+class OverlayDiv extends Element {
   update(tokens) {
-    this.updateSyntax(tokens);
+    this.updateSyntaxDiv(tokens);
   }
 
   scroll(scrollTop, scrollLeft) {
-    this.scrollSyntax(scrollTop, scrollLeft);
+    this.scrollSyntaxDiv(scrollTop, scrollLeft);
   }
 
   didMount() {
@@ -33,27 +33,27 @@ class Highlights extends Element {
   childElements() {
     return (
 
-      <Syntax/>
+      <SyntaxDiv/>
 
     );
   }
 
   parentContext() {
 	  const context = this.getContext(),
-          updateHighlights = this.update.bind(this),  ///
-				  scrollHighlights = this.scroll.bind(this);  ///
+          updateOverlayDiv = this.update.bind(this),  ///
+				  scrollOverlayDiv = this.scroll.bind(this);  ///
 
     return ({
       ...context,
-      updateHighlights,
-      scrollHighlights
+      updateOverlayDiv,
+      scrollOverlayDiv
     });
   }
 
   initialise() {
     this.assignContext([
-      "updateSyntax",
-      "scrollSyntax"
+      "updateSyntaxDiv",
+      "scrollSyntaxDiv"
     ]);
   }
 
@@ -64,18 +64,18 @@ class Highlights extends Element {
   ];
 
   static defaultProperties = {
-    className: "highlights"
+    className: "overlay"
   };
 }
 
-export default withStyle(Highlights)`
+export default withStyle(OverlayDiv)`
 
   z-index: 0;
   width: auto;
   height: auto;
   overflow: hidden;
   position: relative;
-  grid-area: highlights-rich-textarea;
+  grid-area: overlay-rich-textarea;
 
   color: inherit;
   font-size: inherit;
