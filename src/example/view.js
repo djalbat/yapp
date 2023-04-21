@@ -8,15 +8,15 @@ import { parserUtilities } from "occam-parsers";
 import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
 import Yapp from "./yapp";
-import SubHeading from "./subHeading";
-import BNFTextarea from "./textarea/bnf";
-import TokensTextarea from "./textarea/tokens";
-import TopSizeableDiv from "./div/sizeable/top";
-import LeftSizeableDiv from "./div/sizeable/left";
-import RightSizeableDiv from "./div/sizeable/right";
-import MiddleSizeableDiv from "./div/sizeable/middle";
-import ParseTreeTextarea from "./textarea/parseTree";
-import LexicalEntriesTextarea from "./textarea/lexicalEntries";
+import SubHeading from "./view/subHeading";
+import BNFTextarea from "./view/textarea/bnf";
+import TokensTextarea from "./view/textarea/tokens";
+import TopSizeableDiv from "./view/div/sizeable/top";
+import LeftSizeableDiv from "./view/div/sizeable/left";
+import RightSizeableDiv from "./view/div/sizeable/right";
+import MiddleSizeableDiv from "./view/div/sizeable/middle";
+import ParseTreeTextarea from "./view/textarea/parseTree";
+import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 
 const { rulesFromBNF } = parserUtilities;
 
