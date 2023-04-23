@@ -1,24 +1,19 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
+import { characters, arrayUtilities } from "necessary";
 
 import { EMPTY_STRING } from "../constants";
 
-const { first } = arrayUtilities;
+const { first } = arrayUtilities,
+      { LESS_THAN_CHARACTER, AMPERSAND_CHARACTER, GREATER_THAN_CHARACTER } = characters;
 
-export function contentFromChildElements(childElements) {
-  let content = EMPTY_STRING;
+export function sanitiseContent(content) {
+  const sanitisedContent = content
+                            .replace(/&/g, AMPERSAND_CHARACTER)
+                            .replace(/</g, LESS_THAN_CHARACTER)
+                            .replace(/>/g, GREATER_THAN_CHARACTER);
 
-  const childElementsLength = childElements.length;
-
-  if (childElementsLength > 0) {
-    const firstChildElement = first(childElements),
-          firstChildElementText = firstChildElement.getText();
-
-    content = firstChildElementText;  ///
-  }
-
-  return content;
+  return sanitisedContent;
 }
 
 export function lineCountFromContent(content) {
@@ -35,4 +30,19 @@ export function lineCountFromContent(content) {
   }
 
   return lineCount;
+}
+
+export function contentFromChildElements(childElements) {
+  let content = EMPTY_STRING;
+
+  const childElementsLength = childElements.length;
+
+  if (childElementsLength > 0) {
+    const firstChildElement = first(childElements),
+          firstChildElementText = firstChildElement.getText();
+
+    content = firstChildElementText;  ///
+  }
+
+  return content;
 }

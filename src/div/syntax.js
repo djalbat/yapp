@@ -4,6 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 
+import { tokenAsHTML } from "../utilities/token";
 import { EMPTY_STRING } from "../constants";
 
 class SyntaxDiv extends Element {
@@ -41,9 +42,9 @@ class SyntaxDiv extends Element {
 
   update(tokens) {
     const html = tokens.reduce((html, token) => { ///
-            const tokenWithSelectionHTML = token.asHTML();
+            const tokenHTML = tokenAsHTML(token);
 
-            html += tokenWithSelectionHTML;
+            html += tokenHTML;
 
             return html;
           }, EMPTY_STRING);
