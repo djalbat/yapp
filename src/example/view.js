@@ -3,7 +3,6 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { rewriteNodes } from "occam-grammar-utilities";
 import { parserUtilities } from "occam-parsers";
 import { RowDiv, RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv, HorizontalSplitterDiv } from "easy-layout";
 
@@ -59,8 +58,6 @@ class View extends Element {
             node = plugin.getNode();
 
       if (node !== null) {
-        rewriteNodes(node);
-
         parseTree = node.asParseTree(tokens);
       }
 
