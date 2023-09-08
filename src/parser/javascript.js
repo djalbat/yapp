@@ -290,5 +290,8 @@ export default class JavaScriptParser extends CommonParser {
 
   static fromNothing() { return parserFromRules(JavaScriptParser, rules); }
 
-  static fromRules(rules) { return CommonParser.fromRules(JavaScriptParser, rules); }
+  static fromRules(rules) {
+    rules = eliminateLeftRecursion(rules);  ///
+
+    return CommonParser.fromRules(JavaScriptParser, rules); }
 }

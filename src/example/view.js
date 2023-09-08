@@ -24,16 +24,30 @@ class View extends Element {
     this.update();
   }
 
+  lexerFromEntries(entries) {
+    const { Plugin } = this.constructor,
+          { Lexer } = Plugin,
+          lexer = Lexer.fromEntries(entries);
+
+    return lexer;
+  }
+
+  parserFromBNF(bnf) {
+    const { Plugin } = this.constructor,
+          { Parser } = Plugin,
+          rules = rulesFromBNF(bnf),
+          parser = Parser.fromRules(rules);
+
+    return parser;
+  }
+
   keyUpHandler = (event, element) => {
     try {
-      const { Plugin } = this.constructor,
-            { Lexer, Parser } = Plugin,
-            lexicalEntries = this.getLexicalEntries(),
-            bnf = this.getBNF(),
+      const lexicalEntries = this.getLexicalEntries(),
             entries = lexicalEntries, ///
-            rules = rulesFromBNF(bnf),
-            lexer = Lexer.fromEntries(entries),
-            parser = Parser.fromRules(rules),
+            bnf = this.getBNF(),
+            lexer = this.lexerFromEntries(entries),
+            parser = this.parserFromBNF(bnf),
             yappLexer = lexer,  ///
             yappParser = parser;  ///
 
