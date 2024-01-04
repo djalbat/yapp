@@ -16,13 +16,13 @@ const entries = [
     "delimiter": "^(?:`|\\$\\{|<\\/|\\/>)"
   },
   {
-    "number": "^\\-?[1-9][0-9]*(\\.[0-9]+)?"
+    "number": "^-?[1-9][0-9]*(\\.[0-9]+)?"
   },
   {
-    "special": "^(?:;|:|,|=>|\\?|\\{|\\}|\\[|\\]|\\(|\\)|\\:|\\\\`)"
+    "special": "^(?:;|:|,|=>|\\?|\\{|\\}|\\[|\\]|\\(|\\)|\\\\`)"
   },
   {
-    "operator": "^(?:&=|>>>=|>>=|<<=|\\.\\.\\.|\\.|\\*\\*=|\\*=|\\+=|\\-=|\\/=|\\^=|\\|===|==|=|!==|%=|>=|<=|>>>|>>|<<|>|<|=|%|&&|&|~|!|\\^|\\|\\||\\||\\+\\+|\\-\\-|\\*\\*|\\+|\\-|\\*|\\/)"
+    "operator": "^(?:&=|>>>=|>>=|<<=|-=|\\.\\.\\.|\\.|\\*\\*=|\\*=|\\+=|\\/=|\\^=|\\|===|==|=|!==|%=|>=|<=|>>>|>>|<<|>|<|=|%|&&|&|~|!|--|-|\\^|\\|\\||\\||\\+\\+|\\*\\*|\\+|\\*|\\/)"
   },
   {
     "keyword": "^(?:import|export|default|var|let|const|function|class|extends|constructor|static|break|return|continue|if|else|switch|case|throw|try|catch|finally|instanceof|typeof|async|await|do|while|for|in|of|as|new|this|super|delete|undefined|null|true|false|void|meta|debugger)\\b"

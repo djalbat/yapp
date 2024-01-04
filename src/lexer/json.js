@@ -4,10 +4,10 @@ import { CommonLexer, WhitespaceToken, EndOfLineNonSignificantToken, DoublyQuote
 
 const entries = [
   {
-    "special": "^(?:,|\\:|\\{|\\}|\\[|\\])"
+    "special": "^(?:,|:|\\{|\\}|\\[|\\])"
   },
   {
-    "number": "^\\-?[1-9][0-9]*(\\.[0-9]+)?"
+    "number": "^-?[1-9][0-9]*(\\.[0-9]+)?"
   },
   {
     "keyword": "^(?:null|true|false)"
