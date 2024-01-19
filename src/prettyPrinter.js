@@ -3,42 +3,54 @@
 import withStyle from "easy-with-style";  ///
 
 import { React, Element } from "easy";
+import { customEventTypes  } from "easy-richtextarea";
 
 import GutterDiv from "./div/gutter";
-import OverlayDiv from "./div/overlay";
+import PrettyDiv from "./div/pretty";
 import RichTextarea from "./richTextarea";
 
 import { getScrollbarThickness } from "./utilities/scrollbar";
 
+const { CHANGE_CUSTOM_EVENT_TYPE } = customEventTypes;
+
 class PrettyPrinter extends Element {
-  scrollHandler = (event, element) => {
+  customChangeHandler = (event, element) => {
+    const customEventType = CHANGE_CUSTOM_EVENT_TYPE; ///
+
+    this.callCustomHandlers(customEventType);
+  }
+
+  customScrollHandler = (event, element) => {
     const richTextarea = element, ///
           scrollTop = richTextarea.getScrollTop(),
           scrollLeft = richTextarea.getScrollLeft();
 
     this.scrollGutterDiv(scrollTop ,scrollLeft);
 
-    this.scrollOverlayDiv(scrollTop, scrollLeft);
+    this.scrollPrettyDiv(scrollTop, scrollLeft);
   }
 
   update(tokens) {
     this.updateGutterDiv(tokens);
-
-    this.updateOverlayDiv(tokens);
+    this.updatePrettyDiv(tokens);
   }
 
   childElements() {
-    const { editable, onChange, hiddenGutter, fancyScrollbars, hiddenScrollbars } = this.properties,
-          hidden = hiddenGutter,  ///
+    const { editable, hiddenGutter, fancyScrollbars, hiddenScrollbars } = this.properties,
+          scrollbarThickness = getScrollbarThickness(hiddenScrollbars, fancyScrollbars),
           readOnly = !editable,
-          changeHandler = onChange, ///
-          scrollbarThickness = getScrollbarThickness(hiddenScrollbars, fancyScrollbars);
+          hidden = hiddenGutter;  ///
 
     return ([
 
       <GutterDiv hidden={hidden} />,
-      <OverlayDiv scrollbarThickness={scrollbarThickness} />,
-      <RichTextarea onScroll={this.scrollHandler} onChange={changeHandler} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} readOnly={readOnly} />
+      <PrettyDiv scrollbarThickness={scrollbarThickness} />,
+      <RichTextarea readOnly={readOnly}
+                    fancyScrollbars={fancyScrollbars}
+                    hiddenScrollbars={hiddenScrollbars}
+                    onCustomChange={this.customChangeHandler}
+                    onCustomScroll={this.customScrollHandler}
+      />
 
     ]);
   }
@@ -57,8 +69,8 @@ class PrettyPrinter extends Element {
     this.assignContext([
       "updateGutterDiv",
       "scrollGutterDiv",
-      "updateOverlayDiv",
-      "scrollOverlayDiv"
+      "updatePrettyDiv",
+      "scrollPrettyDiv"
     ]);
   }
 
@@ -84,7 +96,7 @@ export default withStyle(PrettyPrinter)`
   display: grid;
   overflow: hidden;
   grid-template-rows: auto;
-  grid-template-areas: "gutter overlay-rich-textarea";
+  grid-template-areas: "gutter pretty-rich-textarea";
   grid-template-columns: min-content auto;  
 
   color: inherit;

@@ -39,13 +39,15 @@ export default withStyle(class extends RichTextarea {
     const getContent = this.getContent.bind(this),  ///
           activateRichTextarea = this.activate.bind(this),  ///
           getRichTextareaContent = this.getContent.bind(this),  ///
-          setRichTextareaContent = this.setContent.bind(this);  ///
+          setRichTextareaContent = this.setContent.bind(this),  ///
+          hasRichTextareaContentChanged = this.hasContentChanged.bind(this);  ///
 
     return ({
       getContent,
       activateRichTextarea,
       getRichTextareaContent,
-      setRichTextareaContent
+      setRichTextareaContent,
+      hasRichTextareaContentChanged
     });
   }
 
@@ -69,7 +71,7 @@ export default withStyle(class extends RichTextarea {
   tab-size: 2;
   overflow: scroll;
   position: relative;
-  grid-area: overlay-rich-textarea;
+  grid-area: pretty-rich-textarea;
   white-space: pre;
   overflow-wrap: normal;
   background-color: transparent;

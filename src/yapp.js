@@ -9,6 +9,7 @@ import PrettyPrinter from "./prettyPrinter";
 
 import { getScrollbarThickness } from "./utilities/scrollbar";
 import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
+import { CONTENT_CHANGE_CUSTOM_EVENT_TYPE } from "./customEventTypes";
 import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 import { colour, caretColour, borderColour, backgroundColour } from "./scheme/colour";
@@ -32,12 +33,32 @@ class Yapp extends Element {
     return content;
   }
 
+  hasContentChanged() {
+    const richTextareaContentChanged = this.hasRichTextareaContentChanged(),
+          contentChanged = richTextareaContentChanged;  ///
+
+    return contentChanged;
+  }
+
   getInitialLineCount() {
     const content = this.getContent(),
           lineCount = lineCountFromContent(content),
           initialLineCount = lineCount; ///
 
     return initialLineCount;
+  }
+
+  customChangeHandler = (event, element) => {
+    const contentChanged = this.hasContentChanged();
+
+    if (contentChanged) {
+      const content = this.getContent(),
+            customEventType = CONTENT_CHANGE_CUSTOM_EVENT_TYPE;
+
+      this.update();
+
+      this.callCustomHandlers(customEventType, content);
+    }
   }
 
   setLexer(lexer) { this.plugin.setLexer(lexer); }
@@ -50,24 +71,6 @@ class Yapp extends Element {
 
   disableFiraCode() {
     this.removeClass("fira-code");
-  }
-
-  changeHandler = (event, element) => {
-    const richTextarea = element, ///
-          contentChanged = richTextarea.hasContentChanged();
-
-    if (contentChanged) {
-      const { onContentChange = null } = this.properties,
-            contentChangeHandler = onContentChange;  ///
-
-      this.update();
-
-      if (contentChangeHandler) {
-        element = this; ///
-
-        contentChangeHandler(event, element);
-      }
-    }
   }
 
   update() {
@@ -111,11 +114,14 @@ class Yapp extends Element {
   }
 
   childElements() {
-    const { editable = DEFAULT_EDITABLE, hiddenGutter = DEFAULT_HIDDEN_GUTTER, hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS, fancyScrollbars = DEFAULT_FANCY_SCROLLBARS } = this.properties;
+    const { editable = DEFAULT_EDITABLE,
+            hiddenGutter = DEFAULT_HIDDEN_GUTTER,
+            fancyScrollbars = DEFAULT_FANCY_SCROLLBARS,
+            hiddenScrollbars = DEFAULT_HIDDEN_SCROLLBARS } = this.properties;
 
     return (
 
-      <PrettyPrinter onChange={this.changeHandler} editable={editable} hiddenGutter={hiddenGutter} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
+      <PrettyPrinter onCustomChange={this.customChangeHandler} editable={editable} hiddenGutter={hiddenGutter} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
 
     );
   }
@@ -158,8 +164,7 @@ class Yapp extends Element {
     "autoHeight",
     "hiddenGutter",
     "noScrollbars",
-    "fancyScrollbars",
-    "onContentChange"
+    "fancyScrollbars"
   ];
 
   static fromContent(content, language, Plugin, options) {

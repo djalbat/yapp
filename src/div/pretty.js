@@ -8,7 +8,7 @@ import SyntaxDiv from "../div/syntax";
 
 import { MARGIN_RIGHT, MARGIN_BOTTOM } from "../constants";
 
-class OverlayDiv extends Element {
+class PrettyDiv extends Element {
   update(tokens) {
     this.updateSyntaxDiv(tokens);
   }
@@ -40,13 +40,13 @@ class OverlayDiv extends Element {
 
   parentContext() {
 	  const context = this.getContext(),
-          updateOverlayDiv = this.update.bind(this),  ///
-				  scrollOverlayDiv = this.scroll.bind(this);  ///
+          updatePrettyDiv = this.update.bind(this),  ///
+				  scrollPrettyDiv = this.scroll.bind(this);  ///
 
     return ({
       ...context,
-      updateOverlayDiv,
-      scrollOverlayDiv
+      updatePrettyDiv,
+      scrollPrettyDiv
     });
   }
 
@@ -64,18 +64,18 @@ class OverlayDiv extends Element {
   ];
 
   static defaultProperties = {
-    className: "overlay"
+    className: "pretty"
   };
 }
 
-export default withStyle(OverlayDiv)`
+export default withStyle(PrettyDiv)`
 
   z-index: 0;
   width: auto;
   height: auto;
   overflow: hidden;
   position: relative;
-  grid-area: overlay-rich-textarea;
+  grid-area: pretty-rich-textarea;
 
   color: inherit;
   font-size: inherit;

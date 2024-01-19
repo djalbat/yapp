@@ -166,23 +166,23 @@ Yapp takes some additional, optional parameters, namely `language`, `Plugin` and
 const language = "json",
       options = {
         editable: true,
-        onContentChange: contentChangeHandler
+        onCustomContentChange: coCustomntentChangeHandler
       },
       yapp = Yapp.fromContent(` ... `, language, null, options);
 ```
 When using JSX, the properties of the `options` parameter are in fact passed individually:
 
 ```
-<Yapp language="json" editable onContentChange={contentChangeHandler} >{`
+<Yapp language="json" editable onCustomContentChange={coCustomntentChangeHandler} >{`
 
   ...
 
 `}</Yapp>
 ```
-If Yapp is made editable, the `contentChangeHandler(...)` callback should take the following form:
+If Yapp is made editable, the `coCustomntentChangeHandler(...)` callback should take the following form:
 
 ```
-function contentChangeHandler(content) {
+function coCustomntentChangeHandler(content) {
 
   ...
 
