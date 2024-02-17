@@ -83,7 +83,7 @@ import Yapp from "yapp";
 import { renderYappStyles } from "yapp";
 
 const body = document.querySelector("body"),
-      yapp = Yapp.fromContent(` ... `);
+      yapp = Yapp.fromContentAndOptions(` ... `, {});
 
 renderYappStyles();
 
@@ -105,7 +105,7 @@ import { Body } from "easy";
 import { renderYappStyles } from "yapp";
 
 const body = new Body(),
-      yapp = Yapp.fromContent(` ... `);
+      yapp = Yapp.fromContentAndOptions(` ... `, {});
 
 renderYappStyles();
 
@@ -160,15 +160,15 @@ rootDiv.mount(yapp);
 
 ## Configuration
 
-Yapp takes some additional, optional parameters, namely `language`, `Plugin` and `options`. These can be passed as arguments to the `fromContent(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContent(...)` factory method:
+Yapp takes some parameters, These can be passed as arguments to the `fromContentAndOptions(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContentAndOptions(...)` factory method:
 
 ```
-const language = "json",
-      options = {
+const options = {
+        language: "json",
         editable: true,
         onCustomContentChange: coCustomntentChangeHandler
       },
-      yapp = Yapp.fromContent(` ... `, language, null, options);
+      yapp = Yapp.fromContentAndOptions(` ... `, options);
 ```
 When using JSX, the properties of the `options` parameter are in fact passed individually:
 
@@ -194,7 +194,7 @@ The only other option is the `firaCode` option, covered next.
 
 ## Fira Code support
 
-Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). To enable it, add the `firaCode` option either to the `options` object if you are using the `fromContent(...)` factory method or as an attribute if using JSX:
+Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). To enable it, add the `firaCode` option either to the `options` object if you are using the `fromContentAndOptions(...)` factory method or as an attribute if using JSX:
 
 ```
 <Yapp firaCode ... >{`
@@ -330,7 +330,7 @@ You can hide the scrollbars and gutter with the `hiddenScrollbars` and `hiddenGu
 
 ## Plugins
 
-If you have been supplied with a plugin, or have written your own, it is straightforward to appraise Yapp of it by way of the aforementioned `Plugin` parameter, passed either as an argument to the `fromContent(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, each of which corresponds to a built-in plugin. See the section on building later on for details.
+If you have been supplied with a plugin, or have written your own, it is straightforward to appraise Yapp of it by way of a property of the `options` argument of the `fromContentAndOptions(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, each of which corresponds to a built-in plugin. See the section on building later on for details.
 
 To begin to author your own plugin, follow these steps:
 
