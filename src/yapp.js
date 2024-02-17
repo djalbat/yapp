@@ -7,10 +7,10 @@ import { React, Element } from "easy";
 import styleMixins from "./mixins/style";
 import PrettyPrinter from "./prettyPrinter";
 
+import { pluginFromProperties } from "./utilities/plugin";
 import { getScrollbarThickness } from "./utilities/scrollbar";
-import { pluginFromLanguageAndPlugin } from "./utilities/plugin";
+import { propertiesFromContentAndOptions } from "./utilities/properties";
 import { CONTENT_CHANGE_CUSTOM_EVENT_TYPE } from "./customEventTypes";
-import { propertiesFromContentLanguagePluginAndOptions } from "./utilities/properties";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 import { colour, caretColour, borderColour, backgroundColour } from "./scheme/colour";
 import { DEFAULT_EDITABLE, DEFAULT_FIRA_CODE, DEFAULT_AUTO_HEIGHT, DEFAULT_HIDDEN_GUTTER, DEFAULT_HIDDEN_SCROLLBARS, DEFAULT_FANCY_SCROLLBARS } from "./defaults";
@@ -167,18 +167,17 @@ class Yapp extends Element {
     "fancyScrollbars"
   ];
 
-  static fromContent(content, language, Plugin, options) {
-    const Class = Yapp,
-          properties = propertiesFromContentLanguagePluginAndOptions(content, language, Plugin, options),
-          plugin = pluginFromLanguageAndPlugin(language, Plugin),
+  static fromClass(Class, properties) {
+    const plugin = pluginFromProperties(properties),
           yapp = Element.fromClass(Class, properties, plugin);
 
     return yapp;
   }
 
-  static fromClass(Class, properties) {
-    const { language, Plugin } = properties,
-          plugin = pluginFromLanguageAndPlugin(language, Plugin),
+  static fromContentAndOptions(content, options) {
+    const Class = Yapp, ///
+          properties = propertiesFromContentAndOptions(content, options),
+          plugin = pluginFromProperties(properties),
           yapp = Element.fromClass(Class, properties, plugin);
 
     return yapp;

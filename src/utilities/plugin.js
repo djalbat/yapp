@@ -5,19 +5,21 @@ import JSONPlugin from "../plugin/json";
 import PlainTextPlugin from "../plugin/plainText";
 import JavaScriptPlugin from "../plugin/javascript";
 
-import { XML_LANGUAGE, JSON_LANGUAGE, PLAIN_TEXT_LANGUAGE } from "../languages";
+import { XML_LANGUAGE, JSON_LANGUAGE, PLAIN_TEXT_LANGUAGE, JAVASCRIPT_LANGUAGE } from "../languages";
 
-export function pluginFromLanguageAndPlugin(language, Plugin) {
-  if (!Plugin) {
+export function pluginFromProperties(properties) {
+  let Plugin;
+
+  ({ Plugin = null } = properties);
+
+  if (Plugin === null) {
+    const { language = JAVASCRIPT_LANGUAGE } = properties;
+
     switch (language) {
       case XML_LANGUAGE: Plugin = XMLPlugin; break;
       case JSON_LANGUAGE: Plugin = JSONPlugin; break;
       case PLAIN_TEXT_LANGUAGE: Plugin = PlainTextPlugin; break;
-
-      default :
-        Plugin = JavaScriptPlugin;
-
-        break;
+      case JAVASCRIPT_LANGUAGE: Plugin = JavaScriptPlugin; break;
     }
   }
 
