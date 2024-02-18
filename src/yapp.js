@@ -174,9 +174,16 @@ class Yapp extends Element {
     return yapp;
   }
 
-  static fromContentAndOptions(content, options) {
-    const Class = Yapp, ///
-          properties = propertiesFromContentAndOptions(content, options),
+  static fromContentAndOptions(Class, content, options) {
+    if (options === undefined) {
+      options = content;  ///
+
+      content = Class;  ///
+
+      Class = Yapp;
+    }
+
+    const properties = propertiesFromContentAndOptions(content, options),
           plugin = pluginFromProperties(properties),
           yapp = Element.fromClass(Class, properties, plugin);
 
