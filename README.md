@@ -240,7 +240,7 @@ Rendering the styles in this manner should always be done before any instance of
 
 ### Overall styles
 
-The following styles can be overridden. The most elegant way to do this is with programmatic styles. You can take the following approach, for example:
+The following styles can be overridden. If you are using JSX then the best way is with programmatic styles:
 
 ```
 "use strict";
@@ -263,9 +263,41 @@ export default withStyle(Yapp)`
   background-color: black;
   font-feature-settings: initial;
 
+`;
 ```
 
-Now you can import this class rather than the package's `Yapp` class and your styles will always be used without the need for repetition. Note that all of the above styles will be inherited by all of the child elements with the exception of the `border` style, which is only used at the topmost level; a few other sty3es such as the `background` style, which some child elements need to override. A little experimentation is recommended.  
+Now simply import this class rather than the package's `Yapp` class.
+
+If you are not using JSX then you can easily augment Yapp's styles by rendering a new style:
+
+```
+"use strict";
+
+import withStyle from "easy-with-style";  ///
+
+const { renderStyle } = withStyle;
+
+renderStyle(`
+
+  .yapp {
+     border: 2px dotted;
+   
+     color: green;
+     font-size: 14px;
+     line-height: 20px;
+     font-family: monospace;
+     font-weight: bold;
+     caret-color: white;
+     border-color: yellow;
+     text-rendering: initial;
+     background-color: black;
+     font-feature-settings: initial;
+  }
+
+`);
+```
+
+Note that all of the above styles will be inherited by all of the child elements with the exception of the `border` style, which is only used at the topmost level; a few other sty3es such as the `background` style, which some child elements need to override. A little experimentation is recommended.  
 
 ```
 .yaap > textarea::selection {
