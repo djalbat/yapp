@@ -342,15 +342,17 @@ In the second instance, or if you want to remove the default style altogether ra
 
 import withStyle from "easy-with-style";  ///
 
-import { syntaxStyle, firaCodeStyle } from "yapp";
+import { yappStyle, syntaxStyle, firaCodeStyle } from "yapp";
 
 const { renderStyle, renderStyles } = withStyle;
 
 const host = "";
 
-renderStyles(); // Always needed
+renderStyles();
 
-renderStyle(syntaxStyle); // Leave this out if you wish.
+renderStyle(yappStyle);
+
+renderStyle(syntaxStyle);
 
 renderStyle(firaCodeStyle(host)); // Only needed for Fira Code support.
 ```
