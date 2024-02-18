@@ -2,6 +2,8 @@
 
 import "juxtapose";
 
+import withStyle from "easy-with-style";  ///
+
 import { Body } from "easy";
 
 import { renderYappStyles } from "./index"; ///
@@ -10,6 +12,8 @@ import XMLView from "./example/view/xml";
 import JSONView from "./example/view/json";
 import PlainTextView from "./example/view/plainText";
 import JavaScriptView from "./example/view/javascript";
+
+const { renderStyles } = withStyle;
 
 let View;
 
@@ -24,6 +28,8 @@ switch (example) {
 }
 
 renderYappStyles();
+
+renderStyles();
 
 body.mount(
 

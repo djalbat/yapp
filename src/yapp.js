@@ -1,7 +1,5 @@
 "use strict";
 
-import withStyle from "easy-with-style";  ///
-
 import { React, Element } from "easy";
 
 import styleMixins from "./mixins/style";
@@ -12,10 +10,9 @@ import { getScrollbarThickness } from "./utilities/scrollbar";
 import { propertiesFromContentAndOptions } from "./utilities/properties";
 import { CONTENT_CHANGE_CUSTOM_EVENT_TYPE } from "./customEventTypes";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
-import { colour, caretColour, borderColour, backgroundColour } from "./scheme/colour";
 import { DEFAULT_EDITABLE, DEFAULT_FIRA_CODE, DEFAULT_AUTO_HEIGHT, DEFAULT_HIDDEN_GUTTER, DEFAULT_HIDDEN_SCROLLBARS, DEFAULT_FANCY_SCROLLBARS } from "./defaults";
 
-class Yapp extends Element {
+export default class Yapp extends Element {
   constructor(selector, plugin) {
     super(selector);
 
@@ -192,30 +189,3 @@ class Yapp extends Element {
 }
 
 Object.assign(Yapp.prototype, styleMixins);
-
-export default withStyle(Yapp)`
-
-  width: 100%;
-  height: 100%;
-  border: 1px solid;
-  
-  color: ${colour};
-  font-size: 13px;
-  line-height: 20px;
-  font-family: "Menlo", "Lucida Sans Typewriter", monospace;
-  font-weight: normal;
-  caret-color: ${caretColour};
-  border-color: ${borderColour};
-  text-rendering: initial;
-  background-color: ${backgroundColour};
-  font-feature-settings: initial;
-
-  .fira-code {
-
-    font-family: "Fira Code";
-    text-rendering: optimizeLegibility;
-    font-feature-settings: "calt" 1;
-    
-  }
-
-`;
