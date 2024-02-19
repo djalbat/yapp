@@ -99,15 +99,11 @@ export default withStyle(PrettyPrinter)`
   grid-template-areas: "gutter pretty-rich-textarea";
   grid-template-columns: min-content auto;  
 
-  color: inherit;
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
   font-weight: inherit;
-  caret-color: inherit;
-  border-color: inherit;
   text-rendering: inherit;
-  background-color: transparent;
   font-feature-settings: inherit;
 
 `;

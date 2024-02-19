@@ -48,21 +48,15 @@ class LineNumbersDiv extends Element {
 
 export default withStyle(LineNumbersDiv)`
 
-  margin: 0 6px 0 6px;
   position: relative;
-  text-align: right;
   user-select: none;
   pointer-events: none;
 
-  color: inherit;
   font-size: inherit;
   line-height: inherit;
-  font-family: 'DejaVu Sans Mono', Menlo, 'Lucida Console', Monaco, monospace;
-  font-weight: normal;
-  caret-color: initial;
-  border-color: initial;
-  text-rendering: initial;
-  background-color: initial;
-  font-feature-settings: initial;
+  font-family: inherit;
+  font-weight: inherit;
+  text-rendering: inherit;
+  font-feature-settings: inherit;
 
 `;

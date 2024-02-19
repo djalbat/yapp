@@ -1,17 +1,11 @@
 "use strict";
 
-import withStyle from "easy-with-style";  ///
-
 import Yapp from "../index";  ///
 
-export default withStyle(class extends Yapp {
+export default class extends Yapp {
   static defaultProperties = {
     editable: true,
     autoHeight: false,
     fancyScrollbars: true
   };
-})`
-
-  border-color: #666;
-  
-`;
+}

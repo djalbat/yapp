@@ -100,15 +100,11 @@ export default withStyle(SyntaxDiv)`
   user-select: none;
   pointer-events: none;
 
-  color: inherit;
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
   font-weight: inherit;
-  caret-color: inherit;
-  border-color: inherit;
   text-rendering: inherit;
-  background-color: inherit;
   font-feature-settings: inherit;
 
 `;

@@ -3,8 +3,6 @@
 import withStyle from "easy-with-style";  ///
 
 import { RichTextarea } from "easy-richtextarea";
-import { scrollbarThickness, scrollbarThumbBorderRadius } from "./styles";
-import { scrollbarColour, selectionColour, backgroundColour, selectionBackgroundColour  } from "./scheme/colour";
 
 export default withStyle(class extends RichTextarea {
   didMount() {
@@ -76,48 +74,15 @@ export default withStyle(class extends RichTextarea {
   overflow-wrap: normal;
   background-color: transparent;
 
-  ::selection {
-    color: ${selectionColour};
-    background-color: ${selectionBackgroundColour};
-  }
-  
   .hidden-scrollbars {
     overflow: hidden;
   }
   
-  .fancy-scrollbars {
-    scrollbar-color: ${scrollbarColour} transparent;
-    scrollbar-gutter: auto;
-  }
-  
-  .fancy-scrollbars::-webkit-scrollbar {
-    width: ${scrollbarThickness};
-    height: ${scrollbarThickness};
-  }
-
-  .fancy-scrollbars::-webkit-scrollbar-track {
-    display: none;
-  }
-
-  .fancy-scrollbars::-webkit-scrollbar-thumb {
-    border: 2px solid ${backgroundColour};
-    border-radius: ${scrollbarThumbBorderRadius};
-    background-color: ${scrollbarColour};
-  }
-
-  .fancy-scrollbars::-webkit-scrollbar-corner {
-    display: none;
-  }
-
-  color: transparent;
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
   font-weight: inherit;
-  caret-color: inherit;
-  border-color: initial;
   text-rendering: inherit;
-  background-color: transparent;
   font-feature-settings: inherit;
 
 `;

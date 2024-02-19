@@ -68,18 +68,12 @@ export default withStyle(GutterDiv)`
   overflow: hidden;
   position: relative;
   grid-area: gutter;
-  border-right-width: 1px;
-  border-right-style: dotted;
 
-  color: inherit;
   font-size: inherit;
   line-height: inherit;
   font-family: inherit;
   font-weight: inherit;
-  caret-color: inherit;
-  border-color: inherit;
   text-rendering: inherit;
-  background-color: inherit;
   font-feature-settings: inherit;
 
 `;
