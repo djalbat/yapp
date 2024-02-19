@@ -4,12 +4,6 @@ Yet Another Pretty Printer.
 
 *If you just want to see Yapp in action without further ado*, then clone this repository, run `npm install` and `npm start`, and then open your browser at http://localhost:8888.
 
-Or see the Juxtapose site:
-
-https://djalbat.com
-
-Yapp in written using Juxtapose, by the way.
-
 ### Contents
 
 - [Introduction](#introduction)
