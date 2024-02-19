@@ -23,9 +23,11 @@ Yet Another Pretty Printer.
 
 ## Introduction
 
-Yapp is an advanced pretty printer and text editor. It has a powerful lexer and parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial editors. Yapp is also fully configurable. You can style it overall or target specific syntaxes. Its plugin architecture additionally makes it easy to support any language.
+Yapp is another pretty printer and a basic text editor. It has both a lexer and a parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial pretty printers. Yapp is also configurable. You can style it overall or target the syntax highlighting for specific languages. Its plugin architecture allows it to support additional languages. It also supports [Fira Code](https://github.com/tonsky/FiraCode).
 
-Yapp also supports [Fira Code](https://github.com/tonsky/FiraCode).
+To see Yapp in action, see the Juxtapose site:
+
+https://djalbat.com
 
 ## Installation
 
@@ -83,7 +85,7 @@ import Yapp from "yapp";
 import { renderYappStyles } from "yapp";
 
 const body = document.querySelector("body"),
-      yapp = Yapp.fromContentAndOptions(` ... `, {});
+      yapp = Yapp.fromContentAndConfiguration(` ... `, {});
 
 renderYappStyles();
 
@@ -105,7 +107,7 @@ import { Body } from "easy";
 import { renderYappStyles } from "yapp";
 
 const body = new Body(),
-      yapp = Yapp.fromContentAndOptions(` ... `, {});
+      yapp = Yapp.fromContentAndConfiguration(` ... `, {});
 
 renderYappStyles();
 
@@ -143,7 +145,7 @@ body.mount(
 ```
 Unless you plan to use Juxtapose to build your site, however, this may not be ideal.
 
-Note that in all of the three use cases above you must call the `renderYappStyles()` function before mounting any instance of Yapp.
+Note that in all of the three use cases above you must call the `renderYappStyles()` function *before* mounting any instance of Yapp.
 
 ### Other considerations
 
@@ -160,17 +162,18 @@ rootDiv.mount(yapp);
 
 ## Configuration
 
-Yapp takes some parameters, These can be passed as arguments to the `fromContentAndOptions(...)` factory method or as attributes in the JSX. Intermediate arguments can be left as falsey when passing the latter arguments to the `fromContentAndOptions(...)` factory method:
+This is by way of the `configuration` argument of the `fromContentAndConfiguration(...)` factory method...
 
 ```
-const options = {
+const configuration = {
         language: "json",
         editable: true,
         onCustomContentChange: coCustomntentChangeHandler
       },
-      yapp = Yapp.fromContentAndOptions(` ... `, options);
+      yapp = Yapp.fromContentAndConfiguration(` ... `, configuration);
 ```
-When using JSX, the properties of the `options` parameter are in fact passed individually:
+
+...or by way of JSX attributes:
 
 ```
 <Yapp language="json" editable onCustomContentChange={coCustomntentChangeHandler} >{`
@@ -179,6 +182,7 @@ When using JSX, the properties of the `options` parameter are in fact passed ind
 
 `}</Yapp>
 ```
+
 If Yapp is made editable, the `coCustomntentChangeHandler(...)` callback should take the following form:
 
 ```
@@ -188,13 +192,12 @@ function coCustomntentChangeHandler(content) {
 
 }
 ```
-Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means. Note also that a `getContent()` method is supplied.
 
-The only other option is the `firaCode` option, covered next.
+Note that the second of the callback's arguments is a reference to the instance of Yapp, in case one is not available by other means. Note also that a `getContent()` method is supplied.
 
 ## Fira Code support
 
-Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). To enable it, add the `firaCode` option either to the `options` object if you are using the `fromContentAndOptions(...)` factory method or as an attribute if using JSX:
+Yapp supports [Fira Code](https://github.com/tonsky/FiraCode). In order to enable it, either add a `firaCode` property set to `true` to the ' `configuration` object if you are using the `fromContentAndConfiguration(...)` factory method or add a `firaCode` boolean attribute if using JSX:
 
 ```
 <Yapp firaCode ... >{`
@@ -208,21 +211,22 @@ If you choose to enable Fira Code then you need to provide the necessary web fon
 
 ```
 @font-face {
-  src: url("css/woff2/FiraCode-Light.woff2");
+  src: url("/css/woff2/FiraCode-Light.woff2");
   font-family: "Fira Code";
   font-weight: normal;
 }
 ```
-You do not have to provide this, rendering Yapp's styles will do so, but it is recommended that you check the network tab in your browser's developer tools to ensure that these files are being served.
 
-You can also preload the font files by putting the following in the header of the containing HTML page:
+You do not have to provide this, rendering Yapp's styles will do so for you, but it is recommended that you check the network tab in your browser's developer tools to ensure that these files are being served.
+
+You can also preload the font files by putting something like the following in the header of the containing HTML page:
 
 ```
-<link rel="preload" href="${host}/css/woff2/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin >
-<link rel="preload" href="${host}/css/woff2/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin >
+<link rel="preload" href="/css/woff2/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin >
+<link rel="preload" href="/css/woff2/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin >
 ```
 
-A `host` variable has been included here, the value of which should be the same as the `host` argument passed to the `firaCodeStyle()` function mentioned in the section on syntax styles further down. You may need to change the markup in the above snippet, depending on your templating library.
+Note that both the path and the host of the URLs are assumed fixed in the snippets above but this may not be the case. Instructions on how to rectify this can be found in the section on styling Yapp that follows:
 
 ## Styling Yapp
 
@@ -236,106 +240,9 @@ import { renderYappStyles } from "yapp";
 renderYappStyles();
 ```
 
-Rendering the styles in this manner should always be done before any instance of Yapp is mounted, but only needs to be done once. If you do not want to alter Yapp's styles, either overall or for a particular syntax, then you never need to do any more than this.
+Rendering the styles in this manner should always be done before any instance of Yapp is mounted, but only needs to be done once. 
 
-### Overall styles
-
-The following styles can be overridden. If you are using JSX then the best way is with programmatic styles:
-
-```
-"use strict";
-
-import Yapp from "yapp";
-import withStyle from "easy-with-style";  ///
-
-export default withStyle(Yapp)`
-
-  border: 2px dotted;
-
-  color: green;
-  font-size: 14px;
-  line-height: 20px;
-  font-family: monospace;
-  font-weight: bold;
-  caret-color: white;
-  border-color: yellow;
-  text-rendering: initial;
-  background-color: black;
-  font-feature-settings: initial;
-
-`;
-```
-
-Now simply import this class rather than the package's `Yapp` class.
-
-If you are not using JSX then you can easily augment Yapp's styles by rendering a new style:
-
-```
-"use strict";
-
-import withStyle from "easy-with-style";  ///
-
-const { renderStyle } = withStyle;
-
-renderStyle(`
-
-  .yapp {
-     border: 2px dotted;
-   
-     color: green;
-     font-size: 14px;
-     line-height: 20px;
-     font-family: monospace;
-     font-weight: bold;
-     caret-color: white;
-     border-color: yellow;
-     text-rendering: initial;
-     background-color: black;
-     font-feature-settings: initial;
-  }
-
-`);
-```
-
-Note that all of the above styles will be inherited by all of the child elements with the exception of the `border` style, which is only used at the topmost level; a few other sty3es such as the `background` style, which some child elements need to override. A little experimentation is recommended.  
-
-```
-.yaap > textarea::selection {
-  color: white !important;
-  background-color: orange !important;
-}
-```
-This style can be applied either by way of your own CSS file or programmatically if you prefer:
-```
-import withStyle from "easy-with-style";  ///
-
-const { renderStyle } = withStyle;
-
-renderStyle(`
-
-  .yaap > textarea::selection {
-    color: white !important;
-    background-color: orange !important;
-  }
-
-`);
-```
-All the HTML elements of which Yapp is comprised have placeholder classes and can therefore be targeted in this way. To see these placeholder classes, simply have a look at an instance of Yapp in your browser's developer tools.
-
-### Syntax styles
-
-How to approach styling Yapp's syntax broadly boils down to whether you want to set the style for the syntax of a new language, supported by a plugin that you supply, or to override the style for an existing language.
-
-In the first instance, the approach can be the same as for overall styles, that is, you can supply a set of CSS properties that target the syntax elements either programmatically or in a CSS file. For example, if you have have a plugin for the Java language, then you could add the following style to go with it:
-
-```
-.yapp .java.syntax > .keyword { color: #a93927; }
-
-.yapp .java.syntax > .string-literal { color: "#f5087a"; }
-```
-Bear in mind that a default syntax style that is applied, found in the [default.js](https://github.com/djalbat/yapp/blob/master/es6/style/syntax/default.js) file. You can override its individual CSS properties easily enough, however, because the specificity of your own style, given the additional language selector, will be greater.
-
-In the second instance, or if you want to remove the default style altogether rather than override it, the approach is to render Yapp's styles individually to give yourself the opportunity of leaving out specific ones:
+If you do not want to alter Yapp's styles any further then you never need to do any more than this. On the other hand if you do want to make changes to Yapp's styles then you must eschew the `renderYappStyles()` function in favour of a more refined approach:
 
 ```
 "use strict";
@@ -344,27 +251,66 @@ import withStyle from "easy-with-style";  ///
 
 import { yappStyle, syntaxStyle, firaCodeStyle } from "yapp";
 
-const { renderStyle, renderStyles } = withStyle;
-
-const host = "";
-
-renderStyles();
+const { renderStyle } = withStyle;
 
 renderStyle(yappStyle);
 
 renderStyle(syntaxStyle);
 
-renderStyle(firaCodeStyle(host)); // Only needed for Fira Code support.
+renderStyle(firaCodeStyle);
 ```
-In fact the above is just what the `renderYappStyles()` function does. In leaving out the syntax style, which includes the defaults, you have clean slate to work with.
 
-### Hidden scrollbars and gutters, and fancy scrollbars
+Now the `renderStyle()` function is being utilised to render each of Yapp's styles individually. This is pretty much all that the `renderYappStyles()` function, in fact.
 
-You can hide the scrollbars and gutter with the `hiddenScrollbars` and `hiddenGutter` JSX attributes, respectively, and enable fancy scrollbars with the `fancyScrollbars` JSX attribute. These attributes can also be included as options. Fancy scrollbars have hidden tracks and thinner, rounded thumbs. They look something like old Mac scrollbars. Appearances will differ across browsers.
+We cover the three individual styles next.
+
+### Overall styles
+
+Here is the default overall style:
+
+https://github.com/djalbat/yapp/blob/master/src/style/yapp.js
+
+If you want something different, simply copy this style and make the requisite changes. Or you can override specific styles by making use of CSS classes.
+
+### Syntax styles
+
+Here is the syntax style:
+
+https://github.com/djalbat/yapp/blob/master/src/style/syntax.js
+
+You can see that it is comprised of styles for three of the four languages that Yapp supports by default. There is no spefiic style for plain text. There is a default style, however.
+
+In a similar vein to the overall style you can either copy and completely replace syntax styles of override specific ones. For example, if you added support for the Java language then you might want to add something like the following to a new, Java-specific style: 
+
+```
+.yapp .java.syntax > .keyword { color: #a93927; }
+
+.yapp .java.syntax > .string-literal { color: "#f5087a"; }
+```
+
+### FiraCode styles
+
+If the paths of the web font files are different to the default then you may want to alter the FiraCode style:
+
+https://github.com/djalbat/yapp/blob/master/src/style/firaCode.js
+
+Note that it also takes a `host` argument. In fact if all you want to do is change the host then you can do this directly from the `renderYappStyles()` function...
+
+```
+"use strict";
+
+import { renderYappStyles } from "yapp";
+
+const host = "...";
+
+renderYappStyles(host);
+```
+
+...which passes this down to the `firaCodeStyle()` function.
 
 ## Plugins
 
-If you have been supplied with a plugin, or have written your own, it is straightforward to appraise Yapp of it by way of a property of the `options` argument of the `fromContentAndOptions(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, each of which corresponds to a built-in plugin. See the section on building later on for details.
+If you have been supplied with a plugin, or have written your own, it is straightforward to appraise Yapp of it by way of a property of the `configuration` argument of the `fromContentAndConfiguration(...)` factory method or as a JSX attribute. The remainder of this section covers authoring plugins. It assumes that you are able to build the examples, each of which corresponds to a built-in plugin. See the section on building later on for details.
 
 To begin to author your own plugin, follow these steps:
 

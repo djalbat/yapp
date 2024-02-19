@@ -1,6 +1,8 @@
 "use strict";
 
-const firaCodeStyle = (host) => `
+import { DEFAULT_HOST } from "../defaults";
+
+const firaCodeStyle = (host = DEFAULT_HOST) => `
 
   @font-face {
     src: url("${host}/css/woff2/FiraCode-Regular.woff2");

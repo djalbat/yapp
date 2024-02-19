@@ -1,11 +1,11 @@
 "use strict";
 
-export function propertiesFromContentAndOptions(content, options) {
+export function propertiesFromContentAndConfiguration(content, configuration) {
   const text = content, ///
         childElements = [{
           getText: () => text,
         }],
-        properties = Object.assign({}, options, { ///
+        properties = Object.assign({}, configuration, { ///
           childElements
         });
 

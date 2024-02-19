@@ -7,8 +7,8 @@ import PrettyPrinter from "./prettyPrinter";
 
 import { pluginFromProperties } from "./utilities/plugin";
 import { getScrollbarThickness } from "./utilities/scrollbar";
-import { propertiesFromContentAndOptions } from "./utilities/properties";
 import { CONTENT_CHANGE_CUSTOM_EVENT_TYPE } from "./customEventTypes";
+import { propertiesFromContentAndConfiguration } from "./utilities/configuration";
 import { lineCountFromContent, contentFromChildElements } from "./utilities/content";
 import { DEFAULT_EDITABLE, DEFAULT_FIRA_CODE, DEFAULT_AUTO_HEIGHT, DEFAULT_HIDDEN_GUTTER, DEFAULT_HIDDEN_SCROLLBARS, DEFAULT_FANCY_SCROLLBARS } from "./defaults";
 
@@ -171,16 +171,16 @@ export default class Yapp extends Element {
     return yapp;
   }
 
-  static fromContentAndOptions(Class, content, options) {
-    if (options === undefined) {
-      options = content;  ///
+  static fromContentAndConfiguration(Class, content, configuration) {
+    if (configuration === undefined) {
+      configuration = content;  ///
 
       content = Class;  ///
 
       Class = Yapp;
     }
 
-    const properties = propertiesFromContentAndOptions(content, options),
+    const properties = propertiesFromContentAndConfiguration(content, configuration),
           plugin = pluginFromProperties(properties),
           yapp = Element.fromClass(Class, properties, plugin);
 
