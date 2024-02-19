@@ -4,7 +4,11 @@ Yet Another Pretty Printer.
 
 *If you just want to see Yapp in action without further ado*, then clone this repository, run `npm install` and `npm start`, and then open your browser at http://localhost:8888.
 
-*If you are interested in contributing to Yapp, in particular in contributing to its grammars*, then see the contributions section below.
+Or see the Juxtapose site:
+
+https://djalbat.com
+
+Yapp in written using Juxtapose, by the way.
 
 ### Contents
 
@@ -17,17 +21,12 @@ Yet Another Pretty Printer.
 - [Styling Yapp](#styling-yapp)
 - [Plugins](#plugins)
 - [Building](#building)
-- [Contributions](#contributions)
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 
 ## Introduction
 
 Yapp is another pretty printer and a basic text editor. It has both a lexer and a parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial pretty printers. Yapp is also configurable. You can style it overall or target the syntax highlighting for specific languages. Its plugin architecture allows it to support additional languages. It also supports [Fira Code](https://github.com/tonsky/FiraCode).
-
-To see Yapp in action, see the Juxtapose site:
-
-https://djalbat.com
 
 ## Installation
 
@@ -341,21 +340,6 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
 As well as building Yapp itself, this will build the examples. The source code for the examples can be found in the `es6/example.js` file and in the files and sub-directories of the `es6/example` directory.
 
 If you wish to make use of live reloading while working on the examples, use `npm start` and the examples index page wll be available at http://localhost:8888.
-
-## Contributions
-
-All development is best done in the context of the examples. There are three main areas that would benefit from contributions.
-
-1. **Creating new plugins.** This is likely to a lot of work, however it should not be considered out of reach. See the plugins section above for more details.
-
-2. **Work on the existing syntax styles.** There is no need to do any programming beyond changing the existing styles. The following files are relevant:
-    - [`es6/style/syntax`](https://github.com/djalbat/yapp/tree/master/es6/style/syntax)
-
-3. **Improving the grammars for existing languages.** This can also be done with virtually no programming at all, since both the lexical entries and BNF can be changed dynamically in the examples. Changes can then be copied to the requisite variables in the relevant lexer and parser files. For example for the XML grammar:
-    - [`es6/lexer/xml.js`](https://github.com/djalbat/yapp/blob/master/es6/lexer/xml.js)
-    - [`es6/parser/xml.js`](https://github.com/djalbat/yapp/blob/master/es6/parser/xml.js)
-
-Contributions are best made in the form of pull requests.
 
 ## Acknowledgements
 
