@@ -20,7 +20,7 @@ Yet Another Pretty Printer.
 
 ## Introduction
 
-Yapp is another pretty printer and a basic text editor. It has both a lexer and a parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial pretty printers. Yapp is also configurable. You can style it overall or target the syntax highlighting for specific languages. Its plugin architecture allows it to support additional languages. It also supports [Fira Code](https://github.com/tonsky/Fira Code).
+Yapp is another pretty printer and a basic text editor. It has both a lexer and a parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial pretty printers. Yapp is also configurable. You can style it overall or target the syntax highlighting for specific languages. Its plugin architecture allows it to support additional languages. It also supports [Fira Code](https://github.com/tonsky/FiraCode).
 
 ## Installation
 
