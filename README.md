@@ -20,7 +20,7 @@ Yet Another Pretty Printer.
 
 ## Introduction
 
-Yapp is another pretty printer and a basic text editor. It has both a lexer and a parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial pretty printers. Yapp is also configurable. You can style it overall or target the syntax highlighting for specific languages. Its plugin architecture allows it to support additional languages. It also supports [Fira Code](https://github.com/tonsky/FiraCode).
+Yapp is another pretty printer and a basic text editor. It has both a lexer and a parser under the hood, and can process content after parsing in order to refine its appearance still further. The result is an experience that rivals the best open source and commercial pretty printers. Yapp is also configurable. You can style it overall or target the syntax highlighting for specific languages. Its plugin architecture allows it to support additional languages. It also supports [Fira Code](https://github.com/tonsky/Fira Code).
 
 ## Installation
 
@@ -204,7 +204,7 @@ If you choose to enable Fira Code then you need to provide the necessary web fon
 
 ```
 @font-face {
-  src: url("/css/woff2/FiraCode-Light.woff2");
+  src: url("/css/woff2/Fira Code-Light.woff2");
   font-family: "Fira Code";
   font-weight: normal;
 }
@@ -215,8 +215,8 @@ You do not have to provide this, rendering Yapp's styles will do so for you, but
 You can also preload the font files by putting something like the following in the header of the containing HTML page:
 
 ```
-<link rel="preload" href="/css/woff2/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin >
-<link rel="preload" href="/css/woff2/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin >
+<link rel="preload" href="/css/woff2/Fira Code-Bold.woff2" as="font" type="font/woff2" crossorigin >
+<link rel="preload" href="/css/woff2/Fira Code-Regular.woff2" as="font" type="font/woff2" crossorigin >
 ```
 
 Note that both the path and the host of the URLs are assumed fixed in the snippets above but this may not be the case. Instructions on how to rectify this can be found in the section on styling Yapp that follows:
@@ -281,9 +281,9 @@ In a similar vein to the overall style you can either copy and completely replac
 .yapp .java.syntax > .string-literal { color: "#f5087a"; }
 ```
 
-### FiraCode styles
+### Fira Code styles
 
-If the paths of the web font files are different to the default then you may want to alter the FiraCode style:
+If the paths of the web font files are different to the default then you may want to alter the Fira Code style:
 
 https://github.com/djalbat/yapp/blob/master/src/style/firaCode.js
 
