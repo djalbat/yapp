@@ -5,21 +5,19 @@ import { elementMixins } from "easy";
 const { mountElement, unmountElement } = elementMixins;
 
 export function mountYapp(yapp, domElement) {
-  const yappDOMElement = yapp.getDOMElement();
+  const element = yapp, ///
+        yappDOMElement = yapp.getDOMElement();
 
   domElement.appendChild(yappDOMElement);
-
-  const element = yapp; ///
 
   mountElement(element);
 }
 
 export function unmountYapp(yapp) {
-  const element = yapp; ///
+  const element = yapp, ///
+        yappDOMElement = yapp.getDOMElement();
 
   unmountElement(element);
-
-  const yappDOMElement = yapp.getDOMElement();
 
   yappDOMElement.remove();
 }
