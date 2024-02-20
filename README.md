@@ -84,9 +84,9 @@ const body = document.querySelector("body"),
 
 renderYappStyles();
 
-body.appendChild(yapp.domElement);
+mountYapp(yapp, body);
 
-mountYapp(yapp);
+unmountYapp(yapp); // At some later time.
 ```
 
 Note that if you take this approach then you must call the `mountYapp()` function with the Yapp instance as an argument. Similarly if you remove an instance of Yapp from the DOM then you must call the `unmountYapp()` function.
