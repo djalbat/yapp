@@ -75,7 +75,9 @@ The following will mount an instance of Yapp and render the necessary styles:
 
 import Yapp from "yapp";
 
-import { renderYappStyles } from "yapp";
+import { mountYapp, unmountYapp, renderYappStyles } from "yapp";
+
+const {  } = elementMixins;
 
 const body = document.querySelector("body"),
       yapp = Yapp.fromContentAndConfiguration(` ... `, {});
@@ -84,13 +86,15 @@ renderYappStyles();
 
 body.appendChild(yapp.domElement);
 
-yapp.didMount();
+mountYapp(yapp);
 ```
-Note that if you take this approach then you must call Yapp's `didMount()` method explicitly.
+
+Note that if you take this approach then you must call the `mountYapp()` function with the Yapp instance as an argument. Similarly if you remove an instance of Yapp from the DOM then you must call the `unmountYapp()` function.
 
 ### Make use of an Easy element
 
 A slightly less cumbersome approach is to make use of an [Easy](https://github.com/djalbat/easy) element:
+
 ```
 "use strict";
 
@@ -106,6 +110,7 @@ renderYappStyles();
 
 body.mount(yapp);
 ```
+
 Note that there is now no need to call the `didMount()` method.
 
 ### Use JSX by way of Juxtapose
@@ -136,6 +141,7 @@ body.mount(
 
 );
 ```
+
 Unless you plan to use Juxtapose to build your site, however, this may not be ideal.
 
 Note that in all of the three use cases above you must call the `renderYappStyles()` function *before* mounting any instance of Yapp.
