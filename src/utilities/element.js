@@ -1,8 +1,8 @@
 "use sttict";
 
-import { elementUtilties } from "easy";
+import { elementUtilities } from "easy";
 
-const { mountElement, unmountElement } = elementUtilties;
+const { mountElement, unmountElement } = elementUtilities;
 
 export function mountYapp(yapp, domElement) {
   const element = yapp, ///
