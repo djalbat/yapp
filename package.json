@@ -1,7 +1,7 @@
 {
   "name": "yapp",
   "author": "James Smith",
-  "version": "5.0.40",
+  "version": "5.0.41",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/yapp",
   "description": "Yet Another Pretty Printer.",
@@ -14,7 +14,7 @@
     "easy-richtextarea": "^4.0.138",
     "easy-with-style": "^3.0.307",
     "necessary": "^13.3.1",
-    "occam-dom": "^3.1.91",
+    "occam-dom": "^3.1.123",
     "occam-grammar-utilities": "^8.0.116",
     "occam-lexers": "^20.0.13",
     "occam-parsers": "^20.0.20"
