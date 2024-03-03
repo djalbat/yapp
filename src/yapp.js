@@ -164,9 +164,9 @@ export default class Yapp extends Element {
     "fancyScrollbars"
   ];
 
-  static fromClass(Class, properties) {
+  static fromClass(Class, properties, ...remainingArguments) {
     const plugin = pluginFromProperties(properties),
-          yapp = Element.fromClass(Class, properties, plugin);
+          yapp = Element.fromClass(Class, properties, plugin, ...remainingArguments);
 
     return yapp;
   }
