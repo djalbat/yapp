@@ -1,6 +1,6 @@
 "use strict";
 
-import { Query } from "occam-dom";
+import { Query } from "occam-query";
 import { characters } from "necessary";
 
 import Processor from "../processor";

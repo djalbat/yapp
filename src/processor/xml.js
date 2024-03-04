@@ -1,6 +1,6 @@
 "use strict";
 
-import { Query } from "occam-dom";
+import { Query } from "occam-query";
 
 import Processor from "../processor";
 import NameToken from "../token/significant/name";
