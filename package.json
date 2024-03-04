@@ -14,7 +14,7 @@
     "easy-richtextarea": "^4.0.141",
     "easy-with-style": "^3.0.312",
     "necessary": "^13.3.1",
-    "occam-dom": "^3.1.123",
+    "occam-query": "^3.1.123",
     "occam-grammar-utilities": "^8.0.125",
     "occam-lexers": "^20.0.13",
     "occam-parsers": "^20.0.29"
