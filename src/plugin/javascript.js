@@ -1,6 +1,7 @@
 "use strict";
 
-import Plugin from "../plugin";
+import { Plugin } from "../index";  ///
+
 import JavaScriptLexer from "../lexer/javascript";
 import JavaScriptParser from "../parser/javascript";
 import JavaScriptProcessor from "../processor/javascript";

@@ -1,6 +1,7 @@
 "use strict";
 
-import Plugin from "../plugin";
+import { Plugin } from "../index";  ///
+
 import XMLLexer from "../lexer/xml";
 import XMLParser from "../parser/xml";
 import XMLProcessor from "../processor/xml";

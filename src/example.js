@@ -5,7 +5,6 @@ import "juxtapose";
 import withStyle from "easy-with-style";  ///
 
 import { Body } from "easy";
-
 import { renderYappStyles } from "./index"; ///
 
 import XMLView from "./example/view/xml";

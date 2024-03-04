@@ -1,6 +1,7 @@
 "use strict";
 
-import Plugin from "../plugin";
+import { Plugin } from "../index";  ///
+
 import PlainTextLexer from "../lexer/plainText";
 import PlainTextParser from "../parser/plainText";
 import PlainTextProcessor from "../processor/plainText";

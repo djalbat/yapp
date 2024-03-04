@@ -1,6 +1,7 @@
 "use strict";
 
-import Plugin from "../plugin";
+import { Plugin } from "../index";  ///
+
 import JSONLexer from "../lexer/json";
 import JSONParser from "../parser/json";
 import JSONProcessor from "../processor/json";
