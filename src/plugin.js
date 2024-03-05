@@ -1,6 +1,6 @@
 "use strict";
 
-class Plugin {
+export default class Plugin {
   constructor(lexer, parser, processor, tokens, node) {
     this.lexer = lexer;
     this.parser = parser;
@@ -67,5 +67,3 @@ class Plugin {
     return plugin;
   }
 }
-
-export default Plugin;
