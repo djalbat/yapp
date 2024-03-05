@@ -12,7 +12,7 @@ const bnf = `
 
 
 
-  preamble                   ::=  ( "\\"use strict\\"" | "'use strict'" ) ";" ;
+  preamble                   ::=  "\\"use strict\\";" ;
 
 
 
