@@ -277,7 +277,7 @@ const bnf = `
 
 
 
-  error!                     ::=  . ;
+  error.                     ::=  . ;
     
 `;
 

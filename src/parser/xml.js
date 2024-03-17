@@ -47,7 +47,7 @@ const bnf = `
   name                       ::=  [identifier] ;
 
 
-  error!                     ::=  . ;
+  error.                     ::=  . ;
 
       `,
       rules = rulesFromBNF(bnf);

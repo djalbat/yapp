@@ -23,7 +23,7 @@ const bnf = `
   array                      ::=  "[" ( element ( "," element )* )? "]" ;
 
 
-  error!                     ::=  . ;
+  error.                     ::=  . ;
 
       `,
       rules = rulesFromBNF(bnf);
