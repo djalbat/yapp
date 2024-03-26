@@ -11,9 +11,7 @@ const bnf = `
   javaScript      ::=  preamble? ( statement | function | class | error )* ;
 
 
-
   preamble        ::=  "\\"use strict\\";" ;
-
 
 
   statement       ::=  statementBody... ";"
@@ -37,9 +35,7 @@ const bnf = `
                     |  try ( ( catch* finally ) | catch+ )
 
                     ;
-                               
-                               
-                               
+
 
   class           ::=  ( "export" "default"? )? "class" name classBody
   
@@ -48,13 +44,11 @@ const bnf = `
                     ;
 
 
-
   function        ::=  ( "export" "default"? )? "async"? "function" name functionBody 
   
                     |  "export" "default" "async"? "function" functionBody
 
                     ;
-
 
 
   statementBody   ::=  "import" ( [string-literal]
@@ -96,47 +90,46 @@ const bnf = `
                     ;
 
 
-
   functionBody    ::=  "(" arguments? ")" "{" ( statement | function )* "}" ;
-
 
 
   classBody       ::=  ( "extends" name )? "{" ( constructor | method | field )* "}" ;
 
 
-
   constructor     ::=  "constructor" functionBody ;
 
+
   method          ::=  "static"? name functionBody ;
+
 
   field           ::=  "static"? name "=" expression... ";" ;
 
 
-
   var             ::=  variable ( "=" expression )? | destructure "=" expression ;
 
+
   let             ::=  variable ( "=" expression )? | destructure "=" expression ;
+
 
   const           ::=  ( variable | destructure ) "=" expression ;
 
 
-
   try             ::=  "try" "{" statement+ "}" ;
 
+
   catch           ::=  "catch" "(" [identifier] ")" "{" statement+ "}" ;
+
 
   finally         ::=  "finally" "{" statement+ "}" ;
 
 
-
   case            ::=  "case" expression ":" statement ( "break" ";" )? ;
+
 
   defaultCase     ::=  "default" ":" statement ( "break" ";" )? ;
 
 
-
   initialiser     ::=  expression | "var" var ( "," var )* | "let" let ( "," let )* ;
-
 
 
   destructure     ::=  "[" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "]"
@@ -144,7 +137,6 @@ const bnf = `
                     |  "{" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "}"
 
                     ;
-
 
 
   expression      ::=  jsx
@@ -204,65 +196,73 @@ const bnf = `
                     ;
 
 
-
   jsx             ::=  jsxCompleteTag | jsxStartTag ( jsx | ( "{" expression? "}" ) | string )* jsxEndTag ;
+
 
   jsxCompleteTag  ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
 
+
   jsxStartTag     ::=  "<"<NO_WHITESPACE>name jsxAttribute* ">" ;
 
+
   jsxEndTag       ::=  "</"<NO_WHITESPACE>name ">" ;
+
 
   jsxAttribute    ::=  name ( <NO_WHITESPACE>"=" ( ( <NO_WHITESPACE>[string-literal] ) | ( <NO_WHITESPACE>"{" expression "}" ) ) )? ;
 
 
-
   json            ::=  jsonArray | jsonObject ;
+
 
   jsonArray       ::=  "[" ( jsonElement ( "," jsonElement )* )? "]" ;
 
+
   jsonObject      ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
 
-  jsonElement     ::=  json | [string-literal] | [number] | "true" | "false" | "null" ;
 
+  jsonElement     ::=  json | [string-literal] | [number] | "true" | "false" | "null" ;
 
 
   arrowFunction   ::=  "(" arguments? ")" "=>" ( expression | ( "{" statement* "}" ) ) ;
                                
 
-
   templateLiteral ::=  "\`" ( ( "\${" expression? "}" ) | string )* "\`" ;
-
 
 
   string          ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
 
+
   property        ::=  ( ( ( name | [string-literal] ) ":" expression ) | variable ) ;
+
 
   importMeta      ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
 
 
-
   expressions     ::=  expression ( "," expression )* ;
+
 
   arguments       ::=  spreadArgument | ( argument ( "," argument )* ( "," spreadArgument )? ) ;
 
+
   fields          ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
+
 
   names           ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
 
 
-
   spreadArgument  ::=  "..."<NO_WHITESPACE>variable ;
+
   
   argument        ::=  variable ( "=" expression )? ;
 
+
   variable        ::=  [identifier] ;
+
 
   label           ::=  [identifier] ;
 
-  name            ::=  [identifier] ;
 
+  name            ::=  [identifier] ;
 
 
   error.          ::=  . ;
