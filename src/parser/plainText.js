@@ -7,7 +7,7 @@ const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 const bnf = `
 
-  document                   ::=  .+ ;
+  plainText  ::=  .+ ;
 
       `,
       rules = rulesFromBNF(bnf);

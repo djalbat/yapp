@@ -8,276 +8,264 @@ const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 const bnf = `
 
-  document                   ::=  preamble? ( statement | function | class | error )* ;
+  javaScript      ::=  preamble? ( statement | function | class | error )* ;
 
 
 
-  preamble                   ::=  "\\"use strict\\";" ;
+  preamble        ::=  "\\"use strict\\";" ;
 
 
 
-  statement                  ::=  statementBody... ";"
+  statement       ::=  statementBody... ";"
   
-                               |  "{" ( statement | function )* "}"
+                    |  "{" ( statement | function )* "}"
                                
-                               |  "if" "(" expression... ")" statement ( "else" statement )?
+                    |  "if" "(" expression... ")" statement ( "else" statement )?
 
-                               |  "for" ( ( "(" initialiser ( ";" expression )? ( ";" expression )? ")" statement )
+                    |  "for" ( ( "(" initialiser ( ";" expression )? ( ";" expression )? ")" statement )
 
-                                        | ( "(" variable "in" expression... ")" statement )
+                             | ( "(" variable "in" expression... ")" statement )
 
-                                        | ( "await"? "(" variable "of" expression... ")" statement ) 
-                                        
-                                        )
+                             | ( "await"? "(" variable "of" expression... ")" statement ) )
 
-                               |  "do" statement "while" "(" expression... ")"
+                    |  "do" statement "while" "(" expression... ")"
 
-                               |  "while" "(" expression... ")" statement
+                    |  "while" "(" expression... ")" statement
                                
-                               |  "switch" "(" expression... ")" "{" case* defaultCase? "}"
+                    |  "switch" "(" expression... ")" "{" case* defaultCase? "}"
 
-                               |  try ( ( catch* finally ) | catch+ )
+                    |  try ( ( catch* finally ) | catch+ )
 
-                               ;
+                    ;
                                
                                
                                
 
-  class                      ::=  ( "export" "default"? )? "class" name classBody
+  class           ::=  ( "export" "default"? )? "class" name classBody
   
-                               |  "export" "default" "class" classBody
+                    |  "export" "default" "class" classBody
   
-                               ;
+                    ;
 
 
 
-  function                   ::=  ( "export" "default"? )? "async"? "function" name functionBody 
+  function        ::=  ( "export" "default"? )? "async"? "function" name functionBody 
   
-                               |  "export" "default" "async"? "function" functionBody
+                    |  "export" "default" "async"? "function" functionBody
 
-                               ;
+                    ;
 
 
 
-  statementBody              ::=  "import" ( [string-literal]
+  statementBody   ::=  "import" ( [string-literal]
 
-                                           | ( name "from" [string-literal] )
+                                | ( name "from" [string-literal] )
 
-                                           | ( "{" names "}" "from" [string-literal] )
+                                | ( "{" names "}" "from" [string-literal] )
 
-                                           | ( "*" "as" name "from" [string-literal] )
+                                | ( "*" "as" name "from" [string-literal] ) )
 
-                                           )
+                    |  "export" ( ( "{" names "}" ( "from" [string-literal] )? )
 
-                               |  "export" ( ( "{" names "}" ( "from" [string-literal] )? )
+                                | ( "const" "{" fields "}" "=" expression )
 
-                                           | ( "const" "{" fields "}" "=" expression )
+                                | ( "{" "default" "}" "from" [string-literal] )
 
-                                           | ( "{" "default" "}" "from" [string-literal] )
+                                | ( "*" ( "as" name )? "from" [string-literal] ) )
 
-                                           | ( "*" ( "as" name )? "from" [string-literal] )
+                    |  "export"? ( ( "var" var ( "," var )* )
 
-                                           )
+                                 | ( "let" let ( "," let )* )
 
-                               |  "export"? ( ( "var" var ( "," var )* )
-
-                                            | ( "let" let ( "," let )* )
-
-                                            | ( "const" const ( "," const )* )
-
-                                            )
+                                 | ( "const" const ( "," const )* ) )
                                             
-                               |  ( "export" "default" )? expression
+                    |  ( "export" "default" )? expression
 
-                               |  "return" ( ( "(" expression ")" ) | expression? )
+                    |  "return" ( ( "(" expression ")" ) | expression? )
 
-                               |  "throw" expression
+                    |  "throw" expression
 
-                               |  "delete" expression
+                    |  "delete" expression
 
-                               |  "break"
+                    |  "break"
 
-                               |  "continue"
+                    |  "continue"
 
-                               |  "debugger"
+                    |  "debugger"
                                
-                               ;
+                    ;
 
 
 
-  functionBody               ::=  "(" arguments? ")" "{" ( statement | function )* "}" ;
+  functionBody    ::=  "(" arguments? ")" "{" ( statement | function )* "}" ;
 
 
 
-  classBody                  ::=  ( "extends" name )? "{" ( constructor | method | field )* "}" ;
+  classBody       ::=  ( "extends" name )? "{" ( constructor | method | field )* "}" ;
 
 
 
-  constructor                ::=  "constructor" functionBody ;
+  constructor     ::=  "constructor" functionBody ;
 
-  method                     ::=  "static"? name functionBody ;
+  method          ::=  "static"? name functionBody ;
 
-  field                      ::=  "static"? name "=" expression... ";" ;
+  field           ::=  "static"? name "=" expression... ";" ;
 
 
 
-  var                        ::=  variable ( "=" expression )? | destructure "=" expression ;
+  var             ::=  variable ( "=" expression )? | destructure "=" expression ;
 
-  let                        ::=  variable ( "=" expression )? | destructure "=" expression ;
+  let             ::=  variable ( "=" expression )? | destructure "=" expression ;
 
-  const                      ::=  ( variable | destructure ) "=" expression ;
+  const           ::=  ( variable | destructure ) "=" expression ;
 
 
 
-  try                        ::=  "try" "{" statement+ "}" ;
+  try             ::=  "try" "{" statement+ "}" ;
 
-  catch                      ::=  "catch" "(" [identifier] ")" "{" statement+ "}" ;
+  catch           ::=  "catch" "(" [identifier] ")" "{" statement+ "}" ;
 
-  finally                    ::=  "finally" "{" statement+ "}" ;
+  finally         ::=  "finally" "{" statement+ "}" ;
 
 
 
-  case                       ::=  "case" expression ":" statement ( "break" ";" )? ;
+  case            ::=  "case" expression ":" statement ( "break" ";" )? ;
 
-  defaultCase                ::=  "default" ":" statement ( "break" ";" )? ;
+  defaultCase     ::=  "default" ":" statement ( "break" ";" )? ;
 
 
 
-  initialiser                ::=  expression | "var" var ( "," var )* | "let" let ( "," let )* ;
+  initialiser     ::=  expression | "var" var ( "," var )* | "let" let ( "," let )* ;
 
 
 
-  destructure                ::=  "[" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "]"
+  destructure     ::=  "[" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "]"
 
-                               |  "{" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "}"
+                    |  "{" variable ( "=" expression )? ( "," variable ( "=" expression )? )* "}"
 
-                               ;
+                    ;
 
 
 
-  expression                 ::=  jsx
+  expression      ::=  jsx
 
-                               |  json
+                    |  json
 
-                               |  arrowFunction
+                    |  arrowFunction
 
-                               |  templateLiteral
+                    |  templateLiteral
 
-                               |  anonymousFunction
+                    |  anonymousFunction
 
-                               |  "(" expression ")"
+                    |  "(" expression ")"
 
-                               |  "{" ( property ( "," property )* )? "}"
+                    |  "{" ( property ( "," property )* )? "}"
 
-                               |  "[" ( expression ( "," expression )* ","? )? "]"
+                    |  "[" ( expression ( "," expression )* ","? )? "]"
 
-                               |  "typeof" ( expression | ( "(" expression ")") )
+                    |  "typeof" ( expression | ( "(" expression ")") )
 
-                               |  "void" ( expression | ( "(" expression ")") )
+                    |  "void" ( expression | ( "(" expression ")") )
 
-                               |  "new" name<NO_WHITESPACE>"(" expressions? ")"
+                    |  "new" name<NO_WHITESPACE>"(" expressions? ")"
 
-                               |  [operator]<NO_WHITESPACE>expression
+                    |  [operator]<NO_WHITESPACE>expression
 
-                               |  expression<NO_WHITESPACE>( ( "."<NO_WHITESPACE>name )
+                    |  expression<NO_WHITESPACE>( ( "."<NO_WHITESPACE>name )
 
-                                                           | ( "[" expressions "]" )
+                                                | ( "[" expressions "]" )
 
-                                                           | ( "(" expressions? ")" )
+                                                | ( "(" expressions? ")" )
 
-                                                           | templateLiteral
+                                                | templateLiteral
 
-                                                           | [operator]
+                                                | [operator] )
 
-                                                           )
+                    |  expression ( ( [operator] expression )
 
-                               |  expression ( ( [operator] expression )
+                                  | ( "?" expression ":" expression )
 
-                                             | ( "?" expression ":" expression )
+                                  | ( "instanceof" expression )
 
-                                             | ( "instanceof" expression )
+                                  | ( "in" expression ) )
 
-                                             | ( "in" expression )
+                    |  [number]
 
-                                             )
+                    |  variable
 
-                               |  [number]
+                    |  primitive
 
-                               |  variable
+                    |  importMeta
 
-                               |  primitive
+                    |  [string-literal]
 
-                               |  importMeta
+                    |  "super" | "this" | "true" | "false" | "null" | "undefined"
 
-                               |  [string-literal]
+                    ;
 
-                               |  "super" | "this" | "true" | "false" | "null" | "undefined"
 
-                               ;
 
+  jsx             ::=  jsxCompleteTag | jsxStartTag ( jsx | ( "{" expression? "}" ) | string )* jsxEndTag ;
 
+  jsxCompleteTag  ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
 
-  jsx                        ::=  jsxCompleteTag | jsxStartTag ( jsx | ( "{" expression? "}" ) | string )* jsxEndTag ;
+  jsxStartTag     ::=  "<"<NO_WHITESPACE>name jsxAttribute* ">" ;
 
-  jsxCompleteTag             ::=  "<"<NO_WHITESPACE>name jsxAttribute* "/>" ;
+  jsxEndTag       ::=  "</"<NO_WHITESPACE>name ">" ;
 
-  jsxStartTag                ::=  "<"<NO_WHITESPACE>name jsxAttribute* ">" ;
+  jsxAttribute    ::=  name ( <NO_WHITESPACE>"=" ( ( <NO_WHITESPACE>[string-literal] ) | ( <NO_WHITESPACE>"{" expression "}" ) ) )? ;
 
-  jsxEndTag                  ::=  "</"<NO_WHITESPACE>name ">" ;
 
-  jsxAttribute               ::=  name ( <NO_WHITESPACE>"=" ( ( <NO_WHITESPACE>[string-literal] ) | ( <NO_WHITESPACE>"{" expression "}" ) ) )? ;
 
+  json            ::=  jsonArray | jsonObject ;
 
+  jsonArray       ::=  "[" ( jsonElement ( "," jsonElement )* )? "]" ;
 
-  json                       ::=  jsonArray | jsonObject ;
+  jsonObject      ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
 
-  jsonArray                  ::=  "[" ( jsonElement ( "," jsonElement )* )? "]" ;
+  jsonElement     ::=  json | [string-literal] | [number] | "true" | "false" | "null" ;
 
-  jsonObject                 ::=  "{" ( [string-literal] ":" jsonElement ( "," [string-literal] ":" jsonElement )* )? "}" ;
 
-  jsonElement                ::=  json | [string-literal] | [number] | "true" | "false" | "null" ;
 
-
-
-  arrowFunction              ::=  "(" arguments? ")" "=>" ( expression | ( "{" statement* "}" ) ) ;
+  arrowFunction   ::=  "(" arguments? ")" "=>" ( expression | ( "{" statement* "}" ) ) ;
                                
 
 
-  templateLiteral            ::=  "\`" ( ( "\${" expression? "}" ) | string )* "\`" ;
+  templateLiteral ::=  "\`" ( ( "\${" expression? "}" ) | string )* "\`" ;
 
 
 
-  string                     ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
+  string          ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
 
-  property                   ::=  ( ( ( name | [string-literal] ) ":" expression ) | variable ) ;
+  property        ::=  ( ( ( name | [string-literal] ) ":" expression ) | variable ) ;
 
-  importMeta                 ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
-
-
-
-  expressions                ::=  expression ( "," expression )* ;
-
-  arguments                  ::=  spreadArgument | ( argument ( "," argument )* ( "," spreadArgument )? ) ;
-
-  fields                     ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
-
-  names                      ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
+  importMeta      ::=  "import"<NO_WHITESPACE>"."<NO_WHITESPACE>"meta" ;
 
 
 
-  spreadArgument             ::=  "..."<NO_WHITESPACE>variable ;
+  expressions     ::=  expression ( "," expression )* ;
+
+  arguments       ::=  spreadArgument | ( argument ( "," argument )* ( "," spreadArgument )? ) ;
+
+  fields          ::=  name ( ":" name )? ( "," name ( ":" name )? )* ;
+
+  names           ::=  name ( "as" name )? ( "," name ( "as" name )? )* ;
+
+
+
+  spreadArgument  ::=  "..."<NO_WHITESPACE>variable ;
   
-  argument                   ::=  variable ( "=" expression )? ;
+  argument        ::=  variable ( "=" expression )? ;
 
-  variable                   ::=  [identifier] ;
+  variable        ::=  [identifier] ;
 
-  label                      ::=  [identifier] ;
+  label           ::=  [identifier] ;
 
-  name                       ::=  [identifier] ;
+  name            ::=  [identifier] ;
 
 
 
-  error.                     ::=  . ;
+  error.          ::=  . ;
     
 `;
 

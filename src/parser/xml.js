@@ -7,47 +7,47 @@ const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 const bnf = `
 
-  document                   ::=  declaration? comment* ( simpleElement | complexElement ) comment* error*
+  xml             ::=  declaration? comment* ( simpleElement | complexElement ) comment* error*
   
-                               |  error+
+                    |  error+
                                
-                               ;
+                    ;
 
 
-  declaration                ::=  "<?"<NO_WHITESPACE>"xml" attribute* "?>" ;
+  declaration     ::=  "<?"<NO_WHITESPACE>"xml" attribute* "?>" ;
 
 
-  element                    ::=  comment | simpleElement | complexElement ;
+  element         ::=  comment | simpleElement | complexElement ;
                                
                                
-  comment                    ::=  "<!--" text* "-->" ;
+  comment         ::=  "<!--" text* "-->" ;
 
 
-  simpleElement              ::=  completeTag ;
+  simpleElement   ::=  completeTag ;
 
 
-  complexElement             ::=  startTag ( element | text )* endTag ;
+  complexElement  ::=  startTag ( element | text )* endTag ;
 
 
-  completeTag                ::=  "<"<NO_WHITESPACE>name attribute* "/>" ;
+  completeTag     ::=  "<"<NO_WHITESPACE>name attribute* "/>" ;
 
 
-  startTag                   ::=  "<"<NO_WHITESPACE>name attribute* ">" ;
+  startTag        ::=  "<"<NO_WHITESPACE>name attribute* ">" ;
 
 
-  endTag                     ::=  "</"<NO_WHITESPACE>name ">" ;
+  endTag          ::=  "</"<NO_WHITESPACE>name ">" ;
   
 
-  attribute                  ::=  [identifier]<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
+  attribute       ::=  [identifier]<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
 
 
-  text                       ::=  ( [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
+  text            ::=  ( [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
   
   
-  name                       ::=  [identifier] ;
+  name            ::=  [identifier] ;
 
 
-  error.                     ::=  . ;
+  error.          ::=  . ;
 
       `,
       rules = rulesFromBNF(bnf);
