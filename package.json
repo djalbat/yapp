@@ -20,7 +20,7 @@
     "occam-parsers": "^22.0.21"
   },
   "devDependencies": {
-    "@swc/core": "^1.2.106",
+    "@swc/core": "1.2.52",
     "easy-layout": "^6.0.143",
     "esbuild": "^0.11.7",
     "express": "^4.17.1",
