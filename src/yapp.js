@@ -45,7 +45,7 @@ export default class Yapp extends Element {
     return initialLineCount;
   }
 
-  customChangeHandler = (event, element) => {
+  changeCustomHandler = (event, element) => {
     const contentChanged = this.hasContentChanged();
 
     if (contentChanged) {
@@ -53,8 +53,6 @@ export default class Yapp extends Element {
             customEventType = CONTENT_CHANGE_CUSTOM_EVENT_TYPE;
 
       this.update();
-
-      debugger
 
       this.callCustomHandlers(customEventType, event, element, content);
     }
@@ -120,7 +118,7 @@ export default class Yapp extends Element {
 
     return (
 
-      <PrettyPrinter onCustomChange={this.customChangeHandler} editable={editable} hiddenGutter={hiddenGutter} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
+      <PrettyPrinter onCustomChange={this.changeCustomHandler} editable={editable} hiddenGutter={hiddenGutter} fancyScrollbars={fancyScrollbars} hiddenScrollbars={hiddenScrollbars} />
 
     );
   }

@@ -14,13 +14,13 @@ import { getScrollbarThickness } from "./utilities/scrollbar";
 const { CHANGE_CUSTOM_EVENT_TYPE } = customEventTypes;
 
 class PrettyPrinter extends Element {
-  customChangeHandler = (event, element) => {
+  changeCustomHandler = (event, element) => {
     const customEventType = CHANGE_CUSTOM_EVENT_TYPE; ///
 
     this.callCustomHandlers(customEventType, event, element);
   }
 
-  customScrollHandler = (event, element) => {
+  scrollCustomHandler = (event, element) => {
     const richTextarea = element, ///
           scrollTop = richTextarea.getScrollTop(),
           scrollLeft = richTextarea.getScrollLeft();
@@ -48,8 +48,8 @@ class PrettyPrinter extends Element {
       <RichTextarea readOnly={readOnly}
                     fancyScrollbars={fancyScrollbars}
                     hiddenScrollbars={hiddenScrollbars}
-                    onCustomChange={this.customChangeHandler}
-                    onCustomScroll={this.customScrollHandler}
+                    onCustomChange={this.changeCustomHandler}
+                    onCustomScroll={this.scrollCustomHandler}
       />
 
     ]);

@@ -20,9 +20,7 @@ import LexicalEntriesTextarea from "./view/textarea/lexicalEntries";
 const { rulesFromBNF } = parserUtilities;
 
 class View extends Element {
-  customContentChangeHandler = (event, element) => {
-    debugger
-
+  contentChangeCustomHandler = (event, element) => {
     this.update();
   }
 
@@ -106,7 +104,7 @@ class View extends Element {
         <LeftSizeableDiv>
           <RowsDiv>
             <TopSizeableDiv>
-              <Yapp Plugin={Plugin} firaCode={firaCode} onCustomContentChange={this.customContentChangeHandler} >
+              <Yapp Plugin={Plugin} firaCode={firaCode} onCustomContentChange={this.contentChangeCustomHandler} >
                 {initialContent}
               </Yapp>
             </TopSizeableDiv>
