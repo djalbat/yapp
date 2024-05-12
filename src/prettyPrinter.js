@@ -17,7 +17,7 @@ class PrettyPrinter extends Element {
   customChangeHandler = (event, element) => {
     const customEventType = CHANGE_CUSTOM_EVENT_TYPE; ///
 
-    this.callCustomHandlers(customEventType);
+    this.callCustomHandlers(customEventType, event, element);
   }
 
   customScrollHandler = (event, element) => {

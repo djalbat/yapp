@@ -54,7 +54,9 @@ export default class Yapp extends Element {
 
       this.update();
 
-      this.callCustomHandlers(customEventType, content);
+      debugger
+
+      this.callCustomHandlers(customEventType, event, element, content);
     }
   }
 

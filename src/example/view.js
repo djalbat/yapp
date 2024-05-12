@@ -21,6 +21,8 @@ const { rulesFromBNF } = parserUtilities;
 
 class View extends Element {
   customContentChangeHandler = (event, element) => {
+    debugger
+
     this.update();
   }
 
