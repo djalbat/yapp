@@ -96,7 +96,7 @@ export default withStyle(PrettyPrinter)`
   display: grid;
   overflow: hidden;
   grid-template-rows: auto;
-  grid-template-areas: "gutter pretty-rich-textarea";
+  grid-template-areas: "gutter pretty-richtextarea";
   grid-template-columns: min-content auto;  
 
   font-size: inherit;

@@ -75,7 +75,7 @@ export default withStyle(PrettyDiv)`
   height: auto;
   overflow: hidden;
   position: relative;
-  grid-area: pretty-rich-textarea;
+  grid-area: pretty-richtextarea;
 
   font-size: inherit;
   line-height: inherit;
