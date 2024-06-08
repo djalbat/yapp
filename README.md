@@ -347,4 +347,4 @@ If you wish to make use of live reloading while working on the examples, use `np
 
 ## Contact
 
-- james.smith@djalbat.com
+* james.smith@djalbat.com
