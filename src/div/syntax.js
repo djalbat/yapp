@@ -26,7 +26,7 @@ class SyntaxDiv extends Element {
   }
 
   removeLanguageClass() {
-    const { language } = this.getState();
+    const language = this.getLanguage();
 
     if (language !== null) {
       const languageClass = language; ///
