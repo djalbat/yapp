@@ -144,7 +144,7 @@ export default class Yapp extends Element {
 
     const language = this.plugin.getLanguage();
 
-    this.setLanguage(language);
+    this.updateLanguage(language);
   }
 
   static tagName = "div";

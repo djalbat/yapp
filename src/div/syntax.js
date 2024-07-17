@@ -7,20 +7,16 @@ import { Element } from "easy";
 import { EMPTY_STRING } from "../constants";
 
 class SyntaxDiv extends Element {
-  setLanguage(language) {
-    const state = {
-      language
-    };
-
+  updateLanguage(language) {
     this.removeLanguageClass();
 
-    this.updateState(state);
+    this.setLanguage(language);
 
     this.addLanguageClass();
   }
 
   addLanguageClass() {
-    const { language } = this.getState();
+    const language = this.getLanguage();
 
     if (language !== null) {
       const languageClass = language; ///
@@ -62,6 +58,18 @@ class SyntaxDiv extends Element {
     this.css(css);
   }
 
+  getLanguage() {
+    const { language } = this.getState();
+
+    return language;
+  }
+
+  setLanguage(language) {
+    this.updateState({
+      language
+    });
+  }
+
   setInitialState() {
     const language = null;
 
@@ -71,12 +79,12 @@ class SyntaxDiv extends Element {
   }
 
   parentContext() {
-	  const setLanguage = this.setLanguage.bind(this),
+	  const updateLanguage = this.updateLanguage.bind(this),
           updateSyntaxDiv = this.update.bind(this), ///
 				  scrollSyntaxDiv = this.scroll.bind(this);  ///
 
     return ({
-      setLanguage,
+      updateLanguage,
       updateSyntaxDiv,
       scrollSyntaxDiv
     });
