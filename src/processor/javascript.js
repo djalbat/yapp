@@ -11,17 +11,17 @@ import ArgumentToken from "../token/significant/argument";
 import TagNameJSXToken from "../token/significant/jsx/tagName";
 import AttributeNameJSXToken from "../token/significant/jsx/attributeName";
 
-const errorTerminalNodeQuery = Query.fromExpression("//error/@*"),
-      jsxNonTerminalNodeQuery = Query.fromExpression("//jsx"),
-      variableTerminalNodeQuery = Query.fromExpression("//variable/@*"),
-      jsxTagNameTerminalNodeQuery = Query.fromExpression("//jsxCompleteTag|jsxStartTag|jsxEndTag/name/@*"),
-      functionNonTerminalNodeQuery = Query.fromExpression("//functionBody|arrowFunction"),
-      argumentVariableTerminalNodeQuery = Query.fromExpression("//argument/variable/@*"),
-      jsxTagAttributeNameTerminalNodeQuery = Query.fromExpression("//jsxAttribute/name/@*"),
-      variableDeclarationTerminalNodeQuery = Query.fromExpression("//var|let|const/variable/@*"),
-      templateLiteralStringTerminalNodeQuery = Query.fromExpression("//templateLiteral/string/@*"),
-      templateLiteralDelimiterTerminalNodeQuery = Query.fromExpression("//templateLiteral/@delimiter"),
-      destructuredConstDeclarationTerminalNodeQuery = Query.fromExpression("//const/destructure/variable/@*");
+const errorTerminalNodeQuery = Query.fromExpressionString("//error/@*"),
+      jsxNonTerminalNodeQuery = Query.fromExpressionString("//jsx"),
+      variableTerminalNodeQuery = Query.fromExpressionString("//variable/@*"),
+      jsxTagNameTerminalNodeQuery = Query.fromExpressionString("//jsxCompleteTag|jsxStartTag|jsxEndTag/name/@*"),
+      functionNonTerminalNodeQuery = Query.fromExpressionString("//functionBody|arrowFunction"),
+      argumentVariableTerminalNodeQuery = Query.fromExpressionString("//argument/variable/@*"),
+      jsxTagAttributeNameTerminalNodeQuery = Query.fromExpressionString("//jsxAttribute/name/@*"),
+      variableDeclarationTerminalNodeQuery = Query.fromExpressionString("//var|let|const/variable/@*"),
+      templateLiteralStringTerminalNodeQuery = Query.fromExpressionString("//templateLiteral/string/@*"),
+      templateLiteralDelimiterTerminalNodeQuery = Query.fromExpressionString("//templateLiteral/@delimiter"),
+      destructuredConstDeclarationTerminalNodeQuery = Query.fromExpressionString("//const/destructure/variable/@*");
 
 const { BACKTICK_CHARACTER } = characters;
 
