@@ -9,7 +9,7 @@ import CommentToken from "../token/significant/comment";
 import AttributeToken from "../token/significant/attribute";
 
 const nameTerminalNodeQuery = Query.fromExpressionString("//name/@*"),
-      errorTerminalNodeQuery = Query.fromExpressionString("//error/@*"),
+      errorTerminalNodeQuery = Query.fromExpressionString("/*/error/@*"),
       attributeTerminalNodeQuery = Query.fromExpressionString("//attribute/@identifier"),
       commentNonTerminalNodeQuery = Query.fromExpressionString("//comment");
 

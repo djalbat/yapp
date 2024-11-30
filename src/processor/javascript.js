@@ -11,7 +11,7 @@ import ArgumentToken from "../token/significant/argument";
 import TagNameJSXToken from "../token/significant/jsx/tagName";
 import AttributeNameJSXToken from "../token/significant/jsx/attributeName";
 
-const errorTerminalNodeQuery = Query.fromExpressionString("//error/@*"),
+const errorTerminalNodeQuery = Query.fromExpressionString("/*/error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpressionString("//jsx"),
       variableTerminalNodeQuery = Query.fromExpressionString("//variable/@*"),
       jsxTagNameTerminalNodeQuery = Query.fromExpressionString("//jsxCompleteTag|jsxStartTag|jsxEndTag/name/@*"),
