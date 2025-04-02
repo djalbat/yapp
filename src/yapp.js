@@ -84,7 +84,9 @@ export default class Yapp extends Element {
     const { childElements, firaCode = DEFAULT_FIRA_CODE, autoHeight = DEFAULT_AUTO_HEIGHT } = this.properties,
           content = contentFromChildElements(childElements);
 
-    firaCode && this.enableFiraCode();
+    if (firaCode) {
+      this.enableFiraCode();
+    }
 
     this.activateRichTextarea();
 
