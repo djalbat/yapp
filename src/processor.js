@@ -2,50 +2,9 @@
 
 import { Query } from "occam-query";
 
-import ErrorToken from "./token/significant/error";
-
-const terminalNodeQuery = Query.fromExpressionString("//@*"),
-      errorTerminalNodeQuery = Query.fromExpressionString("/*/error/@*");
+const terminalNodeQuery = Query.fromExpressionString("//@*");
 
 class Processor {
-  process(tokens, node) {
-    if (node !== null) {
-      this.replaceTerminalNodesSignificantToken(tokens, node, (content) => ErrorToken, errorTerminalNodeQuery);
-    }
-  }
-
-  replaceNonTerminalNodesSignificantTokens(tokens, node, callback, ...nonTerminalNodeQueries) {
-    nonTerminalNodeQueries.forEach((nonTerminalNodeQuery) => {
-      const nonTerminalNodes = nonTerminalNodeQuery.execute(node);
-
-      nonTerminalNodes.forEach((nonTerminalNode) => this.replaceNonTerminalNodeSignificantTokens(nonTerminalNode, tokens, callback));
-    });
-  }
-
-  replaceTerminalNodesSignificantToken(tokens, node, callback, ...terminalNodeQueries) {
-    const contents = [];
-
-    terminalNodeQueries.forEach((terminalNodeQuery) => {
-      const terminalNodes = terminalNodeQuery.execute(node);
-
-      terminalNodes.forEach((terminalNode) => {
-        const content = this.replaceTerminalNodeSignificantToken(terminalNode, tokens, callback);
-
-        if (content !== null) {
-          contents.push(content);
-        }
-      });
-    });
-
-    return contents;
-  }
-
-  replaceNonTerminalNodeSignificantTokens(nonTerminalNode, tokens, callback) {
-    const terminalNodes = terminalNodeQuery.execute(nonTerminalNode);
-
-    terminalNodes.forEach((terminalNode) => this.replaceTerminalNodeSignificantToken(terminalNode, tokens, callback));
-  }
-
   replaceTerminalNodeSignificantToken(terminalNode, tokens, callback) {
     let significantToken;
 
@@ -79,6 +38,42 @@ class Processor {
     terminalNode.setSignificantToken(significantToken);
 
     return content;
+  }
+
+  replaceTerminalNodesSignificantToken(tokens, node, callback, ...terminalNodeQueries) {
+    const contents = [];
+
+    terminalNodeQueries.forEach((terminalNodeQuery) => {
+      const terminalNodes = terminalNodeQuery.execute(node);
+
+      terminalNodes.forEach((terminalNode) => {
+        const content = this.replaceTerminalNodeSignificantToken(terminalNode, tokens, callback);
+
+        if (content !== null) {
+          contents.push(content);
+        }
+      });
+    });
+
+    return contents;
+  }
+
+  replaceNonTerminalNodeSignificantTokens(nonTerminalNode, tokens, callback) {
+    const terminalNodes = terminalNodeQuery.execute(nonTerminalNode);
+
+    terminalNodes.forEach((terminalNode) => {
+      this.replaceTerminalNodeSignificantToken(terminalNode, tokens, callback);
+    });
+  }
+
+  replaceNonTerminalNodesSignificantTokens(tokens, node, callback, ...nonTerminalNodeQueries) {
+    nonTerminalNodeQueries.forEach((nonTerminalNodeQuery) => {
+      const nonTerminalNodes = nonTerminalNodeQuery.execute(node);
+
+      nonTerminalNodes.forEach((nonTerminalNode) => {
+        this.replaceNonTerminalNodeSignificantTokens(nonTerminalNode, tokens, callback);
+      });
+    });
   }
 
   static fromNothing(Class) { return new Class(); }
