@@ -1,6 +1,6 @@
 # Yapp
 
-Yet Another Pretty Printer.
+Yapp's Another Pretty Printer.
 
 *If you just want to see Yapp in action without further ado*, then clone this repository, run `npm install` and `npm start`, and then open your browser at http://localhost:8888.
 
