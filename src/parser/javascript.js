@@ -229,7 +229,7 @@ const bnf = `
   templateLiteral   ::=  "\`" ( ( "\${" expression? "}" ) | string )* "\`" ;
 
 
-  string            ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
+  string            ::=  ( [number] | [special] | [operator]| [keyword] | [identifier] | [string-literal] | [unassigned] )+ ;
 
 
   property          ::=  ( ( ( name | [string-literal] ) ":" expression ) | variable ) ;

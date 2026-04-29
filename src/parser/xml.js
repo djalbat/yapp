@@ -41,7 +41,7 @@ const bnf = `
   attribute       ::=  [identifier]<NO_WHITESPACE>"="<NO_WHITESPACE>[string-literal] ;
 
 
-  text            ::=  ( [identifier] | [string-literal]| [broken-string-literal] | [unassigned] )+ ;
+  text            ::=  ( [identifier] | [string-literal] | [unassigned] )+ ;
   
   
   name            ::=  [identifier] ;
