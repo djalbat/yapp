@@ -11,7 +11,7 @@ export default class LexicalEntriesTextarea extends Textarea {
   }
 
   setLexicalEntries(lexicalEntries) {
-    const value = JSON.stringify(lexicalEntries, null, "  ");
+    const value = JSON.stringify(lexicalEntries, null, 2);
 
     this.setValue(value);
   }
