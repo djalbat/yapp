@@ -9,21 +9,7 @@ export default class JavaScriptView extends View {
 
   static firaCode = true;
 
-  static initialContent = `
-withStyle\`
-
-  colour: #333;
-
-\`.`;
-
-  static defaultProperties = {
-    className: "javascript"
-  };
-};
-
-/*
-
-"use strict";
+  static initialContent = `"use strict";
 
 import "juxtapose";
 
@@ -43,5 +29,13 @@ function simpleApplication(selector) {
   );
 }
 
+export default withStyle(simpleApplication)\`
 
-*/
+  color: #333;
+
+\`;`;
+
+  static defaultProperties = {
+    className: "javascript"
+  };
+};

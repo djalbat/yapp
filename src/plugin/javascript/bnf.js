@@ -2,14 +2,6 @@
 
 const bnf = `
 
-
-`;
-
-export default bnf;
-
-/*
-const bnf = `
-
   javaScript        ::=  preamble? ( statement | function | class | error )* ;
 
 
@@ -149,8 +141,6 @@ const bnf = `
 
                       |  templateLiteral
 
-                      |  anonymousFunction
-
                       |  "(" expression ")"
 
                       |  "{" ( property ( "," property )* )? "}"
@@ -272,4 +262,3 @@ const bnf = `
 `;
 
 export default bnf;
-*/
