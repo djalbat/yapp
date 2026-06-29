@@ -2,19 +2,9 @@
 
 import { CommonLexer, WhitespaceToken, EndOfLineNonSignificantToken, DoublyQuotedStringLiteralToken } from "occam-lexers";
 
-const entries = [
-  {
-    "delimiter": "^(?:=|<\\?|\\?>|<\\/|\\/>|<!--|-->|<|>)"
-  },
-  {
-    "identifier": "^[a-zA-Z]+"
-  },
-  {
-    "unassigned": "^[^\\s]+"
-  }
-];
+import entries from "./entries";
 
-export default class XMLLexer extends CommonLexer {
+export default class JSONLexer extends CommonLexer {
   static entries = entries;
 
   static EndOfLineToken = EndOfLineNonSignificantToken; ///
@@ -37,7 +27,7 @@ export default class XMLLexer extends CommonLexer {
 
   static DoublyQuotedStringLiteralToken = DoublyQuotedStringLiteralToken;
 
-  static fromNothing() { return CommonLexer.fromNothing(XMLLexer); }
+  static fromNothing() { return CommonLexer.fromNothing(JSONLexer); }
 
-  static fromEntries(entries) { return CommonLexer.fromEntries(XMLLexer, entries); }
+  static fromEntries(entries) { return CommonLexer.fromEntries(JSONLexer, entries); }
 }

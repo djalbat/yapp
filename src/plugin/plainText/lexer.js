@@ -2,11 +2,7 @@
 
 import { CommonLexer, WhitespaceToken, EndOfLineNonSignificantToken } from "occam-lexers";
 
-const entries = [
-  {
-    "unassigned": "^[^\\s]+"
-  }
-];
+import entries from "./entries";
 
 export default class PlainTextLexer extends CommonLexer {
   static entries = entries;

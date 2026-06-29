@@ -2,11 +2,11 @@
 
 import { Query } from "occam-query";
 
-import Processor from "../processor";
-import NameToken from "../token/significant/name";
-import ErrorToken from "../token/significant/error";
-import CommentToken from "../token/significant/comment";
-import AttributeToken from "../token/significant/attribute";
+import Processor from "../../processor";
+import NameToken from "../../token/significant/name";
+import ErrorToken from "../../token/significant/error";
+import CommentToken from "../../token/significant/comment";
+import AttributeToken from "../../token/significant/attribute";
 
 const nameTerminalNodeQuery = Query.fromExpressionString("//name/@*"),
       errorTerminalNodeQuery = Query.fromExpressionString("/*/error/@*"),

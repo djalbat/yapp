@@ -1,11 +1,11 @@
 "use strict";
 
-import Plugin from "../plugin";
-import JavaScriptLexer from "../lexer/javascript";
-import JavaScriptParser from "../parser/javascript";
-import JavaScriptProcessor from "../processor/javascript";
+import Plugin from "../../plugin";
+import JavaScriptLexer from "../javascript/lexer";
+import JavaScriptParser from "../javascript/parser";
+import JavaScriptProcessor from "../javascript/processor";
 
-import { JAVASCRIPT_LANGUAGE } from "../languages"
+import { JAVASCRIPT_LANGUAGE } from "../../languages"
 
 export default class JavaScriptPlugin extends Plugin {
   static language = JAVASCRIPT_LANGUAGE;

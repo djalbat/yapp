@@ -12,7 +12,7 @@ class LeftSizeableDiv extends SizeableDiv {
 
 export default withStyle(LeftSizeableDiv)`
 
-  width: 80rem;
+  width: 120rem;
   min-width: 24rem;
   
 `;

@@ -1,11 +1,11 @@
 "use strict";
 
-import Plugin from "../plugin";
-import JSONLexer from "../lexer/json";
-import JSONParser from "../parser/json";
-import JSONProcessor from "../processor/json";
+import Plugin from "../../plugin";
+import JSONLexer from "../json/lexer";
+import JSONParser from "../json/parser";
+import JSONProcessor from "../json/processor";
 
-import { JSON_LANGUAGE } from "../languages"
+import { JSON_LANGUAGE } from "../../languages"
 
 export default class JSONPlugin extends Plugin {
   static language = JSON_LANGUAGE;

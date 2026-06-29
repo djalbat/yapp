@@ -1,10 +1,5 @@
 "use strict";
 
-import { CommonParser } from "occam-parsers";
-import { parserUtilities } from "occam-parsers";
-
-const { rulesFromBNF, parserFromRules } = parserUtilities;
-
 const bnf = `
 
   xml             ::=  declaration? comment* ( simpleElement | complexElement ) comment* error*
@@ -49,13 +44,6 @@ const bnf = `
 
   error.          ::=  . ;
 
-      `,
-      rules = rulesFromBNF(bnf);
+`;
 
-export default class XMLParser extends CommonParser {
-  static bnf = bnf;
-
-  static fromNothing() { return parserFromRules(XMLParser, rules); }
-
-  static fromRules(rules) { return CommonParser.fromRules(XMLParser, rules); }
-}
+export default bnf;

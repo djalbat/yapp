@@ -3,13 +3,13 @@
 import { Query } from "occam-query";
 import { characters } from "necessary";
 
-import Processor from "../processor";
-import ErrorToken from "../token/significant/error";
-import StringToken from "../token/significant/string";
-import VariableToken from "../token/significant/variable";
-import ArgumentToken from "../token/significant/argument";
-import TagNameJSXToken from "../token/significant/jsx/tagName";
-import AttributeNameJSXToken from "../token/significant/jsx/attributeName";
+import Processor from "../../processor";
+import ErrorToken from "../../token/significant/error";
+import StringToken from "../../token/significant/string";
+import VariableToken from "../../token/significant/variable";
+import ArgumentToken from "../../token/significant/argument";
+import TagNameJSXToken from "../../token/significant/jsx/tagName";
+import AttributeNameJSXToken from "../../token/significant/jsx/attributeName";
 
 const errorTerminalNodeQuery = Query.fromExpressionString("/*/error/@*"),
       jsxNonTerminalNodeQuery = Query.fromExpressionString("//jsx"),

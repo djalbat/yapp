@@ -2,8 +2,8 @@
 
 import { Query } from "occam-query";
 
-import Processor from "../processor";
-import ErrorToken from "../token/significant/error";
+import Processor from "../../processor";
+import ErrorToken from "../../token/significant/error";
 
 const errorTerminalNodeQuery = Query.fromExpressionString("/*/error/@*");
 

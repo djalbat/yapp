@@ -1,11 +1,11 @@
 "use strict";
 
-import Plugin from "../plugin";
-import XMLLexer from "../lexer/xml";
-import XMLParser from "../parser/xml";
-import XMLProcessor from "../processor/xml";
+import Plugin from "../../plugin";
+import XMLLexer from "../xml/lexer";
+import XMLParser from "../xml/parser";
+import XMLProcessor from "../xml/processor";
 
-import { XML_LANGUAGE } from "../languages"
+import { XML_LANGUAGE } from "../../languages"
 
 export default class XMLPlugin extends Plugin {
   static language = XML_LANGUAGE;

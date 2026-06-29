@@ -12,7 +12,7 @@ class TopSizeableDiv extends SizeableDiv {
 
 export default withStyle(TopSizeableDiv)`
 
-  height: 64rem;
+  height: 32rem;
   min-height: 12rem;
   
 `;

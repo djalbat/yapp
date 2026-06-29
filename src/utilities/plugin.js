@@ -1,9 +1,9 @@
 "use strict";
 
-import XMLPlugin from "../plugin/xml";
-import JSONPlugin from "../plugin/json";
-import PlainTextPlugin from "../plugin/plainText";
-import JavaScriptPlugin from "../plugin/javascript";
+import XMLPlugin from "../plugin/xml"; ///
+import JSONPlugin from "../plugin/json"; ///
+import PlainTextPlugin from "../plugin/plainText"; ///
+import JavaScriptPlugin from "../plugin/javascript"; ///
 
 import { XML_LANGUAGE, JSON_LANGUAGE, PLAIN_TEXT_LANGUAGE, JAVASCRIPT_LANGUAGE } from "../languages";
 
