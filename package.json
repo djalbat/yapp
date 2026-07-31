@@ -1,7 +1,7 @@
 {
   "name": "yapp",
   "author": "James Smith",
-  "version": "5.1.353",
+  "version": "5.1.354",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/yapp",
   "description": "Yapp;s Another Pretty Printer.",
@@ -13,16 +13,16 @@
     "easy": "^25.0.8",
     "easy-richtextarea": "^4.0.348",
     "easy-with-style": "^3.0.575",
-    "necessary": "^17.5.5",
-    "occam-grammar-utilities": "^8.1.19",
-    "occam-lexers": "^23.2.5",
-    "occam-parsers": "^23.2.8",
-    "occam-query": "^4.1.200"
+    "necessary": "^17.6.1",
+    "occam-grammar-utilities": "^8.1.21",
+    "occam-lexers": "^23.2.7",
+    "occam-parsers": "^23.2.10",
+    "occam-query": "^4.1.202"
   },
   "devDependencies": {
     "@swc/core": "1.13.20",
     "esbuild": "0.11.14",
-    "easy-layout": "^6.0.332",
+    "easy-layout": "^6.0.333",
     "express": "^4.17.1",
     "juxtapose": "^4.0.143",
     "lively-cli": "^3.0.3",
