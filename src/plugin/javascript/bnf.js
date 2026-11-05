@@ -173,15 +173,11 @@ const bnf = `
 
                                     | ( "in" expression ) )
 
-                      |  [number]
+                      |  importMeta
 
                       |  variable
 
-                      |  primitive
-
-                      |  importMeta
-
-                      |  [string-literal]
+                      |  [number] | [string-literal]
 
                       |  "super" | "this" | "true" | "false" | "null" | "undefined"
 
