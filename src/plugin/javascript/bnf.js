@@ -2,7 +2,7 @@
 
 const bnf = `
       
-      javaScript        ::=  preamble? ( statement | function | class | error )* ;
+      javaScript        ::=  preamble? ( statement | function | class | error )+ ;
     
     
       preamble          ::=  "use strict"<NO_WHITESPACE>";" ;
@@ -165,13 +165,13 @@ const bnf = `
     
                                                       | [operator] )
     
-                          |  expression ( ( [operator] expression )
-    
-                                        | ( "?" expression ":" expression )
-    
-                                        | ( "instanceof" expression )
-    
-                                        | ( "in" expression ) )
+                          |  expression ( ( "?" expression ":" )
+
+                                        | "instanceof"
+
+                                        | "in"
+
+                                        | [operator] ) expression
     
                           |  variable
     
